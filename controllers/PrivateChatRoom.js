@@ -11,7 +11,7 @@ const startNewChatSession = () => {
 
 
 const checkChatBufferExists = async (senderUsername, recipientUsername, bufferGenerated) => {
-
+console.log("BUFFER EXISTS")
   return new Promise((resolve, reject) => {
     const query = "SELECT COUNT(*) AS chat_exists_count FROM chat_buffer WHERE (user_one = ? AND user_two = ?) OR (user_one = ? AND user_two = ?)";
     db.query(query, [senderUsername, recipientUsername, recipientUsername, senderUsername], (err, result) => {
@@ -23,13 +23,15 @@ const checkChatBufferExists = async (senderUsername, recipientUsername, bufferGe
           [senderUsername, recipientUsername, recipientUsername, senderUsername],
           (err, bufferResult) => {
             if (err) return reject(err);
-
+            
             // Push the buffer ID into the ChatBufferID array
             ChatBufferID.push({ id: bufferResult[0]["buffer_generated"] });
             resolve(true);
           }
         );
       } else {
+console.log("BUFFER CREATED")
+
         createChatBuffer(senderUsername, recipientUsername, bufferGenerated)
           .then(() => {
             ChatBufferID.push({ id: bufferGenerated });
@@ -56,6 +58,8 @@ const createChatBuffer = async (senderUsername, recipientUsername, bufferGenerat
 };
 
 const fetchMessageHistory = async (senderUsername, recipientUsername) => {
+console.log("FETCH MESSAGE HISTORY")
+
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM messages WHERE (sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?) ORDER BY timestamp ASC";
     db.query(query, [senderUsername, recipientUsername, recipientUsername, senderUsername], (err, results) => {
@@ -66,6 +70,7 @@ const fetchMessageHistory = async (senderUsername, recipientUsername) => {
 };
 
 const fetchProfileInfo = async (senderUsername, recipientUsername) => {
+  console.log("FETCH PROFILE INFO")
   return new Promise((resolve, reject) => {
     const profiles = {};
 
@@ -86,6 +91,7 @@ const fetchProfileInfo = async (senderUsername, recipientUsername) => {
 
 const fetchRecentMessages = async (senderUsername, recipientUsername) => {
   return new Promise((resolve, reject) => {
+    console.log("FETCH RECENT MESSAGES")
       const query = `
           SELECT m.*
           FROM messages m
@@ -111,6 +117,7 @@ const fetchRecentMessages = async (senderUsername, recipientUsername) => {
 };
 
 const PrivateChatRoom = async (req, res) => {
+  console.log("PRIVATE CHAT ROOM")
   if (req.user) {
     // Call this function when you start a new chat session
     startNewChatSession();
@@ -122,6 +129,7 @@ const PrivateChatRoom = async (req, res) => {
     const receiverPoints = [];
 
     try {
+      
       const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGenerated);
       console.log("CHAT WORKS")
       const profiles = await fetchProfileInfo(senderUsername, recipientUsername);
