@@ -155,7 +155,7 @@ const PrivateChatRoom = async (req, res) => {
       
       const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
 
-      res.render("chats.ejs", {
+      res.render("chats", {
         status: "loggedIn",
         recipient: recipientUsername,
         sender: senderUsername,
@@ -171,7 +171,7 @@ const PrivateChatRoom = async (req, res) => {
       });
     } catch (error) {
       console.log("Error:", error);
-      res.status(500).send("Chats Could not be loaded");
+      res.send("Chats Could not be loaded");
     }
   }
 };
