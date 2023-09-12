@@ -5,15 +5,14 @@ const randomstring = require('randomstring');
 
 
 const forgotPassword = async (req, res) => {
-    try { 
+
       const { email, message } = req.body;
       if(!email) return res.json({ status: "error", error: "Please fill all fields"});
       else{
-  
+
       // Generate a random 6-digit ID
       const resetToken = randomstring.generate(6);
     //   console.log(req.body)
-  
       // Save the reset token in the database 
       db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email], (err) => {
         if (err) {
@@ -48,10 +47,7 @@ const forgotPassword = async (req, res) => {
         }
       });
     }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
+
   };
   
 

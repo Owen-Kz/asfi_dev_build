@@ -196,7 +196,9 @@ router.get("/join-meeting", LoggedIn, render_vc)
 router.get("/meetings/m/:roomId/u/:userId", render_main_room)
  
 // Render Private chat room 
-router.get("/u/@:rec_username/chat", LoggedIn, PrivateChatRoom)
+router.get("/@:rec_username/chat", LoggedIn, (req,res)=>{
+    res.render("chats.ejs")
+})
 
 //GET THE MAIN TUTORIAL VIDEO INTERFACE
 router.get("/:tutorialOwner/:courseID/:tutorialID", LoggedIn, watchTutorials);

@@ -13,7 +13,7 @@ const book = async (req, res) => {
 
         db.query("SELECT * FROM books WHERE book_id = ?", [bookID_SEARCH], async (err, book) => {
           if (err) throw err;
-
+          if(book[0]){
           // Extract relevant fields from the book data
           const bookTitle = book[0]["book_title"];
           const bookAuthor = "book_author";
@@ -90,6 +90,9 @@ const book = async (req, res) => {
             prevPAGE: prevPageARRAY[0],    
             nextPAGE: nextPageArray[0]
             });
+          }else{
+            res.redirect("/library")
+          }
         });
       });
     }

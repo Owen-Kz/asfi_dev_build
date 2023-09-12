@@ -8,8 +8,6 @@ const startNewChatSession = () => {
   ChatBufferID.length = 0;
 };
 
-
-
 const checkChatBufferExists = async (senderUsername, recipientUsername, bufferGenerated) => {
 console.log("BUFFER EXISTS")
   return new Promise((resolve, reject) => {
@@ -129,7 +127,7 @@ const PrivateChatRoom = async (req, res) => {
     const receiverPoints = [];
 
     try {
-      
+
       const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGenerated);
       console.log("CHAT WORKS")
       const profiles = await fetchProfileInfo(senderUsername, recipientUsername);
