@@ -6,8 +6,9 @@ const recentMessagesArray = [];
 const PrivateChatRoom = async(req,res) =>{
   const senderUsername = req.user.username;
   const recipientUsername = req.params["rec_username"];
+  console.log(senderUsername, recipientUsername)
 
-  res.render("chats", {
+  res.render("chats.ejs", {
     status: "loggedIn",
     recipient: recipientUsername,
     sender: senderUsername,
