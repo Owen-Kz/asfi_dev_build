@@ -3,17 +3,10 @@ const bcrypt = require("bcryptjs");
 const ChatBufferID = [];
 const recentMessagesArray = [];
 
-console.log("SERVER SIDE CHAT WORKING")
-const startNewChatSession = () => {
-  ChatBufferID.length = 0;
-};
-
-const checkChatBufferExists = async (senderUsername, recipientUsername, bufferGenerated) => {}
-
 const PrivateChatRoom = async(req,res) =>{
   const senderUsername = req.user.username;
   const recipientUsername = req.params["rec_username"];
-  
+
   res.render("chats", {
     status: "loggedIn",
     recipient: recipientUsername,
