@@ -58,22 +58,27 @@ router.use(express.json())
 
 router.get("/", LoggedIn, (req,res)=>{
     if(req.user){
-        username_new = req.user.username
-        res.redirect("/app")
+        const username_new = req.user.username
+        res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
        }
        else{
-        res.render("home.ejs", {status :"no", logger:"Not logged in", user :""})
+        // res.redirect("/home")
     }
 })
+router.get("/home", (req,res)=>{
+    res.render("home.ejs", {status :"no", logger:"Not logged in", user :""});
+})
 
-router.get("/app", LoggedIn, (req, res) => {
-   if(req.user){
-    username_new = req.user.username
+router.get("/app", (req, res) => {
+    if(req.cookies.userRegistered){
+    const username_new = " "
     res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
-   }
-   else{
+    }else{
     res.render("index.ejs", {status :"no", logger:"Not logged in", user :""})
-   }
+    
+    }
+  
+   
 })
 
 // GET THE DASHBOARD PAGE 

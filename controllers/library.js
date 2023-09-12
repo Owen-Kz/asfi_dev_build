@@ -5,12 +5,8 @@ const ITEMS_PER_PAGE_BOOKS = 6; // Number of books per page
 const ITEMS_PER_PAGE_LINKS = 3; // Number of links per page
 
 const library = async (req, res) => {
-  if (!req.user || !req.user.username) {
-    return res.status(401).send("Unauthorized");
-  }
 
-
-
+if(req.user){
   const username_new = req.user.username;
   let pageBooks = req.query.pageBook || 1; // Get the current book page from the query parameter
   let pageLinks = req.query.pageLink || 1; // Get the current link page from the query parameter
@@ -98,6 +94,7 @@ const library = async (req, res) => {
         });
     });
   });
+}
 };
 
 module.exports = library;
