@@ -8,6 +8,8 @@ const session = require("express-session");
 const shortid = require("shortid");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
+const MySQLStore = require('express-mysql-session')(session);
+
 
 const io = require("socket.io")(server, {
     port: 5000 // Change this to your desired port number
@@ -16,10 +18,29 @@ const io = require("socket.io")(server, {
   app.use(bodyParser.json());
 app.use(cookie());
 app.use(express.json());
+
+// Configure the session store
+const sessionStore = new MySQLStore({
+  host: process.env.DATABASE_HOST,
+  port: process.env.PORT,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
+});
+
+// app.use(
+//   session({
+//     secret: 'mysecret', // Replace with your secret key
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+
 app.use(session({
   secret: 'JOndW', // Replace with your own secret key
   resave: false,
   saveUninitialized: true,
+  store: sessionStore,
 }));
 app.set("view engine", "ejs");
 
