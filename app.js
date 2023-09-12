@@ -14,7 +14,7 @@ const MySQLStore = require('express-mysql-session')(session);
 
 
 const io = require("socket.io")(server, {
-    port: 5000 // Change this to your desired port number
+    port: PORT// Change this to your desired port number
   })
 
   app.use(bodyParser.json());
