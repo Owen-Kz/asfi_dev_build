@@ -19,7 +19,7 @@ const getDiscover = async (req, res) => {
 
         
 
-    db.query("SELECT * FROM user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account') AND username NOT IN (?) AND username !=?", [followedUsernamesArray, usernameLogged], async(err, DiscoveredUsers)=>{
+    db.query("SELECT * FROM user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account') AND username !=?", [usernameLogged], async(err, DiscoveredUsers)=>{
         if(err) throw err
 
         if(DiscoveredUsers[0]){
