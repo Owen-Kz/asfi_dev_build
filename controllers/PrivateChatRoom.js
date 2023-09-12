@@ -123,11 +123,7 @@ const PrivateChatRoom = async (req, res) => {
 
     try {
       const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGenerated);
-
-      // if (!chatBufferExists) {
-        // await createChatBuffer(senderUsername, recipientUsername, bufferGenerated);
-      // }
-
+      console.log("CHAT WORKS")
       const profiles = await fetchProfileInfo(senderUsername, recipientUsername);
 
       if (profiles.senderProfileInfo && profiles.recipientProfileInfo) {
@@ -168,8 +164,8 @@ const PrivateChatRoom = async (req, res) => {
         ChatBufferID: JSON.stringify(ChatBufferID),
       });
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      console.log("Error:", error);
+      res.status(500).send("Chats Could not be loaded");
     }
   }
 };
