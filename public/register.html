@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/css/fontawesome-all.css">
+        <link rel="stylesheet" href="css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/register.css">
+        
+       
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    
+        <title>ASFI - Register</title>
+    
+        <!-- Dark mode -->
+        <script>
+            const storedTheme = localStorage.getItem('theme')
+     
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            }
+    
+            const setTheme = function (theme) {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark')
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme)
+                }
+            }
+    
+            setTheme(getPreferredTheme())
+    
+            window.addEventListener('DOMContentLoaded', () => {
+                var el = document.querySelector('.theme-icon-active');
+                if(el != 'undefined' && el != null) {
+                    const showActiveTheme = theme => {
+                    const activeThemeIcon = document.querySelector('.theme-icon-active use')
+                    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+                    const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+    
+                    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                        element.classList.remove('active')
+                    })
+    
+                    btnToActive.classList.add('active')
+                    activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+                }
+    
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                        setTheme(getPreferredTheme())
+                    }
+                })
+    
+                showActiveTheme(getPreferredTheme())
+    
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', () => {
+                            const theme = toggle.getAttribute('data-bs-theme-value')
+                            localStorage.setItem('theme', theme)
+                            setTheme(theme)
+                            showActiveTheme(theme)
+                        })
+                    })
+    
+                }
+            })
+            
+        </script>
+    </head>
+<body>
+    <main>
+
+        <div class="msg-container">
+            <div class="msg alert-danger " role="alert" id="error" >Text Goes Here</div>
+            <div class="msg alert-success" role="alert" id="success"></div>
+        </div>
+
+<div class="bg-purple circle top-circle"></div>
+
+       
+        <div class="col-12 col-lg-6 m-auto login-card bg-shadow">
+            <div class="row my-5">
+                <div class="col-sm-10 col-xl-8 m-auto">
+                    <!-- Title -->
+                    <span class="logo"><img src="files/images/ASFIScholar_Logo.png" alt=""></span>
+                    
+                    <p class="lead mb-4 welcome_text">Welcome 👋! Sign up.</p>
+        
+                    <!-- Form START -->
+                    <form onsubmit="return false" method="post" id="form">
+                         <!-- First Name -->
+                         <div class="mb-4">
+                            <label for="FIrstname" class="form-label">Firstname *</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control border-0 bg-light rounded-end ps-1"  placeholder="Firstname" name="firstname" id="firstname" autocomplete="off" required>
+                            </div>
+                        </div>
+                         <!-- Last Name -->
+                         <div class="mb-4">
+                            <label for="Lastname" class="form-label">Lastname *</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control border-0 bg-light rounded-end ps-1"  placeholder="Lastname" name="lastname" id="lastname" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <!-- Username -->
+                        <div class="mb-4">
+                            <label for="Username" class="form-label">Username *</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control border-0 bg-light rounded-end ps-1"  placeholder="Username" name="username" id="username" autocomplete="off" required>
+                            </div>
+                        </div>
+                         <!-- Email -->
+                         <div class="mb-4">
+                            <label for="Email" class="form-label">Email *</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-user"></i></span>
+                                <input type="email" class="form-control border-0 bg-light rounded-end ps-1"  placeholder="Email" name="email" id="email" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label for="inputPassword5" class="form-label">Password *</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control border-0 bg-light rounded-end ps-1 pass" placeholder="Password" name="password" id="password" autocomplete="off" required>
+                                <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3 show_pass" onclick="show_pass()" aria-label="eye_icon"><i class="fa fa-eye"></i></span>
+                            </div>
+                        </div>
+                        <!-- Check box -->
+                        <div class="mb-4 d-flex justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1"> By signing up, you agree to the <a href="">terms of service</a> </label>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="align-items-center mt-0">
+                            <div class="d-grid">
+                                <button class="btn btn-primary-soft mb-0" type="submit">Sign Up</button>
+                            </div>
+                        </div>
+        
+                    </form>
+                    <!-- Form END -->
+                        <!-- Sign up link -->
+                    <div class="mt-4 text-center">
+                        <span>Already with us? <a href="/login">Login</a></span>
+                    </div>
+                    
+                </div>
+            </div> <!-- Row END -->
+        </div>
+                </div>
+
+<div class="bg-purple circle bottom-circle"></div>
+
+    </main>
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <script src="/js/register.js"></script>
+</body>
+</html>

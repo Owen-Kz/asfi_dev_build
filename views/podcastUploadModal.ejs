@@ -1,0 +1,57 @@
+<!-- Podcast Upload Modal Start -->
+<div id="PodcastUploadModal" class="modal">
+
+    <!-- Modal content 1-->
+    <div class="modal-content">
+        <div class="close_btn">
+            <span class="pdclose" onclick=modalDisappear()>&times;</span>
+        </div>
+        <div class="bx_content">
+            <h5 class="header_p"><i class="fas fa-microphone"></i> Upload Podcast</h5>
+             <!-- Step 2 content START -->
+	
+							<div class="PodcastUpload_container">
+                                <form class="podcast_upload" method="post" action="/uploadPodcast/u" enctype="multipart/form-data" id="podcast">
+									<!-- Upload podcast START -->
+									<div class="col-12 uploadPodcast">
+										<!-- Input -->
+										<div class="col-12 mt-4 mb-5">
+											<label class="form-label" for="podcastTitle">Podcast Title</label>
+											<input class="form-control" type="text" name="podcastTitle" id="podcastTitle" value="" placeholder="Enter Podcast Title">
+										</div>
+										<div class="col-12">
+                                            <div class="input-group mb-3">
+                                               <input type="text" class="form-control" name="podcastOwner_fullname" id="podcastOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner" hidden>
+											   <input type="hidden" value="<%=Username%>" name="podcastOwner" id="podcastOwner" >
+
+                                               <input type="text" class="form-control buffer" name="buffer" id="buffer" value="" placeholder="buffer" readonly hidden required>\
+											   
+                                            </div>
+                                            <label class="form-label" for="file_audio">File:</label>
+											<div class="input-group mb-3">
+												<input type="file" class="form-control" accept=".mp3, .wav" name="file_audio" id="file_audio" required>
+												<label class="input-group-text">.mp3</label>
+											</div>
+                                               
+   
+                                           <button type="submit" class="submitPodcastM">Upload</button>
+										</div>
+
+                                    </div>
+                                </form>
+
+							</div>
+									<!-- Book Upload END -->
+							<!-- Step 2 content END -->
+                    <span class="submitPodcast" id="submitPodcast">Upload</span>
+        </div>
+    </div>
+</div>
+<!-- Podcast Upload Modal END -->
+
+<script>
+	function modalDisappear(){
+		var modal_main = document.getElementById("PodcastUploadModal")
+		modal_main.style.display = "none"
+	}
+</script>

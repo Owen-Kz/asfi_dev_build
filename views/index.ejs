@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/css/fontawesome-all.css">
+        <link rel="stylesheet" href="css/css/fontawesome.css">
+        
+        
+        <link rel="stylesheet" href="/css/contactUs.css">
+        <link rel="stylesheet" href="/css/welcome.css">
+       
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    
+        <title>ASFI - Welcome</title>
+    
+        <!-- Dark mode -->
+        <script src="/js/colorTheme.js"></script>
+    </head>
+
+<body>
+    <main class="welcome_page_main">
+        
+        <div class="welcome_left">
+            <div class="background-cover"></div>
+
+            <div class="welcome-text">
+                <h3 class="top-text">Welcome To</h3>
+                <h2 class="main-text text-instagram-gradient">ASFI Scholar</h2>
+                <h3>Raising & Equipping Africa’s next Generation of Scientists.</h3>
+            </div>
+        </div>
+        <div class="welcome_right">
+            <!-- <div class="bg-purple circle top-circle"></div> -->
+
+            <div class="bg-purple circle" style="display:flex; align-self: center; justify-self: center;width:900px; height:900px; top:50%;">  </div>
+            <div class="welcome-card login-card bg-shadow welcome_page">
+
+            <% if (status == "logged") {  %>
+                    <div class="logged_in">
+                    <div class="welcome_message ">
+                        <p class="welcome_text">Good to have you back 👋, <span class="user_text"><%= user %></span></p>
+                    </div>
+                    <div class="buttons_container">
+                        <a class="secondary " href="/dashboard">Proceed</a>
+                        </div>
+                    </div>
+
+            <% } else { %> 
+
+                <div class="welcome_message">
+                    <p class="welcome_text">Hey 👋, Kindly Sign Up or Login to continue...</p>
+                </div>
+                <div class="buttons_container">
+                <a class="secondary"href="/register">Sign Up</a>
+                <a class="primary" href="/login">Login</a>
+                </div>
+    
+            </div>
+            <% }%>
+          
+    
+    
+        </div>
+
+
+    </main>
+</body>
+</html>

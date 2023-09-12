@@ -1,0 +1,29 @@
+
+<html>
+<head>
+
+</head>
+<body>
+  <form method="post" enctype="multipart/form-data" id="podcast">
+    <div>
+      <label for="podcastTitle">Podcast Title</label>
+      <input type="text" name="podcastTitle" id="podcastTitle" value="READY PLAYER ONE"/>
+
+      <label for="podcastOwner">Podcast Owner</label>
+      <input type="text" name="podcastOwner" id="podcastOwner" value="VC_of_lagos" readonly/>
+
+      <input type="text" name="buffer" id="buffer" value="" readonly>
+    </div>
+    <div>
+      <label for="file">File:</label>
+      <input type="file" name="file" id="file" accept=".mp3, .wav" />
+    </div>
+    <br><br><br><br>
+    <div id="warning"></div>
+    <span id="submitPodcast">Upload</span>
+    <button type="submit" class="submitPodcastM">Upload</button>
+  </form>
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <script src="./js/scholarControls/uploadPodcast.js"></script>
+</body>
+</html>

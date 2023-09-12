@@ -1,0 +1,151 @@
+.main_results_body{
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+searchBar{
+    display: flex;
+    margin: auto;
+    justify-self: center;
+    align-self: center;
+    /* width: 40%; */
+    justify-content: space-between;
+    
+    background-color: white;
+    border-radius: 25px;
+    padding: 15px;
+    }
+    
+    searchBar input{
+    border: none;
+    background: transparent;
+    width:90%;
+    }
+    
+
+.top_div{
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    max-width: 100%;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+}
+.top_div .buttons_container{
+    padding-right:10px;
+    display: flex;
+    height: inherit;
+    width: 10%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top_div .buttons_container .button{
+    /* padding: 10px; */
+    color: rgb(255, 166, 33);
+}
+
+.heading_username{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 80%;
+}
+
+.heading_username .name_container{
+    padding-right: 10px;
+}
+.result_container {
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    justify-self: center;
+    width:90%;
+    max-width: 600px;
+    height: 400px;
+    max-height: 100vh;
+    overflow-x: hidden;
+}
+
+.results_header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding: 10px;
+    width: 100%;
+    background-color: purple;
+}
+
+.header_content{
+    list-style-type: none;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.header_content .first, .first{
+    width:50%;
+}
+
+.header_content .second, .second{
+    width: 25%;
+}
+
+.header_content .third, .third{
+    width: 15%;
+}
+
+.header_content .fourth, .fourth{
+    width: 10%;
+}
+
+.result_sheet{
+    padding:15px 0px 15px 15px;
+    margin-right: 15px;
+    overflow-y: scroll;
+    height: 80%;
+}
+
+.result_sheet_container{
+    height: 90%;
+    width: 100%;
+    overflow-y: scroll;
+    /* padding: 10px; */
+}
+
+.result_sheet_contents{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.result_sheet_contents li{
+    display: flex;
+    align-items: center;
+    border-bottom:1px solid grey;
+    padding: 5px 0px 5px 0px;
+}
+.result_sheet_contents .fourth{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons_container i {
+    cursor: pointer;
+}

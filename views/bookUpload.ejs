@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload books</title>
+    <link rel="stylesheet" href="/css/uploadBook.css">
+</head>
+<body>
+
+    <form enctype="multipart/form-data" id="bookUploadForm" method="post">
+        <input type="text" placeholder="Book Title" name="booksTitle" id="booksTitle" value="MORALES"><br><br>
+        
+        <input type="file" accept=".pdf" name="file" id="file" required><br><br>
+        
+        <input type="text" maxlength="9" minlength="4" name="yearPublished" placeholder="Year Published" id="yearPublished" required value="1990/1991"><br><br>
+
+        <input type="text" name="buffer" id="buffer" value="" readonly hidden><br>
+
+        <input type="hidden" name="booksOwner" id="booksOwner" readonly value="MILES">
+
+        <div id="warning"></div>
+        <span id="submitBook">Upload</span>
+        <button type="submit" class="submitBookM">Upload</button>
+    </form>
+  
+    <script src="/js/jquery-3.4.1.min.js"></script>
+  <script src="/js/scholarControls/uploadBook.js"></script>
+</body>
+</html>

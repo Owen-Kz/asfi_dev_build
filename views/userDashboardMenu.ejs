@@ -1,0 +1,33 @@
+<div class="list-group list-group-dark list-group-borderless">
+    <a class="list-group-item dashboard_menu" href="/dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+    <a class="list-group-item course_menu" href="/mycourses"><i class="bi bi-basket fa-fw me-2"></i>My Courses</a>
+    <a class="list-group-item results_menu" href="/myresults"><i class="bi bi-basket fa-fw me-2"></i>My Results</a>
+    <a class="list-group-item profile_menu" href="/settings"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+    <a class="list-group-item text-warning" href="/becomeScholar"><i class="bi bi-pencil-square fa-fw me-2"></i>Become a Scholar</a>
+    <a class="list-group-item delete_menu" href="/deleteAccount"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+    <!-- <a class="list-group-item text-danger bg-danger-soft-hover" href="/logout"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a> -->
+</div>
+
+
+<script>
+	function getURL(){
+		return window.location.pathname
+	}
+	const urlD = getURL()
+	console.log(urlD)
+	
+    if(urlD == "/settings" || urlD == "/settings/*"){
+    var settings_menu =  document.querySelector(".profile_menu");
+    settings_menu.classList += " active";
+    }
+
+    if(urlD == "/mycourses" || urlD == "/mycourses/*"){
+    var course_menu =  document.querySelector(".course_menu");
+    course_menu.classList += " active";
+    }
+    if(urlD == "/deleteAccount" || urlD == "/deleteAccount/*"){
+    var delete_menu =  document.querySelector(".delete_menu");
+    delete_menu.classList += " active";
+    }
+	
+</script>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
+        <link rel="stylesheet" href="/css/general.css">
+        <link rel="stylesheet" href="/css/library.css">
+       
+        
+        <!-- Favicon -->
+	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    
+        <title>Library - Books</title>
+        <!-- Dark mode -->
+	 <script src="/js/colorTheme.js"></script>
+    </head>
+<body id="body">
+
+    <div class="modal_container shown">
+        <div class="modalMain bg-shadow">
+            <div class="modal_header">
+            <div class="book_title"><%= bookTitle %></div>
+            <div class="page_count"><%= pageNumber[0] %>/<%= pageCount %> <a href="../">
+                <span class="close_button" id="close_modal">&times;</span></a>
+            </div>
+            </div>
+
+            <div class="modal_body">
+                <%= pagesData %>
+            </div>
+
+            <div class="modal_footer">
+                <div class="download_button">
+                    <a href="/library/books/<%= book_ID %>"> <i class="fa fa-download"></i></a>
+                </div>
+
+                <div class="pagination">
+                  <%  if(prevPAGE  > 0){ %>
+                        <div class="prev">
+                            <a href="?page=<%=prevPAGE%>"><i class="fa fa-caret-left"></i></a>
+                        </div>
+                  <% } %>
+
+                  <% if(nextPAGE <= pageCount) { %>
+                    <div class="next">
+                        <a href="?page=<%=nextPAGE %>"><i class="fa fa-caret-right"></i></a>
+                    </div>
+                    <% } %>
+                </div>
+
+                <div class="search_panel">
+                    <input type="hidden" value="<%=pageCount%>" id="currenPageCount" readonly>
+
+                    <form method="get" id="pageSearch" onsubmit=return false>
+                        <input type="number" name="page" placeholder="Find a page" id="findPage" class="Search find_page"/>
+                    </form>
+                    <i class="fa search show_search_Icon"></i>
+                </div>
+                <!-- <div id="warning"></div> -->
+            </div>
+
+        </div>
+    </div>
+    
+    <header>
+        <topnav>
+        
+            <div class="topNavbar ">
+                <button class="stack-bars fa" style="color:#333;">
+                </button>
+                <searchBar>
+                    <input type="text" name="searchLibrary" placeholder="Find a book: search by name or Author" id="searchLibrary"/>
+
+                    <i class="fa fa-search"></i>
+                </searchBar>
+            </div>
+        </topnav>
+    </header>
+    
+       <!-- NAVIGATION BAR  -->
+	   <sidebar class="left-navigation-bar bg-shadow ">
+             <script src="/js/navbar.js"></script>
+     </sidebar>
+     <!-- END NAVIGATION BAR  -->
+
+
+
+<script>
+    // FOR THE LIBRARY PAGE 
+        var dashboard =  document.getElementById("library_link_pg");
+    dashboard.classList += "active_item";
+</script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/library.js"></script>
+<script src="/js/mainjs.js"></script>
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+
+</body>
+</html>

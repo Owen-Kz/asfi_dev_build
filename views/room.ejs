@@ -1,0 +1,151 @@
+<!-- views/room.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= meetingTitle %> - Video Conference</title>
+</head>
+
+<body>
+    <h1>Required Data>>></h1>
+    <h3>Meeting Title: <%= meetingTitle %></h3>
+    <h3>Hosted By: <%= meetingHost %></h3>
+    <h3>Date scheduled: <%= date_scheduled %></h3>
+    <h3>Account Type: <%= account_type %></h3>
+    <!-- <input type="password" value="<%= buffer%>" id="newUser"> -->
+    <%if(FirstName) { %>
+        <h3>Account Name: <%= FirstName %> <%= lastName %> (<%= buffer %>)</h3>
+        <% } else {%>
+            <h3>Account Name: Visitor</h3>
+        <% } %>
+
+        <style>
+        #video-grid{
+            background-color: red;
+            width: 50%;
+            height:200px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        #video-grid div{
+            margin-left:10px;
+            height: inherit;
+            /* width: 100%; */
+            background-color: yellow;
+
+        }
+        #video-grid div video{
+            /* width: inherit; */
+            height:inherit
+        }
+        
+        </style>
+<div id="video-grid"></div>
+        <!-- views/room.ejs -->
+<!-- ... Existing code ... -->
+    <!-- ... Existing code ... -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.3.2/dist/peerjs.min.js"></script>
+    <script>
+        const socket = io();
+        const videoGrid = document.getElementById('video-grid');
+        const myVideo = document.createElement('video');
+        myVideo.muted = true;
+        const myPeer = new Peer(); // Initialize the PeerJS object
+      
+        // Get user media
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+          .then((stream) => {
+            addVideoStream(myVideo, stream);
+      
+            socket.emit('join-vc', '<%= meeting_id %>', '<%= buffer %>>'); // Use PeerJS ID as the user ID
+          })
+          .catch((error) => {
+            console.error('Error accessing media devices:', error);
+          });
+      
+        function addVideoStream(videoElement, stream) {
+          videoElement.srcObject = stream;
+          videoElement.addEventListener('loadedmetadata', () => {
+            videoElement.play();
+          });
+          const testContent = document.createElement("div");
+          testContent.setAttribute("style", "background:black;");
+          testContent.setAttribute("data-name", "<%= buffer %>")
+          testContent.appendChild(videoElement)
+          videoGrid.appendChild(testContent);
+      
+          // Emit a message to other users to inform them to add the testContent
+          socket.emit('add-test-content', "<%= buffer %>");
+        }
+      
+        myPeer.on('call', (call) => {
+          navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then((stream) => {
+              call.answer(stream);
+              const video = document.createElement('video');
+              call.on('stream', (userVideoStream) => {
+                addVideoStream(video, userVideoStream);
+              });
+            })
+            .catch((error) => {
+              console.error('Error answering call:', error);
+            });
+        });
+      
+        socket.on('user-connected-vc', (userId_vc) => {
+          // Automatically add the testContent for the new user
+          addTestContentForUser(userId_vc);
+        });
+      
+        socket.on('add-test-content', (userId_vc) => {
+          // Automatically add the testContent for other users
+          addTestContentForUser(userId_vc);
+        });
+      // On the client, when adding testContent for a user
+        socket.on('add-test-content', (uniqueUserId) => {
+        // Check if the user is already in the grid by comparing with their unique user ID
+        if (!document.getElementById(uniqueUserId)) {
+            
+            const testContent = document.createElement("div");
+            testContent.setAttribute("style", "background:black;");
+            testContent.setAttribute("data-name", uniqueUserId); // Set a unique ID for the div
+            videoGrid.appendChild(testContent);
+        }
+        });
+
+        // THis part of the code adds a new element when a new user joins but it has a problem
+        // This is where your problem lies 
+        // solve it
+        function addTestContentForUser(userId_vc) {
+   // Retrieve all elements with data-name attribute
+        const elementsWithNameAttribute = document.querySelectorAll('[data-name]');
+
+        // Filter elements that are not 'banana'
+        const targetName = userId_vc;
+        const elementsNotBanana = Array.from(elementsWithNameAttribute).filter((element) => {
+        return element.getAttribute('data-name') !== targetName;
+        });
+
+        // Log the elements that are not 'banana'
+        elementsNotBanana.forEach((element) => {
+        // console.log(element.textContent);
+        const ElementDataID = element.getAttribute('data-name') 
+        
+        const testContent = document.createElement("div");
+            testContent.setAttribute("style", "background:black; color:red;");
+            testContent.setAttribute("data-name", ElementDataID);
+            testContent.innerHTML += ElementDataID // Set a unique ID for the div
+        
+          videoGrid.appendChild(testContent);
+        });
+
+        }
+      </script>
+        </body>
+  

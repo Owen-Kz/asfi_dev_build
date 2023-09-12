@@ -1,0 +1,183 @@
+.topNavbar{
+    background-color: rgb(248, 248, 248);
+    box-shadow: 0px 0px 57px 0px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    display: flex;
+    top:0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;  
+    height: 100vh;
+}
+
+a{
+    color: rgb(255, 150, 0);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+searchBar{
+    display: flex;
+    margin: auto;
+    justify-self: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 40%;
+    background-color: white;
+    border-radius: 25px;
+    padding: 15px;
+}
+
+searchBar input{
+    border: none;
+    background: transparent;
+    width:90%;
+}
+
+main{
+    width: 80%;
+    margin: auto;
+    margin-top:1px;
+    display: flexbox;
+    height: 100vh;
+    overflow-y: scroll;
+    align-items: center;
+    float: center;
+    flex-direction: column;
+}
+
+
+
+.podcasts{
+    border-radius: 52px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.065);
+    top: 59px;
+    /* width: 1168px; */
+    display: flex;
+    align-self:center;
+    flex-direction: row;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 60px;      
+    margin-top: 40px;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left, .time_span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 5px;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: 100%;
+    height:50px;
+    width:50px;
+    overflow: hidden;
+}
+.icon img{
+    height: 100%;
+    width: 100%;
+}
+.podcasts .wave_form{
+    flex:1;
+}
+
+.podcasts{
+    user-select: none;
+    overflow: hidden;
+}
+
+.info {
+    margin-left: 10px;
+}
+.reader{
+    display: flex;
+    /* background-color: rgba(227, 227, 227, 0.642); */
+    align-items: center;
+    flex-direction: row;
+    width: fit-content;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.bud{
+    /* background-color: rgba(227, 227, 227, 0.642); */
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: fit-content;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.actions .buttons{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: var(--golden-Yellow);
+}
+
+/* Popup for podcast player  */
+.podcast_modal{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    backdrop-filter: blur(19px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    margin: 0;
+    z-index: 10000;
+}
+
+.player{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.close_podcast_modal{
+    display: flex;
+    height: 40px;
+    font-size: 20px;
+    width: 40px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgb(71, 71, 71);
+    align-self: flex-end;
+    position: fixed;
+    top:100px;
+    right: 100px;
+    color: #dbdbdb;
+}
+
+@media screen and (max-width:720px) {
+    searchBar{
+      width: 90%;
+    }
+    main{
+        width: 100%;
+    }
+  }

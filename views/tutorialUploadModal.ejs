@@ -1,0 +1,106 @@
+<!-- Tutorial Upload Modal Start -->
+<div id="TutorialUploadModal" class="modal" >
+
+    <!-- Modal content 1-->
+    <div class="modal-content">
+        <div class="close_btn">
+            <span class="tutclose">&times;</span>
+        </div>
+        <div class="bx_content">
+            <h5 class="header_p"><i class="fa fa-tv"></i> Upload Video/Tutorial</h5> <br><br>
+             <!-- Step 2 content START -->
+	
+							<div class="upload_container">
+                                <form class="book_upload" method="post" action="/api/scholar/newTutorial" enctype="multipart/form-data" id="uploadTutorialForm">
+
+									<input type="text" readonly value="" name="buffer" id="buffer" hidden>
+									<input type="text" readonly value="" name="commentBuffer" id="commentBuffer" hidden>
+    								<input type="text" readonly value="" name="tutorialBuffer" id="tutorialBuffer" hidden>
+    								
+    								<input type="text" value="<%= UserName %>" name="Owner" id="Owner" hidden readonly>
+									<!-- Upload image START -->
+									<div class="left_uploadBook">
+									    <div class="text-center justify-content-center align-items-center border border-2 border-dashed rounded-3">
+											
+											<img src="files/images/gallery.svg" class="h-50px" alt="">
+											<div>
+												<h6 class="my-2">Upload Video Thumbnail here</h6>
+												
+													<span> 
+													<input class="form-control " type="file" name="thumbnail" accept="image/*" id="thumbnail" />
+													</span>
+													<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
+											</div>	
+										</div>
+
+										<!-- Button -->
+										<div class="d-sm-flex justify-content-end mt-2">
+											<button type="button" class="btn btn-sm btn-danger-soft mb-3" id="removeImage">Remove image</button>
+										</div>
+									</div>
+									<br><br>
+									<!-- Upload image END -->
+                                    <!-- Course category -->
+									<div class="col-md-6">
+										<label class="form-label">Select here to select a course to add the video/tutorial to (Optional)</label>
+										<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" data-search-enabled="true"  name="course_id" id="course_id">
+											<option value="">Select Course</option>
+											<option value="rtuT3g">Generic Tutorial (Select this option if this tutorial is not part of an existing course)</option>
+										</select>
+									</div>
+
+									<!-- Upload publication START -->
+									<div class="col-12 left_uploadPublication">
+										<!-- Input -->
+										<div class="position-relative my-4">
+											<hr>
+											<p class="small position-absolute top-50 start-50 translate-middle bg-body px-3 mb-0">OR</p>
+										</div>
+										<div class="col-12">
+                                            <h6 class="text-info">Upload Tutorial Directly</h6>
+											<label class="form-label">Tutorial Title</label>
+                                            <div class="input-group mb-3">
+                                               <input type="text" class="form-control" name="tutorialTitle" id="tutorialTitle" value="">
+                                            </div>
+                                            <label class="form-label">Tutorial Description</label>
+                                            <div class="input-group mb-3">
+											   <textarea class="form-control" name="shortDescription" id="shortDescription" cols="30" rows="10">
+											
+											</textarea>
+                                            </div>
+                                            <!-- Course category -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Tutorial category</label>
+                                                <select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" data-search-enabled="true" name="category" id="category" value="categoryNm">
+                                                    <option value="">Select category</option>
+                                                    <option>Generic</option>
+                                                </select>
+                                            </div>
+											<div class="input-group mb-3">
+												<input type="file" class="form-control" name="video" accept="video/*" id="video" required>
+												
+												<label class="input-group-text">.mp4</label>
+											</div>
+                                                <input type="text" class="form-control" name="buffer" id="buffer" value="" readonly hidden><br>
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" name="tutorialOwner" id="tutorialOwner" readonly value="">
+                                                </div>
+
+                                            
+                                           <button type="submit" id="create_TUTORIAL" hidden>Upload</button>
+										</div>
+
+                                    </div>
+                                </form>
+										
+							</div>
+									<!-- Book Upload END -->
+							<!-- Step 2 content END -->
+                    <span class="submitBook" id="createNew_Tutorial">Upload</span>
+        </div>
+    </div>
+</div>
+<!-- Tutorial Upload Modal END -->
+
+
+<script src="/js/SearchQueries/getCoursesForoptions.js"></script>

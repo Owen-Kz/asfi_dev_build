@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Render Data</title>
+</head>
+<body>
+    <div id="externalData"></div>
+
+    <script>
+        // Fetch data from the external URL
+        fetch('http://localhost:3000/instagram')
+  .then(response => response.text())
+  .then(data => {
+    // Render the Instagram content on your webpage
+    const externalDataDiv = document.getElementById('externalData');
+    externalDataDiv.innerHTML = data;
+  })
+  .catch(error => console.error('Error:', error));
+
+    </script>
+</body>
+</html>

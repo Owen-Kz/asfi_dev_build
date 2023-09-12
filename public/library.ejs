@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/contactUs.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/library.css">
+   
+    
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+
+    <link rel="stylesheet" href="/css/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+
+    <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+    <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+    <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+
+    <title>Library</title>
+    <!-- Dark mode -->
+	 <script src="/js/colorTheme.js"></script>
+</head>
+
+<body>
+	<input type="text" id="books_Array" value="<%=BOOK_DATA_ARRAY%>" hidden readonly>
+	<input type="text" name="externalLinks" id="externalLinks" value="<%=externalLinks%>" hidden readonly>
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar bg-shadow ">
+        <%if(accountType == "scholar_account") {%>
+         <script src="/js/scholarNavbar.js"></script>
+         <% } else if(accountType == "user_account"){%>
+             <script src="/js/navbar.js"></script>
+         <%} else if(accountType == "instructor_account") {%>
+             <script src="/js/instructorNavbar.js"></script>
+        <% } %>
+     </sidebar> 
+     <!-- END NAVIGATION BAR  -->
+
+<!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<button class="stack-bars fa ">
+            </button>
+
+            
+                    <searchBar>
+						<form id="searchForm">
+                        <input type="text" name="searchLibrary" placeholder="Find a Book/Publication: search by name or Author" id="searchLibrary"/>
+						<button type="submit" hidden></button>
+					</form>
+                       <i class="fa fa-search"></i>
+                    </searchBar>
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main class="library_main">
+	
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+        <div class="header" style="margin-top:100px;">
+            <div class="text">By ASFIScholars</div></div>
+		<!-- Filter bar START -->
+		<form class="bg-light border p-4 rounded-3 my-4 z-index-9 position-relative">
+			<div class="row g-3">
+				<!-- Input -->
+				<div class="col-xl-3">
+					<input class="form-control me-1" type="search" placeholder="Enter keyword">
+				</div>
+
+				<!-- Select item -->
+				<div class="col-xl-8">
+					<div class="row g-3">
+						<!-- Select items -->
+						<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm example">
+								<option value="">Categories</option>
+								<option>All</option>
+							</select>
+						</div>
+
+						<!-- Search item -->
+						<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm example">
+								<option value="">Price level</option>
+								<option>All</option>
+								<option>Free</option>
+								<option>Paid</option>
+							</select>
+						</div>
+
+						<!-- Search item -->
+						<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm example">
+								<option value="">Level</option>
+								<option>All levels</option>
+								<option>Beginner</option>
+								<option>Intermediate</option>
+								<option>Advanced</option>
+							</select>
+						</div>
+
+						<!-- Search item -->
+						<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm example">
+								<option value="">Language</option>
+								<option>English</option>
+							</select>
+						</div>
+					</div> <!-- Row END -->
+				</div>
+				<!-- Button -->
+				<div class="col-xl-1">
+					<button type="button" class="btn btn-primary mb-0 rounded z-index-1 w-100"><i class="fas fa-search"></i></button>
+				</div>
+			</div> <!-- Row END -->
+		</form>
+		<!-- Filter bar END -->
+
+		<div class="row mt-3">
+			<!-- Main content START -->
+			<div class="col-12">
+                <!-- Course Grid START -->
+				<div class="row books_container">
+
+					<!-- Card item START -->
+					<ul class="col-sm-6 col-lg-4 col-xl-3 book_list" id="book_list">
+                   </ul>
+					<!-- Card item END -->
+                </div>
+				
+				<!-- Pagination START -->
+				<div class="col-12">
+					<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+						<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+							<% if (totalPagesBooks > 1) { %>
+							  <% if (currentPageBooks > 1) { %>
+								<li class="page-item mb-0">
+								  <a class="page-link" href="?pageBook=<%= currentPageBooks - 1 %>" tabindex="-1" id="prevBookPage">
+									<i class="fas fa-angle-double-left"></i>
+								  </a>
+								</li>
+							  <% } %>
+						  
+							  <% const maxPagesToShow = 5; %>
+							  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
+							  <% const startPage = Math.max(currentPageBooks - halfMax, 1); %>
+							  <% const endPage = Math.min(currentPageBooks + halfMax, totalPagesBooks); %>
+							  <% const nextPage = Math.floor(currentPageBooks) + 1 %>
+
+						  
+							  <% if (startPage > 1) { %>
+								<li class="page-item mb-0">
+								  <a class="page-link" href="?pageBook=1">1</a>
+								</li>
+								<% if (startPage > 2) { %>
+								  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+								<% } %>
+							  <% } %>
+						  
+							  <% for (let i = startPage; i <= endPage; i++) { %>
+								<li class="page-item mb-0 <%= i === currentPageBooks ? 'active' : '' %>">
+								  <a class="page-link" href="?pageBook=<%= i %>"><%= i %></a>
+								</li>
+							  <% } %>
+						  
+							  <% if (endPage < totalPagesBooks) { %>
+								<% if (endPage < totalPagesBooks - 1) { %>
+								  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+								<% } %>
+								<li class="page-item mb-0"><a class="page-link" href="?pageBook=<%= totalPagesBooks %>"><%= totalPagesBooks %></a></li>
+							  <% } %>
+						  
+							  <% if (currentPageBooks < totalPagesBooks) { %>
+								<li class="page-item mb-0">
+								  <a class="page-link" href="?pageBook=<%= nextPage %>" id="nextBookPage">
+									<i class="fas fa-angle-double-right"></i>
+								  </a>
+								</li>
+							  <% } %>
+							<% } %>
+						  </ul>
+						  
+						<span id="bookPageInfo">Page <%=currentPageBooks%> of <%=totalPagesBooks  %></span>
+
+					</nav>
+			
+				</div>
+				<!-- Pagination END -->
+			</div>
+			<!-- Main content END -->
+            
+            <div class="externalLinks">
+                <div class="header" style="margin-top:20px;">
+                    <div class="text">External Links</div>
+                </div>
+            
+                    <div class="row books_container">
+						<ul class="col-sm-6 col-lg-4 col-xl-3 book_list" id="external_links">
+
+						</ul>
+                    </div>
+								<!-- Pagination START -->
+								<div class="col-12">
+									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+										<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+											<% if (totalPagesLinks > 1) { %>
+											  <% if (currentPageLinks > 1) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageLink=<%= currentPageLinks - 1 %>" tabindex="-1" id="prevLinkPage">
+													<i class="fas fa-angle-double-left"></i>
+												  </a>
+												</li>
+											  <% } %>
+										  
+											  <% const maxPagesToShow = 5; %>
+											  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
+											  <% const startPage = Math.max(currentPageLinks - halfMax, 1); %>
+											  <% const endPage = Math.min(currentPageLinks + halfMax, totalPagesLinks); %>
+											  <% const nextPage = Math.floor(currentPageLinks) + 1 %>
+				
+										  
+											  <% if (startPage > 1) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageLink=1">1</a>
+												</li>
+												<% if (startPage > 2) { %>
+												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+												<% } %>
+											  <% } %>
+										  
+											  <% for (let i = startPage; i <= endPage; i++) { %>
+												<li class="page-item mb-0 <%= i === currentPageLinks ? 'active' : '' %>">
+												  <a class="page-link" href="?pageLink=<%= i %>"><%= i %></a>
+												</li>
+											  <% } %>
+										  
+											  <% if (endPage < totalPagesLinks) { %>
+												<% if (endPage < totalPagesLinks - 1) { %>
+												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+												<% } %>
+												<li class="page-item mb-0"><a class="page-link" href="?pageLink=<%= totalPagesLinks %>"><%= totalPagesLinks %></a></li>
+											  <% } %>
+										  
+											  <% if (currentPageLinks < totalPagesLinks) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageLink=<%= nextPage %>" id="nextBookPage">
+													<i class="fas fa-angle-double-right"></i>
+												  </a>
+												</li>
+											  <% } %>
+											<% } %>
+										  </ul>
+										  
+										<span class="bookPageInfo">Page <%=currentPageLinks%> of <%=totalPagesLinks  %></span>
+				
+									</nav>
+							
+								</div>
+								<!-- Pagination END -->
+				</div>
+			
+            </div>  
+		</div><!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+            <!-- Widget -->
+            <div><script src="/js/footer.js"></script></div>
+			<!-- Widget -->
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+<script src="/js/library.js"></script>
+<script src="/js/searchQueries/librarySearchQuery.js"></script>
+<!-- <script src="./js/updateAccountData.js"></script> -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/functions.js"></script>
+
+</body>
+</html>

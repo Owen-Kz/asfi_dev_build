@@ -1,0 +1,298 @@
+.topNavbar{
+    background-color: rgb(248, 248, 248);
+    box-shadow: 0px 0px 57px 0px rgba(0, 0, 0, 0.34);
+    position: fixed;
+    display: flex;
+    top:0;
+}
+body{
+    display: flex;
+    flex-direction: column;    
+}
+.container {
+    display: flex;
+}
+.navbar {
+    background: transparent;
+}
+
+a{
+    color: rgb(255, 150, 0);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+searchBar{
+    display: flex;
+    margin: auto;
+    justify-self: center;
+    align-self: center;
+    justify-content: space-between;
+    background-color: white;
+    /* border: 1px solid; */
+    border-radius: 25px;
+    padding: 15px;
+}
+
+searchBar input{
+    border: none;
+    background: transparent;
+    width:90%;
+}
+
+main{
+    margin-top: 100px;
+    width:90%;
+    margin-left: auto;
+    margin-right: 0px;
+    display: flex;
+    height: 100vh;
+    align-self: flex-end;
+    flex-direction: row;
+    /* height: 1000px;
+    overflow-y: scroll; */
+}
+
+
+
+
+
+
+/* NEW VIDEO INTERFACE FILE */
+.video_panel{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: -12px;
+}
+.video_panel .video {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    /* overflow: scroll; */
+    /* align-items: center; */
+    background-color: rgb(15, 33, 58);
+    /* width: 754px; */
+    width: 90%;
+    /* float: left; */
+    /* margin-left: 0px; */
+    /* justify-content: center; */
+    height: 374px;
+}
+.video_details{
+    width:90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.video_details .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video_details .header .video_title, h4{
+    border-bottom:1px solid;
+    padding-bottom:5px;
+    padding-top:5px;
+    font-weight: bold;
+    margin-left:3px;
+}
+.videoDescription{
+    display: flex;
+    overflow: hidden;
+    /* height: 0px; */
+}
+
+.videoDescription div{
+    position: sticky;
+}
+
+h4{
+    width: fit-content;
+}
+
+.comments{
+    padding-bottom:10px ;
+    height:500px;
+    /* overflow-y: scroll; */
+}
+
+.user_comment .image{
+    height: 50px;
+    display: flex;
+    width: 50px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.comment_body{
+    width:90%;
+    margin-left: 20px;
+}
+.comment_body .main_body{
+    transition: ease-in-out 300ms;
+
+}
+.comment_body .overflown{
+    height: 100px;
+    overflow: hidden;
+}
+.hidden_button {
+    display: none;
+}
+.show_overflow{
+    height: fit-content;
+}
+.suggestions_panel{
+    position: relative;
+    /* margin-right: 20px; */
+    width: 25%;
+    /* height: 600px; */
+    /* padding: 10px; */
+    right: 0;
+    float: right;
+}
+.suggested_content{
+    /* padding:10px; */
+    display: flex;
+    align-items: center;
+    /* overflow-y: scroll; */
+    /* height: 600px; */
+    flex-direction: column;
+}
+
+.user_comment{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    /* background-color: red; */
+    width: fit-content;
+}
+.line-break{
+    background-color: rgba(215, 215, 215, 0.7);
+    height: 1px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+}
+.all_comments{
+    overflow-y: scroll;
+    height: 500px;
+    width: 90%;
+}
+.video {
+    /* display: flex;
+    flex-direction: column; */
+    width: 50px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    height: 740px;
+    /* padding-bottom: 10px; */
+    padding-right:0px ;
+    /* margin-top: 5px; */
+    /* border-bottom: 1px solid; */
+}
+
+.cover{
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  /* background-color: rgb(15, 33, 58); */
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.preview {
+    display: flex;
+    position: sticky;
+}
+.preview img{
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+}
+.duration {
+    /* position: relative; */
+    background-color: rgba(15, 15, 15, 0.459);
+    width:100px;
+    border-bottom-left-radius: inherit;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    align-self: flex-start;
+    justify-self: flex-end;
+}
+.cover .overlay{
+    /* background-color: brown; */
+    height: 100%;
+    padding: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    position: sticky;
+}
+.player{
+    height: 50px;
+    width:50px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    position: sticky;
+    border-radius: 100%;
+    background-color: white;
+}
+.playbutton{
+  height: 20px;
+  width: 20px;
+  /* background-color: red; */
+}
+
+.bud {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.34);
+    border-radius: 6px;
+    padding: 7px;
+    margin-top: 15px;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.creator .first_name{
+    display: flex;
+    flex-direction: row;
+}
+.profile_container {
+    height:20px;
+    width: 20px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.first_name .name{
+    padding-left: 5px;
+}
+.profile_container img{
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+}

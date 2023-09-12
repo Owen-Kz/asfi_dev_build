@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- Inside upload.ejs -->
+<form method="post" id="uploadCourseForm" action="/api/scholar/newCourse" enctype="multipart/form-data">
+    <input type="text" readonly value="" name="buffer" id="buffer" hidden>
+    <input type="text" readonly value="" name="commentBuffer" id="commentBuffer" hidden>
+    <input type="text" readonly value="" name="tutorialBuffer" id="tutorialBuffer" hidden>
+
+
+    <input type="text" value="debby_ebuzome" name="courseOwner" id="courseOwner" hidden readonly>
+    <input type="text" name="courseTitle" id="courseTitle" value="TITLE">
+    <br>
+    <input type="text" id="category" name="category" value="Course category">
+    <input type="file" name="video" accept="video/*" id="video">
+    <br>
+    <input type="file" name="thumbnail" accept="image/*" id="thumbnail">
+<br>
+    <textarea name="shortDescription" id="shortDescription" cols="30" rows="10">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sint id, rerum porro eius dolor dignissimos! Accusamus a velit assumenda repellat unde, quae sit illum, nam fugiat necessitatibus consequuntur repudiandae.
+    </textarea>
+<br>
+<input type="text" name="courseCurrency" id="courseCurrency" value="N" readonly>
+<input type="text" name="courseCost" id="courseCost" value="29090" readonly>
+<br>
+    <input type="text" name="courseLevel" id="courseLevel" value="LEVEL">
+    <br>
+    <input type="text" name="courseDuration" id="courseDuration" value="courseDuration">
+    <br>
+
+    <!-- New thumbnail input -->
+    <button type="submit" id="createNEW_TUTORIAL" hidden>jj</button>
+</form>
+
+<button id="createNewCourses">CREATE COURSE</button>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/scholarControls/createCoursesClient.js"></script>
+</body>
+</html>

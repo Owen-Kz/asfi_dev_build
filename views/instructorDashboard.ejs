@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/instructorDashboard.css">
+    <link rel="stylesheet" href="/css/general.css">
+   
+     <!-- Favicon -->
+     <link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/choices.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/glightbox/css/glightbox.css">
+    <link rel="stylesheet" type="text/css" href="/css/bs-stepper.min.css"> 
+
+    <link rel="stylesheet" href="/css/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+
+    <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+    <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+    <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+
+    <title>Instructor Dashboard</title>
+    
+     <!-- Dark mode -->
+     <script src="/js/colorTheme.js"></script>
+</head>
+<body>
+    <%- include ("tutorialUploadModal") %>
+    <%- include ("bookUploadModal") %>
+	<%- include ("podcastUploadModal") %>
+       <!-- NAVIGATION BAR  -->
+	   <sidebar class="left-navigation-bar bg-shadow ">
+       <%if(accountType == "scholar_account") {%>
+        <script src="/js/scholarNavbar.js"></script>
+        <% } else if(accountType == "user_account"){%>
+            <script src="/js/navbar.js"></script>
+        <%} else if(accountType == "instructor_account") {%>
+            <script src="/js/instructorNavbar.js"></script>
+
+            <% } %>
+    </sidebar>
+    <!-- END NAVIGATION BAR  -->
+
+    <!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+            <button class="stack-bars fa ">
+            </button>
+             
+			<!-- Profile START -->
+			<div class="dropdown ms-1 ms-lg-0">
+
+                <personal_info>
+                    <account_name><%=UserFirstname %> <%= UserLastName %></account_name>
+                </personal_info>
+
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+                    <% if(ProfileImage == "avatar.jpg"){ %>
+						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+						<% } else { %>
+
+						<img class="avatar-img rounded-circle border border-white border-3 shadow"
+						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+						<% }%>
+					
+				</a>
+                
+                
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<% if(ProfileImage == "avatar.jpg"){ %>
+                                    <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+                                    <% } else { %>
+            
+                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                    src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+                                    <% }%>
+							</div>
+							<div>
+								<a class="h6" href="#">@<%= UserName %></a>
+								<p class="small m-0"><%= Email %></p>
+							</div>
+						</div>
+					</li>
+                    
+          <li> <hr class="dropdown-divider"></li>
+					<!-- Links -->
+					<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item" href="/settings"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+					<li><a class="dropdown-item" href="/contactUs"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li> <hr class="dropdown-divider"></li>
+					<!-- Dark mode options START -->
+					<li>
+						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+									<use href="#"></use>
+								</svg> Light
+							</button>
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+									<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+									<use href="#"></use>
+								</svg> Dark
+							</button>
+							<button type="button" class="btn btn-sm mb-0 active" data-bs-theme-value="auto">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+									<use href="#"></use>
+								</svg> Auto
+							</button>
+						</div>
+					</li> 
+					<!-- Dark mode options END-->
+				</ul>
+			</div>
+			<!-- Profile START -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main class="scholar_main">
+	
+<!-- =======================
+Page Banner START -->
+<section class="pt-0">
+	
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+        <!-- Button -->
+							<div class="dropdown dash_upload">
+                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i>Upload Assets</span>
+                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#" id="TutorialUploadBtn"><i class="fas fa-tv fa-fw me-2"></i>Upload Tutorial</a></li>
+                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
+					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
+                    
+                                </ul>
+							</div> 
+		<div class="row">
+			<!-- Main content START -->
+			<div class="col-xl-9">
+             
+				<!-- Counter boxes START -->
+				<div class="row g-4">
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-4">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
+							<span class="display-6 text-warning mb-0"><i class="fas fa-tv fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+								</div>
+								<span class="mb-0 h6 fw-light">Total Courses</span>
+							</div>
+						</div>
+					</div>
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-4">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-purple bg-opacity-10 rounded-3">
+							<span class="display-6 text-purple mb-0"><i class="fas fa fa-graduation-cap fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+									<span class="mb-0 h5">+</span>
+								</div>
+								<span class="mb-0 h6 fw-light">Total Students</span>
+							</div>
+						</div>
+					</div>
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-4">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
+							<span class="display-6 text-info mb-0"><i class="fas fa-gem fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">0</h5>
+									<span class="mb-0 h5">K</span>
+								</div>
+								<span class="mb-0 h6 fw-light">Enrolled Students</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-4">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-purple bg-opacity-10 rounded-3">
+                        <span class="display-6 text-info mb-0 fa fa-handshake"></span>
+                        <div class="ms-4">
+                            <div class="d-flex">
+                                <span class="mb-0 h5">Collaborate</span>
+                            </div>
+                            <span class="mb-0 h6 fw-light">Total Collaborations</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <a href="/createCourse">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-success bg-opacity-10 rounded-3">
+                        <span class="display-6 text-instagram-gradient mb-0 fa fa-edit"></span>
+                        <div class="ms-4">
+                            <div class="d-flex">
+                                <span class="mb-0 h5 text-google-icon">Create a Course</span>
+                            </div>
+                        </div>
+                        </div></a>
+                    </div> 
+                          
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-purple bg-opacity-10 rounded-3">
+                            <span class="display-6 mb-0 text-warning icon-newspaper"></span> 
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <span class="mb-0 h5 ">Forums</span>
+                                </div>
+                                <span class="mb-0 h6 fw-light">Total Students</span>
+                        </div>
+                    </div> 
+                     
+				</div>
+                
+				<!-- Counter boxes END -->
+
+				<!-- Course List table START -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card border bg-transparent rounded-3 mt-5">
+							<!-- Card header START -->
+							<div class="card-header bg-transparent border-bottom">
+								<div class="d-sm-flex justify-content-sm-between align-items-center">
+									<h3 class="mb-2 mb-sm-0">Most Enrolled Courses</h3>
+									<a href="/instructorCourses" class="btn btn-sm btn-primary-soft mb-0">View all</a>
+								</div>
+							</div>
+							<!-- Card header END -->
+
+							<!-- Card body START -->
+							<div class="card-body">
+								<div class="table-responsive border-0 rounded-3">
+									<!-- Table START -->
+									<table class="table table-dark-gray align-middle p-4 mb-0">
+										<!-- Table head -->
+										<thead>
+											<tr>
+												<th scope="col" class="border-0 rounded-start">Course Name</th>
+												<th scope="col" class="border-0">Enrollments</th>
+												<th scope="col" class="border-0">Amount</th>
+												<th scope="col" class="border-0">Period</th>
+												<th scope="col" class="border-0 rounded-end">Action</th>
+											</tr>
+										</thead>
+										<!-- Table body START -->
+										<tbody>
+											
+											<!-- Table item -->
+											<tr>
+												<!-- Course item -->
+												<td>
+													<div class="d-flex align-items-center">
+														<!-- Image -->
+														<div class="w-60px">
+															<img src="" class="rounded" alt="">
+														</div>
+														<!-- Title -->
+														<h6 class="mb-0 ms-2 table-responsive-title">	
+															<a href="#">Demo</a>
+														</h6>
+													</div>
+												</td>
+												<!-- Selling item -->
+												<td>0</td>
+												<!-- Amount item -->
+												<td>$0</td>
+												<!-- Period item -->
+												<td>
+													<span class="badge bg-primary bg-opacity-10 text-primary">0 months</span>
+												</td>
+												<!-- Action item -->
+												<td>
+													<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
+													<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+												</td>
+											</tr>
+	
+											
+										</tbody>
+										<!-- Table body END -->
+									</table>
+									<!-- Table END -->
+								</div>
+
+								<!-- Pagination -->
+								<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-3">
+									<!-- Content -->
+									<p class="mb-0 text-center text-sm-start">Showing 1 to 1 of 1 entries</p>
+									<!-- Pagination -->
+									<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+										<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+											<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+											<li class="page-item mb-0 active" ><a class="page-link" href="#">1</a></li>
+											<li class="page-item mb-0 "><a class="page-link" href="#">2</a></li>
+											<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+											<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Card body START -->
+						</div>
+					</div>
+				</div>
+				<!-- Course List table END -->
+			</div>
+			<%- include("chatNotifications.ejs") %>
+
+           
+			<!-- Main content END -->
+		</div><!-- Row END -->
+	</div>
+    
+</section>
+<!-- =======================
+Page content END -->
+
+</main>
+
+
+
+
+
+
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+            <!-- Widget -->
+            <div><script src="/js/footer.js"></script></div>
+			<!-- Widget -->
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+  <script src="/js/scholarControls/uploadBook.js"></script>
+  <script src="/js/scholarControls/uploadPodcast.js"></script>
+  <script src="/js/scholarControls/uploadTutorial.js"></script>
+<script src="/js/scholarControls/createTutorialClient.js"></script>
+<script src="/js/SearchQueries/getNotifications.js"></script>
+
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/js/choices.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/glightbox.js"></script>
+<script src="/js/quill.min.js"></script>
+<script src="/js/bs-stepper.min.js"></script>
+
+
+</body>
+
+</body>
+</html>

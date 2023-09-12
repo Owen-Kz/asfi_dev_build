@@ -1,0 +1,406 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    bottom: 0;
+    top:0;
+}
+.bg-shadow{ box-shadow: 0px 40px 30px 0px rgba(0, 0, 0, 0.25);}
+body{
+    background: rgb(230, 243, 241);
+    /* overflow: hidden; */
+}
+main{
+    display: flex;
+    flex-direction: column;
+    /* overflow: scroll; */
+    height: 100vh;
+}
+
+/* page divisions for welcome page  */
+.welcome_page_main{
+    display: flex;
+    flex-direction: row;
+    /* height: inherit; */
+}
+.welcome_left{
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    background-image: url('https://images.pexels.com/photos/15434152/pexels-photo-15434152/free-photo-of-light-city-sky-art.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    display: flex;
+    width: 50%;
+}
+
+
+.welcome_left .welcome-text{
+    color:white;
+    z-index: 10;
+    border-bottom: 10px solid rgb(255, 201, 85);
+    text-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 5);
+}
+.welcome-text .top-text{
+    font-size: 30px;
+}
+.welcome-text .main-text{
+    font-size: 50px;
+}
+.welcome_right {
+    width: 50%;
+    display: flex;
+    overflow: hidden;
+    /* flex-direction: column; */
+}
+
+.welcome_left .background-cover{
+    display: inherit;
+    height: inherit;
+    position: absolute;
+    width: inherit;
+    visibility: inherit;
+    background-color: black;
+    /* z-index: -1; */
+    opacity: 0.4;
+}
+
+.bg-purple{
+    background-color: purple;
+}
+
+
+.login-card {
+    width: 35%;
+    border-radius: 20px;
+    background-color: white;
+    /* background-color: red; */
+    height:800px;
+  
+    /* top:50%; */
+    margin: auto;
+    z-index: 9;
+    align-self: center;
+    padding: 15px;
+   
+}
+
+.login-body{
+    display: flex;
+    flex-direction: column;
+}
+form {
+    height: 50%;
+    display: flex;
+    /* background-color: gold; */
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.login-header{
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.login-header .logo{
+    font-size: 30px;
+}
+
+.login-header span:not(.logo){
+    font-size: 20px;
+}
+.login-body {
+    height: 30%;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-around;
+}
+
+.register-body {
+    height: 90%;
+}
+
+.login-body input{
+    height: 40%;
+    padding: 0px 10px 0px 10px;
+    width: 80%;
+    outline:none;
+    border: none;
+    background-color: transparent;
+    border-bottom:1px solid black;
+}
+
+.login-body .password_field{
+    border-bottom:1px solid black;
+    width: 80%;
+    display: flex;
+    height: 40%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 0px 10px 0px 10px; */
+}
+
+.login-body .password_field input {
+    border-bottom:none;
+    width: 80%;
+    padding: 0px;
+    height: inherit;
+}
+
+ .show_pass{
+    cursor: pointer;
+}
+
+
+
+.login-footer{
+    display: flex;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom:0;
+}
+
+.login-footer button{
+    width: 70%;
+    height: 80%;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: purple;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: center;
+}
+.welcome_page .buttons_container {
+    display: flex;
+    width: 80%;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    align-self: center;
+}
+
+.welcome_page .buttons_container a{
+    width: 45%;
+    text-decoration: none;
+    user-select: none;
+    font-size: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.logged_in{
+    width:80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.logged_in .buttons_container{
+    width: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+.welcome_page .logged_in .buttons_container .secondary{
+    width: 80%;
+}
+.welcome_page .buttons_container .primary{
+    border: none;
+    outline: none;
+    background-color: purple;
+    color: whitesmoke;
+}
+
+.welcome_page .buttons_container .secondary{
+    border: 1px solid purple;
+    outline: none;
+    background-color: transparent;
+    color: purple;
+}
+
+.welcome-card{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup_text {
+    display: flex;
+    align-self: center;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.signup_text a{
+    margin-left: 10px;
+}
+.circle {
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    position: fixed;
+}
+.msg{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding:10px;
+    font-size: 15px;
+    height: 100%;
+    float:right;
+    width: 40%;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* transition: ease-in-out 300ms; */
+    user-select: none;
+    box-shadow: 0px 7px 9px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.alert-danger{
+    border-left:10px solid rgb(239, 32, 32);
+    /* margin-top: 0px; */
+    align-self: flex-end;
+    float: right;
+    visibility: hidden;
+    transition: ease-in-out 350ms;
+    opacity: 0;
+}
+
+.alert-success{
+    border-left:10px solid teal;
+    /* margin-top: 0px; */
+    visibility: hidden;
+    align-self: flex-end;
+    float: right;
+    transition: ease-in-out 300ms;
+    opacity: 0;
+}
+
+.top-circle{
+    /* float: right; */
+    /* align-self: flex-end; */
+    right: -50px;
+    top:-240px
+}
+
+.bottom-circle{
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
+    bottom: -150px;
+    margin-top: 500px;
+    left:-50px
+}
+
+.msg-container{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    top:50px;
+    padding: 0px;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    float:right;
+    /* overflow: hidden; */
+    justify-content: right;
+    z-index: 12;
+}
+
+.login-card a{
+    text-decoration: none;
+    color: rgb(255, 111, 0);
+}
+
+/* RESPONSIVENESS  */
+@media screen and (max-width:720px){
+    body{
+        padding: 0;
+        margin: 0;
+    }
+    main{
+        padding: 0px;
+        margin: 0px;
+        align-items: flex-start;
+        height: 100vh;
+        top:0;
+    }
+    .welcome_page_main{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .welcome_left{
+        display: none;
+    }
+
+    .welcome_right{
+        width: 100%;
+        height: 100vh;
+        position: relative;
+    }
+    .login-card{
+       width: 80%;
+       height: 90%;
+    }
+    .welcome_page_main .circle{
+        animation: SCALEUP forwards;
+        animation-duration: 3s;
+
+    }
+   @keyframes SCALEUP {
+        0%{
+            transform: scale(1);
+        }
+        100%{
+            transform: scale(8);
+        }
+    }
+    .welcome_page_main .buttons_container{
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .welcome_page_main .buttons_container a{
+        width: 100%;
+    }
+    .msg-container{
+        top:0px;
+        align-items: center;
+    }
+    .msg{
+        width: 90%;
+        margin: auto;
+        border-radius: 0px 0px 50px 50px;
+    }
+    .login-footer button{
+        /* width: 70%; */
+        height: 60%;
+    }
+    .login-body input, .login-body .password_field{
+        width: 90%;
+    }
+}

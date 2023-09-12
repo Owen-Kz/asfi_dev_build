@@ -1,0 +1,45 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Conferencing App</title>
+</head>
+
+<body>
+  <h1>VC - Test Layout</h1>
+  <form id="joinMeeting_form">
+    <label for="roomId">Meeting ID:</label>
+    <input type="text" id="roomId" name="roomId" required autocomplete="off">
+    <label for="passcode">Meeting Pass code</label>
+    <input type="password" id="passcode" name="passcode" autocomplete="off" required>
+
+    
+    <% if(username == "visitor"){ %>
+        <input type="text" name="joinAs" id="joinAs" placeholder="Enter preferred meeting name">
+        <input type="text" name="joinAs_type" id="joinAs_type" value="visitor" hidden readonly>
+    <input type="text" name="joinAs_buffer" id="joinAs_buffer_visitor" readonly hidden>
+
+    <%} else{ %>
+    <input type="text" name="joinAs_firstname" id="joinAs_firstname" value="<%= firstname %>" hidden readonly>
+    <input type="text" name="joinAs_lastname" id="joinAs_lastname"value="<%= lastname %>" hidden readonly>
+    <input type="text" name="joinAs_profile_picture" id="joinAs_profile_picture" value="<%= profile_picture %>" hidden readonly>
+    
+    <input type="text" name="joinAs_buffer" id="joinAs_buffer" value="<%= buffer %>"readonly hidden>
+
+    <input type="text" name="joinAs" id="joinAs" placeholder="Join as: <%=username%>" value="<%=username%>" readonly>
+
+    <input type="text" name="joinAs_type" id="joinAs_type" value="user" hidden readonly>
+    
+
+        <% } %>
+    <button type="submit">Join Room</button>
+  </form>
+</body>
+
+<script src="/js/join-room.js"></script>
+
+</html>
+ 

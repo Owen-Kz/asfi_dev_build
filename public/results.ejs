@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Weperch Technologies Ltd">
+	    <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
+        <link rel="stylesheet" href="/css/general.css">
+        <link rel="stylesheet" href="/css/results.css">
+       
+        
+        <!-- Favicon -->
+	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    
+        <title>{{USERNAME }} | Results</title>
+        <!-- Dark mode -->
+        <script src="/js/colorTheme.js"></script>
+    </head>
+
+<body>
+    
+       <!-- NAVIGATION BAR  -->
+	   <sidebar class="left-navigation-bar bg-shadow ">
+        <%if(accountType == "scholar_account") {%>
+         <script src="/js/scholarNavbar.js"></script>
+         <% } else if(accountType == "user_account"){%>
+             <script src="/js/navbar.js"></script>
+         <%} else if(accountType == "instructor_account") {%>
+             <script src="/js/instructorNavbar.js"></script>
+ 
+             <% } %>
+     </sidebar>
+     <!-- END NAVIGATION BAR  -->
+
+     <!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<button class="stack-bars fa ">
+            </button>
+
+            
+                    <searchBar>
+                        <input type="text" name="searchLibrary" placeholder="Search your results..." id="searchLibrary"/>
+    
+                       <i class="fa fa-search"></i>
+                    </searchBar>
+               
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+    <main class="main_results_body">
+
+        <div class="top_div">
+        <div class="heading_username">
+            <h2 class="name_container">Hi, ...</h2> Here are your result so far.
+        </div>
+        <div class="buttons_container">
+            <i class="fa fa-download button" onclick=download()></i>
+            <i class="fa fa-print button" onclick=print()></i>
+        </div>
+    </div>
+
+
+
+        <div class="result_container bg-shadow bg-white">
+            <!-- START HEADER  -->
+            <div class="results_header bg-purple">
+                <ul class="header_content">
+                    <li class="header_item first">Course Name</li>
+                    <li class="header_item second">Exam Id</li>
+                    <li class="header_item third">Score</li>
+                    <li class="header_item fourth">Grade</li>
+                </ul>
+            </div>
+            <!-- END HEADER  -->
+
+            <!-- start result sheet  -->
+            <div class="result_sheet">
+
+                <div class="results_sheets_container">
+
+                <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                    <li class="first">Computer Science</li>
+                    <li class="second">EXT77a</li>
+                    <li class="third"><b>300</b>/400</li>
+                    <li class="fourth">A</li>
+                    </ul>
+                <!-- END Each Item in the reult sheet  -->
+                <!-- Each Item in the reult sheet  -->
+                <ul class="result_sheet_contents">
+                    <li class="first">Computer Science</li>
+                    <li class="second">EXT77a</li>
+                    <li class="third"><b>300</b>/400</li>
+                    <li class="fourth">A</li>
+                    </ul>
+                <!-- END Each Item in the reult sheet  -->
+                                <!-- Each Item in the reult sheet  -->
+                                <ul class="result_sheet_contents">
+                                    <li class="first">Computer Science</li>
+                                    <li class="second">EXT77a</li>
+                                    <li class="third"><b>300</b>/400</li>
+                                    <li class="fourth">A</li>
+                                    </ul>
+                                <!-- END Each Item in the reult sheet  -->
+                                                <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                        <li class="first">Computer Science</li>
+                        <li class="second">EXT77a</li>
+                        <li class="third"><b>300</b>/400</li>
+                        <li class="fourth">A</li>
+                        </ul>
+                    <!-- END Each Item in the reult sheet  -->
+                                    <!-- Each Item in the reult sheet  -->
+                                    <ul class="result_sheet_contents">
+                                        <li class="first">Computer Science</li>
+                                        <li class="second">EXT77a</li>
+                                        <li class="third"><b>300</b>/400</li>
+                                        <li class="fourth">A</li>
+                                        </ul>
+                                    <!-- END Each Item in the reult sheet  -->
+                                                    <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                        <li class="first">Computer Science</li>
+                        <li class="second">EXT77a</li>
+                        <li class="third"><b>300</b>/400</li>
+                        <li class="fourth">A</li>
+                        </ul>
+                    <!-- END Each Item in the reult sheet  -->
+                                    <!-- Each Item in the reult sheet  -->
+                                    <ul class="result_sheet_contents">
+                                        <li class="first">Computer Science</li>
+                                        <li class="second">EXT77a</li>
+                                        <li class="third"><b>300</b>/400</li>
+                                        <li class="fourth">A</li>
+                                        </ul>
+                                    <!-- END Each Item in the reult sheet  -->
+                                                    <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                        <li class="first">Computer Science</li>
+                        <li class="second">EXT77a</li>
+                        <li class="third"><b>300</b>/400</li>
+                        <li class="fourth">A</li>
+                        </ul>
+                    <!-- END Each Item in the reult sheet  -->
+                                    <!-- Each Item in the reult sheet  -->
+                                    <ul class="result_sheet_contents">
+                                        <li class="first">Computer Science</li>
+                                        <li class="second">EXT77a</li>
+                                        <li class="third"><b>300</b>/400</li>
+                                        <li class="fourth">A</li>
+                                        </ul>
+                                    <!-- END Each Item in the reult sheet  -->
+                                                    <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                        <li class="first">Computer Science</li>
+                        <li class="second">EXT77a</li>
+                        <li class="third"><b>300</b>/400</li>
+                        <li class="fourth">A</li>
+                        </ul>
+                    <!-- END Each Item in the reult sheet  -->
+                                    <!-- Each Item in the reult sheet  -->
+                                    <ul class="result_sheet_contents">
+                                        <li class="first">Computer Science</li>
+                                        <li class="second">EXT77a</li>
+                                        <li class="third"><b>300</b>/400</li>
+                                        <li class="fourth">A</li>
+                                        </ul>
+                                    <!-- END Each Item in the reult sheet  -->
+                                                    <!-- Each Item in the reult sheet  -->
+                    <ul class="result_sheet_contents">
+                        <li class="first">Computer Science</li>
+                        <li class="second">EXT77a</li>
+                        <li class="third"><b>300</b>/400</li>
+                        <li class="fourth">A</li>
+                        </ul>
+                    <!-- END Each Item in the reult sheet  -->
+                 </div>
+            
+
+            </div>
+            <!-- end_result_sheet  -->
+        </div>
+    
+<br>
+        
+    </main>
+
+   <!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+            <!-- Widget -->
+            <div><script src="/js/footer.js"></script></div>
+			<!-- Widget -->
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+<script src="/js/updateAccountData.js"></script>
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>

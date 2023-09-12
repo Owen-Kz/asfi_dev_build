@@ -1,0 +1,106 @@
+<!-- Book Upload Modal Start -->
+<div id="BookUploadModal" class="modal">
+
+    <!-- Modal content 1-->
+    <div class="modal-content">
+        <div class="close_btn">
+            <span class="bkclose">&times;</span>
+        </div>
+        <div class="bx_content">
+            <h5 class="header_p"><i class="fa fa-book"></i> Upload Publication/Book</h5><br><br>
+             <!-- Step 2 content START -->
+	
+							<div class="upload_container">
+                                <form class="book_upload" enctype="multipart/form-data" id="book" action="/uploadBook" method="post">
+									<div class="radioContainer">
+									<input type="radio" id="HasBook" name="radioGroup" value="option1" checked>
+									<label for="radioButton1">Upload a pdf document</label>
+									
+									<input type="radio" id="HasLink" name="radioGroup" value="option2">
+									<label for="radioButton2" >Share a Link instead</label>
+								</div>
+								<input type="text" class="form-control" name="podcastOwner_fullname" id="podcastOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner">
+								<input type="hidden" value="<%=Username%>" name="podcastOwner" id="podcastOwner" >
+
+									<!-- Upload image START -->
+									<div class="left_uploadBook">
+									    <div class="text-center justify-content-center align-items-center border border-2 border-dashed rounded-3" id="HasBook_Header">
+											
+											<img src="files/images/gallery.svg" class="h-50px" alt="">
+											<div>
+												<h6 class="my-2">Upload book image here</h6>
+												
+													<span> 
+													<!-- <input class="form-control image_upload_file" type="file" name="image_upload" accept="image/jpg, image/jpeg, image/png"/> -->
+
+													</span>
+													<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Our suggested dimensions are 600px * 450px. Larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
+											</div>	
+										</div>
+
+										<!-- Button -->
+										<div class="d-sm-flex justify-content-end mt-2">
+											<button type="button" class="btn btn-sm btn-danger-soft mb-3" id="removeImage">Remove image</button>
+										</div>
+									</div>
+									<!-- Upload image END -->
+
+									<!-- Upload publication START -->
+									<div class="col-12 left_uploadPublication" id="HasLink_Body">
+										<!-- Input -->
+										<div class="col-12 mt-4 mb-5" id="HasLink_main">
+											<label class="form-label">Publication URL/External Link (if you have any)</label>
+											<input type="url" class="form-control" type="text" placeholder="Enter Publication url" name="url_Link"id="url_Link">
+										</div>
+										<!-- <div class="position-relative my-4">
+											<hr>
+											<p class="small position-absolute top-50 start-50 translate-middle bg-body px-3 mb-0">&</p>
+										</div> -->
+										<div class="col-12" id="HasBook_Main">
+											<label class="form-label">Upload Book</label>
+                                            <div class="input-group mb-3">
+                                               <input type="text" class="form-control" placeholder="Book Title" name="booksTitle" id="booksTitle" value="">
+                                            </div>
+											<div class="input-group mb-3">
+												<input type="file" class="form-control" accept=".pdf" name="file_pdf" id="file_pdf" required>
+												<label class="input-group-text">.pdf</label>
+											</div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" maxlength="9" minlength="4" name="yearPublished" placeholder="Year Published" id="yearPublished" required value="">
+                                             </div>
+                                                <input type="text" class="form-control" name="buffer" id="buffer" value="" readonly required hidden><br>
+                                                <div class="input-group mb-3">
+                                                    <input type="hidden" name="booksOwner" id="booksOwner" readonly value="">
+                                                </div>
+                                           
+								
+                                            
+                                           <button type="submit" class="submitBookM" hidden>Upload</button>
+										</div>
+
+                                    </div>
+                                </form>
+										<!-- Preview -->
+                                    <div class="book_preview" id="imagePreview">
+                                    
+										<h5 class="mt-4 PreviewText" id="previewText">Book preview</h5>
+									    <div class="" >
+											<!-- Image -->
+											<img src="" class="rounded-4 Preview_image" alt="" id="containerImage">
+								
+										</div>
+                                    </div>
+							</div>
+									<!-- Book Upload END -->
+							<!-- Step 2 content END -->
+                    <span class="submitBook" id="submitBook">Upload</span>
+        </div>
+    </div>
+</div>
+<!-- Book Upload Modal END -->
+
+<!-- <script>
+	function modalDisappear(){
+	alert("CLOSEMODAL")
+	}
+</script> -->

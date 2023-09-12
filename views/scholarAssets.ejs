@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/scholarAssets.css">
+    <link rel="stylesheet" href="/css/general.css">
+   
+    
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+
+    <link rel="stylesheet" href="/css/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+
+    <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+    <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+    <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+
+    <title><%= UserName %> | Profile Page</title>
+     <!-- Dark mode -->
+	 <script src="/js/colorTheme.js"></script>
+</head>
+
+<body>
+	<%- include ("bookUploadModal") %>
+	<%- include ("podcastUploadModal") %>
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar bg-shadow ">
+        <%if(accountType == "scholar_account") {%>
+         <script src="/js/scholarNavbar.js"></script>
+         <% } else if(accountType == "user_account"){%>
+             <script src="/js/navbar.js"></script>
+         <%} else if(accountType == "instructor_account") {%>
+             <script src="/js/instructorNavbar.js"></script>
+ 
+             <% } %>
+     </sidebar>
+     <!-- END NAVIGATION BAR  -->
+
+<!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<button class="stack-bars fa ">
+            </button>
+
+
+
+			<!-- Profile START -->
+			<div class="dropdown ms-1 ms-lg-0">
+                
+                
+                <personal_info>
+                    <account_name><%= FirstName %> <%= LastName %></account_name>
+                </personal_info>
+
+                
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+					<% if(ProfileImage == "avatar.jpg"){ %>
+						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+						<% } else { %>
+
+						<img class="avatar-img rounded-circle border border-white border-3 shadow"
+						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+						<% }%>
+					
+				</a>
+                
+                
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<% if(ProfileImage == "avatar.jpg"){ %>
+									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+									<% } else { %>
+	
+									<img class="avatar-img rounded-circle border border-white border-3 shadow"
+									src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+									<% }%>
+							</div>
+							<div>
+								<a class="h6" href="/dashboard">@<%= UserName %></a>
+								<p class="small m-0"><%= Email %></p>
+							</div>
+						</div>
+					</li>
+                    
+          <li> <hr class="dropdown-divider"></li>
+					<!-- Links -->
+					<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item" href="/settings"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+					<li><a class="dropdown-item" href="/contactUs"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href=""><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li> <hr class="dropdown-divider"></li>
+					<!-- Dark mode options START -->
+					<li>
+						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+									<use href="#"></use>
+								</svg> Light
+							</button>
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+									<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+									<use href="#"></use>
+								</svg> Dark
+							</button>
+							<button type="button" class="btn btn-sm mb-0 active" data-bs-theme-value="auto">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+									<use href="#"></use>
+								</svg> Auto
+							</button>
+						</div>
+					</li> 
+					<!-- Dark mode options END-->
+				</ul>
+			</div>
+			<!-- Profile START -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main class="scholar_main">
+	
+<!-- =======================
+Page Banner START -->
+<section class="pt-0">
+	
+	<div class="container mt-n4">
+		<div class="row">
+			<!-- Profile banner START -->
+			<div class="col-12 scholarProfile_container">
+				<div class="card bg-transparent card-body p-0">
+					<div class="row d-flex justify-content-between">
+						<!-- Avatar -->
+						<div class="col-auto mt-4 mt-md-0">
+							<div class="avatar avatar-xxl mt-n3">
+                                <% if(ProfileImage == "avatar.jpg"){ %>
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+                                <% } else { %>
+
+                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+                                <% }%>
+							</div>
+                          
+						</div>
+						<!-- Profile info -->
+						<div class="col d-md-flex justify-content-between align-items-center mt-4">
+							<div>
+								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
+                                <p class="profile-tag">@<%= UserName %></p>
+								<ul class="list-inline mb-0">
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-check-circle text-warning me-2"></i>Verified</li>
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-users text-instagram-gradient"></i><a href="/<%= UserName %>/following"><span class="profile-stat-count"><%= FOLLOWING %></span> Following</a></li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-users text-google-icon"></i><a href="/<%= UserName %>/following"><span class="profile-stat-count"><%= FOLLOWING %></span> Followers</a></li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>0 Books</li>
+								</ul>
+							</div>
+							<!-- Button -->
+                            <div class="dropdown dash_upload">
+                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Assets</span>
+                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
+					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
+                                </ul>
+							</div> 
+						</div>
+					</div>
+				</div>
+				<!-- Profile banner END -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+		<div class="row">
+
+			<!-- Left sidebar START -->
+			<div class="col-xl-3">
+				<!-- Responsive offcanvas body START -->
+				<div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+					<!-- Offcanvas header -->
+					<div class="offcanvas-header bg-light">
+						<h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+						<button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+					</div>
+					<!-- Offcanvas body -->
+					<div class="offcanvas-body p-3 p-xl-0">
+						<div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+							<!-- Dashboard menu -->
+							<div class="list-group list-group-dark list-group-borderless">
+								<a class="list-group-item" href="/dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								<a class="list-group-item active" href=""><i class="bi bi-basket fa-fw me-2"></i>My Assets</a>
+								<a class="list-group-item" href="/settings"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+								<a class="list-group-item" href="/deleteAccount"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+								<a class="list-group-item text-danger bg-danger-soft-hover" href="/login"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Responsive offcanvas body END -->
+			</div>
+			<!-- Left sidebar END -->
+
+			<!-- Main content START -->
+			<div class="col-xl-9">
+				<!-- Card START -->
+				<div class="card border bg-transparent rounded-3">
+					<!-- Card header START -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="mb-0">My Assets</h3>
+					</div>
+					<!-- Card header END -->
+
+					<!-- Card body START -->
+					<div class="card-body">
+
+						<!-- Search and select START -->
+						<div class="row g-3 align-items-center justify-content-between mb-4">
+							<!-- Search -->
+							<div class="col-md-8">
+								<form class="rounded position-relative">
+									<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+									<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+								</form>
+							</div>
+
+							<!-- Select option -->
+							<div class="col-md-3">
+								<!-- Short by filter -->
+								<form>
+									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm">
+										<option value="">Sort by</option>
+										<option>Name</option>
+										<option>Newest</option>
+										<option>Type</option>
+										<option>Most Viewed/Clicked</option>
+									</select>
+								</form>
+							</div>
+						</div>
+						<!-- Search and select END -->
+
+						<!-- Course list table START -->
+						<div class="table-responsive border-0">
+							<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Asset Title</th>
+										<th scope="col" class="border-0">Clicks</th>
+										<th scope="col" class="border-0">Status</th>
+										<th scope="col" class="border-0">Type</th>
+										<th scope="col" class="border-0 rounded-end">Action</th>
+									</tr>
+								</thead>
+
+								<!-- Table body START -->
+								<tbody>
+									<!-- Table item -->
+									<tr>
+										<!-- Course item -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												<div class="w-60px">
+													<img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
+												</div>
+												<div class="mb-0 ms-2">
+													<!-- Title -->
+													<h6><a href="#">Building Scalable APIs with GraphQL</a></h6>
+												</div>
+											</div>
+										</td>
+										<!-- Enrolled item -->
+										<td class="text-center text-sm-start">125</td>
+										<!-- Status item -->
+										<td>
+											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
+										</td>
+										<!-- Assset Type -->
+                                        <td>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary">PDF</span>
+                                        </td>
+										<!-- Action item -->
+										<td>
+											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
+											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+										</td>
+									</tr>
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
+						<!-- Course list table END -->
+
+						<!-- Pagination START -->
+						<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+							<!-- Content -->
+							<p class="mb-0 text-center text-sm-start">Showing...</p>
+							<!-- Pagination -->
+							<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+								<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+									<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Pagination END -->
+					</div>
+					<!-- Card body START -->
+				</div>
+				<!-- Card END -->
+			</div>
+			<!-- Main content END -->
+		</div><!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+            <!-- Widget -->
+            <div><script src="/js/footer.js"></script></div>
+			<!-- Widget -->
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+<script src="/js/scholarControls/uploadBook.js"></script>
+  <script src="/js/scholarControls/uploadPodcast.js"></script>
+<script src="/js/updateAccountData.js"></script>
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/functions.js"></script>
+
+</body>
+</html>
