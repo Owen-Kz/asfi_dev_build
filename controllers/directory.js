@@ -7,9 +7,8 @@ const Directory = (req, res) => {
 if(err) throw err
   if(result[0]){
     const accountType = result[0].acct_type
-    
             res.render("directory.ejs", {
-              root: "./public/directory",
+              root: "./public/Directory",
               status: "logged",
               dataJSON: "[]",
               dataUnfollowed: "[]", // Pass the JSON string to the template
