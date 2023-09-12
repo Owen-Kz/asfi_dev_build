@@ -190,7 +190,6 @@ router.get("/vc", (req,res) => {
 router.get("/vc/:room", LoggedIn, videoConference)
 
 
-
 // DELETE THE ABOVE IF THE BELOW WORKS PERFECTLY 
 router.get("/join-meeting", LoggedIn, render_vc)
 

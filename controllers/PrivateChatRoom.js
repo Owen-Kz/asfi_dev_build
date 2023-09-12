@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const ChatBufferID = [];
 const recentMessagesArray = [];
 
-
+console.log("SERVER SIDE CHAT WORKING")
 const startNewChatSession = () => {
   ChatBufferID.length = 0;
 };
