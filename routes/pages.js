@@ -62,17 +62,17 @@ router.get("/", LoggedIn, (req,res)=>{
         res.redirect("/app")
        }
        else{
-        res.render("home", {status :"no", logger:"Not logged in", user :""})
+        res.render("home.ejs", {status :"no", logger:"Not logged in", user :""})
     }
 })
 
 router.get("/app", LoggedIn, (req, res) => {
    if(req.user){
     username_new = req.user.username
-    res.render("index", {status :"logged", logger:"logged", user : username_new })
+    res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
    }
    else{
-    res.render("index", {status :"no", logger:"Not logged in", user :""})
+    res.render("index.ejs", {status :"no", logger:"Not logged in", user :""})
    }
 })
 
