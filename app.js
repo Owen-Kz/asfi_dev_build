@@ -1,5 +1,7 @@
 const express = require("express");
 const db = require("./routes/db.config");
+const dotenv = require("dotenv").config();
+
 const app =  express();
 const cookie = require("cookie-parser");
 const PORT = process.env.PORT || 2000;
@@ -22,26 +24,20 @@ app.use(express.json());
 // Configure the session store
 const sessionStore = new MySQLStore({
   host: process.env.DATABASE_HOST,
-  port: process.env.PORT,
+  port: '3306',
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
 });
 
-// app.use(
-//   session({
-//     secret: 'mysecret', // Replace with your secret key
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
 
 app.use(session({
-  secret: 'JOndW', // Replace with your own secret key
+  secret: process.env.JWT_SECRET,
   resave: false,
   saveUninitialized: true,
   store: sessionStore,
 }));
+
 app.set("view engine", "ejs");
 
 app.set("views", ["./views", "./public/Tutorials/VideoInterface", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
