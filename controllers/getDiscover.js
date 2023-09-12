@@ -10,8 +10,12 @@ const getDiscover = async (req, res) => {
         //  const followedUSERNAME = userDATA.followingUsername
         // console.log(followedUSERNAME)
         // })
-
-        const followedUsernamesArray = followedUSER_DATA.map((row) => row.followingUsername);
+        let followedUsernamesArray 
+        if(followedUSER_DATA){
+        followedUsernamesArray = followedUSER_DATA.map((row) => row.followingUsername);
+        }else{
+          followedUsernamesArray = []
+        }
 
         
 
