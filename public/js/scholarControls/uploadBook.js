@@ -11,7 +11,7 @@ for (var i = 0; i <= passwordLength; i++) {
 var randomNumber = Math.floor(Math.random() * chars.length);
 bufferID += chars.substring(randomNumber, randomNumber +1);
 }
-BookForm.querySelector("#buffer").value = bufferID 
+BookForm.querySelector("#bufferBook").value = bufferID 
 }
 const FILE_BOOK = BookForm.querySelector("#file_pdf")
 

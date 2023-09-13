@@ -64,7 +64,7 @@ const uploadBook = (req, res) => {
       // Extract the relevant data from req.body
       const { booksTitle, podcastOwner, buffer, podcastOwner_fullname, yearPublished, url_Link} = req.body;
       // console.log(req.body)
-      console.log(req.file)
+      // console.log(req.file)
 
       if (booksTitle && podcastOwner && yearPublished) {
         const currentDate = new Date();
@@ -148,10 +148,10 @@ const uploadBook = (req, res) => {
       })
       } if(url_Link){
         console.log(req.body)
-        const owner = req.body.podcastOwner
-        const OwnerFullname = req.body.podcastOwner_fullname
+        const owner = req.body.BookOwner
+        const OwnerFullname = req.body.BookOwner_fullname
         const mainLink = req.body.url_Link
-        const bufferLink = req.body.buffer
+        const bufferLink = req.body.bufferBook
   
         db.query("SELECT * FROM external_links WHERE link_href =? AND link_owner =?", [mainLink, owner] ,async(err,linkExists)=>{
           if(err) throw err

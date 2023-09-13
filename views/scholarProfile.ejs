@@ -327,9 +327,9 @@ Page content START -->
 						
                             <div class="col-md-6 gender_settings">
                                 <label class="form-label" name="gender">Gender</label>
-                                <span><input class="" type="radio" name="gender" id="gender">Male</span>
-                                <span><input class="" type="radio" name="gender" id="gender">Female</span>
-                                <span><input class="" type="radio" name="gender" id="gender">Prefer not to say</span>
+                                <span><input class="" type="radio" name="gender" id="gender1" value="Male">Male</span>
+                                <span><input class="" type="radio" name="gender" id="gender2" value="Female">Female</span>
+                                <span><input class="" type="radio" name="gender" id="gender3" value="Other">Prefer not to say</span>
                             </div>
 
 							<!-- Phone number -->
@@ -586,11 +586,11 @@ Page content START -->
 					<!-- EMail change end -->
 
 					<!-- Password change START -->
-					<form class="col-lg-6" id="form4">
+					<form class="col-lg-6" id="form4" >
+						<input type="text" id="username_p" name="username" value="<%= UserName %>" hidden readonly>
 						<div class="card border bg-transparent rounded-3">
 							<!-- Card header -->
 							<div id="warningDiv" style="color:red"></div>
-
 							<div class="card-header bg-transparent border-bottom edit">
 								<h5 class="card-header-title mb-0">Update password</h5>
 								<span class="edit-button" id="password-edit">Edit</span>
@@ -600,13 +600,13 @@ Page content START -->
 								<!-- Current password -->
 								<div class="mb-3">
 									<label class="form-label">Current password</label>
-									<input class="form-control" type="password" placeholder="Enter current password">
+									<input class="form-control" type="password" id="currentPassword" placeholder="Enter current password" required>
 								</div>
 								<!-- New password -->
 								<div class="mb-3">
 									<label class="form-label"> Enter new password</label>
 									<div class="input-group">
-										<input class="form-control" type="password" placeholder="Enter new password">
+										<input class="form-control" type="password" id="password_1"placeholder="Enter new password" required>
 										<span class="input-group-text p-0 bg-transparent">
 											<i class="far fa-eye cursor-pointer p-2 w-40px"></i>
 										</span>
@@ -616,11 +616,12 @@ Page content START -->
 								<!-- Confirm password -->
 								<div>
 									<label class="form-label">Confirm new password</label>
-									<input class="form-control" type="password" placeholder="Enter new password">
+									<input class="form-control" type="password" id="NewPassword" name="NewPassword" placeholder="Enter new password" required>
 								</div>
 								<!-- Button -->
 								<div class="d-flex justify-content-end mt-4">
-									<button type="button" class="btn btn-primary mb-0">Change password</button>
+									<button type="submit" id="submitMain" hidden></button>
+									<button type="button" class="btn btn-primary mb-0" id="submitPassword" disabled>Change password</button>
 								</div>
 							</div>
 							<!-- Card body END -->

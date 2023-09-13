@@ -849,7 +849,7 @@ padding: 6px;
   }
 
 /* Media query for mobile screens */
-@media (max-width: 767px) {
+@media screen and (max-width: 767px), (max-width: 1080px) {
     /* Your styles for mobile screens go here */
     .spaces_container {
         position: absolute;
@@ -868,5 +868,31 @@ padding: 6px;
     .main_directory{
         padding-left: 0;
         padding-right: 0;
+        align-items: center;
+    }
+    .spaces_container{
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 40px;
+        width: 100%;
+        margin: auto;
+    }
+    .spaces_main {
+        padding: 3%;
+    }
+    
+  }
+  @media screen and (max-width: 640px), (max-width: 1026px)  {
+    .space {
+        margin: auto;
+    }
+  }
+  @media (max-width: 640px) {
+    .space{
+        width: 45%;
     }
   }

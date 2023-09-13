@@ -19,8 +19,8 @@
 									<input type="radio" id="HasLink" name="radioGroup" value="option2">
 									<label for="radioButton2" >Share a Link instead</label>
 								</div>
-								<input type="text" class="form-control" name="podcastOwner_fullname" id="podcastOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner">
-								<input type="hidden" value="<%=Username%>" name="podcastOwner" id="podcastOwner" >
+								<input type="text" class="form-control" name="BookOwner_fullname" id="BookOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner">
+								<input type="hidden" value="<%=Username%>" name="BookOwner" id="BookOwner" >
 
 									<!-- Upload image START -->
 									<div class="left_uploadBook">
@@ -68,7 +68,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" maxlength="9" minlength="4" name="yearPublished" placeholder="Year Published" id="yearPublished" required value="">
                                              </div>
-                                                <input type="text" class="form-control" name="buffer" id="buffer" value="" readonly required hidden><br>
+                                                <input type="text" class="form-control" name="bufferBook" id="bufferBook" value="" readonly required hidden><br>
                                                 <div class="input-group mb-3">
                                                     <input type="hidden" name="booksOwner" id="booksOwner" readonly value="">
                                                 </div>

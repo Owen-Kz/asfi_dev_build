@@ -52,6 +52,9 @@ const AllCategories = require("../controllers/InstructorControls/allCategories")
 const instructorCourses = require("../controllers/InstructorControls/instructorCourses");
 const NewNotifications = require("../controllers/SearchResults/newNotifications");
 const SpacesChat = require("../controllers/spacesChat");
+const becomeScholarPage = require("../controllers/becomeScholar");
+const createScholar = require("../controllers/scholarContols/createScholar");
+const createSpaces = require("../controllers/createSpaces");
 
 const router = express.Router();
 router.use(express.json())
@@ -137,6 +140,9 @@ router.get("/directorySpaces", LoggedIn, getSpaces)
 
 // GET THE SPACES INTERFACE
 router.get("/spaces/:SpaceId", LoggedIn, SpacesChat)
+
+// Create New spaces 
+router.post("/createSpaces", LoggedIn, createSpaces)
 
 
 // GET the accounts a user follows
@@ -233,7 +239,7 @@ router.get("/register", (req, res) => {
 // SEND REULTS TO THE USER
 router.get("/myresults", (req, res) =>{
     res.render("results.ejs", { 
-    UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"})
+    UserName: "TestUsername", accountType:"user_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"})
 }) 
 
 // RESET USER PASSWORD 
@@ -289,11 +295,8 @@ router.get("/becomeInstructor", (req,res) =>{
 
 // router.post("/create/newInstructor", createInstructor)
 
-router.get("/becomeScholar", (req,res) =>{
-    res.render("becomeScholar", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
-    })
-})
+router.get("/becomeScholar",LoggedIn, becomeScholarPage)
+router.post("/becomeScholar", createScholar)
 
 router.get("/contactUs", (req,res) =>{
     res.render("contactUs", {

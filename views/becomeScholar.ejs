@@ -36,8 +36,7 @@
              <script src="/js/navbar.js"></script>
          <%} else if(accountType == "instructor_account") {%>
              <script src="/js/instructorNavbar.js"></script>
- 
-             <% } %>
+        <% } %>
      </sidebar>
      <!-- END NAVIGATION BAR  -->
 
@@ -79,26 +78,31 @@ Form and Tabs START -->
 					<!-- Title -->
 					<h3>Tell us a bit more about yourself !</h3>
 					<!-- Form START -->
-					<form class="row g-3 mt-2 position-relative z-index-9">
+					<form class="row g-3 mt-2 position-relative z-index-9" id="becomeScholarForm">
 						<!-- Name -->
+						<input type="hidden" value="<%=UserName%>" id="scholar_username">
 						<div class="col-lg-12">
 							<label class="form-label">Academic Institution *</label>
-							<input type="text" class="form-control" aria-label="First name" required>
+							<input type="text" class="form-control" aria-label="Academic institution" id="academic_institution" required>
 						</div>
-						<!-- Email -->
+
+					    <!-- Diploma -->
 						<div class="col-lg-12">
-							<label class="form-label">Diploma *</label>
-							<input type="email" class="form-control" required>
+							<label class="form-label">Degree *</label>
+							<input type="text" class="form-control" id="degree" placeholder="Enter Degree/Diploma" required>
+							<input type="text" class="form-control" id="degree_subtext" placeholder= "Institution description..." required>
 						</div>
-						<!-- Number -->
+						<!-- Diploma -->
 						<div class="col-lg-12">
 							<label class="form-label">Area of Study/Interest *</label>
-							<input type="text" class="form-control" required>
+							<input type="text" class="form-control" id="area_of_interest" required maxlength="120">
 						</div>
+						<!-- Education -->
+
 						<!-- Textarea -->
 						<div class="col-12">
 							<label class="form-label">Briefly tell us about you *</label>
-							<textarea class="form-control" rows="3" spellcheck="false" required></textarea>
+							<textarea class="form-control" rows="3" spellcheck="false" id="bio" required></textarea>
 						</div>
 						<!-- Button -->
 						<div class="col-12">
@@ -183,7 +187,7 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script src="/js/updateAccountData.js"></script>
+<script src="/js/scholarControls/becomeScholar.js"></script>
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
