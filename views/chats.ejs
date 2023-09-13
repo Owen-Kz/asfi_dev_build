@@ -3,6 +3,7 @@
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
   integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
   crossorigin="anonymous" />
@@ -10,6 +11,7 @@
 <link rel="stylesheet" href="/css/privateChat.css" />
 <title><%= receiverFirstName%> <%= receiverLastname%> | Chat
 </title>
+</head>
 
 <input type="text" id="senderImage_" value="<%= senderImage %>" readonly hidden>
 <input type="text" id="receiverImage_" value="<%=receiverImage%>" readonly hidden>
@@ -19,7 +21,6 @@
 <input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
 <input type="text" id="chatID" value="<%=ChatBufferID%>" readonly hidden>
 <input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
-
 <body>
   <!-- partial:index.partial.html -->
   <div class="app-container">
@@ -152,7 +153,7 @@
       <!-- partial -->
       <script src="/js/jquery-3.4.2.min.js"></script>
 
-      <!-- <script src="/socket.io/socket.io.js"></script> -->
+      <script src="/socket.io/socket.io.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
         integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
         crossorigin="anonymous"></script>
@@ -160,7 +161,7 @@
 
 
 
-      <!-- <script src="/js/privateChatMain.js"></script> -->
+      <script src="/js/privateChatMain.js"></script>
 </body>
 
 </html>
