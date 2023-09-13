@@ -241,12 +241,13 @@ router.get("/passwordReset", (req, res) =>{
     // res.sendFile("forgotPassword.html", {root: "./public"})
     res.render("forgotPassword")
 })
+router.post("/api/forgot-password", forgotPassword)
 
 router.get("/EmailConfirmation",(req,res)=>{
     const emailData = req.session.emailData || {}
     // console.log(req.session)
     if(emailData){
-        res.render("confirmCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
+        res.render("confirmCode.ejs", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
     }else{
         // res.render("confrimCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
         res.redirect("/passwordReset")
@@ -301,9 +302,7 @@ router.get("/contactUs", (req,res) =>{
 })
 
 router.get("/forgotpassword", (req,res) =>{
-    res.render("forgotpassword", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
-    })
+   res.redirect("passwordReset")
 })
 
 router.get("/confirmCode", (req,res) =>{
