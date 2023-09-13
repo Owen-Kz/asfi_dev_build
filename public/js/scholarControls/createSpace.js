@@ -75,6 +75,7 @@ space.addEventListener("submit", (e)=>{
   }
   fetch("/createSpaces", {
     method:"POST",
+    body: JSON.stringify(NewSpaceData),
     headers:{
       "Content-type" : "application/JSON"
     }
