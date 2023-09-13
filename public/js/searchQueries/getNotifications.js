@@ -5,14 +5,12 @@ const usernameContainer = document.getElementById("usernameContainer").value
 
 
 
-fetch(`/${usernameContainer}getNewChatNotifications`, ()=>{
+fetch("/getNewChatNotifications", ()=>{
     method:"GET"
 })
 .then(res => res.json())
 .then(data =>{
     if(JSON.parse(data.NotificationData).length > 0){
-        
-      
         const NotificationArray = JSON.parse(data.NotificationData)
 
         NotificationArray.forEach(Notification => {
