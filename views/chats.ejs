@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="en">
-<head>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
   integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
   crossorigin="anonymous" />
@@ -11,16 +11,16 @@
 <link rel="stylesheet" href="/css/privateChat.css" />
 <title><%= receiverFirstName%> <%= receiverLastname%> | Chat
 </title>
-</head>
 
 <input type="text" id="senderImage_" value="<%= senderImage %>" readonly hidden>
 <input type="text" id="receiverImage_" value="<%=receiverImage%>" readonly hidden>
 <input type="text" value="<%= receiverFirstName%> <%= receiverLastname%>" id="recipientFullname" hidden>
 <input type="text" value="<%= senderFirstname %> <%= senderLastname %>" id="senderFulname" hidden>
 
-<input type="text" id="chatHistory" value="[]" readonly hidden>
-<input type="text" id="chatID" value="[]" readonly hidden>
-<input type="text" id="recent_message_recipient" value="[]" readonly hidden>
+<input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
+<input type="text" id="chatID" value="<%=ChatBufferID%>" readonly hidden>
+<input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
+
 <body>
   <!-- partial:index.partial.html -->
   <div class="app-container">
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <%- include ("chatThemeControls.ejs") %>
+    <%- include ("chatThemeControls") %>
 
       <!-- partial -->
       <script src="/js/jquery-3.4.2.min.js"></script>
