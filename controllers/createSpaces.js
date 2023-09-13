@@ -34,9 +34,7 @@ const createSpaces = async (req, res) =>{
     //   return res.status(500).send(err);
     // }
     const {spaceTitle, shortDescription, Buffer} = req.body
-
-
-
+if(req.body){
     db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
         if(err) throw err
         if(spaceData[0]){
@@ -52,6 +50,11 @@ const createSpaces = async (req, res) =>{
     })
 
 //   });
+}else{
+    res.json({ message: "An Error Occured" });
+
+}
 };
+
 
 module.exports = createSpaces;
