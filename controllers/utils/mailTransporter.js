@@ -1,19 +1,19 @@
 const nodemailer = require("nodemailer")
 // Create a transporter for sending emails
-// const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: 'ejikemestella74@gmail.com',
-//       pass: 'OmoleyeStella..',
-//     },
-//   });
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ejikemestella74@gmail.com',
+      pass: 'OmoleyeStella..',
+    },
+  });
  
 // Local SMTP server
-const transporter = nodemailer.createTransport({
-    host: 'localhost',
-    port: 1025,
-    ignoreTLS: true,
-  });
+// const transporter = nodemailer.createTransport({
+//     host: 'localhost',
+//     port: 1025,
+//     ignoreTLS: true,
+//   });
  
 
 //   online smpty host 
