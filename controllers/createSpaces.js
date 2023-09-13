@@ -34,6 +34,7 @@ const createSpaces = async (req, res) =>{
     //   return res.status(500).send(err);
     // }
     const {spaceTitle, shortDescription, Buffer} = req.body
+    console.log("REQUESTBODY: "+req.body)
 if(req.body){
     db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
         if(err) throw err
