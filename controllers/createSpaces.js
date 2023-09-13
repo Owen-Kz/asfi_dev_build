@@ -29,15 +29,13 @@ const thumbnailUpload = multer({ storage: thumbnailStorage }).single("thumbnail"
 
 const createSpaces = async (req, res) =>{
   // Use the thumbnailUpload middleware first
-  thumbnailUpload(req, res, function (err) {
+//   thumbnailUpload(req, res, function (err) {
     if (err) {
       return res.status(500).send(err);
     }
     const {spaceTitle, shortDescription, Buffer} = req.body
 
-    // Now you can access req.body and req.file
-    console.log(req.body);
-    console.log(req.files);
+
 
     db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
         if(err) throw err
@@ -53,7 +51,7 @@ const createSpaces = async (req, res) =>{
         }
     })
 
-  });
+//   });
 };
 
 module.exports = createSpaces;
