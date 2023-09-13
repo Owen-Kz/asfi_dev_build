@@ -5,7 +5,7 @@ const usernameContainer = document.getElementById("usernameContainer").value
 
 
 
-fetch(`/${usernameContainer}/getNewChatNotifications`, ()=>{
+fetch(`/${usernameContainer}getNewChatNotifications`, ()=>{
     method:"GET"
 })
 .then(res => res.json())
