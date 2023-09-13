@@ -196,10 +196,10 @@ router.get("/join-meeting", LoggedIn, render_vc)
 router.get("/meetings/m/:roomId/u/:userId", render_main_room)
  
 // Render Private chat room 
-// router.get("/@:username/chat", LoggedIn, PrivateChatRoom)
-router.get("/@:username/chat", (req,res) =>{
-    res.json({message:"You tried to chat"})
-})
+router.get("/@:username/chat", LoggedIn, PrivateChatRoom)
+// router.get("/@:username/chat", (req,res) =>{
+//     res.json({message:"You tried to chat"})
+// })
 
 
 //GET THE MAIN TUTORIAL VIDEO INTERFACE
