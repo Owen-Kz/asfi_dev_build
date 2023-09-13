@@ -2,9 +2,7 @@
 
 const  Notification_id_container = document.getElementById("Notification_id_container")
 const usernameContainer = document.getElementById("usernameContainer").value
-
-
-
+console.log("Notifications")
 fetch("/getNewChatNotifications", ()=>{
     method:"GET"
 })

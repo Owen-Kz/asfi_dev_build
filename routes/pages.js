@@ -88,6 +88,7 @@ router.get("/app", (req, res) => {
 router.get("/dashboard", LoggedIn, dashboard)
 // GET NOTIFICATIONS 
 router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
+
 // GET THE LIBRARY
 router.get("/library", LoggedIn, library)
 
