@@ -22,7 +22,6 @@ let displayedMessages = 0; // Number of messages currently displayed
 const messagesPerLoad = 10; // Number of messages to load per scroll
 chatHistory.reverse();
 // console.log(chatHistory)
-const messageTone = new Audio('/userUploads/Audio/message-tone.mp3')
 const newMessages = []; // Array to store new message elements
 
   // Get the IDs of messages already displayed
