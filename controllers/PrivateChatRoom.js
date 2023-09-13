@@ -24,7 +24,7 @@ const PrivateChatRoom = async (req, res)=> {
 
       // const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
 
-      res.render("error.ejs", {
+      res.render("chats.ejs", {
       
         status: "loggedIn",
         recipient: "recipientUsername",

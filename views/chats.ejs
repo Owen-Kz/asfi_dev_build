@@ -18,9 +18,9 @@
 <input type="text" value="<%= receiverFirstName%> <%= receiverLastname%>" id="recipientFullname" hidden>
 <input type="text" value="<%= senderFirstname %> <%= senderLastname %>" id="senderFulname" hidden>
 
-<input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
-<input type="text" id="chatID" value="<%=ChatBufferID%>" readonly hidden>
-<input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
+<input type="text" id="chatHistory" value="[]" readonly hidden>
+<input type="text" id="chatID" value="[]" readonly hidden>
+<input type="text" id="recent_message_recipient" value="[]" readonly hidden>
 <body>
   <!-- partial:index.partial.html -->
   <div class="app-container">
