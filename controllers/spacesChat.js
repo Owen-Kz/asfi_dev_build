@@ -1,10 +1,9 @@
 const db = require("../routes/db.config");
 
 const SpacesChat = async (req,res) =>{
-    const SpaceId = req.params.SpaceId
+    const SpaceId = req.params.spaceid
     const username = req.user.username
-
-
+    if(SpaceId){
     db.query("SELECT * FROM user_info WHERE username =?", [username], async (err, data) =>{
         if(err) throw err
         if(data[0]){
@@ -29,6 +28,9 @@ const SpacesChat = async (req,res) =>{
             })
         }
     })
+}else{
+    res.render("error", {status:"Uncaught Exception"})
+}
   
 
 }

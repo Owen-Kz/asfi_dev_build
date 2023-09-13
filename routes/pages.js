@@ -87,7 +87,7 @@ router.get("/app", (req, res) => {
 // GET THE DASHBOARD PAGE 
 router.get("/dashboard", LoggedIn, dashboard)
 // GET NOTIFICATIONS 
-router.get("/:username/getNewChatNotifications", LoggedIn, NewNotifications)
+router.get("/:username/getNewChatNotifications", NewNotifications)
 // GET THE LIBRARY
 router.get("/library", LoggedIn, library)
 
@@ -139,7 +139,7 @@ router.get("/directory", LoggedIn, Directory)
 router.get("/directorySpaces", LoggedIn, getSpaces)
 
 // GET THE SPACES INTERFACE
-router.get("/spaces/:SpaceId", LoggedIn, SpacesChat)
+router.get("/spaces/:spaceid", LoggedIn, SpacesChat)
 
 // Create New spaces 
 router.post("/createSpaces", LoggedIn, createSpaces)
