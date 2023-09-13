@@ -65,6 +65,7 @@ main{
     align-items: center;
     /* margin-left: 10px; */
     justify-content: space-between;
+    
 }
 
 .account_header span{
@@ -856,5 +857,16 @@ padding: 6px;
         height: 100vh;
         margin-left: -12%;
         background-color: white;
+    }
+    
+    .accounts_container .account_header{
+        width: 100%;
+    }
+    .accounts_container .account_header span{
+        margin: auto;
+    }
+    .main_directory{
+        padding-left: 0;
+        padding-right: 0;
     }
   }
