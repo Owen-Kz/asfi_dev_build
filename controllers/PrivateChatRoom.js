@@ -1,11 +1,13 @@
+console.log("SERVER SIDE CHAT WORKING")
+
+
 const db = require("../routes/db.config");
 const bcrypt = require("bcryptjs");
 const ChatBufferID = [];
 const recentMessagesArray = [];
 
-console.log("SERVER SIDE CHAT WORKING")
 
-const PrivateChatRoom = async (req, res) => {
+const PrivateChatRoom = async (req, res)=> {
   // if (req.user) {
 
     const senderUsername = "req.user.usernam";
@@ -22,7 +24,8 @@ const PrivateChatRoom = async (req, res) => {
 
       // const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
 
-      res.render("chats.ejs", {
+      res.render("error.ejs", {
+      
         status: "loggedIn",
         recipient: "recipientUsername",
         sender: "senderUsername",
