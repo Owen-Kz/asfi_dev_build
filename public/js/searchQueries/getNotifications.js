@@ -1,8 +1,7 @@
-
+console.log("Notifications")
 
 const  Notification_id_container = document.getElementById("Notification_id_container")
 // const usernameContainer = document.getElementById("usernameContainer").value
-console.log("Notifications")
 fetch("/getNewChatNotifications", ()=>{
     method:"GET"
 })
@@ -13,7 +12,7 @@ fetch("/getNewChatNotifications", ()=>{
 
         NotificationArray.forEach(Notification => {
             let Sender
-            
+
             const User_one= Notification.user_one
             const UserTwo = Notification.user_two
 
@@ -22,12 +21,10 @@ fetch("/getNewChatNotifications", ()=>{
             }else{
                 Sender = User_one
             }
-
-
-            Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">New Message From ${Sender}</a></li>`
+            Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">New Message From ${Sender}</a></li>`;
         });
     }else{
-        Notification_id_container.innerHTML +=`<li>No new Messages to display</li>`
+        Notification_id_container.innerHTML +=`<li>No new Messages to display</li>`;
 
     }
 
