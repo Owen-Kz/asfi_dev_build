@@ -67,7 +67,7 @@ HasLink.addEventListener("change", function() {
 // GET LINK DATA 
 
 function DoLink(){
-    console.log("aafafkLINK")
+    // console.log("aafafkLINK")
     HasBook_Header.setAttribute("style", "display:none;")
     HasBook_Main.setAttribute("style", "display:none")
     removeImage.setAttribute("style", "display:none")
@@ -86,7 +86,7 @@ function DoLink(){
 }
 // GET BOOK FORM DATA 
 function DoBook(){
-    console.log("ACTIVE BOOK")
+    // console.log("ACTIVE BOOK")
     HasBook_Header.removeAttribute("style", "display:none;")
     HasBook_Main.removeAttribute("style", "display:none")
     removeImage.setAttribute("style", "display:none")
@@ -103,7 +103,7 @@ $("#submitBook").on("click", function(){
     if(HasBook.checked){
 
     if(FILE_BOOK.files[0]){
-        console.log("FILE_RE")
+        // console.log("FILE_RE")
     const FILE_SIZE = FILE_BOOK.files[0].size
     const FILE_TYPE = FILE_BOOK.files[0].type
 
@@ -119,10 +119,10 @@ $("#submitBook").on("click", function(){
         ERRORS_ARRAY.push("NOT_VALID_PDF")
     }
     if(FILE_SIZE < 1000000000 && (FILE_TYPE == "application/pdf") && yearPublished.value != ""){
-        console.log("afaf")
+        // console.log("afaf")
         ERRORS_ARRAY.pop("NOT_PDF", "PDF_TOO_LARGE" && yearPublished.value != "")
         SUCCESS.push("PDF_FILE_IS_VALID")
-       console.log("ERRORS_ARRAY")
+    //    console.log("ERRORS_ARRAY")
      $(".submitBookM").trigger("click")
 
     }
@@ -188,7 +188,7 @@ const previewContainer = BookForm.querySelector("#imagePreview");
 
 if(SUCCESS.length > 1){
 
-    console.log(SUCCESS)
+    // console.log(SUCCESS)
     // $(".submitBookM").trigger("click")
 }
 

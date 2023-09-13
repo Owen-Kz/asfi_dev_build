@@ -5,7 +5,7 @@ const recentMessagesArray = [];
 
 console.log("SERVER SIDE CHAT WORKING")
 const startNewChatSession = () => {
-  ChatBufferID.length = 0;
+  ChatBufferID.length = 0; 
 };
 
 
@@ -22,8 +22,7 @@ console.log("BUFFER EXISTS")
         db.query("SELECT buffer_generated FROM chat_buffer WHERE (user_one = ? AND user_two = ?) OR (user_one = ? AND user_two = ?)",
           [senderUsername, recipientUsername, recipientUsername, senderUsername],
           (err, bufferResult) => {
-            if (err) return reject(err);
-            
+            if (err) return reject(err);            
             // Push the buffer ID into the ChatBufferID array
             ChatBufferID.push({ id: bufferResult[0]["buffer_generated"] });
             resolve(true);

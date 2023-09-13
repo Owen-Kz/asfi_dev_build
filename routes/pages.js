@@ -121,9 +121,10 @@ router.get("/podcasts/:q",LoggedIn, podcastSearchResults)
 // GET Podcast From uesr Profile
 router.get("/@:username/podcasts",LoggedIn, UserPodcast)
 // ALLOW USERS TO UPLOAD PODCASTS
-router.get("/uploadPodcast", (req,res) => {
-    res.render("podcastUpload.ejs", {root:"./public"})
-})
+
+// router.get("/uploadPodcast", (req,res) => {
+//     res.render("podcastUpload.ejs", {root:"./public"})
+// })
 
 router.post("/uploadPodcast/u", createPodcast)
 
@@ -231,14 +232,14 @@ router.get("/register", (req, res) => {
 
 // SEND REULTS TO THE USER
 router.get("/myresults", (req, res) =>{
-    res.render("results.ejs", {root: "./public", 
+    res.render("results.ejs", { 
     UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"})
 }) 
 
 // RESET USER PASSWORD 
 router.get("/passwordReset", (req, res) =>{
     // res.sendFile("forgotPassword.html", {root: "./public"})
-    res.render("forgotPassword", {root: "./public"})
+    res.render("forgotPassword")
 })
 
 router.get("/EmailConfirmation",(req,res)=>{
