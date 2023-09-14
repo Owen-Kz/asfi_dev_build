@@ -409,8 +409,6 @@ body[data-theme=dark] {
   align-items: center;
   box-shadow: var(--box-shadow);
   bottom: 0;
-  position: absolute;
-  width: 100%;
   align-self: center;
   border-radius: 6px;
   padding: 12px;
@@ -894,6 +892,10 @@ body[data-theme=dark] {
 }
 
 @media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1025px) {
+  .chat-input-wrapper{
+    position: absolute;
+    width: 100%;
+  }
  
   .app-main {
     margin-left: -6%;
@@ -929,7 +931,7 @@ body[data-theme=dark] {
   .chat-wrapper {
     margin-top: 130px;
     padding: 10px;
-    height: 70vh;
+    height: 90vh;
   }
   ::-webkit-scrollbar {
     display: none;
