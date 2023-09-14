@@ -931,10 +931,8 @@ body[data-theme=dark] {
     margin-left: 5px;
   }
   .chat-wrapper {
-    margin-top: 30px;
+    margin-top: 50px;
     padding: 10px;
-    align-self: center;
-    justify-self: center;
     height: 75vh;
   }
   ::-webkit-scrollbar {
