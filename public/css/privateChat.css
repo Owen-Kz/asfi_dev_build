@@ -387,6 +387,7 @@ body[data-theme=dark] {
 
 .chat-wrapper {
   overflow: auto;
+  height: 100vh;
 }
 
 .chat-input {
@@ -407,7 +408,7 @@ body[data-theme=dark] {
   justify-content: space-between;
   align-items: center;
   box-shadow: var(--box-shadow);
-  margin-top: auto;
+  /* margin-top: auto; */
   border-radius: 6px;
   padding: 12px;
   background-color: var(--chat-input);
@@ -873,9 +874,11 @@ body[data-theme=dark] {
 .slide-over {
   transform: translateX(0);
   opacity: 1;
-  margin-left: -2px;
-  backdrop-filter: blur(10px); /* Add a backdrop filter for blur effect */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color */
+  margin-left: -12px;
+  padding: 10px;
+  /* backdrop-filter: blur(10px); Add a backdrop filter for blur effect */
+  /* background-color: rgba(0, 0, 0, 0.5); Semi-transparent background color */
+  background-color: var(--box-color); 
 }
 
 @media screen and (max-width: 600px) {
@@ -892,7 +895,7 @@ body[data-theme=dark] {
   .app-main {
     margin-left: -6%;
     margin-right: -6%;
-    padding: 26px;
+    padding: 0;
   }
   .app-right {
     display: flex;
@@ -921,7 +924,15 @@ body[data-theme=dark] {
     margin-left: 5px;
   }
   .chat-wrapper {
-    margin-top: 80px;
+    margin-top: 130px;
+    padding: 10px;
+    height: 100vh;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .app-right .app-profile-box img {
+    margin-bottom: 0;
   }
   
   .bar { 
