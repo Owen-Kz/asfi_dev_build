@@ -408,7 +408,10 @@ body[data-theme=dark] {
   justify-content: space-between;
   align-items: center;
   box-shadow: var(--box-shadow);
-  /* margin-top: auto; */
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  align-self: center;
   border-radius: 6px;
   padding: 12px;
   background-color: var(--chat-input);
@@ -926,7 +929,7 @@ body[data-theme=dark] {
   .chat-wrapper {
     margin-top: 130px;
     padding: 10px;
-    height: 100vh;
+    height: 70vh;
   }
   ::-webkit-scrollbar {
     display: none;
