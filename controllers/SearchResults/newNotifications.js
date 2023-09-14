@@ -2,7 +2,7 @@ const db = require("../../routes/db.config");
 
 const NewNotifications = async (req,res) =>{
     const NotificationOwner = req.user.username
-    db.query("SELECT * FROM chat_buffer WHERE user_one =? OR user_two =?", [NotificationOwner, NotificationOwner], async (err, notification)=>{
+    db.query("SELECT DISTINCT * FROM chat_buffer WHERE user_one =? OR user_two =?", [NotificationOwner, NotificationOwner], async (err, notification)=>{
         if(err) throw err
         if(notification){
         const NotificationsArrayMain = []

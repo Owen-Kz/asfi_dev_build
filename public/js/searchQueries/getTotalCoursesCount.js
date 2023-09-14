@@ -12,12 +12,14 @@ fetch(`/${username_container}/totalcourses`, ()=> {
 
 
 
+if(total_followers_count){
 fetch(`/${username_container}/totalfollowers`, ()=> {
     method:"GET"
 }).then(res => res.json())
 .then(data =>{
     total_followers_count.innerText = data.TotalFollowers
 })
+}
 
 
 

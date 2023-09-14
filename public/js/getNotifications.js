@@ -1,7 +1,7 @@
 // console.log("Notifications")
 
 const  Notification_id_container = document.getElementById("Notification_id_container")
-// const usernameContainer = document.getElementById("usernameContainer").value
+const usernameContainer = document.getElementById("usernameContainer").value
 fetch("/getNewChatNotifications", ()=>{
     method:"GET"
 })
