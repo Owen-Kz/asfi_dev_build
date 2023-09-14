@@ -16,13 +16,13 @@ fs.access(booksFolderPath, fs.constants.W_OK, (err) => {
   }
 });
 
-fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
-  if (err) {
-    console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
-  } else {
-    console.log(`The folder '${thumbnailsFolderPath}' is writable`);
-  }
-});
+// fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
+//   if (err) {
+//     console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
+//   } else {
+//     console.log(`The folder '${thumbnailsFolderPath}' is writable`);
+//   }
+// });
 
 const booksStorage = multer.diskStorage({
   destination: booksFolderPath,
@@ -62,11 +62,11 @@ const uploadBook = (req, res) => {
     //   }
 
       // Extract the relevant data from req.body
-      const { booksTitle, podcastOwner, buffer, podcastOwner_fullname, yearPublished, url_Link} = req.body;
+      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link} = req.body;
       // console.log(req.body)
       // console.log(req.file)
 
-      if (booksTitle && podcastOwner && yearPublished) {
+      if (booksTitle && BookOwner && yearPublished) {
         const currentDate = new Date();
         const options = { month: "short" };
         const currentMonth = currentDate.toLocaleString("en-US", options).slice(0, 3);
@@ -76,7 +76,7 @@ const uploadBook = (req, res) => {
         // Check if the data already exists in the database
         db.query(
           "SELECT * FROM books WHERE book_title = ? AND book_author = ? AND datePublished = ?",
-          [booksTitle, podcastOwner, dateString],
+          [booksTitle, BookOwner, dateString],
           (err, exists) => {
             if (err) {
               console.error(err);
@@ -85,7 +85,7 @@ const uploadBook = (req, res) => {
             if (exists[0]) {
               // Data already exists in the database
               return res.render("error.ejs",{
-                status: `A books titled ${booksTitle} was uploaded today by @${podcastOwner}`,
+                status: `A books titled ${booksTitle} was uploaded today by @${BookOwner}`,
               });
             }
             else{
@@ -105,14 +105,14 @@ const uploadBook = (req, res) => {
           [
             {
               book_title: booksTitle,
-              book_id: buffer,
-              book_author: podcastOwner,
+              book_id: bufferBook,
+              book_author: BookOwner,
               book_year: yearPublished,
               file: encryptedFileName,
               book_cover: "cover.jpg",
               fileEXT: fileType,
               datePublished: dateString,
-              book_owner_username: podcastOwner_fullname,
+              book_owner_username: BookOwner_fullname,
             },
           ],
           (err, booksUploaded) => {
