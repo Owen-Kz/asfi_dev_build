@@ -933,7 +933,9 @@ body[data-theme=dark] {
   .chat-wrapper {
     margin-top: 30px;
     padding: 10px;
-    height: 70vh;
+    align-self: center;
+    justify-self: center;
+    height: 75vh;
   }
   ::-webkit-scrollbar {
     display: none;
