@@ -87,7 +87,7 @@
 									<% }%>
 							</div>
 							<div>
-								<a class="h6" href="/dashboard">@<%= UserName %></a>
+								<p class="h6">@<a class="h6" href="#" id="username_container"><%= UserName %></a></p>
 								<p class="small m-0"><%= Email %></p>
 							</div>
 						</div>
@@ -163,12 +163,7 @@ Page Banner START -->
 						<div class="col d-md-flex justify-content-between align-items-center mt-4">
 							<div>
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
-                                <p class="profile-tag">@<%= UserName %></p>
-								<ul class="list-inline mb-0">
-									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-check-circle text-instagram-gradient me-2"></i>Verified</li>
-                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-graduation-cap text-primary"></i><a href=""><span class="profile-stat-count"> 0</span> Enrolled Students</a></li>
-									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>0 Courses</li>
-								</ul>
+								<%- include ("instructorSubmenu") %>
 							</div>
 							<!-- Button -->
                             <div class="dropdown dash_upload">
@@ -355,7 +350,6 @@ Footer END -->
 <script src="/js/scholarControls/uploadBook.js"></script>
   <script src="/js/scholarControls/uploadPodcast.js"></script>
   <script src="/js/scholarControls/uploadTutorial.js"></script>
-<script src="/js/updateAccountData.js"></script>
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>

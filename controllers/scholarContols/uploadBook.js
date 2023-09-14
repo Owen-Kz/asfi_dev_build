@@ -16,13 +16,13 @@ fs.access(booksFolderPath, fs.constants.W_OK, (err) => {
   }
 });
 
-// fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
-//   if (err) {
-//     console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
-//   } else {
-//     console.log(`The folder '${thumbnailsFolderPath}' is writable`);
-//   }
-// });
+fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
+  if (err) {
+    console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
+  } else {
+    console.log(`The folder '${thumbnailsFolderPath}' is writable`);
+  }
+});
 
 const booksStorage = multer.diskStorage({
   destination: booksFolderPath,

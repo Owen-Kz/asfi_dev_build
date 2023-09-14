@@ -507,7 +507,7 @@ body[data-theme=dark] {
   font-size: 12px;
   line-height: 16px;
   width: auto;
-  max-width: 80%;
+  /* max-width: 80%; */
   color: var(--text-dark);
 }
 .message-wrap {

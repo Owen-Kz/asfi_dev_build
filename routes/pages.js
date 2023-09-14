@@ -55,6 +55,8 @@ const SpacesChat = require("../controllers/spacesChat");
 const becomeScholarPage = require("../controllers/becomeScholar");
 const createScholar = require("../controllers/scholarContols/createScholar");
 const createSpaces = require("../controllers/createSpaces");
+const totalCourses = require("../controllers/SearchResults/totalCourses");
+const totalfollowers = require("../controllers/SearchResults/totalFollowers");
 
 const router = express.Router();
 router.use(express.json())
@@ -88,6 +90,10 @@ router.get("/app", (req, res) => {
 router.get("/dashboard", LoggedIn, dashboard)
 // GET NOTIFICATIONS 
 router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
+// GET TOTAL COURSES 
+router.get("/:username/totalcourses", totalCourses)
+router.get("/:username/totalfollowers", totalfollowers)
+
 
 // GET THE LIBRARY
 router.get("/library", LoggedIn, library)
@@ -340,13 +346,13 @@ router.get("/index", (req,res) =>{
 
 router.get("/instructorReviews", (req,res) =>{
     res.render("instructorReviews", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
     })
 })
 
 router.get("/instructorStudents", (req,res) =>{
     res.render("instructorStudents", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
     })
 })
 

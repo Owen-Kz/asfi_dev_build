@@ -505,7 +505,7 @@ body[data-theme=dark] {
   font-size: 12px;
   line-height: 16px;
   width: auto;
-  max-width: 80%;
+  /* max-width: 80%; */
   color: var(--text-dark);
 }
 .message-wrap {
@@ -894,7 +894,6 @@ body[data-theme=dark] {
 
 @media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1025px) {
   .chat-input-wrapper{
-    
     position: absolute;
     width: 100%;
   }
