@@ -8,7 +8,6 @@ const userFollows = async (req, res) => {
     db.query("SELECT * FROM user_info WHERE username =?",[UserName], async (err, data)=>{
     if(err) throw err
     var accountType
-    console.log(data)
     if(data[0]){
     accountType = data[0].acct_type
     }else{
@@ -98,3 +97,5 @@ const userFollows = async (req, res) => {
 
 
 module.exports = userFollows;
+
+
