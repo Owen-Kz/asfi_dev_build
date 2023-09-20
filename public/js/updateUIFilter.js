@@ -1,8 +1,8 @@
 
-const TutorialsContainer = document.getElementById("TutorialsContainer")
+const TutorialsContainer_ = document.getElementById("TutorialsContainer")
 
-const limitedTextElements = document.getElementsByClassName("limited-text")
-const maxLength = 50; // Maximum number of characters
+const limitedTextElements_ = document.getElementsByClassName("limited-text")
+const maxLength_ = 50; // Maximum number of characters
 // COnvert Video Duration to minutes 
 function ConvertToMinutes(secondsProvided, ParentElement){
     // Define the total seconds
@@ -48,24 +48,21 @@ function formatDateAgo(dateString) {
       return daysAgo + " Days Ago";
     }
   }
-  
-// console.log(TutorialArray)
-// console.log(TutorialArray)
-function updateUIWithData(TutorialArray){
-TutorialsContainer.innerHTML = ""
+
+function updateUIFilter(TutorialArray){
+TutorialsContainer_.innerHTML = ""
 if(TutorialArray.length > 0 ){
 TutorialArray.forEach(tutorial => {
-    
-    const TutorialName = tutorial.TutorialTitle
-    const Tutorialid = tutorial.TutorialId
-    const CourseId = tutorial.courseID
-    const TutorialOwner = tutorial.TutorialOwner
-    const TutorialDuration_ = tutorial.TutorialDuration
-    const TutorialDescription = tutorial.TutorialDescription
-    const TutorialThumbnailMain = tutorial.TutoriaThumbnail
-    const TutorialOwnerFullName = tutorial.TutorialOwnerFullName
+    const TutorialName = tutorial.tutorial_title
+    const Tutorialid = tutorial.tutorial_id
+    const CourseId = tutorial.related_course_id
+    const TutorialOwner = tutorial.tutorial_owner
+    const TutorialDuration_ = tutorial.video_duration
+    const TutorialDescription = tutorial.tutorial_description
+    const TutorialThumbnailMain = tutorial.tutorial_thumbnail
+    const TutorialOwnerFullName = tutorial.OwnerFullname
     const CourseLevel = tutorial.CourseLevel
-    const TutorialOwnerProfilePicture_main = tutorial.TutorialOwnerProfilePicture
+    const TutorialOwnerProfilePicture_main = tutorial.OwnerProfilePicture
 
     const userProfileImages = []
 
@@ -77,7 +74,7 @@ TutorialArray.forEach(tutorial => {
     userProfileImages.push(TutorialOwnerProfilePicture)
     }
 
-    const TutorialDate = tutorial.TutorialDate
+    const TutorialDate = tutorial.date_uploaded
     const TotalRelatedTutorials = tutorial.CourseCount
     const TotalPrefixArray = []
 
@@ -212,8 +209,8 @@ ConvertToMinutes(TutorialDuration_, ParentForTime)
 if(limitedTextElements){
 for (var i = 0; i < limitedTextElements.length; i++) {
     var limitedText = limitedTextElements[i];
-    if (limitedText.textContent.length > maxLength) {
-        limitedText.textContent = limitedText.textContent.substring(0, maxLength) + "...";
+    if (limitedText.textContent.length > maxLength_) {
+        limitedText.textContent = limitedText.textContent.substring(0, maxLength_) + "...";
     }
 }
 }
@@ -225,7 +222,7 @@ for (var i = 0; i < limitedTextElements.length; i++) {
           <path d="M3.656 3.891l17.484 17.438-1.313 1.313-1.875-1.922q-0.563 0.281-0.938 0.281h-10.031q-0.797 0-1.383-0.609t-0.586-1.406v-11.203l-2.625-2.625zM18.984 5.016v11.672l-11.344-11.344 2.344-2.344h7.031q0.797 0 1.383 0.609t0.586 1.406z"></path>
   </symbol>
 </svg>              
-      <span class="text">No Tutorials to display yet</span>
+      <span class="text">Nothing matches your query</span>
   </div>`
 }
 }

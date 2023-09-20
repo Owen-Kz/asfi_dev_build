@@ -223,7 +223,7 @@ Page content START -->
 				<div class="card border bg-transparent rounded-3">
 					<!-- Card header START -->
 					<div class="card-header bg-transparent border-bottom">
-						<h3 class="mb-0">My Assets</h3>
+						<h3 class="mb-0">My Resources</h3>
 					</div>
 					<!-- Card header END -->
 
@@ -251,7 +251,7 @@ Page content START -->
 										<option>Name</option>
 										<option>Newest</option>
 										<option>Type</option>
-										<option>Most Viewed/Clicked</option>
+										<!-- <option>Most Viewed/Clicked</option> -->
 									</select>
 								</form>
 							</div>
@@ -264,8 +264,8 @@ Page content START -->
 								<!-- Table head -->
 								<thead>
 									<tr>
-										<th scope="col" class="border-0 rounded-start">Asset Title</th>
-										<th scope="col" class="border-0">Clicks</th>
+										<th scope="col" class="border-0 rounded-start">Resource Title</th>
+										<!-- <th scope="col" class="border-0">Clicks</th> -->
 										<th scope="col" class="border-0">Status</th>
 										<th scope="col" class="border-0">Type</th>
 										<th scope="col" class="border-0 rounded-end">Action</th>
@@ -274,7 +274,7 @@ Page content START -->
 
 								<!-- Table body START -->
 								<tbody>
-									<!-- Table item -->
+									<!-- Table PDF item -->
 									<tr>
 										<!-- Course item -->
 										<td>
@@ -290,7 +290,7 @@ Page content START -->
 											</div>
 										</td>
 										<!-- Enrolled item -->
-										<td class="text-center text-sm-start">125</td>
+										<!-- <td class="text-center text-sm-start">125</td> -->
 										<!-- Status item -->
 										<td>
 											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
@@ -300,9 +300,130 @@ Page content START -->
                                             <span class="badge bg-primary bg-opacity-10 text-primary">PDF</span>
                                         </td>
 										<!-- Action item -->
+										<td class="action-table">
+											<form action="">
+												<input type="hidden" name="pdfAssetEdit">
+												<button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+											</form>
+											<br>
+											<form action="">
+												<input type="hidden" name="pdfAssetDelete">
+												<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+											</form>
+										</td>
+									</tr>
+									<!-- Table PODCAST item -->
+									<tr>
+										<!-- Course item -->
 										<td>
-											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												<div class="w-60px">
+													<img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
+												</div>
+												<div class="mb-0 ms-2">
+													<!-- Title -->
+													<h6><a href="#">Building Scalable APIs with GraphQL</a></h6>
+												</div>
+											</div>
+										</td>
+										<!-- Enrolled item -->
+										<!-- <td class="text-center text-sm-start">125</td> -->
+										<!-- Status item -->
+										<td>
+											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
+										</td>
+										<!-- Assset Type -->
+                                        <td>
+                                            <span class="badge bg-purple bg-opacity-10 text-purple">PODCAST</span>
+                                        </td>
+										<!-- Action item -->
+										<td class="action-table">
+											<form action="">
+												<input type="hidden" name="podcastAssetEdit">
+												<button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+											</form>
+											<br>
+											<form action="">
+												<input type="hidden" name="podcastAssetDelete">
+												<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+											</form>
+										</td>
+									</tr>
+									<!-- Table PUBLICATION item -->
+									<tr>
+										<!-- Course item -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												<div class="w-60px">
+													<img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
+												</div>
+												<div class="mb-0 ms-2">
+													<!-- Title -->
+													<h6><a href="#">Building Scalable APIs with GraphQL</a></h6>
+												</div>
+											</div>
+										</td>
+										<!-- Enrolled item -->
+										<!-- <td class="text-center text-sm-start">125</td> -->
+										<!-- Status item -->
+										<td>
+											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
+										</td>
+										<!-- Assset Type -->
+                                        <td>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary">PUBLICATION LINK</span>
+                                        </td>
+										<!-- Action item -->
+										<td class="action-table">
+											<form action="">
+												<input type="hidden" name="publicationAssetEdit">
+												<button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+											</form>
+											<br>
+											<form action="">
+												<input type="hidden" name="publicationAssetDelete">
+												<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+											</form>
+										</td>
+									</tr>
+									<!-- Table TUTORIAL item -->
+									<tr>
+										<!-- Course item -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												<div class="w-60px">
+													<img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
+												</div>
+												<div class="mb-0 ms-2">
+													<!-- Title -->
+													<h6><a href="#">Building Scalable APIs with GraphQL</a></h6>
+												</div>
+											</div>
+										</td>
+										<!-- Enrolled item -->
+										<!-- <td class="text-center text-sm-start">125</td> -->
+										<!-- Status item -->
+										<td>
+											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
+										</td>
+										<!-- Assset Type -->
+                                        <td>
+                                            <span class="badge bg-warning bg-opacity-10 text-warning">TUTORIAL</span>
+                                        </td>
+										<!-- Action item -->
+										<td class="action-table">
+											<form action="">
+												<input type="hidden" name="tutorialAssetEdit">
+												<button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+											</form>
+											<br>
+											<form action="">
+												<input type="hidden" name="tutorialAssetDelete">
+												<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+											</form>
 										</td>
 									</tr>
 								</tbody>

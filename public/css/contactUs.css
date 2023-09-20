@@ -4660,6 +4660,29 @@ textarea.form-control-lg {
           border-radius: 0px 0px 25px 25px;
           box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.34);
 }
+.navbar > .containerReg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: inherit;
+      flex-wrap: inherit;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+          background-color: transparent;
+          padding: 3px;
+          border-radius: 0px 0px 25px 25px;
+          box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.34);
+}
+.navbar {
+  background-color: transparent;
+}
+.navbar-sticky {
+  background-color: transparent;
+}
 .navbar-brand {
   padding-top: var(--bs-navbar-brand-padding-y);
   padding-bottom: var(--bs-navbar-brand-padding-y);
@@ -4689,6 +4712,8 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  background-color: #e9ecef;
+  border-radius: 12px;
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active {

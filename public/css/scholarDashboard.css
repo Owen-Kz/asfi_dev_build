@@ -22290,15 +22290,7 @@ html[dir=rtl] .choices__input {
     padding: 0px 60px 0 60px;
 }
 
-.chathead {
-    position: absolute;
-    top: 100px;
-    left: 85%;
-    transform: translateX(-50%);
-}
-logoHere{
-    margin-right: 40px;
-}
+
 
 .dash_upload {
   display: flex;

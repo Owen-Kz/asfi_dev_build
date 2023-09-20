@@ -9,7 +9,7 @@ const displayTutorials = async (req, res) => {
     if (req.user) {
         const  ITEMS_PER_PAGE_tutorials = 5
 // Get the current book page from the query parameter
-let pagetutorials = req.query.pageBook || 1; 
+let pagetutorials = req.query.pageTutorial || 1; 
 const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
 
         const username_new = req.user.username;
@@ -34,7 +34,17 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
             const AllTutorials = [];
 
             // GET ALL Tutorials
-            db.query("SELECT * FROM tutorials WHERE 1", async (err, result) => {
+            db.query("SELECT COUNT(*) AS sumLinks from external_links WHERE 1", (err, totalLinks)=> {
+                if (err) {
+                  console.error(err);
+                  return res.status(500).send("Internal Server Error: More info: Error Getting Links");
+                }
+                tutorialsCount = JSON.stringify(totalLinks[0]["sumLinks"])
+        
+                totalPages = Math.ceil(tutorialsCount / ITEMS_PER_PAGE_tutorials);
+
+            db.query("SELECT * FROM tutorials WHERE 1 LIMIT ? OFFSET ?",
+            [ITEMS_PER_PAGE_tutorials, offsettutorials], async (err, result) => {
                 if (err) throw err;
                 var tutorialsCount = result.length
 
@@ -104,7 +114,9 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
                                 CourseLevel: coursesMain[0].CourseLevel,
                                 CourseName: coursesMain[0].CourseName,
                                 TutorialDate:TutorialDate,
-                                TotalRelatedTutorials: CourseTutorialCount
+                                TotalRelatedTutorials: CourseTutorialCount,
+
+                            
                             });
                         }
                     }
@@ -122,6 +134,9 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
                         LastName:userData[0].lastName,
                         UserName: username_new,
                         AllTutorials: JSON.stringify(AllTutorials),
+                        currentPageTutorials:pagetutorials,
+                        totalPagesTutorials: totalPages,
+                        totalTutorials: totalTutorialsCount,
                     });
                 }else{
                     res.render("tutorials", {
@@ -132,9 +147,13 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
                         LastName:userData[0].lastName,
                         UserName: username_new,
                         AllTutorials: "[]",
+                        currentPageTutorials:pagetutorials,
+                        totalPagesTutorials: totalPages,
+                        totalTutorials: totalTutorialsCount,
                     });
                 }
             });
+        })
         }
     }
 };

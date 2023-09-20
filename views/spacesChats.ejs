@@ -16,7 +16,12 @@
 
 
 <input type="text" id="chatHistory" value="[]" readonly hidden>
-<input type="text" id="chatID" value="[]" readonly hidden>
+<input type="text" id="chatID" value="<%=spaceId%>" readonly hidden>
+<input type="hidden" id="senderImage_" value="<%=user_profile_picture%>" readonly>
+<input type="hidden" id="senderFulname" value="<%= user_first_name %> <%= user_last_name %>" readonly>
+
+<input type="hidden" id="SpaceID" value="<%=spaceId%>" readonly>
+
 
 <body>
   <!-- partial:index.partial.html -->
@@ -28,14 +33,14 @@
       </div>
       <div class="app-profile-box">
 
-        <% if("avatar.jpg"=="avatar.jpg" ){ %>
-          <a href="/@DemoSender">
-            <img src="https://eu.ui-avatars.com/api/?background=random&name=DemoFirstName+DemoSenderLastName&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff"
+        <% if(user_profile_picture =="avatar.jpg" ){ %>
+          <a href="/@<%=username%>">
+            <img src="https://eu.ui-avatars.com/api/?background=random&name=<%=user_first_name%>+<%=user_last_name%>font-size=0.5&rounded=true&size=128&background=333333&color=ffffff"
             alt='ProfileImage '>
             </a>
           <% } else { %>
-          <a href="/@DemoSender">
-            <img src="/userUploads/profileImages/avatar.jpg alt="ProfileImage">
+          <a href="/@<%=username%>">
+            <img src="/userUploads/profileImages/<%=user_profile_picture%>" alt="ProfileImage">
             </a>
             <% }%>
 
@@ -43,8 +48,8 @@
               <div class="app-profile-box-name"
                 style="display: flex; flex-direction: column;justify-content: flex-start;">
                 <span>
-                  DemoFirstName
-                    DemoSenderLastName
+                  <%= user_first_name %>
+                    <%= user_last_name %>
                 </span>
                 <br>
                 <!-- <span>@<%= sender %></span> -->
@@ -52,12 +57,12 @@
                   hidden />
 
                 <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input"
-                  value="DemoSender" maxlength="20" hidden readonly />
+                  value="<%=username%>" maxlength="20" hidden readonly />
               </div>
       </div>
 
       <div class="chat-list-wrapper">
-        <div class="chat-list-header">Space Participants
+        <div class="chat-list-header" id="space_participants_header">Space Participants
          
           <span class="c-number" id="c-number"></span>
     
@@ -82,24 +87,16 @@
 
       </div>
      
-        <!-- <button class="chat-attachment-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
-          <defs/>
-          <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
-        </svg>
-      </button> -->
+     
         <form class="chat-input-wrapper" id="message-form">
+          <input type="hidden" id="newImage" value="<%=user_profile_picture%>" readonly>
+          <input type="hidden" id="newSender" value="<%=user_first_name%> <%=user_last_name%>" readonly>
+
 
           <div class="input-wrapper">
             <input type="text" class="chat-input" name="message" id="message-input"
               placeholder="Enter your message here">
-            <!-- <button class="emoji-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-smile" viewBox="0 0 24 24">
-          <defs/>
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
-        </svg>
-      </button> -->
+      
           </div>
           <button class="chat-send-btn" type="submit">Send</button>
         </form>
@@ -138,7 +135,7 @@
               </p>
               <p><%=SpaceDescription%></p>
              </div>
-              <button class="archive-btn">Exit Space</button>
+              <button class="archive-btn" id="ExistSpace">Exit Space</button>
             
 
       </div>
@@ -154,6 +151,10 @@
         integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
         crossorigin="anonymous"></script>
       <script src="/js/chatUI.js"></script>
+    <script src="/js/searchQueries/getSpaceChatHistory.js"></script>
+    <script src="/js/searchQueries/getSpaceParticipants.js"></script>
+    <script src="/js/spacesChat.js"></script>
+
 
 
       <!-- <script src="/js/privateChatMain.js"></script> -->

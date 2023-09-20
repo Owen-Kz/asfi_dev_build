@@ -538,13 +538,6 @@ course_details{
   justify-content: center;
 }
 
-.chathead{
-  display: none;
-  content-visibility: hidden;
-}
-.chat_container{
-  display: none;
-}
 .data_box{
   width: 114px;
   height: 15px;
@@ -1037,4 +1030,45 @@ margin: auto;
 .Preview_image {
 width: 80%;
 margin: auto;
+}
+
+.navName {
+  font-size:10px; 
+  font-weight:900; 
+  padding: 3px;
+}
+.action-table {
+  display: flex;
+  margin-top: 12px;
+}
+
+.notification_container {
+  height: 100%;
+  overflow-y: scroll;
+}
+.notification_container li {
+  position: relative;
+  list-style-type: none;
+  padding: 5px;
+  text-align: center;
+}
+.notification_container li::after {
+  content: ''; 
+  position: absolute;
+  bottom: 0;
+  left: 50%; 
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px; 
+  background-color: rgba(53, 52, 52, 0.205);
+}
+.notification_container .no-notification {
+  padding-top: 20px;
+  font-size: 30px;
+  text-align: center;
+  border: none;
+}
+
+.chat_container{
+  display: none;
 }
