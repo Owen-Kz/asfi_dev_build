@@ -24,6 +24,7 @@ const createDegrees = (req, res) => {
           return Object.values(uniqueEntries);
         }
 
+        if(DATAId.length > 0){
         const uniqueData = getUniqueEntries(DATAId);
 
         function sendData(data_) {
@@ -44,6 +45,7 @@ const createDegrees = (req, res) => {
             res.json({message: 'Data Exists'});
           }
         }
+    
 
         uniqueData.forEach(newDegree => {
           const degreeSubtext = newDegree.honoraryText;
@@ -64,6 +66,7 @@ const createDegrees = (req, res) => {
 
         // Check for success response after all database queries
         // sendResponse();
+    }
     });
   } else {
     res.status(401).send('Unauthorized');
