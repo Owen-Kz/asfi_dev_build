@@ -109,7 +109,10 @@
         <div class="spaces_header">
             <h4>Spaces</h4>
         </div>
-        <button class="btn btn-orange next-btn mb-0 fw-bold" id="CreateSpaceBtn">Create Space</button><br><br>
+        <% if(accountType != "user_account") { %>
+            <button class="btn btn-orange next-btn mb-0 fw-bold" id="CreateSpaceBtn">Create Space</button>
+            <%}%>
+        <br><br>
         <div class="spaces_main" id="spaces_container">
         </div>
     </div>

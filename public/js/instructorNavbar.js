@@ -1,17 +1,19 @@
-document.write("<div class='navbar-logo_container'> <b>AF - Instructor</b>\
+document.write("<div class='navbar-logo_container'> <a class='navbar-brand' href=''>\
+<img class='light-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'>\
+<img class='dark-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'></a>\
         </div>\
         <div class='navbar-contents'>\
-            <ul class='navbar_buttons'>\
-                <a href='/dashboard'>\
-                    <li class='navbar_item ' id='dashboard_link_pg' title='Dashboard'><span class='icon icon-bxs_dashboard_icon'></span>\
-                        <span class='nav_tool_tip'>Dashboard</span></li>\
-                    </a>\
-                    <a href='/library'><li class='navbar_item ' id='library_link_pg' title='Library'><span class='icon icon-Library'></span><span class='nav_tool_tip '>Library</span></li></a>\
-                    <a href='/Directory'><li class='navbar_item ' id='directory_link_pg' title='Directory'><span class='icon icon-folder'></span><span class='nav_tool_tip'>Directory</span></li></a>\
-                    <a href='/Tutorials'><li class='navbar_item ' id='tutorials_link_pg' title='Tutorials'><img src='/files/icons_img/tutorial.png' alt='Tutorials'><span class='nav_tool_tip'>Tutorials</span></li></a>\
-                    <a href='/Podcasts'><li class='navbar_item ' id='podcasts_link_pg' title='Podcasts'><span class='icon icon-mic'></span><span class='nav_tool_tip'>Podcasts</span></li></a>\
-                    <a href='/vc'><li class='navbar_item ' id='video_conferencing_link_pg' title='Video Conferencing'><img src='/files/icons_img/VC.png' alt=' Video Conferencing'><span class='nav_tool_tip '>Video Conferencing</span></li></a>\
-            </ul>\
+        <ul class='navbar_buttons'>\
+        <a href='/dashboard'>\
+            <li class='navbar_item ' id='dashboard_link_pg' title='Dashboard'><span class='icon icon-bxs_dashboard_icon'></span> <p class='navName'>Dashboard</p>\
+                <span class='nav_tool_tip'>Dashboard</span></li>\
+            </a>\
+            <a href='/library'><li class='navbar_item ' id='library_link_pg' title='Library'><span class='icon icon-Library'></span><p class='navName'>Library</p><span class='nav_tool_tip '>Library</span></li></a>\
+            <a href='/Directory'><li class='navbar_item ' id='directory_link_pg' title='Directory'><span class='icon icon-folder'></span><p class='navName'>Directory</p><span class='nav_tool_tip'>Directory</span></li></a>\
+            <a href='/Tutorials'><li class='navbar_item ' id='tutorials_link_pg' title='Tutorials'><img src='/files/icons_img/tutorial.png' alt='Tutorials'><p class='navName'>Tutorials</p><span class='nav_tool_tip'>Tutorials</span></li></a>\
+            <a href='/Podcasts'><li class='navbar_item ' id='podcasts_link_pg' title='Podcasts'><span class='icon icon-mic'></span><p class='navName'>Podcasts</p><span class='nav_tool_tip'>Podcasts</span></li></a>\
+            <a href='/vc'><li class='navbar_item ' id='video_conferencing_link_pg' title='Video Conferencing'><img src='/files/icons_img/VC.png' alt=' Video Conferencing'><p class='navName'>Video Conferencing</p><span class='nav_tool_tip '>Video Conferencing</span></li></a>\
+    </ul>\
         </div>\
         <div class='navbar_content_bottom'>\
             <ul class='bottom_navbar_ul'>\

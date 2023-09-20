@@ -17,7 +17,7 @@ form.addEventListener("submit", () =>{
             error.style.visibility = "visible";
             error.style.opacity  = "1";
             error.style.contentVisibility = "visible";
-            error.style.marginTop = "0px";
+            // error.style.marginTop = "0px";
             success.style.marginTop = "20px";
             error.innerText = data.error;
         }

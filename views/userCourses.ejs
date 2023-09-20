@@ -253,7 +253,7 @@ Page content START -->
 										<option>Name</option>
 										<option>Newest</option>
 										<option>Type</option>
-										<option>Most Viewed/Clicked</option>
+										<!-- <option>Most Viewed/Clicked</option> -->
 									</select>
 								</form>
 							</div>
@@ -268,7 +268,7 @@ Page content START -->
 									<tr>
 										<th scope="col" class="border-0 rounded-start">Course Title</th>
 										<th scope="col" class="border-0">Total Lectures</th>
-										<th scope="col" class="border-0">Completed Lecture</th>
+										<!-- <th scope="col" class="border-0">Completed Lecture</th> -->
 										<th scope="col" class="border-0 rounded-end">Action</th>
 									</tr>
 								</thead>
@@ -301,12 +301,19 @@ Page content START -->
 										<td>0</td>
 
 										<!-- Table data -->
-										<td>0</td>
+										<!-- <td>0</td> -->
 
 										<!-- Table data -->
-										<td>
-											<button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled"><i class="fas fa-check me-1"></i>Complete</button>
-											<a href="#" class="btn btn-sm btn-light me-1"><i class="fas fa-repeat me-1"></i>Restart</a>
+										<td class="action-table">
+											<form action="">
+												<input type="hidden" class="coursesComplete">
+                                                <button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled"><i class="fas fa-check me-1"></i>Complete</button>
+											</form>
+											<form action="">
+												<input type="hidden" class="coursesRestart">
+                                                <button href="#" class="btn btn-sm btn-light me-1"><i class="fas fa-repeat me-1"></i>Restart</button>
+											</form>
+											
 										</td>
 									</tr>
 								</tbody>

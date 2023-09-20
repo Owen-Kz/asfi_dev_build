@@ -24,8 +24,17 @@ fetch("/getNewChatNotifications", ()=>{
             Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">Chat with ${Sender}</a></li>`;
         });
     }else{
-        Notification_id_container.innerHTML +=`<li>No new Messages to display</li>`;
+        Notification_id_container.innerHTML +=`<li class='no-notification'>No new Messages to display</li>`;
 
     }
 
 })
+
+// JavaScript code to toggle chat_container visibility
+const chatContainer = document.querySelector('.chat_container');
+const toggleChatButton = document.getElementById('toggleChatButton');
+
+toggleChatButton.addEventListener('click', () => {
+    // Toggle the visibility of chat_container
+    chatContainer.style.display = chatContainer.style.display === 'block' ? 'none' : 'block';
+});

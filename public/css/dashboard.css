@@ -122,18 +122,41 @@ personal_info .image_container img{
     z-index: 2;
 }
 .chathead{
-    /* background: red; */
+    top: 10%;
+    left: 80%;
+    transform: translateX(-50%);
     height: 580px;
-    position: relative;
+    position: fixed;
     width: 20%;
-    /* padding-right: 40px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    /* top:50%; */
+    z-index: 999;
 }
 
+logohere {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+logohere i {
+    color: whitesmoke;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .chathead {
+        top: auto; /* Remove the 'top' property for mobile screens */
+        bottom: 0; /* Position it at the bottom */
+        left: auto; /* Remove the 'left' property */
+        right: 0; /* Position it at the right */
+        transform: none; /* Remove the transform for mobile screens */
+        width: 100%; /* Full width on mobile screens */
+        height: auto; /* Allow content to determine the height */
+    }
+}
 /* .data_box:hover{
     border: 1px solid #7f417d;
     color: #7f417d;
