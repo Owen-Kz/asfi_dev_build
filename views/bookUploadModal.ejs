@@ -14,10 +14,10 @@
                                 <form class="book_upload" enctype="multipart/form-data" id="book" action="/uploadBook" method="post">
 									<div class="radioContainer">
 									<input type="radio" id="HasBook" name="radioGroup" value="option1" checked>
-									<label for="radioButton1">Upload a pdf document</label>
+									<label for="HasBook">Upload a pdf document</label>
 									
 									<input type="radio" id="HasLink" name="radioGroup" value="option2">
-									<label for="radioButton2" >Share a Link instead</label>
+									<label for="HasLink" >Share a Link instead</label>
 								</div>
 								<input type="text" class="form-control" name="BookOwner_fullname" id="BookOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner">
 								<input type="hidden" value="<%=Username%>" name="BookOwner" id="BookOwner" >

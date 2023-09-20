@@ -86,7 +86,7 @@ Page Banner START -->
 
 					<!-- Image -->
 					<div class="col-6 col-md-3 text-center order-1">
-						<img src="files/images/courses/category-1.svg" alt="">
+						<img src="/files/images/courses/category-1.svg" alt="">
 					</div>
 
 					<!-- Content -->
@@ -110,8 +110,6 @@ Page Banner START -->
 						<!-- Title -->
 						<h1 class="mb-3">What do you want to learn?</h1>
 						<p class="mb-3">Grow your skill with the most reliable courses and certifications
-                        <%= FirstName %>
-
                         </p>
 
 						
@@ -141,7 +139,7 @@ Page content START -->
                 <!-- Search option START -->
                 <div class="row mb-4 align-items-center">
                     <!-- Search bar -->
-                    <div class="col-xl-6">
+                    <!-- <div class="col-xl-6">
                         <form class="border rounded p-2">
                             <div class="input-group input-borderless">
                                 <input class="form-control me-1" type="search" placeholder="Find your course">
@@ -149,8 +147,8 @@ Page content START -->
                             </div>
                         </form>
                     </div>
-    
-                    <!-- Select option -->
+     -->
+                    <!-- Select option
                     <div class="col-xl-3 mt-3 mt-xl-0">
                         <form class="border rounded p-2 input-borderless">
                             <select class="form-select form-select-sm js-choice border-0" aria-label=".form-select-sm">
@@ -160,7 +158,7 @@ Page content START -->
                                 <option>Top rated</option>
                             </select>
                         </form>
-                    </div>
+                    </div> -->
     
                     <!-- Content -->
                     <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center mt-3 mt-xl-0">
@@ -169,7 +167,7 @@ Page content START -->
                             <i class="fas fa-sliders-h me-1"></i> Show filter
                         </button>
                         <!-- Advanced filter responsive toggler END -->
-                        <p class="mb-0 text-end">Showing 1 of 1 result</p>
+                        <p class="mb-0 text-end">Showing <%= currentPageTutorials %> of <%=totalPagesTutorials %> result</p>
                     </div>
     
                 </div>
@@ -182,20 +180,64 @@ Page content START -->
                 </div>
                 <!-- Course Grid END -->
     
-                <!-- Pagination START -->
-                <div class="col-12">
-                    <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-                        <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                            <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
-                            <li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item mb-0" aria-current="page"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- Pagination END -->
+              	<!-- Pagination START -->
+								<div class="col-12">
+									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+										<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+											<% if (totalPagesTutorials > 1) { %>
+											  <% if (currentPageTutorials > 1) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageTutorial=<%= currentPageTutorials - 1 %>" tabindex="-1" id="prevTutorialPage">
+													<i class="fas fa-angle-double-left"></i>
+												  </a>
+												</li>
+											  <% } %>
+										  
+											  <% const maxPagesToShow = 5; %>
+											  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
+											  <% const startPage = Math.max(currentPageTutorials - halfMax, 1); %>
+											  <% const endPage = Math.min(currentPageTutorials + halfMax, totalPagesTutorials); %>
+											  <% const nextPage = Math.floor(currentPageTutorials) + 1 %>
+				
+										  
+											  <% if (startPage > 1) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageTutorial=1">1</a>
+												</li>
+												<% if (startPage > 2) { %>
+												  <li class="page-item mb-0"><a class="page-Tutorial" href="#">..</a></li>
+												<% } %>
+											  <% } %>
+										  
+											  <% for (let i = startPage; i <= endPage; i++) { %>
+												<li class="page-item mb-0 <%= i === currentPageTutorials ? 'active' : '' %>">
+												  <a class="page-link" href="?pageTutorial=<%= i %>"><%= i %></a>
+												</li>
+											  <% } %>
+										  
+											  <% if (endPage < totalPagesTutorials) { %>
+												<% if (endPage < totalPagesTutorials - 1) { %>
+												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+												<% } %>
+												<li class="page-item mb-0"><a class="page-link" href="?pageTutorial=<%= totalPagesTutorials %>"><%= totalPagesTutorials %></a></li>
+											  <% } %>
+										  
+											  <% if (currentPageTutorials < totalPagesTutorials) { %>
+												<li class="page-item mb-0">
+												  <a class="page-link" href="?pageTutorial=<%= nextPage %>" id="nextBookPage">
+													<i class="fas fa-angle-double-right"></i>
+												  </a>
+												</li>
+											  <% } %>
+											<% } %>
+										  </ul>
+										  
+										<!-- <span class="bookPageInfo">Page </span> -->
+				
+									</nav>
+							
+								</div>
+								<!-- Pagination END -->
             </div>
             <!-- Main content END -->
     
@@ -217,38 +259,24 @@ Page content START -->
                                     <div class="col-12">
                                         <!-- Checkbox -->
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
-                                                <label class="form-check-label" for="flexCheckDefault9">All</label>
-                                            </div>
-                                            <span class="small">(1)</span>
+                                            <!-- <div class="form-check">
+                                                <a href="/tutorials">
+                                                <input class="form-check-input" type="checkbox" value="" id="">
+                                                <label class="form-check-label" for="">All</label>
+                                                </a>
+                                            </div> -->
+                                            <!-- <span class="small">(1)</span> -->
                                         </div>
                                        
                                         
                                         <!-- Collapse body -->
                                         <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                            <div class="card card-body p-0">
-                                                <!-- Checkbox -->
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault16">
-                                                        <label class="form-check-label" for="flexCheckDefault16">Writing</label>
-                                                    </div>
-                                                    <span class="small">(0)</span>
-                                                </div>
-                                                <!-- Checkbox -->
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault18">
-                                                        <label class="form-check-label" for="flexCheckDefault18">Marketing</label>
-                                                    </div>
-                                                    <span class="small">(0)</span>
-                                                </div>
+                                            <div class="card card-body p-0">                                        
                                             </div>
                                         </div>
                                         <!-- Collapse button -->
                                         <a class=" p-0 mb-0 mt-2 btn-more d-flex align-items-center" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                                            See <span class="see-more ms-1">more</span><span class="see-less ms-1">less</span><i class="fas fa-angle-down ms-2"></i>
+                                            See <span class="see-more ms-1">Categories</span><span class="see-less ms-1">less</span><i class="fas fa-angle-down ms-2"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -261,65 +289,65 @@ Page content START -->
                                     <ul class="list-inline mb-0">
                                         <!-- Courses -->
                                         <li class="list-inline-item">
-                                            <input type="radio" class="btn-check" name="options" id="option1">
-                                            <label class="btn btn-light btn-primary-soft-check" for="option1">Courses</label>
+                                            <input type="radio" class="btn-check" name="tutorialTypes" id="typeCourse">
+                                            <label class="btn btn-light btn-primary-soft-check" for="typeCourse">Courses</label>
                                         </li>
                                         <!-- Tutorials -->
                                         <li class="list-inline-item">
-                                            <input type="radio" class="btn-check" name="options" id="option2">
-                                            <label class="btn btn-light btn-primary-soft-check" for="option2">Tutorials</label>
+                                            <input type="radio" class="btn-check" name="tutorialTypes" id="typeTutorial">
+                                            <label class="btn btn-light btn-primary-soft-check" for="typeTutorial">Tutorials</label>
                                         </li>
                                     </ul>
                                 </div>
                                 <!-- Type END -->
 
                                  <!-- Price START -->
-                                 <div class="card card-body shadow p-4 mb-4">
+                                 <!-- <div class="card card-body shadow p-4 mb-4"> -->
                                     <!-- Title -->
-                                    <h4 class="mb-3">Price Level</h4>
-                                    <ul class="list-inline mb-0">
+                                    <!-- <h4 class="mb-3">Price Level</h4>
+                                    <ul class="list-inline mb-0"> -->
                                         <!-- Rent -->
-                                        <li class="list-inline-item">
+                                        <!-- <li class="list-inline-item">
                                             <input type="radio" class="btn-check" name="options" id="option1">
                                             <label class="btn btn-light btn-primary-soft-check" for="option1">All</label>
-                                        </li>
+                                        </li> -->
                                         <!-- Sale -->
-                                        <li class="list-inline-item">
+                                        <!-- <li class="list-inline-item">
                                             <input type="radio" class="btn-check" name="options" id="option2">
                                             <label class="btn btn-light btn-primary-soft-check" for="option2">Free</label>
-                                        </li>
+                                        </li> -->
                                         <!-- Buy -->
-                                        <li class="list-inline-item">
+                                        <!-- <li class="list-inline-item">
                                             <input type="radio" class="btn-check" name="options" id="option3">
                                             <label class="btn btn-light btn-primary-soft-check" for="option3">Paid</label>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!-- Price END -->
         
                                 <!-- Level START -->
                                 <div class="card card-body shadow p-4 mb-4">
                                     <!-- Title -->
                                     <h4 class="mb-3">Level</h4>
-                                    <ul class="list-inline mb-0">
+                                    <ul class="list-inline mb-0" id="levels_container">
                                         <!-- Item -->
                                         <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-12">
+                                            <input type="checkbox" class="btn-check levels_filter_button" value="All levels" id="btn-check-12">
                                             <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">All levels</label>
                                         </li>
                                         <!-- Item -->
                                         <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-9">
+                                            <input type="checkbox" class="btn-check levels_filter_button" value="Beginner" id="btn-check-9">
                                             <label class="btn btn-light btn-primary-soft-check" for="btn-check-9">Beginner</label>
                                         </li>
                                         <!-- Item -->
                                         <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-10">
+                                            <input type="checkbox" class="btn-check levels_filter_button" value="Intermediate" id="btn-check-10">
                                             <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">Intermediate</label>
                                         </li>
                                         <!-- Item -->
                                         <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-11">
+                                            <input type="checkbox" class="btn-check levels_filter_button" value="Advanced" id="btn-check-11">
                                             <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">Advanced</label>
                                         </li>
                                     </ul>
@@ -329,9 +357,9 @@ Page content START -->
                     </div>
     
                     <!-- Button -->
-                    <div class="d-grid p-2 p-lg-0 text-center">
+                    <!-- <div class="d-grid p-2 p-lg-0 text-center">
                         <button class="btn btn-primary mb-0">Filter Results</button>
-                    </div>
+                    </div> -->
     
                 </div>
                 <!-- Responsive offcanvas body END -->
@@ -361,6 +389,7 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
+<script src="/js/updateUIFilter.js"></script>
 <script src="/js/getTutorials.js"></script>
 <script src="/js/searchQueries/tutorialSearchQuery.js"></script>
 <!-- <script src="/js/updateAccountData.js"></script> -->
@@ -370,6 +399,7 @@ Footer END -->
 
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/searchQueries/getCoursesCategories.js"></script>
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>

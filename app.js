@@ -103,8 +103,6 @@ function onConnected(socket) {
     const senderId = data.name;
     const timestamp = data.dateTime;
   
-    // const buffer_unique =  `${recipientId + senderId}`;
-    // const buffer_id = await bcrypt.hash(buffer_unique, 8)
     const buffer_id = data.inbox
 
     const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer) VALUES (?, ?, ?, ?, ?)";
@@ -121,6 +119,36 @@ function onConnected(socket) {
   socket.on("feedback", (data) => {
     socket.broadcast.emit("feedback", data);
   });
+
+  // THE SOCKET IO CHAT SYSTEM FOR SPACES GOES HERE
+  socket.on('join-group-chat', async (roomId) => {
+    socket.join(roomId); // Join the group chat room
+  });
+
+  socket.on('leave-group-chat', async (roomId) => {
+    socket.leave(roomId); // Leave the group chat room
+  });
+
+  socket.on('group-chat-message', async (data, roomId) => {
+    const content = data.message;
+    const senderId = data.name;
+    const timestamp = data.dateTime;
+
+    // Save the message to the database with the group chat room ID
+    const buffer_id = data.inbox
+
+    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer) VALUES (?, ?, ?, ?)";
+    db.query(query, [senderId, content, timestamp, buffer_id], (err, results) => {
+      if (err) {
+        console.error("Error saving message to the database:", err);
+      } else {
+    // Emit the message to all users in the group chat
+    io.to(roomId).emit('group-chat-message', data);
+      }
+    });
+
+  });
+  
 
   // SOCKET IO CODE FOR THE VIDEO CONFERENCING
   socket.on('join-vc', (roomId_vc, userId_vc) => {

@@ -1,35 +1,11 @@
-const discoverAccountsContainer = document.getElementById("DiscoverAccounts")
+// const discoverAccountsContainer = document.getElementById("DiscoverAccounts")
+const FollowingSlide = document.getElementById("FollowingSlide")
 
-const SearchBar = document.getElementById("searchDirectory")
-SearchBar.addEventListener("keyup", function(){
-    if(SearchBar.value ==""){
-        fetch("/directorydiscoverAccounts", ()=>{
-            method:"GET"
-        })
-        .then(res => res.json())
-        .then(data =>{
-            DiscoverItems(data)
-        })
-    }
-})
-
-fetch("/directorydiscoverAccounts", ()=>{
-    method:"GET"
-})
-.then(res => res.json())
-.then(data =>{
-    DiscoverItems(data)
-})
-
-
-
-
-
-function DiscoverItems(data){
+function updateDiscoverUI(scholarArray){
     discoverAccountsContainer.innerHTML = ""
-    if(data.DiscoverData.length > 0){
-
-        data.DiscoverData.forEach(discover => {
+    FollowingSlide.click()
+    if(scholarArray.length > 0){
+        scholarArray.forEach(discover => {
             const id = discover.ID
             const Fullname = `${discover.first_name} ${discover.last_name}`
             const Username = `${discover.username}`
@@ -58,6 +34,9 @@ function DiscoverItems(data){
             }else if(account_Type == "instructor_account"){
                 AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
             }
+            else if(account_Type == "user_account"){
+                AccountIcon = ""
+            }
 
             discoverAccountsContainer.innerHTML +=`<account data-index="0${id}" id="li" data-name="${Fullname}"><a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
@@ -73,7 +52,7 @@ function DiscoverItems(data){
               <path d="M3.656 3.891l17.484 17.438-1.313 1.313-1.875-1.922q-0.563 0.281-0.938 0.281h-10.031q-0.797 0-1.383-0.609t-0.586-1.406v-11.203l-2.625-2.625zM18.984 5.016v11.672l-11.344-11.344 2.344-2.344h7.031q0.797 0 1.383 0.609t0.586 1.406z"></path>
       </symbol>
   </svg>              
-          <span class="text">Become our First Scholar</span>
+          <span class="text">No data match your search</span>
       </div>`
     }
 }

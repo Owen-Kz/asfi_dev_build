@@ -39,8 +39,7 @@
              <script src="/js/navbar.js"></script>
          <%} else if(accountType == "instructor_account") {%>
              <script src="/js/instructorNavbar.js"></script>
- 
-             <% } %>
+        <% } %>
      </sidebar>
      <!-- END NAVIGATION BAR  -->
 
@@ -53,11 +52,15 @@
             </button>
 
             
-                    <searchBar>
-                        <input type="text" name="searchLibrary" placeholder="Find a Scholar: Join Groups and Forums" id="searchLibrary"/>
-    
-                       <i class="fa fa-search"></i>
-                    </searchBar>
+             
+            
+            <searchBar>
+                <form id="searchForm">
+                <input type="text" name="searchScholars" placeholder="Find a Scholar: Search by name or Username" id="searchDirectory"/>
+                <button type="submit" hidden></button>
+            </form>
+               <i class="fa fa-search"></i>
+            </searchBar>
                
 		</div>
 	</nav>
@@ -138,6 +141,8 @@ Footer END -->
 <script src="/js/searchQueries/getSpacesQuery.js"></script>
 <script src="/js/searchQueries/getFollowingQuery.js"></script>
 <script src="/js/searchQueries/getDiscoverQuery.js"></script>
+<script src="/js/searchQueries/updateDiscoverUI.js"></script>
+<script src="/js/searchQueries/scholarsSearchQuery.js"></script>
 
 
 

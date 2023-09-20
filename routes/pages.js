@@ -57,6 +57,15 @@ const createScholar = require("../controllers/scholarContols/createScholar");
 const createSpaces = require("../controllers/createSpaces");
 const totalCourses = require("../controllers/SearchResults/totalCourses");
 const totalfollowers = require("../controllers/SearchResults/totalFollowers");
+const CourseCategories = require("../controllers/SearchResults/CourseCategories");
+const FilterCoursesInCategory = require("../controllers/SearchResults/FilterCoursesInCategory");
+const getAsTutorial = require("../controllers/SearchResults/getAsTutorials");
+const getAsCourses = require("../controllers/SearchResults/getAsCourses");
+const getAsLevels = require("../controllers/SearchResults/getAsLevels");
+const scholarSearchResults = require("../controllers/SearchResults/scholarSearchResults");
+const SpaceParticipants = require("../controllers/SearchResults/spaceParticipants");
+const ExitSpace = require("../controllers/SearchResults/exitSpace");
+const SpaceChatHistory = require("../controllers/SearchResults/spaceChatHistory");
 
 const router = express.Router();
 router.use(express.json())
@@ -71,9 +80,18 @@ router.get("/", LoggedIn, (req,res)=>{
     }
 })
 router.get("/home", (req,res)=>{
-    res.render("home.ejs", {status :"no", logger:"Not logged in", user :""});
-})
+   if(req.cookies.userRegistered){
+    res.render("home", {status :"no", logger:"Not logged in", user :"", });
+    }else{
+    res.render("home", {status :"no", logger:"Not logged in", user :"", });
 
+    }
+})
+// router.get("/home", (req,res) =>{
+//     res.render("home", {
+//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+//     })
+// })
 router.get("/app", (req, res) => {
     if(req.cookies.userRegistered){
     const username_new = " "
@@ -145,8 +163,17 @@ router.get("/directory", LoggedIn, Directory)
 // GET the spaces to feed to the directory 
 router.get("/directorySpaces", LoggedIn, getSpaces)
 
+// SEARCH THE DIRECTORY 
+router.get("/scholars/:scholarsearch", scholarSearchResults)
+
 // GET THE SPACES INTERFACE
 router.get("/spaces/:spaceid", LoggedIn, SpacesChat)
+// GET SPACE PARTICIPANTS
+router.get("/getSpaceParticipants/:spaceid",SpaceParticipants)
+// GET SPACE CHAT HISTORY 
+router.get("/getSpaceChatHistory/:spaceid", SpaceChatHistory)
+// Exit Space 
+router.get("/exitSpace/:spaceid",LoggedIn, ExitSpace)
 
 // Create New spaces 
 router.post("/createSpaces", LoggedIn, createSpaces)
@@ -195,7 +222,11 @@ router.get("/tutorials?q=courses",LoggedIn, displayCoursesOnly)
 router.get("/tutorial/:q",LoggedIn, tutorialSearchResults)
 router.get("/:tutorialOwner/tutorialsByAuthor", LoggedIn, tutorialsByAuthor)
 router.get("/:tutorialOwner/:tutorialCategory/tutorialsSameCourse", LoggedIn, TutorialOfSameCategory)
-
+router.get("/getAllCourseCategories", CourseCategories)
+router.get("/filterCategory/:filter",FilterCoursesInCategory )
+router.get("/getAllAsTutorials", getAsTutorial)
+router.get("/getAllAsCourses", getAsCourses)
+router.get("/getAllAsLevels/:level", getAsLevels)
 
 // GET THE VIDEO CONFERENCING PAGE  
 router.get("/vc", (req,res) => {
@@ -327,11 +358,7 @@ router.get("/newPassword", (req,res) =>{
     })
 })
 
-router.get("/home", (req,res) =>{
-    res.render("home", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
-    })
-})
+
 
 router.get("/index", (req,res) =>{
     res.render("index", {

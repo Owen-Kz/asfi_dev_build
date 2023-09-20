@@ -37,10 +37,24 @@ const tutorialSearchResults = async (req, res) => {
                 // Use Promise.all to wait for all owner data queries to finish
                 const ownerDataPromises = data.map(async (tutorialData) => {
                     const username_OWNER = tutorialData.tutorial_owner;
+                    const tutorialCourseId = tutorialData.related_course_id;
                     const ownerData = await getUserInfo(username_OWNER);
+
+                    const CourseData = await getCoursesInfo(tutorialCourseId)
+                    const CountRelatedCourse = await countCourses(tutorialCourseId)
                     
                     OwnerFullname = ownerData.first_name +" "+ ownerData.last_name;
                     OwnerProfilePicture = ownerData.profile_picture;
+                    if(CourseData){
+                        CourseName = CourseData.course_name
+                        CourseLevel = CourseData.course_level
+                        CourseCount = CountRelatedCourse.length
+                        }else{
+                            CourseName = ""
+                            CourseLevel = ""
+                           CourseCount = ""
+    
+                        }
 
                     return {
                         TutorialTitle: tutorialData.tutorial_title,
@@ -51,7 +65,8 @@ const tutorialSearchResults = async (req, res) => {
                         TutorialDescription: tutorialData.tutorial_description,
                         TutoriaThumbnail: tutorialData.tutorial_thumbnail,
                         TutorialOwnerFullName: OwnerFullname,
-                        CourseLevel: tutorialData.category,
+                        CourseLevel: CourseLevel,
+                        CourseCount: CourseCount,
                         TutorialOwnerProfilePicture: OwnerProfilePicture,
                         TutorialDate: tutorialData.date_uploaded,
                         TotalRelatedTutorials: tutorialData.category
@@ -79,6 +94,30 @@ function getUserInfo(username) {
                 reject(err);
             } else {
                 resolve(owner_data[0]);
+            }
+        });
+    });
+}
+
+function getCoursesInfo(course_id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM asfi_courses WHERE course_id = ?", [course_id], (err, course_data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(course_data[0]);
+            }
+        });
+    });
+}
+
+function countCourses(course_id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT id FROM tutorials WHERE related_course_id = ?", [course_id], (err, course_count) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(course_count);
             }
         });
     });
