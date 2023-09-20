@@ -28,7 +28,7 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
-        CreateNewDegree()
+        // CreateNewDegree()
         })
     })
     // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
