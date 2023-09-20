@@ -28,11 +28,36 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
-        location.reload();
-
+        // location.reload();
         })
+        const formData = new FormData();
+
+        // Retrieve values from the input fields
+        const inputFields = document.getElementsByName('honoraryText[]');
+        const honoraryTextField = document.getElementsByName('honoraryText[]')
+
+        for (const field of inputFields) {
+          formData.append('honoraryText[]', field.value);
+        }
+        for(const textFields of honoraryTextField){
+          formData.append('honoraryText[]', honoraryTextField.value)
+        }
+  
+        // Fetch API call to submit 
+        if(inputFields.value != ""){
+        fetch('/createNewDegrees', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())  // Adjust based on your server response
+        .then(data => console.log('Server response:', data))
+        .catch(error => console.error('Error:', error));
+      }
+        
     })
 
+
+    // UpDATE LNKS 
     const Facebook = document.getElementById("link-facebook")
     let FacebookValue
 

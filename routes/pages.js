@@ -67,6 +67,7 @@ const SpaceParticipants = require("../controllers/SearchResults/spaceParticipant
 const ExitSpace = require("../controllers/SearchResults/exitSpace");
 const SpaceChatHistory = require("../controllers/SearchResults/spaceChatHistory");
 const getDegree = require("../controllers/SearchResults/getDegreesResult");
+const createDegrees = require("../controllers/scholarContols/createDegrees");
 
 const router = express.Router();
 router.use(express.json())
@@ -256,6 +257,9 @@ router.get("/settings", LoggedIn, ProfileSettings)
 
 // GET the Degrees for profiles
 router.get("/getDegrees/:username", getDegree)
+
+// CREATE NEW DEGREE 
+router.get("/createNewDegrees", LoggedIn, createDegrees)
 
 //Upload images to the database
 router.post("/profilePhoto/u", LoggedIn, ProfileUpload);
