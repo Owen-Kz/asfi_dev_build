@@ -28,7 +28,7 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
-        // CreateNewDegree()
+        CreateNewDegree()
         })
     })
     // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
@@ -60,9 +60,9 @@ form1.addEventListener("submit", (e) =>{
         
         
         // Fetch API call to submit 
-        if(inputFields.value !== ""){
+        if(inputFields.value){
             console.log("NOT EMPTY")
-        fetch(`/createNewDegrees/honors`, {
+        fetch(`/createNewDegrees`, {
           method: 'POST',
           body: JSON.stringify(formData),
           headers:{

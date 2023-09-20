@@ -259,7 +259,7 @@ router.get("/settings", LoggedIn, ProfileSettings)
 router.get("/getDegrees/:username", getDegree)
 
 // CREATE NEW DEGREE 
-router.post("/createNewDegrees/:honors", LoggedIn, createDegrees)
+router.post("/createNewDegrees", LoggedIn, createDegrees)
 
 //Upload images to the database
 router.post("/profilePhoto/u", LoggedIn, ProfileUpload);
