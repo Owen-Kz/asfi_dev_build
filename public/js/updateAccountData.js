@@ -28,6 +28,8 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
+        location.reload();
+
         })
     })
 

@@ -66,6 +66,7 @@ const scholarSearchResults = require("../controllers/SearchResults/scholarSearch
 const SpaceParticipants = require("../controllers/SearchResults/spaceParticipants");
 const ExitSpace = require("../controllers/SearchResults/exitSpace");
 const SpaceChatHistory = require("../controllers/SearchResults/spaceChatHistory");
+const getDegree = require("../controllers/SearchResults/getDegreesResult");
 
 const router = express.Router();
 router.use(express.json())
@@ -252,6 +253,9 @@ router.get("/:tutorialOwner/:courseID/:tutorialID", LoggedIn, watchTutorials);
 
 //Update user Profile and show the settings page
 router.get("/settings", LoggedIn, ProfileSettings)
+
+// GET the Degrees for profiles
+router.get("/getDegrees/:username", getDegree)
 
 //Upload images to the database
 router.post("/profilePhoto/u", LoggedIn, ProfileUpload);
