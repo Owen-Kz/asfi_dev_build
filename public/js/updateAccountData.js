@@ -43,6 +43,7 @@ form1.addEventListener("submit", (e) =>{
        return bufferID 
     }
     function CreateNewDegree(){
+        console.log("NEW DEGREE")
         const inputFields = document.getElementsByName('honoraryText[]');
         const honoraryTextField = document.getElementsByName('honoraryName[]');
         const formData = [];
@@ -59,7 +60,8 @@ form1.addEventListener("submit", (e) =>{
         
         
         // Fetch API call to submit 
-        if(inputFields.value != ""){
+        if(inputFields.value !== ""){
+            console.log("NOT EMPTY")
         fetch(`/createNewDegrees/honors`, {
           method: 'POST',
           body: JSON.stringify(formData),
