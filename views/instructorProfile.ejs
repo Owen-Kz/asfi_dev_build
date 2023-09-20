@@ -323,9 +323,9 @@ Page content START -->
 							<div class="col-md-6">
 								<label class="form-label">Phone number</label>
                                 <% if(PhoneNumber != 0){ %>
-                                    <input type="number" name="phonenumber" id="phonenumber" class='form-control' value="<%=PhoneNumber %>" minlength=11 maxlength="20" readonly>
+                                    <input type="text" name="phonenumber" id="phonenumber" class='form-control' value="<%=PhoneNumber %>" minlength=11 maxlength="20" readonly>
                                     <%} else {%>
-                                    <input type="number" name="phonenumber" id="phonenumber" class='form-control' placeholder="Not Applicable" minlength=11 maxlength="20" readonly>
+                                    <input type="text" name="phonenumber" id="phonenumber" class='form-control' placeholder="Not Applicable" minlength=11 maxlength="20" readonly>
                                     <% } %>
 							</div>
 
@@ -357,8 +357,8 @@ Page content START -->
 
 								<div class=" inputFieldContainer">
 
-								<input class="form-control mb-2" type="text" name="honoraryName[]" value="" placeholder="Enter Degree">
-								<input class="form-control mb-2" type="text" name="honoraryText[]" value="" placeholder="Enter Description: i.e (Attained from Winsconsin University)">
+								<input class="form-control mb-2" type="text" name="honoraryName[]" placeholder="Enter Degree">
+								<input class="form-control mb-2" type="text" name="honoraryText[]" placeholder="Enter Description: i.e (Attained from Winsconsin University)">
 								<hr>
 	                            
 								</div>

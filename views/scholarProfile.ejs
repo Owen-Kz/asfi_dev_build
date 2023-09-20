@@ -336,9 +336,9 @@ Page content START -->
 							<div class="col-md-6">
 								<label class="form-label">Phone number</label>
                                 <% if(PhoneNumber != 0){ %>
-                                    <input type="number" name="phonenumber" id="phonenumber" class='form-control' value="<%=PhoneNumber %>" minlength=11 maxlength="20" readonly>
+                                    <input type="text" name="phonenumber" id="phonenumber" class='form-control' value="<%=PhoneNumber %>" minlength=11 maxlength="20" readonly>
                                     <%} else {%>
-                                    <input type="number" name="phonenumber" id="phonenumber" class='form-control' placeholder="Not Applicable" minlength=11 maxlength="20" readonly>
+                                    <input type="text" name="phonenumber" id="phonenumber" class='form-control' placeholder="Not Applicable" minlength=11 maxlength="20" readonly>
                                     <% } %>
 							</div>
 

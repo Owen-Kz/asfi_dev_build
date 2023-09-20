@@ -37,7 +37,7 @@ const userFollows = async (req, res) => {
 
               return new Promise((resolve, reject) => {
                 db.query(
-                  "SELECT * FROM user_info WHERE ? AND acct_type = 'scholar_account'",
+                  "SELECT * FROM user_info WHERE ? AND (acct_type = 'scholar_account' OR acct_type = 'instructor_account')",
                   [{ username: FollowedAccount }],
                   (err, life) => {
                     if (err) reject(err);

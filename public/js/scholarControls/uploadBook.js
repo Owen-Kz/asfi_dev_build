@@ -67,7 +67,7 @@ HasLink.addEventListener("change", function() {
 // GET LINK DATA 
 
 function DoLink(){
-    // console.log("aafafkLINK")
+
     HasBook_Header.setAttribute("style", "display:none;")
     HasBook_Main.setAttribute("style", "display:none")
     removeImage.setAttribute("style", "display:none")
@@ -79,14 +79,13 @@ function DoLink(){
     if(HasLink.checked){
         $("#submitBook").on("click", function(){
         $(".submitBookM").trigger("click")
-    console.log("ACTIVE LINK")
     
         })
     }
 }
 // GET BOOK FORM DATA 
 function DoBook(){
-    // console.log("ACTIVE BOOK")
+
     HasBook_Header.removeAttribute("style", "display:none;")
     HasBook_Main.removeAttribute("style", "display:none")
     removeImage.setAttribute("style", "display:none")
@@ -103,7 +102,7 @@ $("#submitBook").on("click", function(){
     if(HasBook.checked){
 
     if(FILE_BOOK.files[0]){
-        // console.log("FILE_RE")
+
     const FILE_SIZE = FILE_BOOK.files[0].size
     const FILE_TYPE = FILE_BOOK.files[0].type
 
@@ -119,10 +118,10 @@ $("#submitBook").on("click", function(){
         ERRORS_ARRAY.push("NOT_VALID_PDF")
     }
     if(FILE_SIZE < 1000000000 && (FILE_TYPE == "application/pdf") && yearPublished.value != ""){
-        // console.log("afaf")
+
         ERRORS_ARRAY.pop("NOT_PDF", "PDF_TOO_LARGE" && yearPublished.value != "")
         SUCCESS.push("PDF_FILE_IS_VALID")
-    //    console.log("ERRORS_ARRAY")
+
      $(".submitBookM").trigger("click")
 
     }
@@ -173,22 +172,20 @@ const previewContainer = BookForm.querySelector("#imagePreview");
 //         var parentDiv = document.querySelector("#BookUploadModal")
 //         ERRORS_ARRAY.push("IMAGE_NOT_VALID")
 //         createWarning("invalid File Format Choose an image file", parentDiv)
-//         console.log(ERRORS_ARRAY)
+//   
 //         }
 //         if(FILE_BOOK_size_IMAGE < 2000000 && (FILE_BOOK_type_IMAGE == "image/jpeg" || FILE_BOOK_type_IMAGE == "image/jpg" || FILE_BOOK_type_IMAGE == "image/png")){
-//          console.log("TI")
+//   
 
 //         // ERRORS_ARRAY.pop("IMAGE_TOO_LARGE", "IMAGE_NOT_VALID")
 //            SUCCESS.push("IMAGE_IS_VALID")
-//            console.log(ERRORS_ARRAY)
+//    
 //         }
 //     }
 
 // });
 
 if(SUCCESS.length > 1){
-
-    // console.log(SUCCESS)
     // $(".submitBookM").trigger("click")
 }
 

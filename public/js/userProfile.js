@@ -4,8 +4,8 @@ var Imageform = document.getElementById("image_form")
 
 
 const usernameContainer = document.getElementById("usernameContainer")
-
 genBuffer()
+
 
 function genBuffer() {
 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -15,9 +15,8 @@ for (var i = 0; i <= passwordLength; i++) {
 var randomNumber = Math.floor(Math.random() * chars.length);
 bufferID += chars.substring(randomNumber, randomNumber +1);
 }
-// console.log(bufferID)
-$("body").prepend(`<input type='text' value='' id='bufferContainer' hidden readonly/>`)
 
+$("body").prepend(`<input type='text' value='' id='bufferContainer' hidden readonly/>`)
 const bufferContainer  = document.getElementById('bufferContainer')
 bufferContainer.value = bufferID
 
@@ -28,7 +27,7 @@ bufferContainer.value = bufferID
 
 $(".edit-image").on("click", function(){
     const bufferID_main = bufferContainer.value
-    // console.log(bufferID_main)
+    
 
     if($("#image_form").length > 0){
         $("#image_form").remove()
@@ -58,17 +57,16 @@ $(".edit-image").on("click", function(){
         if(FILE_TYPE_Profile_image !== "image/png" && FILE_TYPE_Profile_image !== "image/jpeg" && FILE_TYPE_Profile_image !== "image/jpg"){
             alert("invalid File format Choose an image file")
         }
-        // console.log(document.getElementById("bufferImage").value)
-     
+        
         if(FILE_SIZE_Profile_image < 10000000 && (FILE_TYPE_Profile_image == "image/png" || FILE_TYPE_Profile_image == "image/jpg" || FILE_TYPE_Profile_image == "image/jpeg")){
                 uploadImageFunctionProfile()
-                console.log("FileUPloaded Perhaps")
+                
         }
 }
 
 // Submit the new image 
 function uploadImageFunctionProfile(){
-    console.log("This happend")
+  
     $("#image_form").trigger("submit");
 }
 
@@ -96,8 +94,6 @@ $(".profile-edit-btn").on("click", function(){
 $(".edit-cover").on("click", function(){
     const bufferID_main = bufferContainer.value
     const username = usernameContainer.value
-
-    // console.log(bufferID_main)
 
     // if($("#cover_form").length > 0){
     //     $("#cover_form").remove()

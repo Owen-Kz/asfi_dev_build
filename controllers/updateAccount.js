@@ -1,21 +1,19 @@
 const db = require("../routes/db.config");
 
 const updateAccount = async (req, res) => {
-    const { firstname, lastname, username, phonenumber, usernameValidator, title, bio, ID_Validator, gender, NewLocation } = req.body;
+    if(req.user){
+        const  usernameValidator_main = req.user.username
+    const { firstname, lastname, username, phonenumber, title, bio, ID_Validator, gender, NewLocation } = req.body;
 
     try {
         const success = [];
-
-        if (usernameValidator) {
-            db.query("SELECT * FROM user_info WHERE username = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND gender = ? AND home_address = ?", 
-            [usernameValidator, phonenumber, bio, firstname, lastname, title, gender, NewLocation], async (err, exists) => {
+        if (usernameValidator_main) {
+            db.query("SELECT * FROM user_info WHERE ID = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND gender = ? AND home_address = ?", 
+            [ID_Validator, phonenumber, bio, firstname, lastname, title, gender, NewLocation], async (err, exists) => {
                 if (err) throw err
                 if (exists[0]) {
                     res.json({ message: "Data has not changed" });
-                }else{
-
-                }
-        
+                }        
                 });
             }
 
@@ -23,10 +21,12 @@ const updateAccount = async (req, res) => {
 
             const updateUserField = async (field, value, successMessage) => {
                 if (value !== "") {
-                    db.query("UPDATE user_info SET ? WHERE username =?", [{ [field]: value }, usernameValidator], async(err, newdata) => {
+                    db.query("UPDATE user_info SET ? WHERE ID =?", [{ [field]: value }, ID_Validator], async(err, newdata) => {
                         if (err) throw err;
+
                         if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
                             success.push(successMessage);
+            
                             responseSent = true;  // Set the flag to true
                             res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
                         }
@@ -37,7 +37,7 @@ const updateAccount = async (req, res) => {
 
 
         if (phonenumber !== "") {
-            db.query("SELECT *  FROM user_info WHERE username =? AND phonenumber =?", [usernameValidator, phonenumber], async (err, phone) => {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND phonenumber =?", [ID_Validator, phonenumber], async (err, phone) => {
                 if (err) throw err
                 if (phone[0]) {
                     console.log("Phonenumber did not change")
@@ -48,7 +48,7 @@ const updateAccount = async (req, res) => {
         }
 
         if (firstname !== "") {
-            db.query("SELECT *  FROM user_info WHERE username =? AND first_name =?", [usernameValidator, firstname], async (err, firstname_) => {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND first_name =?", [ID_Validator, firstname], async (err, firstname_) => {
                 if (err) throw err
                 if (firstname_[0]) {
                     console.log("Firstname did not change")
@@ -60,7 +60,7 @@ const updateAccount = async (req, res) => {
 
         if (lastname !== "") {
 
-            db.query("SELECT *  FROM user_info WHERE username =? AND last_name =?", [usernameValidator, lastname], async (err, lastname_) => {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND last_name =?", [ID_Validator, lastname], async (err, lastname_) => {
                 if (err) throw err
                 if (lastname_[0]) {
                     console.log("Lastname did not change")
@@ -72,7 +72,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(bio !==""){
-            db.query("SELECT *  FROM user_info WHERE username =? AND bio =?", [usernameValidator, bio], async (err, bio_) => {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND bio =?", [ID_Validator, bio], async (err, bio_) => {
                 if (err) throw err
                 if (bio_[0]) {
                     console.log("Bio did not change")
@@ -83,7 +83,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(title !== ""){
-            db.query("SELECT *  FROM user_info WHERE username =? AND title =?", [usernameValidator, title], async (err, title_) => {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND title =?", [ID_Validator, title], async (err, title_) => {
                 if (err) throw err
                 if (title_[0]) {
                     console.log("Title did not change")
@@ -94,7 +94,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(gender !== ""){
-            db.query("SELECT * FROM user_info WHERE username =? AND gender =?", [usernameValidator, title], async (err, gender_) => {
+            db.query("SELECT * FROM user_info WHERE ID  =? AND gender =?", [ID_Validator, title], async (err, gender_) => {
                 if (err) throw err
                 if (gender_[0]) {
                     console.log("Gender did not change")
@@ -107,7 +107,7 @@ const updateAccount = async (req, res) => {
 
         
         if(NewLocation !== ""){
-            db.query("SELECT * FROM user_info WHERE username =? AND home_address =?", [usernameValidator, NewLocation], async (err, address) => {
+            db.query("SELECT * FROM user_info WHERE ID  =? AND home_address =?", [ID_Validator, NewLocation], async (err, address) => {
                 if (err) throw err
                 if (address[0]) {
                     console.log("Address did not change")
@@ -119,11 +119,10 @@ const updateAccount = async (req, res) => {
         } 
 
         if (username !== "") {
-            // const exist_username =  db.query("SELECT username FROM user_info WHERE username =?", [username]);
             db.query("SELECT * FROM user_info WHERE username =?", username, async (err, data) => {
                 if (err) throw err
                 if (data[0]) {
-                    if(data[0].username != usernameValidator){
+                    if(data[0].username != usernameValidator_main){
                     responseSent = true
                     res.json({message:"Username Already taken"})
                     }
@@ -136,6 +135,8 @@ const updateAccount = async (req, res) => {
         console.error("Error updating account:", error);
         res.status(500).json({ message: "An error occurred while updating account" });
     }
+}
+
 };
 
 module.exports = updateAccount;

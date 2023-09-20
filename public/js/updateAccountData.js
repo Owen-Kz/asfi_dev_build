@@ -28,33 +28,51 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
-        // location.reload();
+        CreateNewDegree()
         })
-        const formData = new FormData();
-
-        // Retrieve values from the input fields
+    })
+    // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
+    function genBuffer() {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var passwordLength = 24;
+        var bufferID  = "";
+        for (var i = 0; i <= passwordLength; i++) {
+        var randomNumber = Math.floor(Math.random() * chars.length);
+        bufferID += chars.substring(randomNumber, randomNumber +1);
+        }
+       return bufferID 
+    }
+    function CreateNewDegree(){
         const inputFields = document.getElementsByName('honoraryText[]');
-        const honoraryTextField = document.getElementsByName('honoraryText[]')
-
-        for (const field of inputFields) {
-          formData.append('honoraryText[]', field.value);
+        const honoraryTextField = document.getElementsByName('honoraryName[]');
+        const formData = [];
+        
+        for (let i = 0; i < inputFields.length; i++) {
+          const ID = genBuffer();
+        
+          formData.push({
+            id: ID,
+            honoraryText: inputFields[i].value,
+            honoraryName: honoraryTextField[i].value
+          });
         }
-        for(const textFields of honoraryTextField){
-          formData.append('honoraryText[]', honoraryTextField.value)
-        }
-  
+        
+        
         // Fetch API call to submit 
         if(inputFields.value != ""){
-        fetch('/createNewDegrees', {
+        fetch(`/createNewDegrees/honors`, {
           method: 'POST',
-          body: formData
+          body: JSON.stringify(formData),
+          headers:{
+            "Content-type" : "application/JSON"
+          }
         })
         .then(response => response.json())  // Adjust based on your server response
-        .then(data => console.log('Server response:', data))
+        
+        .then(data => location.reload())
         .catch(error => console.error('Error:', error));
       }
-        
-    })
+    }
 
 
     // UpDATE LNKS 

@@ -10,6 +10,7 @@ const session = require("express-session");
 const shortid = require("shortid");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
+const LoggedIn = require("./controllers/loggedin");
 const MySQLStore = require('express-mysql-session')(session);
 
 
@@ -18,6 +19,9 @@ const io = require("socket.io")(server, {
   })
 
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(express.json());
 
@@ -167,7 +171,7 @@ app.use("/api/createFollower", require("./controllers/createFollower"));
 app.use("/api/delFollower", require("./controllers/deleteFollower"));
 app.use("/api/scholar/createPodcast", require("./controllers/scholarContols/createPodcast"));
 // app.use("/api/scholar/newCourse", require("./controllers/scholarContols/createCourse"))
-app.use("/api/updateAccount", require("./controllers/updateAccount"));
+app.use("/api/updateAccount", LoggedIn, require("./controllers/updateAccount"));
 app.use("/api/updateLinks", require("./controllers/createLink"))
 app.use("/api/data", require("./controllers/PodcastDownload"));
 app.use("/api/join-Room", require("./controllers/joinRoom"));
