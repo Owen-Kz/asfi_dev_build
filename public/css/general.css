@@ -1072,3 +1072,13 @@ margin: auto;
 .chat_container{
   display: none;
 }
+
+.degree {
+  border-bottom: 1px solid #4a4a4a4f;
+  padding: 10px 0 10px 0;
+  margin: 2%;
+}
+
+.degree .degree_title {
+  font-size: 1.4rem;
+}
