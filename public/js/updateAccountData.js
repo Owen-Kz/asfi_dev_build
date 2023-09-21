@@ -60,7 +60,7 @@ form1.addEventListener("submit", (e) =>{
         
         
         // Fetch API call to submit 
-        if(inputFields.value){
+        if(inputFields.value !== ""){
             console.log("NOT EMPTY")
         fetch(`/createNewDegrees`, {
           method: 'POST',
