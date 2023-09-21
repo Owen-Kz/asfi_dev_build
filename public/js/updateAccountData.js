@@ -32,8 +32,8 @@ form1.addEventListener("submit", (e) =>{
         })
     })
     // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
-    function genBuffer() {
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    function genBuffer(i) {
+        var chars = i+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         var passwordLength = 24;
         var bufferID  = "";
         for (var i = 0; i <= passwordLength; i++) {
@@ -49,10 +49,10 @@ form1.addEventListener("submit", (e) =>{
         const formData = [];
         
         for (let i = 0; i < inputFields.length; i++) {
-          const ID = genBuffer();
+          const ID = genBuffer(i);
         
           formData.push({
-            holder: "ll",
+            holder: ID,
             honoraryText: inputFields[i].value,
             honoraryName: honoraryTextField[i].value
           });

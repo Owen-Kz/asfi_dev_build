@@ -11,22 +11,22 @@ const createDegrees = (req, res) => {
         const DATAId = JSON.parse(JSON.stringify(honoraryName));
 
         // Function to get unique entries based on 'id'
-        function getUniqueEntries(inputArray) {
-          const uniqueEntries = {};
-          console.log(inputArray)
+        // function getUniqueEntries(inputArray) {
+        //   const uniqueEntries = {};
+        //   console.log(inputArray)
 
-          for (const entry of inputArray) {
-            const id = entry.holder.trim();
-            if (!uniqueEntries[id]) {
-              uniqueEntries[id] = entry;
-            }
-          }
+        //   for (const entry of inputArray) {
+        //     const id = entry.holder.trim();
+        //     if (!uniqueEntries[id]) {
+        //       uniqueEntries[id] = entry;
+        //     }
+        //   }
 
-          return Object.values(uniqueEntries);
-        }
+        //   return Object.values(uniqueEntries);
+        // }
 
         if(DATAId.length > 0){
-        const uniqueData = getUniqueEntries(DATAId);
+        const uniqueData = DATAId;
 
         function sendData(data_) {
             if(data_.successful == true){
