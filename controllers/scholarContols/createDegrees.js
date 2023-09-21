@@ -16,7 +16,7 @@ const createDegrees = (req, res) => {
           console.log(inputArray)
 
           for (const entry of inputArray) {
-            const id = entry.id.trim();
+            const id = entry.holder.trim();
             if (!uniqueEntries[id]) {
               uniqueEntries[id] = entry;
             }
