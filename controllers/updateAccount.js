@@ -3,6 +3,7 @@ const db = require("../routes/db.config");
 const updateAccount = async (req, res) => {
     if(req.user){
         const  usernameValidator_main = req.user.username
+        const AccountType = req.user.acct_type
     const { firstname, lastname, username, phonenumber, title, bio, ID_Validator, gender, NewLocation } = req.body;
 
     try {
@@ -33,7 +34,37 @@ const updateAccount = async (req, res) => {
                     });
                 }
             };
+
+            // Update all the data tables when the username changes 
+            const updateUserNameFields =  async (table, validator, field, value, successMessage) => {
+                if (value !== "") {
+                    db.query(`UPDATE ${table} SET ? WHERE ${validator} =?`, [{ [field]: value }, usernameValidator_main], async(err, newdata) => {
+                        if (err) throw err;
+
+                        if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
+                            success.push(successMessage);
             
+                            // responseSent = true;  // Set the flag to true
+                            // res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
+                        }
+                    });
+                }
+            };
+
+            // UPDATE the tables containing fullname when the firstname or lastname Changes 
+            const updateFulnameFields =  async (table, validator, field, value, successMessage) => {
+                if (value !== "") {
+                    db.query(`UPDATE ${table} SET ? WHERE ${validator} =?`, [{ [field]: value }, usernameValidator_main], async(err, newdata) => {
+                        if (err) throw err;
+
+                        if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
+                            success.push(successMessage);
+                            // responseSent = true;  // Set the flag to true
+                            // res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
+                        }
+                    });
+                }
+            };
 
 
         if (phonenumber !== "") {
@@ -54,6 +85,12 @@ const updateAccount = async (req, res) => {
                     console.log("Firstname did not change")
                 } else {
                     await updateUserField("first_name", firstname, "Firstname updated");
+
+                    await updateFulnameFields("applied_courses", "participants_username", "participants_fullname", firstname +" "+ lastname, "External Link updated")
+                    await updateFulnameFields("external_links", "link_owner", "link_owner_fullname", `${firstname +" "+ lastname}`,"External Link updated")
+                    await updateFulnameFields("podcasts", "podcast_owner", "podcast_owner_fullname", `${firstname +" "+ lastname}`, "Podcast updated")                
+                    
+                    
                 }
             })
         }
@@ -66,6 +103,9 @@ const updateAccount = async (req, res) => {
                     console.log("Lastname did not change")
                 } else {
                     await updateUserField("last_name", lastname, "Lastname updated");
+                    await updateFulnameFields("applied_courses", "participants_username", "participants_fullname", firstname +" "+ lastname, "External Link updated")
+                    await updateFulnameFields("external_links", "link_owner", "link_owner_fullname", `${firstname +" "+ lastname}`,"External Link updated")
+                    await updateFulnameFields("podcasts", "podcast_owner", "podcast_owner_fullname", `${firstname +" "+ lastname}`, "Podcast updated")  
 
                 }
             })
@@ -128,6 +168,35 @@ const updateAccount = async (req, res) => {
                     }
                 } else {
                     await updateUserField("username", username, "Username updated");
+
+                    if(AccountType == "instructor_account"){
+                    await updateUserNameFields("applied_courses", "course_instructor_username", "course_instructor_username", username, "Apllied Courses Updated")
+                    await updateUserNameFields("asfi_courses", "course_instructor", "course_instructor", username, "Courses Updated")
+                    await updateUserNameFields("books", "book_author", "book_author", username, "Books Updated")
+                    await updateUserNameFields("external_links", "link_owner", "link_owner", username, "Links Updated")
+                    await updateUserNameFields("tutorials", "tutorial_owner", "tutorial_owner", username, "Links Updated")
+                    }else{
+                    await updateUserNameFields("applied_courses", "participants_username", "course_instructor_username", username, "Apllied Courses Updated")
+                    }
+
+                    await updateUserNameFields("chat_buffer", "user_two", "user_two", username, "Chat Buffer Updated")
+                    await updateUserNameFields("chat_buffer", "user_one", "user_one", username, "Chat Buffer Updated")
+
+                    await updateUserNameFields("followers", "followerUsername", "followerUsername", username, "followers Updated")
+                    await updateUserNameFields("followers", "followingUsername", "followingUsername", username, "followers Updated")
+
+                    await updateUserNameFields("social_links", "link_owner", "link_owner", username, "Social Links Updated")
+                    await updateUserNameFields("honoraries", "scholar_username", "scholar_username", username, "Honoraries Updated")
+
+                    await updateUserNameFields("messages", "recipient_id", "recipient_id", username, "MessagesUpdated")
+                    await updateUserNameFields("messages", "sender_id", "sender_id", username, "MessagesUpdated")
+
+
+                    await updateUserNameFields("podcasts", "podcast_owner", "podcast_owner", username, "Links Updated")
+                    await updateUserNameFields("space_participants", "username", "username", username, "Links Updated")
+
+                    await updateUserNameFields("spaces_messages", "sender_id", "sender_id", username, "Links Updated")
+
                 }
             })
         }

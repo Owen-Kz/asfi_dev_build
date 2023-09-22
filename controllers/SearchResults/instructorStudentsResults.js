@@ -3,7 +3,7 @@ const db = require("../../routes/db.config");
 const instructorStudentsResults = (req, res) => {
   const itemsPerPage = 10; // Number of items to display per page
   const page = req.query.page || 1; // Current page, default is 1
-console.log(req.query)
+
   if (req.user) {
     const username = req.user.username;
 

@@ -72,6 +72,7 @@ const instructorCourseResult = require("../controllers/SearchResults/InstructorC
 const instructorStudents = require("../controllers/InstructorControls/instructorStudents");
 const instructorStudentsResults = require("../controllers/SearchResults/instructorStudentsResults");
 const instructorStudentSearch = require("../controllers/InstructorControls/instructorStudentSearch");
+const totalStudents = require("../controllers/SearchResults/totalStudents");
 
 const router = express.Router();
 router.use(express.json())
@@ -117,6 +118,7 @@ router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
 // GET TOTAL COURSES 
 router.get("/:username/totalcourses", totalCourses)
 router.get("/:username/totalfollowers", totalfollowers)
+router.get("/:username/totalstudents", totalStudents)
 
 
 // GET THE LIBRARY
@@ -346,13 +348,35 @@ router.get("/deleteAccount/del/", LoggedIn, DeleteAccountTrue)
 
 
 
-router.get("/becomeInstructor", (req,res) =>{
+router.get("/becomeInstructor",LoggedIn, (req,res) =>{
+   
+    if(!req.user){
     res.render("becomeInstructor", {
-        UserName: "TestUsername", accountType:"", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+        UserName: "", accountType:"", FirstName:"", LastName: "", ProfileImage: "", Email:""
+    })
+}else{
+    
+    const username = req.user.username
+    const FirstName = req.user.first_name
+    const LastName = req.user.last_name
+    const accountType = req.user.acct_type
+    const profilePicture = req.user.profile_picture
+    const Email = req.user.email
+    
+    if(accountType !== "instructor_account"){
+    res.render("becomeInstructor", {
+        UserName: username, accountType:accountType, FirstName:FirstName, LastName: LastName, ProfileImage: profilePicture, Email:Email
+    })
+    }else{
+        res.redirect("/dashboard")
+    }
+}
+})
+router.get("/instructorReviews", (req,res) =>{
+    res.render("instructorReviews", {
+        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
     })
 })
-
-// router.post("/create/newInstructor", createInstructor)
 
 router.get("/becomeScholar",LoggedIn, becomeScholarPage)
 router.post("/becomeScholar", createScholar)
@@ -367,36 +391,17 @@ router.get("/forgotpassword", (req,res) =>{
    res.redirect("passwordReset")
 })
 
-router.get("/confirmCode", (req,res) =>{
-    res.render("confirmCode", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
-    })
-})
+// router.get("/confirmCode", (req,res) =>{
+//     res.render("confirmCode", {
+//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
+//     })
+// })
 
-router.get("/newPassword", (req,res) =>{
-    res.render("newPassword", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
-    })
-})
-
-
-
-router.get("/index", (req,res) =>{
-    res.render("index", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
-    })
-})
-
-
-
-
-
-
-router.get("/instructorReviews", (req,res) =>{
-    res.render("instructorReviews", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
-    })
-})
+// router.get("/newPassword", (req,res) =>{
+//     res.render("newPassword", {
+//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
+//     })
+// })
 
 
 router.get("/scholarAssets", LoggedIn, Assets)

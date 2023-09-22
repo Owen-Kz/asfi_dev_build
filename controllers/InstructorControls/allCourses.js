@@ -9,8 +9,13 @@ const AllCourses = async (req,res) =>{
             
                 CoursesArrayMain.push(element)
             });
-
+            if(CoursesArrayMain.length > 0){
             res.json({courseData:JSON.stringify(CoursesArrayMain)})
+            }
+            else{
+            res.json({courseData:"[]"})
+
+            }
      
     })    
 }

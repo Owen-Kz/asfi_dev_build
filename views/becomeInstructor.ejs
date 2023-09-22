@@ -273,25 +273,34 @@
                       
 
                             <div class="col-lg-6">
+                            
                                 <label class="form-label">First Name *</label>
-                                <input type="text" class="form-control" aria-label="First name" id="first_name" name="first_name" required>
+                            <% if(FirstName !== "") { %>
+                            <input type="text" class="form-control" aria-label="First name" id="first_name" name="first_name" value="<%=FirstName%>" readonly>
+                            <% } else { %>
+                            <input type="text" class="form-control" aria-label="First name" id="first_name" name="first_name" required>
+                            <%}%>
                             </div>
                              <!-- Last Name -->
                              <div class="col-lg-6">
                                 <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-control" aria-label="Last name" id="last_name"  required>
+                            <% if(LastName !== "") { %>
+                                <input type="text" class="form-control" aria-label="Last name" id="last_name" value="<%=LastName%>"  readonly required>
+                                <%} else { %>
+                                    <input type="text" class="form-control" aria-label="Last name"  id="last_name"  required>
+                                    <%} %>
                             </div>
                             <!-- Last Name -->
                                   <!-- First Name -->
-                                  <%if(accountType == ""){%>
+                                  <%if(UserName !== ""){%>
                                     <div class="col-lg-6">
                                         <label class="form-label">User Name *</label>
-                                        <input type="text" class="form-control" aria-label="Username" id="username" name="username" required>
+                                        <input type="text" class="form-control" aria-label="Username" id="username" name="username" value="<%=UserName%>" readonly required>
                                     </div>
                                     <%} else {%>
                                         <div class="col-lg-6">
                                             <label class="form-label">User Name *</label>
-                                            <input type="text" class="form-control" aria-label="Username" id="username" name="username" value="<%=UserName%>" required>
+                                            <input type="text" class="form-control" aria-label="Username" id="username" name="username" required>
                                         </div>
                                     <%}%>
 
@@ -303,9 +312,14 @@
                                 <input type="date" class="form-control" aria-label="DOB" id="dob" required>
                             </div>
                             <!-- Email -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <label class="form-label">Email *</label>
+                                <% if(Email !== "") {%>
+                                <input type="email" class="form-control" id="email" value="<%=Email%>" readonly required>
+
+                                    <%} else {%>
                                 <input type="email" class="form-control" id="email" required>
+                                <%}%>
                             </div>
                             <!-- Number -->
                             <div class="col-lg-12">
