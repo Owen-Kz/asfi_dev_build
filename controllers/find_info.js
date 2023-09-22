@@ -108,6 +108,7 @@ const find_info = async (req,res) => {
           const EmailVisited = scholar_user[0]["email"]
           var courseAssigned = scholar_user[0]["course_assigned"]
           const Bio = scholar_user[0]["bio"]
+          const person_user_name = scholar_user[0]["username"]
           const displayName = firstName + "  " + LastName;
 
           const TutorialFinal = []
@@ -151,8 +152,9 @@ const find_info = async (req,res) => {
                     })
                 }
             resolve()
-     
-        if(acct_type == "scholar_account"){
+        if(person_user_name == req.user.username){
+            res.redirect("/settings")
+        }else if(acct_type == "scholar_account"){
             res.render("profile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo:cover_photo,accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor, UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount})
         }else if(acct_type == "user_account"){
             res.render("regularProfile", {root: "./public/directory/profile", searchName: displayName, personTitle: courseAssigned, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount, Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount,  cover_photo, accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor,  TutorialsArray:JSON.stringify(TutorialFinal), UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount})

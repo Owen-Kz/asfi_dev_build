@@ -26,8 +26,6 @@ const FILE = document.getElementById("file_audio")
         const FILE_SIZE = FILE.files[0].size
         const FILE_TYPE = FILE.files[0].type
 
-        // console.log(FILE_TYPE)
-
         if(FILE_SIZE > 1000000000){
             $("#warning").text("File Size greater than 1GB")
         }

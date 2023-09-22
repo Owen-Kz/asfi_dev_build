@@ -28,9 +28,56 @@ form1.addEventListener("submit", (e) =>{
     }).then(res => res.json())
     .then(data => {
         alert(data.message)
+        CreateNewDegree()
         })
     })
+    // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
+    function genBuffer(i) {
+        var chars = i+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var passwordLength = 24;
+        var bufferID  = "";
+        for (var i = 0; i <= passwordLength; i++) {
+        var randomNumber = Math.floor(Math.random() * chars.length);
+        bufferID += chars.substring(randomNumber, randomNumber +1);
+        }
+       return bufferID 
+    }
+    function CreateNewDegree(){
+        console.log("NEW DEGREE")
+        const inputFields = document.getElementsByName('honoraryText[]');
+        const honoraryTextField = document.getElementsByName('honoraryName[]');
+        const formData = [];
+        
+        for (let i = 0; i < inputFields.length; i++) {
+          const ID = genBuffer(i);
+        
+          formData.push({
+            holder: ID,
+            honoraryText: inputFields[i].value,
+            honoraryName: honoraryTextField[i].value
+          });
+        }
+        
+        
+        // Fetch API call to submit 
+        if(inputFields.value !== ""){
+            console.log("NOT EMPTY")
+        fetch(`/createNewDegrees`, {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers:{
+            "Content-type" : "application/JSON"
+          }
+        })
+        .then(response => response.json())  // Adjust based on your server response
+        
+        .then(data => location.reload())
+        .catch(error => console.error('Error:', error));
+      }
+    }
 
+
+    // UpDATE LNKS 
     const Facebook = document.getElementById("link-facebook")
     let FacebookValue
 

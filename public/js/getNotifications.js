@@ -21,7 +21,7 @@ fetch("/getNewChatNotifications", ()=>{
             }else{
                 Sender = User_one
             }
-            Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">New Message From ${Sender}</a></li>`;
+            Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">Chat with ${Sender}</a></li>`;
         });
     }else{
         Notification_id_container.innerHTML +=`<li class='no-notification'>No new Messages to display</li>`;

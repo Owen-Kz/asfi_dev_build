@@ -1,6 +1,7 @@
 const total_courses_count = document.getElementById("total_courses_count")
 const username_container = document.getElementById("username_container").innerText
 const total_followers_count = document.getElementById("total_followers_count")
+const total_enrolled_students = document.getElementById("total_enrolled_students")
 
 
 fetch(`/${username_container}/totalcourses`, ()=> {
@@ -20,6 +21,17 @@ fetch(`/${username_container}/totalfollowers`, ()=> {
     total_followers_count.innerText = data.TotalFollowers
 })
 }
+
+
+if(total_enrolled_students){
+    fetch(`/${username_container}/totalstudents`, ()=> {
+        method:"GET"
+    }).then(res => res.json())
+    .then(data =>{
+        total_enrolled_students.innerText = data.TotalStudents
+    })
+}
+
 
 
 

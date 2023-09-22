@@ -8,8 +8,12 @@ const AllCategories = async (req,res) =>{
             
                 CategoriesArrayMain.push(element)
             });
+            if(CategoriesArrayMain.length > 0){
+                res.json({categoryData:JSON.stringify(CategoriesArrayMain)})
+            }else{
+            res.json({categoryData:"[]"})
 
-            res.json({categoryData:JSON.stringify(CategoriesArrayMain)})
+            }
      
     })    
 }

@@ -55,7 +55,6 @@ const url = getURL()
     if(url == "/podcasts/" || url == "/Podcasts/" || url == "/podcasts" || url == "/Podcasts" ){
         var dashboard =  document.getElementById("podcasts_link_pg");
         dashboard.classList += "active_item";
-        console.log("Podcast is active")
     }
 
 // FOR THE VIDEO CONFERENCING PAGE  

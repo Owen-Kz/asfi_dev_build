@@ -5,6 +5,9 @@ const AllInstructorCourses = async (req,res) =>{
         if(err) throw err
         if(dataRetrieved){
             res.json({AllInstructorCourses:JSON.stringify(dataRetrieved)})
+        }else{
+            res.json({AllInstructorCourses:"[]"})
+
         }
     })
 }

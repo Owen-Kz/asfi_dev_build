@@ -203,13 +203,17 @@ Page content START -->
 						<button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
 					</div>
 					<!-- Offcanvas body -->
+
 					<div class="offcanvas-body p-3 p-xl-0">
 						<div class="bg-dark border rounded-3 pb-0 p-3 w-100">
 							<!-- Dashboard menu -->
+
 							<%- include ("instructorDashboardMenu") %>
 							<div class="list-group list-group-dark list-group-borderless">
 								<a class="list-group-item text-danger bg-danger-soft-hover" href="/logout"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 							</div>
+
+
 						</div>
 					</div>
 				</div>
@@ -267,13 +271,12 @@ Page content START -->
 										<th scope="col" class="border-0 rounded-start">Course Title</th>
 										<th scope="col" class="border-0">Enrolled</th>
 										<th scope="col" class="border-0">Status</th>
-										<th scope="col" class="border-0">Price</th>
 										<th scope="col" class="border-0 rounded-end">Action</th>
 									</tr>
 								</thead>
 
 								<!-- Table body START -->
-								<tbody>
+								<tbody id="instructorCoursesContainer">
 									<!-- Table item -->
 									<tr>
 										<!-- Course item -->

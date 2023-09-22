@@ -1,183 +1,211 @@
 const db = require("../routes/db.config");
-const bcrypt = require("bcryptjs");
-const validator = require("validator");
-
 
 const updateAccount = async (req, res) => {
-    const { firstname, lastname, username, phonenumber, usernameValidator, title, bio, ID_Validator, gender, NewLocation} = req.body
+    if(req.user){
+        const  usernameValidator_main = req.user.username
+        const AccountType = req.user.acct_type
+    const { firstname, lastname, username, phonenumber, title, bio, ID_Validator, gender, NewLocation } = req.body;
 
-// res.json({message:'dataREcieved'})
-
-    if(usernameValidator) {
-        db.query("SELECT * FROM user_info WHERE ? AND ? AND ? AND ? AND ? AND ? AND ? AND ?", [{first_name:firstname}, {last_name:lastname},{bio:bio},  {username:username}, {phonenumber:phonenumber}, {gender:gender}, {home_address:NewLocation},{title:title}], async (er_no_Change, no_change) => {
-            if(er_no_Change){ throw er_no_Change}
-
-            if(no_change[0]){
-            const  oldNumber__ = no_change[0]["phonenumber"]
-            const  oldFirstName__ = no_change[0]["first_name"]
-             const oldLastName__ = no_change[0]["last_name"]
-            const  oldUsername__ = no_change[0]["username"]
-
-            // console.log(oldFirstName__, oldLastName__, oldNumber__, oldUsername__)
-            res.json({message: "No changes was detected"})
+    try {
+        const success = [];
+        if (usernameValidator_main) {
+            db.query("SELECT * FROM user_info WHERE ID = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND gender = ? AND home_address = ?", 
+            [ID_Validator, phonenumber, bio, firstname, lastname, title, gender, NewLocation], async (err, exists) => {
+                if (err) throw err
+                if (exists[0]) {
+                    res.json({ message: "Data has not changed" });
+                }        
+                });
             }
-            else{
-        const success = []
-    // Update phonenumber only 
-    if(phonenumber != ""){
-    db.query("UPDATE user_info SET ? WHERE username =?", [{phonenumber:phonenumber}, usernameValidator], async(errP, PhoneUpdate) => {
-        if(errP) throw errP
-        success.push(
-            "phonenumber updated"
-            )
 
-    })
-    }
+            let responseSent = false;  // Flag to track if the response has been sent
 
-    // Update firstname only 
-    if(firstname != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{first_name:firstname}, usernameValidator], async(errP, FirstNameUpdated) => {
-            if(errP) throw errP
-            // res.json({message:"firstname Updated Successfully"})
-            success.push(
-                "Firstname Updated"
-                )
-        })
-    }
+            const updateUserField = async (field, value, successMessage) => {
+                if (value !== "") {
+                    db.query("UPDATE user_info SET ? WHERE ID =?", [{ [field]: value }, ID_Validator], async(err, newdata) => {
+                        if (err) throw err;
 
-    // Update Lastname only 
-    if(lastname != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{last_name:lastname}, usernameValidator], async(errP, lastNameUPdated) => {
-            if(errP) throw errP
-            // res.json({success:"Lastname Updated Successfully"})
-            success.push(
-                "Lastname updated"
-                )
-        })
-    }
-
-    if(bio != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{bio:bio}, usernameValidator], async(errP, lastNameUPdated) => {
-            if(errP) throw errP
-            // res.json({success:"Lastname Updated Successfully"})
-            success.push(
-                "Lastname updated"
-                )
-        })
-    }
-
-    if(title != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{title:title}, usernameValidator], async(errP, lastNameUPdated) => {
-            if(errP) throw errP
-            // res.json({success:"Lastname Updated Successfully"})
-            success.push(
-                "Lastname updated"
-                )
-        })
-    }
-
-    if(gender != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{gender:gender}, usernameValidator], async(errP, lastNameUPdated) => {
-            if(errP) throw errP
-            // res.json({success:"Lastname Updated Successfully"})
-            success.push(
-                "Lastname updated"
-                )
-        })
-    }
-
-    if(NewLocation != ""){
-        db.query("UPDATE user_info SET ? WHERE username =?", [{home_address:NewLocation}, usernameValidator], async(errP, lastNameUPdated) => {
-            if(errP) throw errP
-            // res.json({success:"Lastname Updated Successfully"})
-            success.push(
-                "Lastname updated"
-                )
-        })
-    }
-
-
-    // // update Email only 
-    // if(email){
-    //     if (!validator.isEmail(email)) return res.json({ status: "error", error: "Please provide a valid email" });
-    //     db.query("SELECT * FROM user_info WHERE email =?", [email], async (Err_exist, exist_email) => {
-
-    //     if(Err_exist) throw Err_exist
-    //     if(exist_email[0]){
-    //         // EAST.push("3")
-    //         db.query("SELECT email FROM user_info WHERE ID =?",[ID_Validator], async (chk, stop) => {
-    //             if(chk) throw chk
-    //            if(stop[0]){
-    //             res.json({status:"error", error:"No change to the email"})
-    //         }else{
-    //             // WEST.push("4")
-    //          res.json({status:"error", error:"Email already taken"})
-    //         }
-    //         })
-    //     }else{
-    //         if(40 == 20 + 20 && 30 == 20 + 10){
-    //             db.query("UPDATE user_info SET ? WHERE ID =?", [{email:email}, ID_Validator], async(errP, EmailUpdated) => {
-    //                 if(errP) throw errP
-    //                 EmailUPdated.push(EmailUpdated)
-    //                 res.json({success:"Email Updated Successfully"})
-    //                 console.log("Email Updated")
-    //             })
-    //         }else{
-    //             console.log("This is not working")
-    //         }
-    //     }
-    //     })
-    // }
-     
-
-     // update Username only 
-     if(username !=""){
-        db.query("SELECT * FROM user_info WHERE username =?", [username], async (Err_exist_username, exist_username) => {
-
-        if(Err_exist_username) throw Err_exist_username
-        if(exist_username[0]){
-            db.query("SELECT username FROM user_info WHERE ID =?",[ID_Validator], async (chk_username, stop_username) => {
-                if(chk_username) throw chk_username
-               if(stop_username[0]){
-                // res.json({status:"error", error:"Username has not changed"})
-            }else{
-
-                
-            }
-            })
-        }else{
-            if(40 == 20 + 20 && 30 == 20 + 10){
-                db.query("UPDATE user_info SET ? WHERE ID =?", [{username:username}, ID_Validator], async(errP_username, usernameUpdated) => {
-                    if(errP_username) throw errP_username
-                    // res.json({success:"Username Updated Successfully"}
-                    success.push(
-                        "Username Updated"
-                    )
-                })
-            }else{
-                console.log("This is not working")
-            }
-        }
-        })
-    }
-
-    const EmailUPdated = []
-    const UsernameUpdated = []
-
-
-    if(EmailUPdated.length > 0){
-        // console.log(EmailUPdated)
-    }
-    if(success.length > 0){
-    res.json({message:JSON.stringify(success)})
-
-    }
-            }
+                        if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
+                            success.push(successMessage);
             
-          })
+                            responseSent = true;  // Set the flag to true
+                            res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
+                        }
+                    });
+                }
+            };
+
+            // Update all the data tables when the username changes 
+            const updateUserNameFields =  async (table, validator, field, value, successMessage) => {
+                if (value !== "") {
+                    db.query(`UPDATE ${table} SET ? WHERE ${validator} =?`, [{ [field]: value }, usernameValidator_main], async(err, newdata) => {
+                        if (err) throw err;
+
+                        if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
+                            success.push(successMessage);
+            
+                            // responseSent = true;  // Set the flag to true
+                            // res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
+                        }
+                    });
+                }
+            };
+
+            // UPDATE the tables containing fullname when the firstname or lastname Changes 
+            const updateFulnameFields =  async (table, validator, field, value, successMessage) => {
+                if (value !== "") {
+                    db.query(`UPDATE ${table} SET ? WHERE ${validator} =?`, [{ [field]: value }, usernameValidator_main], async(err, newdata) => {
+                        if (err) throw err;
+
+                        if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
+                            success.push(successMessage);
+                            // responseSent = true;  // Set the flag to true
+                            // res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
+                        }
+                    });
+                }
+            };
 
 
+        if (phonenumber !== "") {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND phonenumber =?", [ID_Validator, phonenumber], async (err, phone) => {
+                if (err) throw err
+                if (phone[0]) {
+                    console.log("Phonenumber did not change")
+                } else {
+                    await updateUserField("phonenumber", phonenumber, "Phonenumber updated");
+                }
+            })
         }
+
+        if (firstname !== "") {
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND first_name =?", [ID_Validator, firstname], async (err, firstname_) => {
+                if (err) throw err
+                if (firstname_[0]) {
+                    console.log("Firstname did not change")
+                } else {
+                    await updateUserField("first_name", firstname, "Firstname updated");
+
+                    await updateFulnameFields("applied_courses", "participants_username", "participants_fullname", firstname +" "+ lastname, "External Link updated")
+                    await updateFulnameFields("external_links", "link_owner", "link_owner_fullname", `${firstname +" "+ lastname}`,"External Link updated")
+                    await updateFulnameFields("podcasts", "podcast_owner", "podcast_owner_fullname", `${firstname +" "+ lastname}`, "Podcast updated")                
+                    
+                    
+                }
+            })
+        }
+
+        if (lastname !== "") {
+
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND last_name =?", [ID_Validator, lastname], async (err, lastname_) => {
+                if (err) throw err
+                if (lastname_[0]) {
+                    console.log("Lastname did not change")
+                } else {
+                    await updateUserField("last_name", lastname, "Lastname updated");
+                    await updateFulnameFields("applied_courses", "participants_username", "participants_fullname", firstname +" "+ lastname, "External Link updated")
+                    await updateFulnameFields("external_links", "link_owner", "link_owner_fullname", `${firstname +" "+ lastname}`,"External Link updated")
+                    await updateFulnameFields("podcasts", "podcast_owner", "podcast_owner_fullname", `${firstname +" "+ lastname}`, "Podcast updated")  
+
+                }
+            })
+        }
+
+        if(bio !==""){
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND bio =?", [ID_Validator, bio], async (err, bio_) => {
+                if (err) throw err
+                if (bio_[0]) {
+                    console.log("Bio did not change")
+                } else {
+                    await updateUserField("bio", bio, "Bio updated");
+                }
+            })
+        }
+
+        if(title !== ""){
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND title =?", [ID_Validator, title], async (err, title_) => {
+                if (err) throw err
+                if (title_[0]) {
+                    console.log("Title did not change")
+                } else {
+                    await updateUserField("title", title, "Title updated");
+                }
+            })
+        }
+
+        if(gender !== ""){
+            db.query("SELECT * FROM user_info WHERE ID  =? AND gender =?", [ID_Validator, title], async (err, gender_) => {
+                if (err) throw err
+                if (gender_[0]) {
+                    console.log("Gender did not change")
+                } else {
+                    await updateUserField("gender", gender, "Gender updated");
+
+                }
+            })
+        }
+
+        
+        if(NewLocation !== ""){
+            db.query("SELECT * FROM user_info WHERE ID  =? AND home_address =?", [ID_Validator, NewLocation], async (err, address) => {
+                if (err) throw err
+                if (address[0]) {
+                    console.log("Address did not change")
+                } else {
+                    await updateUserField("home_address", NewLocation, "Home address updated");
+
+                }
+            })
+        } 
+
+        if (username !== "") {
+            db.query("SELECT * FROM user_info WHERE username =?", username, async (err, data) => {
+                if (err) throw err
+                if (data[0]) {
+                    if(data[0].username != usernameValidator_main){
+                    responseSent = true
+                    res.json({message:"Username Already taken"})
+                    }
+                } else {
+                    await updateUserField("username", username, "Username updated");
+
+                    if(AccountType == "instructor_account"){
+                    await updateUserNameFields("applied_courses", "course_instructor_username", "course_instructor_username", username, "Apllied Courses Updated")
+                    await updateUserNameFields("asfi_courses", "course_instructor", "course_instructor", username, "Courses Updated")
+                    await updateUserNameFields("books", "book_author", "book_author", username, "Books Updated")
+                    await updateUserNameFields("external_links", "link_owner", "link_owner", username, "Links Updated")
+                    await updateUserNameFields("tutorials", "tutorial_owner", "tutorial_owner", username, "Links Updated")
+                    }else{
+                    await updateUserNameFields("applied_courses", "participants_username", "course_instructor_username", username, "Apllied Courses Updated")
+                    }
+
+                    await updateUserNameFields("chat_buffer", "user_two", "user_two", username, "Chat Buffer Updated")
+                    await updateUserNameFields("chat_buffer", "user_one", "user_one", username, "Chat Buffer Updated")
+
+                    await updateUserNameFields("followers", "followerUsername", "followerUsername", username, "followers Updated")
+                    await updateUserNameFields("followers", "followingUsername", "followingUsername", username, "followers Updated")
+
+                    await updateUserNameFields("social_links", "link_owner", "link_owner", username, "Social Links Updated")
+                    await updateUserNameFields("honoraries", "scholar_username", "scholar_username", username, "Honoraries Updated")
+
+                    await updateUserNameFields("messages", "recipient_id", "recipient_id", username, "MessagesUpdated")
+                    await updateUserNameFields("messages", "sender_id", "sender_id", username, "MessagesUpdated")
+
+
+                    await updateUserNameFields("podcasts", "podcast_owner", "podcast_owner", username, "Links Updated")
+                    await updateUserNameFields("space_participants", "username", "username", username, "Links Updated")
+
+                    await updateUserNameFields("spaces_messages", "sender_id", "sender_id", username, "Links Updated")
+
+                }
+            })
+        }
+    } catch (error) {
+        console.error("Error updating account:", error);
+        res.status(500).json({ message: "An error occurred while updating account" });
+    }
 }
+
+};
 
 module.exports = updateAccount;
