@@ -32,6 +32,11 @@ const userCourse = async  (req,res) =>{
                
             //Add queries number of people the user follows
             // Add queries for total courses the user is engaged with
+            const FOLLOWING = []
+            db.query("SELECT COUNT(*) AS followingCount FROM followers WHERE ?", [{followerUsername:username}], async (NIL, NULL) => {
+                if(NIL) throw NIL
+                var FollowingCount =JSON.stringify(NULL[0]["followingCount"]);
+                FOLLOWING.push(FollowingCount)
             if(accountType == "scholar_account" || accountType == "user_account"){
             res.render("userCourses", {
                 UserName: username,
@@ -41,11 +46,12 @@ const userCourse = async  (req,res) =>{
                 ProfileImage: ProfileImage,
                 Email:Email,
                 Followers:FollowersCountArray[0], 
-                Following:0,
+                Following:FOLLOWING[0],
             })
          }else{
             res.redirect("/instructorCourses")
          }
+        })
         })
         
         }
