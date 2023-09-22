@@ -6,7 +6,7 @@
             <!-- <th scope="col" class="border-0">Clicks</th> -->
             <th scope="col" class="border-0">Status</th>
             <th scope="col" class="border-0">Type</th>
-            <th scope="col" class="border-0 rounded-end">Action</th>
+            <th scope="col" class="border-0 rounded-end" id="actionPanelControl">Action</th>
         </tr>
     </thead>
 
@@ -39,14 +39,14 @@
             </td>
             <!-- Action item -->
             <td class="action-table">
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="pdfAssetEdit">
-                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
                 </form>
                 <br>
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="pdfAssetDelete">
-                    <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+                    <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
                 </form>
             </td>
         </tr>
@@ -77,14 +77,14 @@
             </td>
             <!-- Action item -->
             <td class="action-table">
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="podcastAssetEdit">
-                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
                 </form>
                 <br>
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="podcastAssetDelete">
-                    <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+                    <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
                 </form>
             </td>
         </tr>
@@ -115,14 +115,14 @@
             </td>
             <!-- Action item -->
             <td class="action-table">
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="publicationAssetEdit">
-                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
                 </form>
                 <br>
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="publicationAssetDelete">
-                    <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+                    <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
                 </form>
             </td>
         </tr>
@@ -153,17 +153,30 @@
             </td>
             <!-- Action item -->
             <td class="action-table">
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="tutorialAssetEdit">
-                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></button>
+                    <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
                 </form>
                 <br>
-                <form action="">
+                <form action="" onsubmit="return false">
                     <input type="hidden" name="tutorialAssetDelete">
-                    <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+                    <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
                 </form>
             </td>
         </tr>
     </tbody>
     <!-- Table body END -->
 </table>
+
+<script>
+if (url == "/dashboard" || url == "/Dashboard") {
+    const action_table = document.querySelectorAll(".action-table")
+    const actionPanelControl  = document.getElementById("actionPanelControl")
+
+    actionPanelControl.setAttribute("style", "display:none")
+
+    action_table.forEach(tableAction =>{
+    tableAction.setAttribute("style", "display:none")
+    })
+}
+</script>
