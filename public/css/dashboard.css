@@ -132,7 +132,7 @@ personal_info .image_container img{
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    z-index: 999;
+    z-index: 1;
 }
 
 logohere {

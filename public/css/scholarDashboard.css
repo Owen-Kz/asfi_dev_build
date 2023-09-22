@@ -22315,6 +22315,7 @@ html[dir=rtl] .choices__input {
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease; /* Add animation */
+  z-index: 99999;
 }
 
 .assets_button:hover {

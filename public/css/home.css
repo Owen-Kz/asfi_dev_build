@@ -22277,3 +22277,8 @@ html[dir=rtl] .choices__input {
 }
 
 /*User CSS*/
+.dot {
+  font-weight: bolder;
+  font-size: 30px;
+  margin: auto;
+}

@@ -803,7 +803,7 @@ margin: auto;
 
 /* MODAL */
 .modal{
-display: none;
+/* display: none;
 position: fixed;
 align-items: center;
 z-index: 9999;
@@ -816,16 +816,15 @@ background-color: rgb(0, 0, 0);
 background-color: rgba(0, 0, 0,0.4);
 backdrop-filter: blur(3px);
 animation-name: fadeIn;
-animation-duration: 0.4s;
+animation-duration: 0.4s; */
 }
 /* MODAL1 */
-.modal-content{
+/* .modal-content{
 display: flex;
 flex-direction: column;
 position: fixed;
 align-items: center;
 justify-content: center;
-/* bottom: 20%; */
 overflow: hidden;
 background-color: #fefefe;
 border-radius: 20px;
@@ -835,7 +834,7 @@ height: 450px;
 margin: 10%;
 animation-name: slideIn;
 animation-duration: 0.4s;
-}
+} */
 .bkclose{
 color: red;
 font-size: 28px;
