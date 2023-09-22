@@ -68,6 +68,10 @@ const ExitSpace = require("../controllers/SearchResults/exitSpace");
 const SpaceChatHistory = require("../controllers/SearchResults/spaceChatHistory");
 const getDegree = require("../controllers/SearchResults/getDegreesResult");
 const createDegrees = require("../controllers/scholarContols/createDegrees");
+const instructorCourseResult = require("../controllers/SearchResults/InstructorCourseResult");
+const instructorStudents = require("../controllers/InstructorControls/instructorStudents");
+const instructorStudentsResults = require("../controllers/SearchResults/instructorStudentsResults");
+const instructorStudentSearch = require("../controllers/InstructorControls/instructorStudentSearch");
 
 const router = express.Router();
 router.use(express.json())
@@ -244,9 +248,16 @@ router.get("/meetings/m/:roomId/u/:userId", render_main_room)
  
 // Render Private chat room 
 router.get("/@:username/chat", LoggedIn, PrivateChatRoom)
-// router.get("/@:username/chat", (req,res) =>{
-//     res.json({message:"You tried to chat"})
-// })
+
+
+// Iinstructor Students
+router.get("/instructorStudents",LoggedIn, instructorStudents)
+
+// GET ALL Applied students for instructors  
+router.get("/getInstructorStudents", LoggedIn, instructorStudentsResults)
+
+// GET Student Search Query 
+router.get("/instructorStudents/:searchInput", LoggedIn, instructorStudentSearch)
 
 
 //GET THE MAIN TUTORIAL VIDEO INTERFACE
@@ -323,6 +334,8 @@ router.get("/createPassword", (req,res) => {
 
 router.get("/instructorCourses",LoggedIn, instructorCourses)
 
+router.get("/getInstructorCourse",  LoggedIn, instructorCourseResult)
+
 // router.post("/api/confirmEmail/*", ConfrimEmailReset)
 // router.post("/api/passwordReset", forgotPassword) 
 
@@ -385,11 +398,6 @@ router.get("/instructorReviews", (req,res) =>{
     })
 })
 
-router.get("/instructorStudents", (req,res) =>{
-    res.render("instructorStudents", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
-    })
-})
 
 router.get("/scholarAssets", LoggedIn, Assets)
 

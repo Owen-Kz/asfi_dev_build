@@ -6,7 +6,7 @@ var totalSeconds = secondsProvided;
 // Calculate hours, minutes, and seconds
 var hours = Math.floor(totalSeconds / 3600);
 var minutes = Math.floor((totalSeconds % 3600) / 60);
-var seconds = Math.round(totalSeconds % 60);
+var seconds = Math.round(totalSeconds % 60); 
 
 // Create strings with appropriate prefixes
 var hoursStr = hours > 0 ? hours + "h" + (hours > 1 ? "" : "") : "";
