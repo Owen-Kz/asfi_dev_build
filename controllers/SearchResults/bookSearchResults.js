@@ -22,14 +22,14 @@ const bookSearchResults = async (req, res) => {
         const SearchParameter = req.params.q
 
 
-        db.query("SELECT COUNT(*) AS pdtCount FROM books WHERE book_title COLLATE utf8mb4_general_ci LIKE ? OR book_author COLLATE utf8mb4_general_ci LIKE ? OR book_owner_username COLLATE utf8mb4_general_ci LIKE ? ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],
+        db.query("SELECT COUNT(*) AS pdtCount FROM books WHERE LOWER(book_title) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(book_author) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(book_owner_username) COLLATE utf8mb4_general_ci LIKE LOWER(?) ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],
             async (err_PDT, CountPDT) => {
                 if (err_PDT) throw err_PDT
                 var bookCount = JSON.stringify(CountPDT[0]["pdtCount"]);
                 totalPagesbooks = Math.ceil(bookCount / ITEMS_PER_PAGE_bookS);
         
 
-                  db.query("SELECT * FROM books WHERE book_title COLLATE utf8mb4_general_ci LIKE ? OR book_author COLLATE utf8mb4_general_ci LIKE ? OR book_owner_username COLLATE utf8mb4_general_ci LIKE ? ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],(err, data) => {
+                  db.query("SELECT * FROM books WHERE LOWER(book_title) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(book_author) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(book_owner_username) COLLATE utf8mb4_general_ci LIKE LOWER(?) ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],(err, data) => {
 
                     if (err) console.log(err)
                     if (data[[0]]) {

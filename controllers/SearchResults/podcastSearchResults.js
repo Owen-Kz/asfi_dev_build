@@ -22,14 +22,14 @@ const podcastSearchResults = async (req, res) => {
         const SearchParameter = req.params.q
 
 
-        db.query("SELECT COUNT(*) AS pdtCount FROM podcasts WHERE podcast_title COLLATE utf8mb4_general_ci LIKE ? OR podcast_owner_fullname COLLATE utf8mb4_general_ci LIKE ? OR podcast_owner COLLATE utf8mb4_general_ci LIKE ? ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],
+        db.query("SELECT COUNT(*) AS pdtCount FROM podcasts WHERE LOWER(podcast_title) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(podcast_owner_fullname) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(podcast_owner) COLLATE utf8mb4_general_ci LIKE LOWER(?) ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],
             async (err_PDT, CountPDT) => {
                 if (err_PDT) throw err_PDT
                 var PodcastCount = JSON.stringify(CountPDT[0]["pdtCount"]);
                 totalPagesPodcasts = Math.ceil(PodcastCount / ITEMS_PER_PAGE_PODCASTS);
         
 
-                  db.query("SELECT * FROM podcasts WHERE podcast_title COLLATE utf8mb4_general_ci LIKE ? OR podcast_owner_fullname COLLATE utf8mb4_general_ci LIKE ? OR podcast_owner COLLATE utf8mb4_general_ci LIKE ? ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],(err, data) => {
+                  db.query("SELECT * FROM podcasts WHERE LOWER(podcast_title) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(podcast_owner_fullname) COLLATE utf8mb4_general_ci LIKE LOWER(?) OR LOWER(podcast_owner) COLLATE utf8mb4_general_ci LIKE LOWER(?) ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`],(err, data) => {
 
                     if (err) console.log(err)
                     if (data[[0]]) {

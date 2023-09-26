@@ -73,6 +73,19 @@ const instructorStudents = require("../controllers/InstructorControls/instructor
 const instructorStudentsResults = require("../controllers/SearchResults/instructorStudentsResults");
 const instructorStudentSearch = require("../controllers/InstructorControls/instructorStudentSearch");
 const totalStudents = require("../controllers/SearchResults/totalStudents");
+const getEditResource = require("../controllers/InstructorControls/getEditResource");
+const AllResources = require("../controllers/InstructorControls/AllResources");
+const editPodcast = require("../controllers/InstructorControls/editPodcasts");
+const editbook = require("../controllers/InstructorControls/editBook");
+const editPublication = require("../controllers/InstructorControls/editPublication");
+const editTutorial = require("../controllers/InstructorControls/editTutorials");
+const getDeleteResource = require("../controllers/InstructorControls/getDeleteResource");
+const DeleteTutorial = require("../controllers/InstructorControls/deleteTutorial");
+const DeletePodcast = require("../controllers/InstructorControls/deletePodcast");
+const DeletePublication = require("../controllers/InstructorControls/deletePublication");
+const Deletebook = require("../controllers/InstructorControls/deleteBook");
+const SearchResources = require("../controllers/InstructorControls/searchResourceQuery");
+const FilterResources = require("../controllers/InstructorControls/filterREsourcesQuery");
 
 const router = express.Router();
 router.use(express.json())
@@ -372,6 +385,11 @@ router.get("/becomeInstructor",LoggedIn, (req,res) =>{
     }
 }
 })
+
+router.get("/aboutus", (req,res)=>{
+    res.render("aboutUs")
+})
+
 router.get("/instructorReviews", (req,res) =>{
     res.render("instructorReviews", {
         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
@@ -406,7 +424,31 @@ router.get("/forgotpassword", (req,res) =>{
 
 router.get("/scholarAssets", LoggedIn, Assets)
 
+// EDIT RESOURCE MODAL 
+router.get("/editResourceModal/:editData", LoggedIn, getEditResource)
+router.get("/deleteResourceModal/:deleteData", LoggedIn, getDeleteResource)
+
+
+// GET ALL RESOURCES 
 router.get("/myAssets", LoggedIn, Assets)
+router.get("/getAllResources", LoggedIn, AllResources)
+
+// EDIT PODCAST ON ASSETS Page 
+router.post("/myAssets/update/podcast", LoggedIn, editPodcast)
+router.post("/myAssets/update/book", LoggedIn, editbook)
+router.post("/myAssets/update/publication", LoggedIn, editPublication)
+router.post("/myAssets/update/tutorials", LoggedIn, editTutorial)
+
+// DELETE ASSETS for user
+router.post("/myAssets/delete/tutorial", LoggedIn, DeleteTutorial)
+router.post("/myAssets/delete/podcast", LoggedIn, DeletePodcast)
+router.post("/myAssets/delete/publication", LoggedIn, DeletePublication)
+router.post("/myAssets/delete/book", LoggedIn, Deletebook)
+
+// Search Resources 
+router.get("/myAssets/search/q/:searchQuery", LoggedIn, SearchResources)
+router.get("/myAssets/search/type/:filterQuery", LoggedIn, FilterResources)
+
 
 router.get("/mycourses", LoggedIn, userCourse)
 

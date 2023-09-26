@@ -96,7 +96,7 @@
 					<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 					<li><a class="dropdown-item" href="/settings"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 					<li><a class="dropdown-item" href="/contactUs"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-					<li><a class="dropdown-item bg-danger-soft-hover" href=""><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Dark mode options START -->
 					<li>
@@ -162,7 +162,7 @@ Page Banner START -->
 						<div class="col d-md-flex justify-content-between align-items-center mt-4">
 							<div>
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
-                                <p class="profile-tag">@<%= UserName %></p>
+                                <p class="profile-tag">@<span id="username_container"><%= UserName %></span></p>
 
 								<% if(accountType == "scholar_account"){ %>
 									<%- include ("scholarSubmenu") %>
@@ -233,9 +233,9 @@ Page content START -->
 						<div class="row g-3 align-items-center justify-content-between mb-4">
 							<!-- Search -->
 							<div class="col-md-8">
-								<form class="rounded position-relative">
-									<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
-									<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<form class="rounded position-relative" id="searchResources">
+									<input class="form-control pe-5 bg-transparent" type="search" name="searchForResources" id="searchForResources" placeholder="Search" aria-label="Search">
+								<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
 								<i class="fas fa-search fs-6 "></i>
 							</button>
 								</form>
@@ -244,14 +244,15 @@ Page content START -->
 							<!-- Select option -->
 							<div class="col-md-3">
 								<!-- Short by filter -->
-								<form>
-									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm">
+								<form id="filterByType">
+									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" id="filterType" name="filterType">
 										<option value="">Sort by</option>
-										<option>Books</option>
-										<option>Podcasts</option>
-										<option>Publications</option>
-										<option>Tutorials</option>
+										<option value="book">Books</option>
+										<option value="podcast">Podcasts</option>
+										<option value="publication">Publications</option>
+										<option value="tutorial">Tutorials</option>
 									</select>
+									<input type="submit" hidden id="submitFilter">
 								</form>
 							</div>
 						</div>
@@ -265,22 +266,7 @@ Page content START -->
 						</div>
 						<!-- Course list table END -->
 
-						<!-- Pagination START -->
-						<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-							<!-- Content -->
-							<p class="mb-0 text-center text-sm-start">Showing...</p>
-							<!-- Pagination -->
-							<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-								<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-									<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
-						<!-- Pagination END -->
+						
 					</div>
 					<!-- Card body START -->
 				</div>
@@ -318,6 +304,8 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
+<script src="/js/getFormEdit.js"></script>
+
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
@@ -328,7 +316,8 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/functions.js"></script>
+<!-- <script src="/js/functions.js"></script> -->
+
 
 </body>
 </html>

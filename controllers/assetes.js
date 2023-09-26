@@ -13,7 +13,7 @@ const Assets = async (req,res) =>{
                 const Firstname = data[0].first_name
                 const Lastname = data[0].last_name
                 const ProfilePicture = data[0].profile_picture
-                const Email = data[0].Email
+                const Email = data[0].email
 
                 db.query("SELECT COUNT (*) AS followersCount FROM followers WHERE followingusername =?", [username], async(err, followers) =>{
                     if(err) throw err

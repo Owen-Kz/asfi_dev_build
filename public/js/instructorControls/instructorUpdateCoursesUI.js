@@ -54,9 +54,16 @@ courseArray.forEach(element => {
         <div class=${ClassName}>${Status}</div>
     </td>
 
-    <td>
-        <a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-        <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+    <td class="action-table">
+        <form action="" onsubmit="return false">
+            <input type="hidden" id="courseEdit">
+            <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
+        </form>
+        <br>
+        <form action="" onsubmit="return false">
+            <input type="hidden" id="courseDelete">
+            <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
+        </form>
     </td>
 </tr>`;
 });

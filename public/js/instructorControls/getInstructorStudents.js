@@ -3,8 +3,7 @@ let footer_container
 let footer_list
 // TRY NEW PAGE 
 function NewPage(page) {
-    const tableContainer = document.getElementById('your_table_container_id'); // Replace with the actual ID of your table container
-    const footerContainer = document.getElementById('footer_container');
+  const footerContainer = document.getElementById('footer_container');
   
     fetch(`/getInstructorStudents?page=${page}`, {
       method: 'GET'
