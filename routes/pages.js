@@ -86,6 +86,15 @@ const DeletePublication = require("../controllers/InstructorControls/deletePubli
 const Deletebook = require("../controllers/InstructorControls/deleteBook");
 const SearchResources = require("../controllers/InstructorControls/searchResourceQuery");
 const FilterResources = require("../controllers/InstructorControls/filterREsourcesQuery");
+const instructorReviews = require("../controllers/InstructorControls/instructorReviews");
+const AllReviews = require("../controllers/InstructorControls/AllReviews");
+const SortReviews = require("../controllers/InstructorControls/SortReviews");
+const getEditCourse = require("../controllers/InstructorControls/getEditCourse");
+const editCourse = require("../controllers/InstructorControls/editCourse");
+const SearchinstructorCourse = require("../controllers/InstructorControls/SearchInstructorCourses");
+const TotalStudentsCount = require("../controllers/InstructorControls/TotalStudentsCount");
+const TotalPublications = require("../controllers/TotalPublications");
+const renderTutorialsPage = require("../controllers/renderTutorials");
 
 const router = express.Router();
 router.use(express.json())
@@ -126,6 +135,12 @@ router.get("/app", (req, res) => {
 
 // GET THE DASHBOARD PAGE 
 router.get("/dashboard", LoggedIn, dashboard)
+// Count total number of students for the instructor dashboard 
+router.get("/getTotalinstructorStudents", LoggedIn, TotalStudentsCount)
+
+// GET the toal publications count on the scholar dashboard 
+router.get("/getTotalScholarPublications", LoggedIn, TotalPublications)
+
 // GET NOTIFICATIONS 
 router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
 // GET TOTAL COURSES 
@@ -211,7 +226,8 @@ router.get("/directorydiscoverAccounts", LoggedIn, getDiscover)
 router.get("/@:username",LoggedIn, profile_page, find_info);
 
 // GET THE TUTORIALS PAGE 
-router.get("/tutorials", LoggedIn, displayTutorials)
+router.get("/tutorials", LoggedIn, renderTutorialsPage)
+router.get("/feedTutorials", LoggedIn, displayTutorials)
 
 // GET THE CREAT COURSE PAGE 
 router.get("/NewCourse", (req, res) => {
@@ -349,7 +365,7 @@ router.get("/createPassword", (req,res) => {
 
 router.get("/instructorCourses",LoggedIn, instructorCourses)
 
-router.get("/getInstructorCourse",  LoggedIn, instructorCourseResult)
+router.get("/getInstructorCourse", LoggedIn, instructorCourseResult)
 
 // router.post("/api/confirmEmail/*", ConfrimEmailReset)
 // router.post("/api/passwordReset", forgotPassword) 
@@ -390,11 +406,10 @@ router.get("/aboutus", (req,res)=>{
     res.render("aboutUs")
 })
 
-router.get("/instructorReviews", (req,res) =>{
-    res.render("instructorReviews", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"Muhammed", UserLastName: "Obinna", Username:"afaf"
-    })
-})
+router.get("/instructorReviews", LoggedIn, instructorReviews)
+// GET ALL reviews 
+router.get("/getAllReviews", LoggedIn, AllReviews)
+router.get("/instructorReviews/rating", LoggedIn, SortReviews)
 
 router.get("/becomeScholar",LoggedIn, becomeScholarPage)
 router.post("/becomeScholar", createScholar)
@@ -451,6 +466,13 @@ router.get("/myAssets/search/type/:filterQuery", LoggedIn, FilterResources)
 
 
 router.get("/mycourses", LoggedIn, userCourse)
+// edit courses
+// get the course modal 
+router.get("/editInstructorCourseModal/:editData", LoggedIn, getEditCourse )
+// edit the data
+router.post("/courses/update/course", LoggedIn, editCourse)
+// SearchForCourses 
+router.get("/mycourses/search/q/:searchQuery", LoggedIn, SearchinstructorCourse)
 
 
 router.post("/coverImage", LoggedIn, profileCoverUpload)

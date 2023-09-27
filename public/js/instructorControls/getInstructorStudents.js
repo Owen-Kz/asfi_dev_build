@@ -1,6 +1,7 @@
 const table_container = document.getElementById("table_container")
 let footer_container
 let footer_list
+
 // TRY NEW PAGE 
 function NewPage(page) {
   const footerContainer = document.getElementById('footer_container');
@@ -49,7 +50,7 @@ function NewPage(page) {
     if (currentPage < totalPages) {
       paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="NewPage(${NexxtPage})"><i class="fas fa-angle-right"></i></a></li>`;
     } else {
-      paginationHTML += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
+      // paginationHTML += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
     }
   
     paginationHTML += `</ul>

@@ -1,5 +1,6 @@
 var searchButton = document.querySelector(".fa-search")
 const SearchBar = document.getElementById("searchTutorial")
+const searchForm = document.getElementById("searchForm")
 
 let tutorials_Data = []
 let tutorialS_SEARCH_ARRAY = []
@@ -20,38 +21,52 @@ function removeExisitng() {
 searchForm.addEventListener("submit", function(e){
     e.preventDefault();
     removeExisitng(); // Clear the arrays before fetching new data
-    fetch(`/tutorial/${SearchBar.value}`, {
+    fetch(`/feedTutorials?searchTutorial=${SearchBar.value}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data => {
-        if(data.message == "No data Match your search"){
-            alert(data.message)
-        }
-        else if(data.message = "Success"){
-            tutorialS_SEARCH_ARRAY = JSON.parse(data.tutorialS_ARRAY_JSON);
-            updateUIWithData(tutorialS_SEARCH_ARRAY);
+        const TutorialsArray = JSON.parse(data.AllTutorials)
+        const TotalPages = data.totalPagesTutorials
+        const CurrentPage = data.currentPageTutorials
+        const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
+        const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
+    
+    
+        updateUIWithData(TutorialsArray) 
+    
+        if(TotalPages > 0){
+            // Update the pagination UI
+           const paginationHTML = paginationFotTutorials(CurrentPage, TotalPages, PrevPage, NexxtPage);
+           footerContainer.innerHTML = paginationHTML;
         }
     })
 })
 searchButton.addEventListener("click",()=>{
     removeExisitng(); // Clear the arrays before fetching new data
-    fetch(`/tutorial/${SearchBar.value}`, {
+    fetch(`/feedTutorials?searchTutorial=${SearchBar.value}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data => {
-        if(data.message == "No data Match your search"){
-            alert(data.message)
+        const TutorialsArray = JSON.parse(data.AllTutorials)
+        const TotalPages = data.totalPagesTutorials
+        const CurrentPage = data.currentPageTutorials
+        const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
+        const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
+    
+    
+        updateUIWithData(TutorialsArray) 
+    
+        if(TotalPages > 0){
+            // Update the pagination UI
+           const paginationHTML = paginationFotTutorials(CurrentPage, TotalPages, PrevPage, NexxtPage);
+           footerContainer.innerHTML = paginationHTML;
         }
-        else if(data.message = "Success"){
-            tutorialS_SEARCH_ARRAY = JSON.parse(data.tutorialS_ARRAY_JSON);
-            updateUIWithData(tutorialS_SEARCH_ARRAY);
-        } 
     })
 })
 
 // Call updateUIWithData when the DOM is ready, or when needed
-document.addEventListener("DOMContentLoaded", function () {
-    updateUIWithData(tutorials_Data);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//     updateUIWithData(tutorials_Data);
+// });
 
 

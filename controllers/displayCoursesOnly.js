@@ -34,7 +34,7 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
             const AllTutorials = [];
 
             // GET ALL Tutorials
-            db.query("SELECT * FROM tutorials WHERE related_course_id != 'rtuT3g'", async (err, result) => {
+            db.query("SELECT * FROM tutorials WHERE related_course_id != 'rtuT3g' AND status = 'live'", async (err, result) => {
                 if (err) throw err;
                 var tutorialsCount = result.length
 
@@ -49,11 +49,11 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
                     const TutorialDuration = tutorial.video_duration;
                     const TutoriaThumbnail = tutorial.tutorial_thumbnail;
                     const TutorialDate = tutorial.date_uploaded
-                    const course = await queryAsync("SELECT * FROM asfi_courses WHERE course_id = ?", [
+                    const course = await queryAsync("SELECT * FROM asfi_courses WHERE course_id = ? AND course_status = 'live'", [
                         courseID,
                     ]);
 
-                    const tutorialsCount = await queryAsync("SELECT COUNT(*) AS relatedCoursesCount FROM tutorials WHERE related_course_id = ? AND related_course_id != 'rtuT3g'", [
+                    const tutorialsCount = await queryAsync("SELECT COUNT(*) AS relatedCoursesCount FROM tutorials WHERE related_course_id = ? AND related_course_id != 'rtuT3g' AND status = 'live'", [
                         courseID,
                     ]);
 

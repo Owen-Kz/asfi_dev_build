@@ -60,13 +60,13 @@ const createCourse = (req, res) => {
         db.query("SELECT * FROM asfi_courses WHERE ?", [{course_id:CourseID}], async (err, course) =>{
             if(err) throw err
             if(course[0]){
-                res.redirect("/courses")
+                res.redirect("/instructorCourses")
             }else{
         db.query("INSERT INTO asfi_courses SET ?", [{course_name:CourseTitle, course_id:CourseID, course_cost_per_session:CourseCost, course_duration: CourseDuration, course_description:CourseDescription, course_instructor:CourseOwner, course_thumbnail: newThumbnailName, course_first_tutorial:newVideoName, comment_id:CommentId, course_currency:CourseCurrency, course_level:CourseLevel, category:CourseCategory}], async (err, created) =>{
             if(err) throw err
 
         // Process video and thumbnail here
-        processVideo(videoPath, thumbnailPath, newVideoName, CourseTitle, tutorialID, newThumbnailName,  CourseID, CourseOwner, CommentId, CourseDescription, CourseCategory, res);
+        processVideo(videoPath, thumbnailPath, newVideoName, CourseTitle, tutorialID, newThumbnailName,  CourseID, CourseOwner, CommentId, CourseDescription, CourseCategory, "applied", res);
         db.query("SELECT * FROM course_category WHERE category_title =?", [CourseCategory], (err, courseExists) =>{
             if(err) throw err
             if(courseExists[0]){
@@ -90,7 +90,7 @@ const createCourse = (req, res) => {
     });
 };
 
-function processVideo(videoPath, thumbnailPath,  newVideoName, CourseTitle, tutorialID, newThumbnailName, CourseID, CourseOwner, CommentId, CourseDescription, CourseCategory, res) {
+function processVideo(videoPath, thumbnailPath,  newVideoName, CourseTitle, tutorialID, newThumbnailName, CourseID, CourseOwner, CommentId, CourseDescription, CourseCategory,status, res) {
 //     // Get video duration using fluent-ffmpeg
     ffmpeg.ffprobe(videoPath, (err, metadata) => {
         if (err) {
@@ -107,9 +107,11 @@ function processVideo(videoPath, thumbnailPath,  newVideoName, CourseTitle, tuto
                     // console.log("Turorial Exists")
                     res.redirect("/courses")
                 }else{
-                    db.query("INSERT INTO tutorials SET ?", [{tutorial_title:CourseTitle, tutorial_id:tutorialID, tutorial_description: CourseDescription, tutorial_owner:CourseOwner, comments_ID:CommentId, related_course_id:CourseID, tutorial_thumbnail:newThumbnailName, tutorial_video:newVideoName, video_duration: duration, category:CourseCategory}], async (err, tutorialCreated) => {
+                    db.query("INSERT INTO tutorials SET ?", [{tutorial_title:CourseTitle, tutorial_id:tutorialID, tutorial_description: CourseDescription, tutorial_owner:CourseOwner, comments_ID:CommentId, related_course_id:CourseID, tutorial_thumbnail:newThumbnailName, tutorial_video:newVideoName, video_duration: duration, category:CourseCategory,
+                    status:status
+                    }], async (err, tutorialCreated) => {
                         if(err) throw err
-                        res.redirect("/courses")
+                        res.redirect("/instructorCourses")
                     })
                 }
             })

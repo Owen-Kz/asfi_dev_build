@@ -27,7 +27,7 @@ const tutorialSearchResults = async (req, res) => {
 
 
 
-        db.query("SELECT * FROM tutorials WHERE tutorial_title COLLATE utf8mb4_general_ci LIKE ? OR tutorial_owner COLLATE utf8mb4_general_ci LIKE ? OR tutorial_description COLLATE utf8mb4_general_ci LIKE ? ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`], async (err, data) => {
+        db.query("SELECT * FROM tutorials WHERE tutorial_title COLLATE utf8mb4_general_ci LIKE ? OR tutorial_owner COLLATE utf8mb4_general_ci LIKE ? OR tutorial_description COLLATE utf8mb4_general_ci LIKE ? AND status = 'live' ORDER BY id DESC", [`%${SearchParameter}%`, `%${SearchParameter}%`, `%${SearchParameter}%`], async (err, data) => {
             if (err) {
                 console.log(err);
                 return res.json({ message: "Error occurred while querying the database" });
@@ -101,7 +101,7 @@ function getUserInfo(username) {
 
 function getCoursesInfo(course_id) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM asfi_courses WHERE course_id = ?", [course_id], (err, course_data) => {
+        db.query("SELECT * FROM asfi_courses WHERE course_id = ? AND course_status = 'live'", [course_id], (err, course_data) => {
             if (err) {
                 reject(err);
             } else {
@@ -113,7 +113,7 @@ function getCoursesInfo(course_id) {
 
 function countCourses(course_id) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT id FROM tutorials WHERE related_course_id = ?", [course_id], (err, course_count) => {
+        db.query("SELECT id FROM tutorials WHERE related_course_id = ? AND status = 'live'", [course_id], (err, course_count) => {
             if (err) {
                 reject(err);
             } else {

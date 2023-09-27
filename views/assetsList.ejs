@@ -22,14 +22,16 @@
  <!-- Pagination END -->
 <script>
 if (url == "/dashboard" || url == "/Dashboard") {
-    const action_table = document.querySelectorAll(".action-table")
     const actionPanelControl  = document.getElementById("actionPanelControl")
 
     actionPanelControl.setAttribute("style", "display:none")
+}
+function hideActionButtons(){
+    const action_table = document.querySelectorAll(".action-table")
 
-    action_table.forEach(tableAction =>{
-    tableAction.setAttribute("style", "display:none")
-    })
+action_table.forEach(tableAction =>{
+tableAction.setAttribute("style", "display:none; visibility:hidden; opacity:0")
+})
 }
 </script>
 

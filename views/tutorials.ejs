@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <input type="text" id="AllTutorials" readonly hidden value="<%= AllTutorials %>">
+    <input type="text" id="AllTutorials" readonly hidden value="[]">
 
     <!-- NAVIGATION BAR  -->
     <sidebar class="left-navigation-bar bg-shadow ">
@@ -167,7 +167,7 @@ Page content START -->
                             <i class="fas fa-sliders-h me-1"></i> Show filter
                         </button>
                         <!-- Advanced filter responsive toggler END -->
-                        <p class="mb-0 text-end">Showing <%= currentPageTutorials %> of <%=totalPagesTutorials %> result</p>
+                        <p class="mb-0 text-end" id="pageCountContainer"></p>
                     </div>
     
                 </div>
@@ -181,60 +181,8 @@ Page content START -->
                 <!-- Course Grid END -->
     
               	<!-- Pagination START -->
-								<div class="col-12">
-									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-										<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-											<% if (totalPagesTutorials > 1) { %>
-											  <% if (currentPageTutorials > 1) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageTutorial=<%= currentPageTutorials - 1 %>" tabindex="-1" id="prevTutorialPage">
-													<i class="fas fa-angle-double-left"></i>
-												  </a>
-												</li>
-											  <% } %>
-										  
-											  <% const maxPagesToShow = 5; %>
-											  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
-											  <% const startPage = Math.max(currentPageTutorials - halfMax, 1); %>
-											  <% const endPage = Math.min(currentPageTutorials + halfMax, totalPagesTutorials); %>
-											  <% const nextPage = Math.floor(currentPageTutorials) + 1 %>
-				
-										  
-											  <% if (startPage > 1) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageTutorial=1">1</a>
-												</li>
-												<% if (startPage > 2) { %>
-												  <li class="page-item mb-0"><a class="page-Tutorial" href="#">..</a></li>
-												<% } %>
-											  <% } %>
-										  
-											  <% for (let i = startPage; i <= endPage; i++) { %>
-												<li class="page-item mb-0 <%= i === currentPageTutorials ? 'active' : '' %>">
-												  <a class="page-link" href="?pageTutorial=<%= i %>"><%= i %></a>
-												</li>
-											  <% } %>
-										  
-											  <% if (endPage < totalPagesTutorials) { %>
-												<% if (endPage < totalPagesTutorials - 1) { %>
-												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-												<% } %>
-												<li class="page-item mb-0"><a class="page-link" href="?pageTutorial=<%= totalPagesTutorials %>"><%= totalPagesTutorials %></a></li>
-											  <% } %>
-										  
-											  <% if (currentPageTutorials < totalPagesTutorials) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageTutorial=<%= nextPage %>" id="nextBookPage">
-													<i class="fas fa-angle-double-right"></i>
-												  </a>
-												</li>
-											  <% } %>
-											<% } %>
-										  </ul>
-										  
-										<!-- <span class="bookPageInfo">Page </span> -->
-				
-									</nav>
+								<div class="col-12" id="footerContainer">
+                                   
 							
 								</div>
 								<!-- Pagination END -->

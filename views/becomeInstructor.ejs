@@ -324,7 +324,7 @@
                             <!-- Number -->
                             <div class="col-lg-12">
                                 <label class="form-label">Phone Number *</label>
-                                <input type="number" class="form-control" id="phonenumber" required>
+                                <input type="phonenumber" class="form-control" id="phonenumber" required>
                             </div>
                             <!-- Nationality -->
                             <div class="col-lg-12">
@@ -365,14 +365,12 @@
                                 <label class="form-label">Briefly tell us about yourself *</label>
                                 <textarea class="form-control" rows="3" spellcheck="false" id="short_bio" required></textarea>
                             </div>
-                               <% if(accountType != "") { %>
-                             
-                                <% }else { %>
+                              
                                     <div class="col-lg-12">
                                     <label class="form-label">Enter Password</label>
                                     <input type="password" class="form-control" id="password" required>
                                 </div>
-                                <% } %>
+                               
 
                             <!-- Button -->
                             <div class="col-12">

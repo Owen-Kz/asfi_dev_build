@@ -38,7 +38,7 @@ const renderCourses = async (req, res) => {
                     const TutoriaThumbnail = tutorial.tutorial_thumbnail;
                     const TutorialDate = tutorial.date_uploaded
                     
-                    const course = await queryAsync("SELECT * FROM asfi_courses WHERE course_id = ?", [
+                    const course = await queryAsync("SELECT * FROM asfi_courses WHERE course_id = ? AND course_status = 'live'", [
                         courseID,
                     ]);
 

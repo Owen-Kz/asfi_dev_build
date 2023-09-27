@@ -1,5 +1,6 @@
 
 const TutorialsContainer = document.getElementById("TutorialsContainer")
+const footerContainer = document.getElementById("footerContainer")
 
 const limitedTextElements = document.getElementsByClassName("limited-text")
 const maxLength = 50; // Maximum number of characters
@@ -48,9 +49,32 @@ function formatDateAgo(dateString) {
       return daysAgo + " Days Ago";
     }
   }
-  
-// console.log(TutorialArray)
-// console.log(TutorialArray)
+function NewTutorialPage(page){
+fetch(`/feedTutorials?page=${page}`, ()=>{
+    method: "GET"
+}).then(res => res.json())
+.then(data => {
+    const TutorialsArray = JSON.parse(data.AllTutorials)
+    const TotalPages = data.totalPagesTutorials
+    const CurrentPage = data.currentPageTutorials
+    const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
+    const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
+
+
+    updateUIWithData(TutorialsArray) 
+
+    if(TotalPages > 0){
+        // Update the pagination UI
+       const paginationHTML = paginationFotTutorials(CurrentPage, TotalPages, PrevPage, NexxtPage);
+       footerContainer.innerHTML = paginationHTML;
+    }
+})
+}
+
+NewTutorialPage(1)
+
+
+
 function updateUIWithData(TutorialArray){
 TutorialsContainer.innerHTML = ""
 if(TutorialArray.length > 0 ){
@@ -202,6 +226,8 @@ ConvertToMinutes(TutorialDuration_, ParentForTime)
     
     const ParentForTime = document.getElementById(TutorialDuration_+Tutorialid)
     ConvertToMinutes(TutorialDuration_, ParentForTime)
+
+       
     
     }
 });
@@ -230,3 +256,46 @@ for (var i = 0; i < limitedTextElements.length; i++) {
 }
 }
 
+
+function paginationFotTutorials(currentPage, totalPages, PrevPage, NexxtPage){
+    const pageCountContainer = document.getElementById("pageCountContainer")
+  
+       
+        pageCountContainer.innerHTML = ` <p class="mb-0 text-center text-sm-start">Page ${currentPage} of ${totalPages}</p>`;
+
+        let paginationHTML = `
+        <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+        <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+
+        <!-- Pagination -->
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0" id="footer_list">`;
+      
+        if (currentPage > 1) {
+            paginationHTML +=  `<li class="page-item mb-0">
+            <a class="page-link" onClick="NewTutorialPage(${PrevPage})" tabindex="-1" id="prevTutorialPage">
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+          </li>`
+        }
+      
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            paginationHTML += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
+          } else {
+            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="NewTutorialPage(${i})">  ${i}  </a></li>`;
+          }
+        }
+      
+        if (currentPage < totalPages) {
+          paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="NewTutorialPage(${NexxtPage})"><i class="fas fa-angle-right"></i></a></li>`;
+        } else {
+          // paginationHTML += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
+        }
+      
+        paginationHTML += `</ul>
+        </nav>
+       `;
+      
+        return paginationHTML;
+}

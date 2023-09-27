@@ -16,7 +16,7 @@ const getAsLevels = async (req, res) => {
     }
     let MAIN_TUTORIALS_ARRAY = []
 
-        db.query("SELECT * FROM asfi_courses WHERE ?", [LevelQuery], async (err, data) => {
+        db.query("SELECT * FROM asfi_courses WHERE ? AND course_status = 'live'", [LevelQuery], async (err, data) => {
             if (err) {
                 console.log(err);
                 return res.json({ message: "Error occurred while querying the database" });
@@ -80,7 +80,7 @@ const getAsLevels = async (req, res) => {
 let tutorialData_main
 function getTutorialsInfo(course_id) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM tutorials WHERE related_course_id = ?", [course_id], async (err, tutorials_data) => {
+        db.query("SELECT * FROM tutorials WHERE related_course_id = ? AND status = 'live'", [course_id], async (err, tutorials_data) => {
             if (err) {
                 reject(err);
             } else {
@@ -143,7 +143,7 @@ function getUserInfo(username) {
 
 function getLecturesCount(course_id) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT id FROM tutorials WHERE related_course_id = ?", [course_id], (err, lectures_count) => {
+        db.query("SELECT id FROM tutorials WHERE related_course_id = ? AND status = 'live'", [course_id], (err, lectures_count) => {
             if (err) {
                 reject(err);
             } else {

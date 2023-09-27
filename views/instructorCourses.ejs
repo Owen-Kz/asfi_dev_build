@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -166,20 +166,22 @@ Page Banner START -->
                                 <p class="profile-tag">@<%= UserName %></p>
 								<%- include ("instructorSubmenu") %>
 							</div>
-							<!-- Button -->
-                            <div class="dropdown dash_upload">
-                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i>Upload Assets</span>
-                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item" href="#" id="TutorialUploadBtn"><i class="fas fa-tv fa-fw me-2"></i>Upload Tutorial</a></li>
-                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
-					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
-                    
-                                </ul>
-							</div>
+ 
 						</div>
 					</div>
 				</div>
 				<!-- Profile banner END -->
+
+				<!-- Advanced filter responsive toggler START -->
+				<!-- Divider -->
+				<hr class="d-xl-none">
+				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+					<a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+					<button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+						<i class="fas fa-sliders-h"></i>
+					</button>
+				</div>
+				<!-- Advanced filter responsive toggler END -->
 			</div>
 		</div>
 	</div>
@@ -238,8 +240,9 @@ Page content START -->
 						<div class="row g-3 align-items-center justify-content-between mb-4">
 							<!-- Search -->
 							<div class="col-md-8">
-								<form class="rounded position-relative">
-									<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+							
+								<form class="rounded position-relative" id="searchCourses">
+									<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search" id="searchForCourses">
 									<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
 								<i class="fas fa-search fs-6 "></i>
 							</button>
@@ -249,14 +252,15 @@ Page content START -->
 							<!-- Select option -->
 							<div class="col-md-3">
 								<!-- Short by filter -->
-								<form>
-									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm">
+								<form id="sortByStatusForm">
+									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" id="sortByStatus">
 										<option value="">Sort by</option>
-										<option>Free</option>
-										<option>Newest</option>
-										<option>Most popular</option>
-										<option>Most Viewed</option>
+										<option value="applied">Applied</option>
+										<option value="rejected">Rejected</option>
+										<option value="live">Live</option>
+										<option value="disabled">Disabled</option>
 									</select>
+									<input type="submit" hidden id="submitSort">
 								</form>
 							</div>
 						</div>
@@ -277,149 +281,7 @@ Page content START -->
 
 								<!-- Table body START -->
 								<tbody id="instructorCoursesContainer">
-									<!-- Table item -->
-									<tr>
-										<!-- Course item -->
-										<td>
-											<div class="d-flex align-items-center">
-												<!-- Image -->
-												<div class="w-60px">
-													<img src="" class="rounded" alt="">
-												</div>
-												<div class="mb-0 ms-2">
-													<!-- Title -->
-													<h6><a href="#">Demo</a></h6>
-													<!-- Info -->
-													<div class="d-sm-flex">
-														<p class="h6 fw-light mb-0 small me-3"><i class="fas fa-table text-orange me-2"></i>0 lectures</p>
-														<p class="h6 fw-light mb-0 small"><i class="fas fa-check-circle text-success me-2"></i>0 Completed</p>
-													</div>
-												</div>
-											</div>
-										</td>
-										<!-- Enrolled item -->
-										<td class="text-center text-sm-start">0</td>
-										<!-- Status item -->
-										<td>
-											<div class="badge bg-success bg-opacity-10 text-success">Live</div>
-										</td>
-										<!-- Price item -->
-										<td>$0</td>
-										<!-- Action item -->
-										<td>
-											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
-										</td>
-									</tr>
 
-									<!-- Table item -->
-									<tr>
-										<!-- Course item -->
-										<td>
-											<div class="d-flex align-items-center">
-												<!-- Image -->
-												<div class="w-60px">
-													<img src="" class="rounded" alt="">
-												</div>
-												<div class="mb-0 ms-2">
-													<!-- Title -->
-													<h6><a href="#">Demo</a></h6>
-													<!-- Info -->
-													<div class="d-sm-flex">
-														<p class="h6 fw-light mb-0 small me-3"><i class="fas fa-table text-orange me-2"></i>0 lectures</p>
-														<p class="h6 fw-light mb-0 small"><i class="fas fa-check-circle text-success me-2"></i>0 Completed</p>
-													</div>
-												</div>
-											</div>
-										</td>
-										<!-- Enrolled item -->
-										<td class="text-center text-sm-start">0</td>
-										<!-- Status item -->
-										<td>
-											<div class="badge bg-secondary bg-opacity-10 text-secondary">Disable</div>
-										</td>
-										<!-- Price item -->
-										<td>$0</td>
-										<!-- Action item -->
-										<td>
-											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
-										</td>
-									</tr>
-
-								
-
-									<!-- Table item -->
-									<tr>
-										<!-- Course item -->
-										<td>
-											<div class="d-flex align-items-center">
-												<!-- Image -->
-												<div class="w-60px">
-													<img src="" class="rounded" alt="">
-												</div>
-												<div class="mb-0 ms-2">
-													<!-- Title -->
-													<h6><a href="#">0</a></h6>
-													<!-- Info -->
-													<div class="d-sm-flex">
-														<p class="h6 fw-light mb-0 small me-3"><i class="fas fa-table text-orange me-2"></i>0 lectures</p>
-														<p class="h6 fw-light mb-0 small"><i class="fas fa-check-circle text-success me-2"></i>0 Completed</p>
-													</div>
-												</div>
-											</div>
-										</td>
-										<!-- Enrolled item -->
-										<td class="text-center text-sm-start">0</td>
-										<!-- Status item -->
-										<td>
-											<div class="badge bg-info bg-opacity-10 text-info">Applied</div>
-										</td>
-										<!-- Price item -->
-										<td>$0</td>
-										<!-- Action item -->
-										<td>
-											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
-										</td>
-									</tr>
-
-									<!-- Table item -->
-									<tr>
-										<!-- Course item -->
-										<td>
-											<div class="d-flex align-items-center">
-												<!-- Image -->
-												<div class="w-60px">
-													<img src="" class="rounded" alt="">
-												</div>
-												<div class="mb-0 ms-2">
-													<!-- Title -->
-													<h6><a href="#">Demo</a></h6>
-													<!-- Info -->
-													<div class="d-sm-flex">
-														<p class="h6 fw-light mb-0 small me-3"><i class="fas fa-table text-orange me-2"></i>0 lectures</p>
-														<p class="h6 fw-light mb-0 small"><i class="fas fa-check-circle text-success me-2"></i>0 Completed</p>
-													</div>
-												</div>
-											</div>
-										</td>
-										<!-- Enrolled item -->
-										<td class="text-center text-sm-start">0</td>
-										<!-- Status item -->
-										<td>
-											<div class="badge bg-danger bg-opacity-10 text-danger">Rejected</div>
-										</td>
-										<!-- Price item -->
-										<td>$0</td>
-										<!-- Action item -->
-										<td>
-											<a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-edit"></i></a>
-											<button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
-										</td>
-									</tr>
-
-								
 								</tbody>
 								<!-- Table body END -->
 							</table>
@@ -427,20 +289,7 @@ Page content START -->
 						<!-- Course list table END -->
 
 						<!-- Pagination START -->
-						<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-							<!-- Content -->
-							<p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 10 entries</p>
-							<!-- Pagination -->
-							<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-								<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-									<li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item mb-0 "><a class="page-link" href="#">2</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
+						<div id="footer_container"></div>
 						<!-- Pagination END -->
 					</div>
 					<!-- Card body START -->
@@ -448,7 +297,6 @@ Page content START -->
 				<!-- Card END -->
 			</div>
 			<!-- Main content END -->
-			
 		</div><!-- Row END -->
 	</div>
 </section>
@@ -456,11 +304,11 @@ Page content START -->
 Page content END -->
 
 </main>
+<!-- **************** MAIN CONTENT END **************** -->
 
 <!--Edit Modal START -->
 <%- include ("editInstructorCourseModal") %>
 <!-- Edit Modal END -->
-<!-- **************** MAIN CONTENT END **************** -->
 
 <!-- =======================
 Footer START -->
@@ -477,10 +325,12 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script src="/js/scholarControls/uploadBook.js"></script>
+<!-- <script src="/js/scholarControls/uploadBook.js"></script>
   <script src="/js/scholarControls/uploadPodcast.js"></script>
-  <script src="/js/scholarControls/uploadTutorial.js"></script>
-<!-- <script src="/js/updateAccountData.js"></script> -->
+  <script src="/js/scholarControls/uploadTutorial.js"></script> -->
+  <script src="/js/instructorControls/instructorUpdateCoursesUI.js"></script>
+  <script src="/js/instructorControls/getInstructorCourse.js"></script>
+<script src="/js/getInstructorFormEdit.js"></script>
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
@@ -491,7 +341,7 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/functions.js"></script>
+<!-- <script src="/js/functions.js"></script> -->
 
 </body>
 </html>

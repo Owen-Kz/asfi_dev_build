@@ -165,16 +165,7 @@ Page Banner START -->
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
 								<%- include ("instructorSubmenu") %>
 							</div>
-							<!-- Button -->
-                            <div class="dropdown dash_upload">
-                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i>Upload Assets</span>
-                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item" href="#" id="TutorialUploadBtn"><i class="fas fa-tv fa-fw me-2"></i>Upload Tutorial</a></li>
-                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
-					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
-                    
-                                </ul>
-							</div>
+ 
 						</div>
 					</div>
 				</div>
@@ -246,15 +237,16 @@ Page content START -->
 							
 							<!-- Short by filter -->
 							<div class="col-sm-4">
-								<form>
-									<select class="form-select js-choice z-index-9 bg-white" aria-label=".form-select-sm">
+								<form id="sortbyRating">
+									<select class="form-select js-choice z-index-9 bg-white" aria-label=".form-select-sm" id="sortRating">
 										<option value="">Sort by</option>
-										<option>★★★★★ (5/5)</option>
-										<option>★★★★☆ (4/5)</option>
-										<option>★★★☆☆ (3/5)</option>
-										<option>★★☆☆☆ (2/5)</option>
-										<option>★☆☆☆☆ (1/5)</option>
+										<option value="5">★★★★★ (5/5)</option>
+										<option value="4">★★★★☆ (4/5)</option>
+										<option value="3">★★★☆☆ (3/5)</option>
+										<option value="2">★★☆☆☆ (2/5)</option>
+										<option value="1">★☆☆☆☆ (1/5)</option>
 									</select>
+									<input type="submit" id="submitSort" hidden>
 								</form>
 							</div>
 						</div>
@@ -262,72 +254,17 @@ Page content START -->
 					<!-- Header END -->
 
 					<!-- Reviews START -->
-					<div class="card-body mt-2 mt-sm-4">
+					<div class="card-body mt-2 mt-sm-4" id="reviewsContainer">
 
-						<!-- Review item START -->
-						<div class="d-sm-flex">
-							<!-- Avatar image -->
-							<img class="avatar avatar-lg rounded-circle float-start me-3" src="" alt="avatar">
-							<div>
-								<div class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Title -->
-									<div>
-										<h5 class="m-0">Demo Student</h5>
-										<span class="me-3 small">NULL </span>
-									</div>
-									<!-- Review star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
-									</ul>	
-								</div>
-								<!-- Content -->
-								<h6><span class="text-body fw-light">Review on:</span> Demo Course</h6>
-								<p>It was great! </p>
-								<!-- Button -->
-								<div class="text-end">
-									<a href="#" class="btn btn-sm btn-primary-soft mb-1 mb-sm-0">Direct message</a>
-									<a class="btn btn-sm btn-light mb-0" data-bs-toggle="collapse" href="#collapseComment" role="button" aria-expanded="false" aria-controls="collapseComment">
-										Reply
-									</a>
-									<!-- collapse textarea -->
-									<div class="collapse show" id="collapseComment">
-										<div class="d-flex mt-3">
-											<textarea class="form-control mb-0" placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-											<button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i class="fas fa-paper-plane fs-5"></i></button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Divider -->
-						<hr>
-						<!-- Review item END -->
-
+					
 						
 					</div>
 					<!-- Reviews END -->
 
 					<div class="card-footer border-top">
-						<!-- Pagination START -->
-						<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-							<!-- Content -->
-							<p class="mb-0 text-center text-sm-start">Showing 1 of 1 entries</p>
-							<!-- Pagination -->
-							<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-								<ul class="pagination pagination-sm pagination-primary-soft my-0 py-0">
-									<li class="page-item my-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-									<li class="page-item my-0 active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item my-0"><a class="page-link" href="#">2</a></li>
-									<li class="page-item my-0"><a class="page-link" href="#">3</a></li>
-									<li class="page-item my-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
-						<!-- Pagination END -->
+						 <!-- Pagination START -->
+					<div id="footer_container"></div>
+					<!-- Pagination END -->
 					</div>
 				</div>
 				<!-- Student review END -->
@@ -357,10 +294,8 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script src="/js/scholarControls/uploadBook.js"></script>
-  <script src="/js/scholarControls/uploadPodcast.js"></script>
-  <script src="/js/scholarControls/uploadTutorial.js"></script>
 
+<script src="/js/searchQueries/getAllReviews.js"></script>
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
@@ -370,7 +305,7 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/functions.js"></script>
+<!-- <script src="/js/functions.js"></script> -->
 
 </body>
 </html>

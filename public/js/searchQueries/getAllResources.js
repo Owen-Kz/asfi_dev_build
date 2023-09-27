@@ -10,6 +10,7 @@ async function NewPage(page) {
 
 function renderResources(data) {
     userResourceContainer.innerHTML = "";  // Clear previous content
+    
 
     if (data) {
         const queryResult = JSON.parse(data.queryArray);
@@ -76,6 +77,10 @@ function renderResources(data) {
 
     const paginationHTML = generatePaginationHTML(currentPage, totalPages, PrevPage, NexxtPage);
     footerContainer.innerHTML = paginationHTML;
+
+    if(url == "/dashboard" ||  url == "/Dashboard"){
+        hideActionButtons()
+    }
 }
 
 function generatePaginationHTML(currentPage, totalPages, PrevPage, NexxtPage) {
@@ -118,6 +123,7 @@ NewPage(1);
 const searchResources = document.getElementById("searchResources")
 const searchForResources = document.getElementById("searchForResources")
 
+if(searchResources){
 searchResources.addEventListener("submit", function(e){
     e.preventDefault();
     
@@ -164,3 +170,4 @@ filterByType.addEventListener("submit", function(e){
         renderResources(data)
     })
 })
+}
