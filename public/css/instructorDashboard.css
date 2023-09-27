@@ -22601,3 +22601,97 @@ logoHere{
 .data_box span, .data_box b{
   z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .scholar_main{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px 0 10px;
+}
+}
+  
+.chathead{
+  top: 10%;
+  left: 80%;
+  transform: translateX(-50%);
+  height: 580px;
+  position: fixed;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1;
+}
+
+logohere {
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+logohere i {
+  color: whitesmoke;
+  font-size: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .chathead {
+      top: auto; /* Remove the 'top' property for mobile screens */
+      bottom: 0; /* Position it at the bottom */
+      left: auto; /* Remove the 'left' property */
+      right: 0; /* Position it at the right */
+      transform: none; /* Remove the transform for mobile screens */
+      width: 100%; /* Full width on mobile screens */
+      height: auto; /* Allow content to determine the height */
+  }
+}
+/* .data_box:hover{
+  border: 1px solid #7f417d;
+  color: #7f417d;
+  background: whitesmoke;
+} */
+
+.chat_container{
+  border-radius: 8px;
+  background-color: rgb(249, 249, 249);
+  /* position: absolute; */
+  height: 298px;     
+  width: 200px;
+  bottom: 10px;
+  left:82%;
+}
+
+.chat_header {
+  background-color: rgb(17, 17, 17);
+  height: 40px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+
+.active_chat{
+  border-radius: 100%;
+  background-color: rgb(55, 199, 16);
+  width: 13px;
+  height: 13px;
+}
+
+chat_button{
+  display: flex;
+  align-self: flex-end;
+  bottom: 20px;
+  right:30px; 
+  position: sticky;
+}
+
+logoHere{
+  border-radius: 50%;
+  /* background-color: rgb(15, 33, 58); */
+  width: 70px;
+  height: 70px;
+}
