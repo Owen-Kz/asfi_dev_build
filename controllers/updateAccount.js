@@ -43,6 +43,7 @@ const updateAccount = async (req, res) => {
 
                         if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
                             success.push(successMessage);
+                            // console.log(successMessage)
             
                             // responseSent = true;  // Set the flag to true
                             // res.json({ message: "Profile Updated Successfully" });  // Send the JSON response
@@ -175,8 +176,12 @@ const updateAccount = async (req, res) => {
                     await updateUserNameFields("books", "book_author", "book_author", username, "Books Updated")
                     await updateUserNameFields("external_links", "link_owner", "link_owner", username, "Links Updated")
                     await updateUserNameFields("tutorials", "tutorial_owner", "tutorial_owner", username, "Links Updated")
-                    }else{
+                    await updateUserNameFields("course_reviews", "course_owner_username", "course_owner_username", username, "Reviews Updated")
+                    }
+                    else{
                     await updateUserNameFields("applied_courses", "participants_username", "course_instructor_username", username, "Apllied Courses Updated")
+                  
+                    await updateUserNameFields("course_reviews", "reviewer_name", "reviewer_name", username, "Reviews Updated")
                     }
 
                     await updateUserNameFields("chat_buffer", "user_two", "user_two", username, "Chat Buffer Updated")
