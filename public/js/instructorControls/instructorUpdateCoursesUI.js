@@ -61,7 +61,7 @@ courseArray.forEach(element => {
             <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
         </form>
         <br>
-        <form class="delete_course_form">
+        <form class="delete_course_form" style="display:none; visibility:hidden">
             <input type="hidden" id="courseDelete" value=${CourseId} readonly>
             <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
         </form>
