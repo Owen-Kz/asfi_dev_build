@@ -36,6 +36,7 @@ function setToReadOnly(){
     const inputFields2 = form2.querySelectorAll('.form-control');
     const inputFields3 = form3.querySelectorAll('.form-control');
     const inputFields4 = form4.querySelectorAll('.form-control');
+    const dropDownCountries = document.getElementById("newLocation")
 inputFields1.forEach(field => {
 field.setAttribute('readonly','true');   
 });
@@ -48,6 +49,7 @@ inputFields3.forEach(field => {
 inputFields4.forEach(field => {
     field.setAttribute('readonly','true');   
     });
+    dropDownCountries.setAttribute('disabled', 'true')
 }
 
 
@@ -63,6 +65,9 @@ profileEdit.addEventListener('click', () => {
     inputFields1.forEach(field => {
         field.removeAttribute('readonly');
     })
+    const dropDownCountries = document.getElementById("newLocation")
+    dropDownCountries.removeAttribute("disabled")
+
 });
 
 linksEdit.addEventListener('click', () => {

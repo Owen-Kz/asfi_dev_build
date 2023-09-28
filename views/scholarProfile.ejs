@@ -344,12 +344,16 @@ Page content START -->
 
 							<!-- Location -->
 							<div class="col-md-6">
-								<label class="form-label">Location</label>
-								<% if(HomeAddress !=""){ %>
-								<input class="form-control" type="text" name="newLocation" id="newLocation" value="<%=HomeAddress%>">
-								<% } else { %>
-								<input class="form-control" type="text" name="newLocation" id="newLocation">
-								<%}%>
+								<label class="form-label">Country Of Residence</label>
+								<% if(HomeAddress !="" && HomeAddress != "N/A"){ %>
+									<select class="form-control" name="newLocation"  id="newLocation" disabled>
+										<option value="<%=HomeAddress%>"><%=HomeAddress%></option>
+									</select>
+									<% } else { %>
+										<select class="form-control" name="newLocation" id="newLocation">
+											<option value="">Select a Country</option>
+										</select>
+									<%}%>
 							</div>
 							
 							<!-- About me -->
@@ -672,6 +676,7 @@ Footer END -->
 <script src="/js/mainjs.js"></script>
 <script src="/js/userProfile.js"></script>
 <script src="/js/editProfile.js"></script>
+<script src="/js/countriesJSON.js"></script>
 
 
 
