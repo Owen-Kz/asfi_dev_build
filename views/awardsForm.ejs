@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="create_award_form">
+        <input type="text" id="award_title" name="award_title" placeholder="Award For" required>
+        <input type="text" id="awarded_by" name="awarded_by" placeholder="Awarded By" required>
+       
+        <input type="submit" id="submitWorkForm" hidden>
+    </form>
+
+
+    <script>
+        const create_award_form = document.getElementById("create_award_form")
+        const award_title = document.getElementById("award_title")
+        const awarded_by = document.getElementById("awarded_by")
+     
+
+        create_award_form.addEventListener("submit", function(e){
+            e.preventDefault()
+            const newFormdata = {
+                awarded_by:awarded_by.value,
+                award_title: award_title.value,
+            } 
+            fetch("/createAward", {
+                method: "POST",
+                body: JSON.stringify(newFormdata),
+                headers: {
+                    "Content-type" : "application/JSON",
+                }
+            }).then(res => res.json())
+            .then(data =>{
+                alert(data.message)
+                
+            })
+        })
+    </script>
+</body>
+</html>

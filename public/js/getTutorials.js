@@ -65,8 +65,10 @@ fetch(`/feedTutorials?page=${page}`, ()=>{
 
     if(TotalPages > 0){
         // Update the pagination UI
+        if(footerContainer){
        const paginationHTML = paginationFotTutorials(CurrentPage, TotalPages, PrevPage, NexxtPage);
        footerContainer.innerHTML = paginationHTML;
+        }
     }
 })
 }
@@ -259,7 +261,7 @@ for (var i = 0; i < limitedTextElements.length; i++) {
 
 function paginationFotTutorials(currentPage, totalPages, PrevPage, NexxtPage){
     const pageCountContainer = document.getElementById("pageCountContainer")
-  
+if(pageCountContainer){
        
         pageCountContainer.innerHTML = ` <p class="mb-0 text-center text-sm-start">Page ${currentPage} of ${totalPages}</p>`;
 
@@ -298,4 +300,5 @@ function paginationFotTutorials(currentPage, totalPages, PrevPage, NexxtPage){
        `;
       
         return paginationHTML;
+}
 }

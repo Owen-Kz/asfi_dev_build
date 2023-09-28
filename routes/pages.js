@@ -95,6 +95,12 @@ const SearchinstructorCourse = require("../controllers/InstructorControls/Search
 const TotalStudentsCount = require("../controllers/InstructorControls/TotalStudentsCount");
 const TotalPublications = require("../controllers/TotalPublications");
 const renderTutorialsPage = require("../controllers/renderTutorials");
+const createWorkHistory = require("../controllers/createWorkHistory");
+const WorkHistoryResult = require("../controllers/SearchResults/WorkHistoryResult");
+const ExpertiseResult = require("../controllers/SearchResults/ExpertiseResult");
+const createSkill = require("../controllers/createSkill");
+const AwardResult = require("../controllers/SearchResults/AwardsResult");
+const createAward = require("../controllers/createAward");
 
 const router = express.Router();
 router.use(express.json())
@@ -296,6 +302,31 @@ router.get("/:tutorialOwner/:courseID/:tutorialID", LoggedIn, watchTutorials);
 
 //Update user Profile and show the settings page
 router.get("/settings", LoggedIn, ProfileSettings)
+
+// Create work history 
+router.get("/Work", (req,res)=>{
+    res.render("workHistoryForm")
+})
+router.post("/createworkHistory", LoggedIn, createWorkHistory)
+
+// create Skill 
+router.get("/skillForm", (req,res) =>{
+    res.render("skillForm")
+})
+router.post("/createSkill", LoggedIn, createSkill)
+
+// Create Awards 
+router.get("/awardsForm", (req,res)=>{
+    res.render("awardsForm")
+})
+router.post("/createAward", LoggedIn, createAward)
+
+// GET THE WORK HISTORY OF A USERS 
+router.get("/getWorkHistoryOf/:username", LoggedIn, WorkHistoryResult)
+// GET SKills 
+router.get("/getSkillsOf/:username", LoggedIn, ExpertiseResult)
+// GET AWARDS 
+router.get("/getAwardsOf/:username", LoggedIn, AwardResult)
 
 // GET the Degrees for profiles
 router.get("/getDegrees/:username", getDegree)

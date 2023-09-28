@@ -29,6 +29,8 @@
 <body>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
+	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
+
 
     <% if(summation_FX = 1 + 4) { %>
         <form onsubmit="return false" method="post" id="follow" style="display: none; visibility: hidden;">
@@ -209,7 +211,11 @@ Page content START -->
 			<!-- Left sidebar START -->
 			<div class="col-lg-4">
 				<div class="row">
-	
+
+					<!-- GET WORK HISTORY  -->
+					<%- include("workHistory.ejs") %>
+
+					<!-- WORK HISTORY END  -->
 
 					<div class="col-md-6 col-lg-12">
 						<div class="card card-body shadow p-4 mb-4">

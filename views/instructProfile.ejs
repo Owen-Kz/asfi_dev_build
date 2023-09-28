@@ -29,6 +29,8 @@
 <body>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
+	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
+
 
     <% if(summation_FX = 1 + 4) { %>
         <form onsubmit="return false" method="post" id="follow" style="display: none; visibility: hidden;">
@@ -265,12 +267,11 @@ Page content START -->
 							<h4 class="header">Degrees</h4>
                             
                             <% var HonorsH = Honors ;
+							if(HonorsH > 0){
                             for(var i=0; i <  HonorsH ; i++) { 
                             const HONOR = honoraryTitle[i][honorary_type]; 
 							const Text = honoraryTitle[i][sub_text]
                             %>
-
-							<!-- Education item -->
 							<div class="d-flex align-items-center mb-4">
 								<span class="icon-md mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
 								<div class="ms-3">
@@ -278,24 +279,24 @@ Page content START -->
 									<p class="mb-0 small"><%=Text%></p>
 								</div>
 							</div>
-                            <% } %>
+                            <% } }else { %>
+								<div class="d-flex align-items-center mb-4">
+								<h6 class="uppercase">Nothing to show yet...</h6>`
+							</div>
+							<% }%>
+							<hr>
+					
+					<%- include("workHistory.ejs") %>
 
-							
+					<hr>
+					<%- include ("technicalExpertise.ejs") %>
+
+
 
 							<hr> <!-- Divider -->
 
-							<!-- Skills START -->
-							<h4 class="header">Awards</h4>
+							<%- include ("awards.ejs") %>
 
-							<!-- Progress item -->
-							<div class="overflow-hidden mb-4">
-								<h6 class="uppercase">Nothing to show yet...</h6>
-								<div class="progress progress-sm bg-primary bg-opacity-10">
-									<div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-										<span class="progress-percent-simple h6 mb-0">0%</span>
-									</div>
-								</div>
-							</div>
 
 
 						</div>
@@ -310,7 +311,20 @@ Page content START -->
 				<!-- Title -->
 				<h5 class="mb-0">About me!</h5>
 				<!-- Content -->
-				<p class="mt-4"><%=Bio%></p>
+				<p class="mt-4">
+					<h6>Bio</h6>
+					<%=Bio%>
+				</p>
+
+				<p class="mt-4">
+					<h6>Nationality</h6>
+					<%= Country %>
+				</p>
+
+				<p class="mt-4">
+					<h6>Research interests</h6>
+					<%= area_of_interest %>
+				</p>
 				<!-- Personal info -->
                 <span class="h6 fw-light"><i class="fas fa-fw fa-envelope text-primary me-1 me-sm-3"></i>Email:</span>
                 <a href="mailto:<%= EmailVisited %>"><%= EmailVisited %></a>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="create_work_form">
+        <input type="text" id="work_history_name" name="work_history_name" placeholder="What position did you hold ?" required>
+        <input type="text" id="work_organization" name="work_organization" placeholder="What organizatino did you work for ?" required>
+        <input type="number" id="start_year" name="start_year" placeholder="Enter the year you started" required>
+        <input type="text" id="end_year" name="end_year" placeholder="Enter (Currently work here) if you still work here" required>
+        <input type="submit" id="submitWorkForm" hidden>
+    </form>
+
+
+    <script>
+        const create_work_form = document.getElementById("create_work_form")
+        const work_organization = document.getElementById("work_organization")
+        const work_history_name = document.getElementById("work_history_name")
+        const start_year = document.getElementById("start_year")
+        const end_year = document.getElementById("end_year")
+
+        create_work_form.addEventListener("submit", function(e){
+            e.preventDefault()
+            const newFormdata = {
+                work_history_name:work_history_name.value,
+                work_organization: work_organization.value,
+                start_year: start_year.value,
+                end_year: end_year.value
+            } 
+            fetch("/createworkHistory", {
+                method: "POST",
+                body: JSON.stringify(newFormdata),
+                headers: {
+                    "Content-type" : "application/JSON",
+                }
+            }).then(res => res.json())
+            .then(data =>{
+                alert(data.message)
+                
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 const socialLinksArrayContainer = document.getElementById("SocialLinks").value
 const socialLinksArray = JSON.parse(socialLinksArrayContainer)
 
-console.log(socialLinksArray)
+
 
 if(socialLinksArray.length > 0){
     // socialLinksArray.forEach(link => {
