@@ -22581,5 +22581,8 @@ logoHere{
     display: block;
     left: -5px;
 }
+.cover {
+  height: 100px;
+}
 
 }
