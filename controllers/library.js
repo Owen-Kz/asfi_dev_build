@@ -87,8 +87,23 @@ if(req.user){
                 dataLinksArray.push(dataLink)
               })
               const allDataLink = await fetchWebsiteData(dataLinksArray);
-
+              if(allDataLink){
               renderLibraryPage(allDataLink);
+              }else{
+                res.render("library.ejs", {
+                  root: "./public",
+                  status: "logged",
+                  BOOK_DATA_ARRAY: JSON.stringify(books),
+                  accountType: userData[0]["acct_type"],
+                  books: JSON.stringify(books),
+                  externalLinks: "[]",
+                  currentPageBooks:pageBooks,
+                  currentPageLinks: pageLinks,
+                  totalPagesBooks: totalPages,
+                  totalLinks: linksCount,
+                  totalPagesLinks: totalLinksCount
+                });
+              }
             });
           })
         });
