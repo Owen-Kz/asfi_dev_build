@@ -329,7 +329,9 @@
                             <!-- Nationality -->
                             <div class="col-lg-12">
                                 <label class="form-label">Nationality *</label>
-                                <input type="text" class="form-control" id="nationality" required>
+                                <select class="form-control" id="nationality" required>
+                                    <option value="">Select your country</option>
+                                </select>
                             </div>
                             <!-- Gender -->
                             <div class="col-lg-12">
@@ -341,8 +343,10 @@
                        
                             <!-- Address -->
                             <div class="col-lg-12">
-                                <label class="form-label">Address *</label>
-                                <input type="text" class="form-control" id="address" required>
+                                <label class="form-label">Country of Residence *</label>
+                                <select class="form-control" id="address" required>
+                                <option value="">Select a Country</option>
+                                </select>
                             </div>
                             <!-- Diploma -->
                             <div class="col-lg-12">
@@ -518,6 +522,6 @@ Footer END -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
-
+<script src="/js/countriesJSON.js"></script>
 </body>
 </html>
