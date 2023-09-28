@@ -190,23 +190,28 @@ Page Banner START -->
 							<div>
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
                                 <p class="profile-tag">@<%= UserName %></p>
-								<%- include("scholarSubmenu.ejs") %>
+								
 
 							</div>
-							<!-- Button -->
-                            <div class="dropdown dash_upload">
-                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
-                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
-					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
-                                </ul>
-							</div> 
+							
 						</div>
 					</div>
 				</div>
 				<!-- Profile banner END -->
                
-				<!-- Advanced filter responsive toggler START -->
+				<%- include("scholarSubmenu.ejs") %>
+
+			</div>
+			<!-- Button -->
+			<div class="dropdown dash_upload">
+				<span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
+	<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
+				</ul>
+			</div> 
+		</div>
+		<!-- Advanced filter responsive toggler START -->
 				<!-- Divider -->
 				<hr class="d-xl-none">
 				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
@@ -216,9 +221,6 @@ Page Banner START -->
 					</button>
 				</div>
 				<!-- Advanced filter responsive toggler END -->
-
-			</div>
-		</div>
 	</div>
 </section>
 <!-- =======================
