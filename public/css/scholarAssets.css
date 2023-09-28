@@ -22287,7 +22287,7 @@ html[dir=rtl] .choices__input {
 .scholar_main{
     display: flex;
     flex-direction: column;
-    padding: 0px 10px 0 10px;
+    padding: 0px 60px 0 60px;
 }
 .scholarProfile_container {
     margin-top: 60px;

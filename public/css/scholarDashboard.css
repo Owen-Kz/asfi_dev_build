@@ -22095,6 +22095,19 @@ html[dir=rtl] .choices__input {
   background-color: transparent;
 }
 
+@media (max-width: 767.98px) {
+  .stepper-outline .bs-stepper-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 1.4rem;
+  }
+  .stepper-outline .step.active .bs-stepper-circle {
+    line-height: 1.6rem;
+  }
+  .stepper-outline .bs-stepper-content {
+    padding: 5px;
+  }
+}
 .fullscreen-video .plyr--video {
   height: 100vh;
 }
@@ -22274,7 +22287,7 @@ html[dir=rtl] .choices__input {
 .scholar_main{
     display: flex;
     flex-direction: column;
-    padding: 0px 10px 0 10px;
+    padding: 0px 60px 0 60px;
 }
 
 
@@ -22580,22 +22593,4 @@ html[dir=rtl] .choices__input {
 }
 .data_box span, .data_box b{
   z-index: 2;
-}
-
-
-@media (max-width: 767.98px) {
-  .stepper-outline .bs-stepper-circle {
-    width: 2.5rem;
-    height: 2.5rem;
-    line-height: 1.4rem;
-  }
-  .stepper-outline .step.active .bs-stepper-circle {
-    line-height: 1.6rem;
-  }
-  .stepper-outline .bs-stepper-content {
-    padding: 5px;
-  }
-  .dash_div{
-    width: 50%;
-  }
 }

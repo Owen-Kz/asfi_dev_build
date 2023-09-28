@@ -286,8 +286,7 @@ body[data-theme=dark] {
 .chat-list {
   padding: 0;
   list-style: none;
-  height: 80%;
-  overflow-y: scroll;
+  height: 0px;
   overflow: hidden;
   transition: 0.4s ease-in;
   display: none;
@@ -298,10 +297,6 @@ body[data-theme=dark] {
   height: auto;
   max-height: auto;
   opacity: 1;
-}
-.chat-list-container {
-  height: 66vh;
-  overflow-y: scroll;
 }
 .chat-list-item {
   transition: 0.2s;
