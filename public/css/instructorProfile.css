@@ -671,8 +671,9 @@ progress {
 }
 
 .list-inline {
-  padding-left: 0;
+  padding-left: 5%;
   list-style: none;
+  margin-top: 20px;
 }
 
 .list-inline-item {
@@ -22559,4 +22560,27 @@ logoHere{
 .Preview_image {
   width: 80%;
   margin: auto;
+}
+
+
+@media (max-width: 780px) {
+
+  .dash_upload {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 10px;
+    height: 10vh;
+  }
+  .dash_upload span {
+    border-radius: 15px;
+    width: 90%;
+  }
+  .dropdown-menu.show {
+    display: block;
+    left: -5px;
+}
+
 }

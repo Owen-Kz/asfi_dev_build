@@ -22375,3 +22375,18 @@ form{
     color: #55146eda;
     text-decoration: dotted;
 }
+
+
+@media (max-width: 440px) {
+  .containerReg a span {
+    margin: 0 30px 0 30px;
+    white-space: pre-wrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .containerReg a span {
+    margin: 0 20px 0 20px;
+    white-space: pre-wrap;
+  }
+}

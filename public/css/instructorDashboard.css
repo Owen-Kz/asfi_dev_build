@@ -22608,6 +22608,14 @@ logoHere{
     flex-direction: column;
     padding: 0px 10px 0 10px;
 }
+
+  .dash_div{
+    width: 50%;
+  }
+
+  .card {
+    width: 110%;
+  }
 }
   
 .chathead{

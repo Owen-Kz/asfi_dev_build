@@ -740,22 +740,6 @@ span svg{
 width: 20px;
 }
 
-/* CSS rules for all mobile screens */
-@media (max-width: 767px) {
-/* Your styles for mobile screens go here */
-.edit-cover {
-  margin-top: 45%;
-  margin-left: 90%;
-  font-size: 20px;
-  height: fit-content;
-  padding: 6px;
-  color: whitesmoke;
-  border: 2px solid whitesmoke;
-  border-radius: 5px;
-  position: sticky;
-  
-}
-}
 
 /* Media query for larger screens */
 @media (min-width: 768px) {
@@ -1081,3 +1065,48 @@ margin: auto;
 .degree .degree_title {
   font-size: 1.4rem;
 }
+
+
+/* CSS rules for all mobile screens */
+@media (max-width: 767px) {
+  /* Your styles for mobile screens go here */
+  .edit-cover {
+    margin-top: 45%;
+    margin-left: 90%;
+    font-size: 20px;
+    height: fit-content;
+    padding: 6px;
+    color: whitesmoke;
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    position: sticky;
+    
+  }
+  
+  footer{
+    display:flex;
+    height: 50px;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 12px;
+    }
+  
+    .upload_container {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      width: 100%;
+      height: 80%;
+      border-radius: inherit;
+      overflow-y: scroll;
+      }
+  
+    .book_upload {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 7px;
+      }
+  }
