@@ -1124,4 +1124,24 @@ margin: auto;
       width: 100%;
       padding: 7px;
       }
+
+    .edit-cover{
+        position: sticky;
+        margin-top: 25%;
+      }
+  }
+
+  @media (max-width: 580px) {
+    .edit-cover{
+      position: sticky;
+      margin-top: 36%;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .edit-cover{
+      position: sticky;
+      margin-top: 53%;
+      padding: 6px;
+    }
   }
