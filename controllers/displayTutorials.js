@@ -122,6 +122,7 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
                                 TutoriaThumbnail: TutoriaThumbnail,
                                 TutorialOwnerFullName: OwenrFullName,
                                 TutorialOwnerProfilePicture: TutorialProfilePicture,
+                               
                                 CourseLevel: coursesMain[0].CourseLevel,
                                 CourseName: coursesMain[0].CourseName,
                                 TutorialDate:TutorialDate,
