@@ -1,4 +1,4 @@
-// const VisitedUSername = document.getElementById("searchNameUser")
+
 const awards_container = document.getElementById("awards_container")
 
 if(VisitedUSername){
@@ -28,4 +28,35 @@ if(VisitedUSername){
         }
     })
 }
+
+
+
+
+
+
+if(username_p){
+    fetch(`/getAwardsOf/${username_p.value}`, ()=>{
+        method:"GET"
+    }).then(res => res.json())
+    .then(data =>{
+        const AwardArray = JSON.parse(data.AwardArray)
+        if(AwardArray.length > 0){
+            AwardArray.forEach(Award => {
+                const Award_title = Award.award_title
+                const Awarded_by = Award.awarded_by
+                
+                awards_container.innerHTML+=`
+                <div class="sub-body">
+                <h6>${Award_title}</h6>
+                <i>${Awarded_by}</i>
+                </div>`
+                
+            });
+        }else{
+		
+            awards_container.innerHTML = `<h6 class="uppercase">Nothing to show yet...</h6>`
+        }
+    })
+}
+
 

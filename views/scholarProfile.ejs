@@ -407,12 +407,7 @@ Page content START -->
 								<h5 class="card-header-title mb-0">Work History</h5>
 							</div>
 							<!-- Card body -->
-							<div class="card-body">
-                              <div class="sub-body">
-								<h6>Software Developer</h6>
-								<p>Weperch</p>
-								<i>2021 - 2023</i>
-							  </div>
+							<div class="card-body" id="WorkHistoryContainer">
 							</div>
 							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addWorkHistoryButton">Add Work History</span>
 						</div>
@@ -428,10 +423,8 @@ Page content START -->
 							</div>
 							<!-- Card body -->
 							<div class="card-body">
-								<ul class="sub-body">
-									<li>Full Stack Developer</li>
-									<li>Full Stack Developer</li>
-									<li>Full Stack Developer</li>
+								<ul class="sub-body" id="technical_expertise_container">
+								
 								</ul>
 							</div>
 							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addTechnicalExpButton">Add Technical Expertise</span>
@@ -444,14 +437,11 @@ Page content START -->
 						<div class="card bg-transparent border rounded-3">
 							<!-- Card header -->
 							<div class="card-header bg-transparent border-bottom edit">
-								<h5 class="card-header-title mb-0">Award</h5>
+								<h5 class="card-header-title mb-0">Awards</h5>
 							</div>
 							<!-- Card body -->
-							<div class="card-body">
-								<div class="sub-body">
-									<h6>Best Developer</h6>
-									<i>Weperch Technologies</i>
-								  </div>
+							<div class="card-body" id="awards_container">
+								
 							</div>
 							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addAwardButton">Add Award</span>
 						</div>
@@ -725,11 +715,14 @@ Footer END -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/js/updateAccountData.js"></script>
+<script src="/js/searchQueries/getWorkHistory.js"></script>
+<script src="/js/searchQueries/getTechnicalExpertise.js"></script>
+<script src="/js/searchQueries/getAwards.js"></script>
 
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/functions.js"></script>
+<!-- <script src="/js/functions.js"></script> -->
 
 <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="/js/scholarControls/uploadBook.js"></script>
