@@ -21,3 +21,22 @@ if(VisitedUSername){
     })
 }
 
+if(username_p){
+    fetch(`/getSkillsOf/${username_p.value}`, ()=>{
+        method:"GET"
+    }).then(res => res.json())
+    .then(data =>{
+        const SkillArray = JSON.parse(data.SkillArray)
+        if(SkillArray.length > 0){
+            SkillArray.forEach(Skill => {
+                const Skill_tite = Skill.skill_name
+                technical_expertise_container.innerHTML+=`<li>${Skill_tite}</li>`
+                
+            });
+        }else{
+		
+            technical_expertise_container.innerHTML = `<h6 class="uppercase">Nothing to show yet...</h6>`
+        }
+    })
+}
+

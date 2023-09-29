@@ -1,4 +1,5 @@
 const VisitedUSername = document.getElementById("searchNameUser")
+const username_p = document.getElementById("username_p")
 const WorkHistoryContainer = document.getElementById("WorkHistoryContainer")
 
 
@@ -20,7 +21,7 @@ if(VisitedUSername){
                 <div class="ms-3">
                     <h6 class="mb-0">${work_tite}</h6>
                     <p class="mb-0 small">${work_postion}</p>
-                    <p class="mb-0 small"><i>From ${start_year} to ${end_year}</i></p>
+                    <p class="mb-0 small"><i>${start_year} - ${end_year}</i></p>
                 </div>
             </div>`
                 
@@ -31,4 +32,34 @@ if(VisitedUSername){
         }
     })
 }
+
+if(username_p){
+    fetch(`/getWorkHistoryOf/${username_p.value}`, ()=>{
+        method:"GET"
+    }).then(res => res.json())
+    .then(data =>{
+        const WorkArray = JSON.parse(data.workArray)
+        if(WorkArray.length > 0){
+            WorkArray.forEach(work => {
+                const work_tite = work.work_history_name
+                const work_postion = work.work_organization
+                const start_year = work.start_year
+                const end_year = work.end_year
+
+                WorkHistoryContainer.innerHTML+=`<div class="sub-body">
+                <h6>${work_tite}</h6>
+                <p>${work_postion}</p>
+                <i>${start_year} - ${end_year}</i>
+                </div>`
+                
+            });
+        }else{
+		
+            WorkHistoryContainer.innerHTML = `<h6 class="uppercase">Nothing to show yet...</h6>`
+        }
+    })
+}
+
+
+
 
