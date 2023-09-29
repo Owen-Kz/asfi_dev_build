@@ -67,7 +67,7 @@ return paginationHTML;
 newCoursePage(1)
 
 
-// filter Courses by status 
+// filter Courses by status  
 const sortByStatusForm = document.getElementById("sortByStatusForm")
 const sortByStatus = document.getElementById("sortByStatus")
 const submitSort = document.getElementById("submitSort")

@@ -237,25 +237,25 @@ Page content START -->
             <div class="row g-3 align-items-center justify-content-between mb-4">
                 <!-- Search -->
                 <div class="col-md-8">
-                    <form class="rounded position-relative">
-                        <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
-                        <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-                    <i class="fas fa-search fs-6 "></i>
-                </button>
-                    </form>
+                	<form class="rounded position-relative" id="searchCourses">
+						<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search" id="searchForCourses">
+						<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+					<i class="fas fa-search fs-6 "></i>
+				</button>
+					</form>
                 </div>
 
                 <!-- Select option -->
                 <div class="col-md-3">
                     <!-- Short by filter -->
-                    <form>
-                        <select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm">
-                            <option value="">Sort by</option>
-                            <option>In Progress</option>
-                            <option>Completed</option>
-                            <!-- <option>Type</option> -->
-                            <!-- <option>Most Viewed/Clicked</option> -->
-                        </select>
+					<form id="sortByStatusForm">
+						<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" id="sortByStatus">
+							<option value="">Sort by</option>
+							<option value="in Progress">In Progress</option>
+							<option value="completed">Completed</option>
+						</select>
+						<input type="submit" hidden id="submitSort">
+					</form>
                     </form>
                 </div>
             </div>
@@ -280,20 +280,7 @@ Page content START -->
             <!-- Course list table END -->
 
             <!-- Pagination START -->
-            <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-                <!-- Content -->
-                <p class="mb-0 text-center text-sm-start">Showing...</p>
-                <!-- Pagination -->
-                <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-                    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-                    </ul>
-                </nav>
-            </div>
+			<div id="footer_container"></div>
             <!-- Pagination END -->
         </div>
         <!-- Card body START -->
@@ -325,7 +312,7 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<!-- <script src="/js/updateAccountData.js"></script> -->
+<script src="/js/searchQueries/getUserCourses.js"></script>
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>

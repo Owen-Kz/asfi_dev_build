@@ -106,6 +106,8 @@ const totalFollowersCount = require("../controllers/totalfollowers");
 const AccountFollowers = require("../controllers/accountFollowers");
 const accountFollows = require("../controllers/accountFollows");
 const totalFollowing = require("../controllers/SearchResults/totalFollowing");
+const MyCoursesList = require("../controllers/scholarContols/myCoursesresList");
+const SearchScholarCourses = require("../controllers/scholarContols/searchScholarCourses");
 
 const router = express.Router();
 router.use(express.json())
@@ -413,6 +415,8 @@ router.get("/instructorCourses",LoggedIn, instructorCourses)
 
 router.get("/getInstructorCourse", LoggedIn, instructorCourseResult)
 
+router.get("/getMycoursesList", LoggedIn, MyCoursesList)
+
 // router.post("/api/confirmEmail/*", ConfrimEmailReset)
 // router.post("/api/passwordReset", forgotPassword) 
 
@@ -519,6 +523,9 @@ router.get("/editInstructorCourseModal/:editData", LoggedIn, getEditCourse )
 router.post("/courses/update/course", LoggedIn, editCourse)
 // SearchForCourses 
 router.get("/mycourses/search/q/:searchQuery", LoggedIn, SearchinstructorCourse)
+
+// Search for Scholar personal course ther enrolled for  
+router.get("/scholarCourses/search/q/:searchQuery", LoggedIn, SearchScholarCourses)
 
 
 router.post("/coverImage", LoggedIn, profileCoverUpload)
