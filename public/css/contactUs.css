@@ -11076,6 +11076,11 @@ textarea.form-control-lg {
         -ms-flex-pack: justify !important;
             justify-content: space-between !important;
   }
+
+  .justify-content-sm-between ul {
+    margin-top: -23px;
+    margin-left: 4px;
+  }
   .justify-content-sm-around {
     -ms-flex-pack: distribute !important;
         justify-content: space-around !important;
