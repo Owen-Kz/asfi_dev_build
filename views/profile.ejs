@@ -198,17 +198,25 @@ Page Banner START -->
                                         <input type="number" value="<%= followersCount %>" id='FCT' readonly hidden>
     
                                         <% if(followersCount > 1 || followersCount  == 0) { %>
-                                            <span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
+                                            <a href="/userFollowers/<%=username_visitor%>"><span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
+											</a>
                                             <% } else { %>
+												<a href="/userFollowers/<%=username_visitor%>">
                                                 <span> <span id="FL_COUNT"><%= followersCount %></span> <span id="followerTEXT">Follower</span></span> 
+											</a>
                                         <% } %>
+                                    </li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
+										<a href="/userFollows/<%=username_visitor%>">
+											<span> <span id="totalFollowingCount"></span> <span id="followerTEXT">Following</span></span> 
                                     </li>
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
                                         <a href="/@<%= searchUSERNAME %>/chat"><button class="buttons">Message</button></a>
                                         <i class="fas fa-comments text-info me-1"></i>
                                     </li>
+								
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="./books"><button class="buttons">Books</button></a>
+                                        <a href="#"><button class="buttons">Books</button></a>
                                         <i class="fas fa-book text-purple me-1"></i><% if(BooksSum > 1 || BooksSum == 0) { %>
                                             <span><%= BooksSum %> Books</span> 
                                             <% } else { %>
@@ -284,7 +292,7 @@ Page content START -->
 						<%- include ("technicalExpertise.ejs") %>
 
 						<hr>
-						
+
 						<%- include ("awards.ejs") %>
 
 
@@ -505,6 +513,8 @@ Footer END -->
 
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/CountUserFollowinOnProfile.js"></script>
+
 
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>

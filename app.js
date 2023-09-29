@@ -47,7 +47,8 @@ app.set("view engine", "ejs");
 app.set("views", ["./views", "./public/Tutorials/VideoInterface", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
 
 
-app.use("/api/userFollows", require( "./controllers/userFollows"))
+app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))
+
 app.use("/api/directoryQuery", require("./controllers/directory"))
 
 app.use("/css", express.static(__dirname + "/public/css", { type: 'text/css' }))

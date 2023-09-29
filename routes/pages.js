@@ -56,7 +56,7 @@ const becomeScholarPage = require("../controllers/becomeScholar");
 const createScholar = require("../controllers/scholarContols/createScholar");
 const createSpaces = require("../controllers/createSpaces");
 const totalCourses = require("../controllers/SearchResults/totalCourses");
-const totalfollowers = require("../controllers/SearchResults/totalFollowers");
+const totalfollowers = require("../controllers/SearchResults/totalFollowing");
 const CourseCategories = require("../controllers/SearchResults/CourseCategories");
 const FilterCoursesInCategory = require("../controllers/SearchResults/FilterCoursesInCategory");
 const getAsTutorial = require("../controllers/SearchResults/getAsTutorials");
@@ -101,6 +101,11 @@ const ExpertiseResult = require("../controllers/SearchResults/ExpertiseResult");
 const createSkill = require("../controllers/createSkill");
 const AwardResult = require("../controllers/SearchResults/AwardsResult");
 const createAward = require("../controllers/createAward");
+const userFollowers = require("../controllers/userFollowers");
+const totalFollowersCount = require("../controllers/totalfollowers");
+const AccountFollowers = require("../controllers/accountFollowers");
+const accountFollows = require("../controllers/accountFollows");
+const totalFollowing = require("../controllers/SearchResults/totalFollowing");
 
 const router = express.Router();
 router.use(express.json())
@@ -151,7 +156,8 @@ router.get("/getTotalScholarPublications", LoggedIn, TotalPublications)
 router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
 // GET TOTAL COURSES 
 router.get("/:username/totalcourses", totalCourses)
-router.get("/:username/totalfollowers", totalfollowers)
+router.get("/:username/totalfollowing", totalFollowing)
+
 router.get("/:username/totalstudents", totalStudents)
 
 
@@ -338,7 +344,16 @@ router.post("/createNewDegrees", LoggedIn, createDegrees)
 router.post("/profilePhoto/u", LoggedIn, ProfileUpload);
 
 // GET THE LIST OF PEOPLE YOU FOLLOW FROM THE SETTINGS PAGE 
-router.get("/@:loggedUser/following", LoggedIn, userFollows)
+// router.get("/@:loggedUser/following", LoggedIn, userFollows)
+router.get("/following", LoggedIn, userFollows)
+router.get("/totalFollowersCount", LoggedIn, totalFollowersCount)
+
+// all followers
+router.get("/followers", LoggedIn, userFollowers)
+router.get("/userFollowers/:loggedUser", LoggedIn, AccountFollowers)
+router.get("/userFollows/:loggedUser", LoggedIn, accountFollows)
+router.get("/api/userFollowers", LoggedIn, userFollowers)
+
 
 // GET THE LOGIN PAGE 
 router.get("/public", LoggedIn, (req, res) => {

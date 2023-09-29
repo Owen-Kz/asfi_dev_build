@@ -1,6 +1,6 @@
 // Make an AJAX request to fetch the data from the server
 // $.ajax({
-// 	url: "/api/userFollows",
+// 	url: "/api/userFollowers",
 // 	method: "GET",
 // 	success: function (response, textStatus, xhr) {
 		var dataJSON = document.getElementById("dataJSON").value;

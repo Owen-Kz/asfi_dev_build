@@ -1,6 +1,6 @@
 const db = require("../routes/db.config");
 
-const userFollows = async (req, res) => {
+const userFollowers = async (req, res) => {
   if(req.user.username){
   // const UserName = req.params["loggedUser"];
   const UserName = req.user.username
@@ -17,7 +17,7 @@ const userFollows = async (req, res) => {
 
   db.query(
     "SELECT COUNT(*) AS followingCount FROM followers WHERE ?",
-    [{ followerUsername: UserName }],
+    [{ followingUsername: UserName }],
     async (err, rows) => {
       if (err) throw err;
       var FollowingCount = JSON.stringify(rows[0]["followingCount"]);
@@ -25,14 +25,14 @@ const userFollows = async (req, res) => {
       if (parseInt(FollowingCount) > 0) {
         db.query(
           "SELECT * FROM followers WHERE ?",
-          [{ followerUsername: UserName }],
+          [{ followingUsername: UserName }],
           async (err, result) => {
             if (err) throw err;
            
             const data = [];
             const RESULT_ = [];
             const promises = result.map((row) => {
-              const FollowedAccount = row["followingUsername"];
+              const FollowedAccount = row["followerUsername"];
 
               return new Promise((resolve, reject) => {
                 db.query(
@@ -66,7 +66,7 @@ const userFollows = async (req, res) => {
             Promise.all(promises)
               .then(() => {
                 const dataJSON = JSON.stringify(data);
-                res.render("following.ejs", {
+                res.render("followers", {
                   root: "./public",
                   FollowingCount: FollowingCount,
                   accountType: accountType,
@@ -81,7 +81,7 @@ const userFollows = async (req, res) => {
           }
         );
       } else {
-        res.render("following.ejs", {
+        res.render("followers", {
           root: "./public",
           FollowingCount: FollowingCount,
           accountType: accountType,
@@ -95,6 +95,6 @@ const userFollows = async (req, res) => {
 };
 }
 
-module.exports = userFollows;
+module.exports = userFollowers;
 
 

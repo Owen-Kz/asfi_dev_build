@@ -1,9 +1,9 @@
 const db = require("../routes/db.config");
 
-const userFollows = async (req, res) => {
+const accountFollows = async (req, res) => {
   if(req.user.username){
-  // const UserName = req.params["loggedUser"];
-  const UserName = req.user.username
+  const UserName = req.params.loggedUser;
+//   const UserName = req.user.username
 
     db.query("SELECT * FROM user_info WHERE username =?",[UserName], async (err, data)=>{
     if(err) throw err
@@ -66,7 +66,7 @@ const userFollows = async (req, res) => {
             Promise.all(promises)
               .then(() => {
                 const dataJSON = JSON.stringify(data);
-                res.render("following.ejs", {
+                res.render("accountFollowing.ejs", {
                   root: "./public",
                   FollowingCount: FollowingCount,
                   accountType: accountType,
@@ -81,7 +81,7 @@ const userFollows = async (req, res) => {
           }
         );
       } else {
-        res.render("following.ejs", {
+        res.render("accountFollowing.ejs", {
           root: "./public",
           FollowingCount: FollowingCount,
           accountType: accountType,
@@ -95,6 +95,6 @@ const userFollows = async (req, res) => {
 };
 }
 
-module.exports = userFollows;
+module.exports = accountFollows;
 
 

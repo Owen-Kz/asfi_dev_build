@@ -1,6 +1,8 @@
 // Make an AJAX request to fetch the data from the server
+const usernameVist = document.getElementById("usernameVisit")
+
 // $.ajax({
-// 	url: "/api/userFollows",
+// 	url: `/userFollows/${usernameVist.value}`,
 // 	method: "GET",
 // 	success: function (response, textStatus, xhr) {
 		var dataJSON = document.getElementById("dataJSON").value;

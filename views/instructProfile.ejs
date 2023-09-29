@@ -198,19 +198,26 @@ Page Banner START -->
                                         <% } %>
                                         <i class="fa fa-users text-instagram-gradient me-1"></i>
                                         <input type="number" value="<%= followersCount %>" id='FCT' readonly hidden>
-    
+
                                         <% if(followersCount > 1 || followersCount  == 0) { %>
-                                            <span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
+                                            <a href="/userFollowers/<%=username_visitor%>"><span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
+											</a>
                                             <% } else { %>
+												<a href="/userFollowers/<%=username_visitor%>">
                                                 <span> <span id="FL_COUNT"><%= followersCount %></span> <span id="followerTEXT">Follower</span></span> 
+											</a>
                                         <% } %>
+                                    </li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
+										<a href="/userFollows/<%=username_visitor%>">
+											<span> <span id="totalFollowingCount"></span> <span id="followerTEXT">Following</span></span> 
                                     </li>
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
                                         <a href="/@<%= searchUSERNAME %>/chat"><button class="buttons">Message</button></a>
                                         <i class="fas fa-comments text-google-icon me-1"></i>
                                     </li>
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="./books"><button class="buttons">Books</button></a>
+                                        <a href="#"><button class="buttons">Books</button></a>
                                         <i class="fas fa-book text-purple me-1"></i><% if(BooksSum > 1 || BooksSum == 0) { %>
                                             <span><%= BooksSum %> Books</span> 
                                             <% } else { %>
@@ -226,7 +233,7 @@ Page Banner START -->
                                         <% } %>
                                     </li>
                                     <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="/@<%= searchUSERNAME %>/tutorials"><button class="buttons">Tutorials</button></a>
+                                        <a href="/tutorials"><button class="buttons">Tutorials</button></a>
                                         <i class="fas fa-tv text-purple me-1"></i>
 										<% if(tutorialSum > 1 || tutorialSum == 0) { %>
                                             <span><%= tutorialSum %> Tutorials</span>
@@ -424,6 +431,8 @@ Footer END -->
 <script src="/js/newFollower.js"></script>
 <script src="/js/getTutorials.js"></script>
 <script src="/js/getSocialLinks.js"></script>
+<script src="/js/CountUserFollowinOnProfile.js"></script>
+
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>

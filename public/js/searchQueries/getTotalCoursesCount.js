@@ -19,7 +19,7 @@ fetch(`/${username_container}/totalcourses`, ()=> {
 
 
 if(total_followers_count){
-fetch(`/${username_container}/totalfollowers`, ()=> {
+fetch(`/${username_container}/totalfollowing`, ()=> {
     method:"GET"
 }).then(res => res.json())
 .then(data =>{
