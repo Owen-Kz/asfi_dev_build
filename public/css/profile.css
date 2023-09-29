@@ -800,14 +800,16 @@ padding: 6px;
 .profile_main {
     display: flex;
     flex-direction: column;
-    margin-top: -60px;
+    margin-top: -10%;
     width: 100%;
 }
 .profile_section {
     margin: auto;
+    width: 85%;
+    margin-top: 0;
 }
 .profile_section .cover_image_container {
-    padding: 10%;
+    padding: 15%;
 }
 .profile-tag {
     font-size: 25px;
@@ -822,3 +824,6 @@ span i{
     padding: 15px;
 }
 
+.fas svg{
+    width: auto;
+}
