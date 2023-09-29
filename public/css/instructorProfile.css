@@ -22360,7 +22360,7 @@ logoHere{
   animation-duration: 0.4s;
 }
 /* MODAL1 */
-.modal-content{
+.modal_content{
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -22560,6 +22560,18 @@ logoHere{
 .Preview_image {
   width: 80%;
   margin: auto;
+}
+
+.sub-body {
+  padding: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+}
+.sub-body h6, p {
+  margin: 0;
+}
+.sub-body li {
+  margin-bottom: 5px;
 }
 
 @media (max-width: 780px) {

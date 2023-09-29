@@ -33,6 +33,7 @@
 
 	<%- include ("bookUploadModal") %>
 	<%- include ("podcastUploadModal") %>
+	<%- include ("addDetailsmodal.ejs") %>
 
     <!-- NAVIGATION BAR  -->
     <sidebar class="left-navigation-bar bg-shadow ">
@@ -331,7 +332,6 @@ Page content START -->
                                 <label class="form-label" name="gender">Gender</label>
                                 <span><input class="" type="radio" name="gender" id="gender1" value="Male">Male</span>
                                 <span><input class="" type="radio" name="gender" id="gender2" value="Female">Female</span>
-                                <span><input class="" type="radio" name="gender" id="gender3" value="Other">Prefer not to say</span>
                             </div>
 
 							<!-- Phone number -->
@@ -360,11 +360,11 @@ Page content START -->
 							
 							<!-- About me -->
 							<div class="col-12">
-								<label class="form-label">Bio</label>
+								<label class="form-label">Bio & Affiliations</label>
 								<%if(bio != "") {%>
-								<textarea class="form-control" rows="3" name="bio" id="bio"><%=bio%></textarea>
+								<textarea class="form-control" rows="3" name="bio" id="bio" placeholder="Your Bio & Affiliations goes here..." maxlength="200"><%=bio%></textarea>
 								<%} else { %>
-								<textarea class="form-control" rows="3" name="bio" id="bio" value=""></textarea>
+								<textarea class="form-control" rows="3" name="bio" id="bio" value="" placeholder="Your Bio & Affiliations goes here..." maxlength="200"></textarea>
 								<div class="form-text">Brief description for your profile.</div> 
 									<%}%>
 							</div>
@@ -383,7 +383,7 @@ Page content START -->
 	                            
 								</div>
 
-								<button type="button" class="btn btn-sm btn-light mb-0 add-more"><i class="fa fa-plus me-1"></i>Add more</button>
+								<button type="button" class="btn btn-sm btn-light mb-0 add-more" disabled><i class="fa fa-plus me-1"></i>Add more</button>
 							</div>
 							
 
@@ -398,6 +398,89 @@ Page content START -->
 				<!-- Edit profile END -->
 				
 				<div class="row g-4 mt-3">
+
+					<!-- WORK HISTORY change START -->
+					<form class="col-lg-6">
+						<div class="card bg-transparent border rounded-3">
+							<!-- Card header -->
+							<div class="card-header bg-transparent border-bottom edit">
+								<h5 class="card-header-title mb-0">Work History</h5>
+							</div>
+							<!-- Card body -->
+							<div class="card-body">
+                              <div class="sub-body">
+								<h6>Software Developer</h6>
+								<p>Weperch</p>
+								<i>2021 - 2023</i>
+							  </div>
+							</div>
+							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addWorkHistoryButton">Add Work History</span>
+						</div>
+					</form>
+					<!-- WORK HISTORY change end -->
+
+					<!-- Technical Expertise change START -->
+					<form class="col-lg-6">
+						<div class="card bg-transparent border rounded-3">
+							<!-- Card header -->
+							<div class="card-header bg-transparent border-bottom edit">
+								<h5 class="card-header-title mb-0">Technical Expertise</h5>
+							</div>
+							<!-- Card body -->
+							<div class="card-body">
+								<ul class="sub-body">
+									<li>Full Stack Developer</li>
+									<li>Full Stack Developer</li>
+									<li>Full Stack Developer</li>
+								</ul>
+							</div>
+							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addTechnicalExpButton">Add Technical Expertise</span>
+						</div>
+					</form>
+					<!-- Technical Expertise change end -->
+
+					<!-- Award change START -->
+					<form class="col-lg-6">
+						<div class="card bg-transparent border rounded-3">
+							<!-- Card header -->
+							<div class="card-header bg-transparent border-bottom edit">
+								<h5 class="card-header-title mb-0">Award</h5>
+							</div>
+							<!-- Card body -->
+							<div class="card-body">
+								<div class="sub-body">
+									<h6>Best Developer</h6>
+									<i>Weperch Technologies</i>
+								  </div>
+							</div>
+							<span class="btn btn-primary mb-0" data-bs-toggle="modal" data-bs-target="#editAction" id="addAwardButton">Add Award</span>
+						</div>
+					</form>
+					<!-- Award change end -->
+
+					<!-- EMail change START -->
+					<form class="col-lg-6" id="form3">
+						<div class="card bg-transparent border rounded-3">
+							<!-- Card header -->
+							<div class="card-header bg-transparent border-bottom edit">
+								<h5 class="card-header-title mb-0">Update email</h5>
+								<span class="edit-button" id="email-edit">Edit</span>
+							</div>
+							<!-- Card body -->
+							<div class="card-body">
+								<p>Your current email address is <span class="text-primary"><%= Email %></span></p>
+								<!-- Email -->
+								<form>
+									<label class="form-label">Enter your new email id</label>
+									<input class="form-control" type="email" id="email" placeholder="Enter new email">
+									<div class="d-flex justify-content-end mt-4">
+										<button type="button" class="btn btn-primary mb-0">Update Email</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</form>
+					<!-- EMail change end -->
 
 					<!-- External profile START -->
 					<form class="col-lg-6" id="form2">
@@ -569,30 +652,6 @@ Page content START -->
 					</form>
 					<!-- External profile END -->
 
-					<!-- EMail change START -->
-					<form class="col-lg-6" id="form3">
-						<div class="card bg-transparent border rounded-3">
-							<!-- Card header -->
-							<div class="card-header bg-transparent border-bottom edit">
-								<h5 class="card-header-title mb-0">Update email</h5>
-								<span class="edit-button" id="email-edit">Edit</span>
-							</div>
-							<!-- Card body -->
-							<div class="card-body">
-								<p>Your current email address is <span class="text-primary"><%= Email %></span></p>
-								<!-- Email -->
-								<form>
-									<label class="form-label">Enter your new email id</label>
-									<input class="form-control" type="email" id="email" placeholder="Enter new email">
-									<div class="d-flex justify-content-end mt-4">
-										<button type="button" class="btn btn-primary mb-0">Update Email</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</form>
-					<!-- EMail change end -->
-
 					<!-- Password change START -->
 					<form class="col-lg-6" id="form4" >
 						<input type="text" id="username_p" name="username" value="<%= UserName %>" hidden readonly>
@@ -679,6 +738,7 @@ Footer END -->
 <script src="/js/userProfile.js"></script>
 <script src="/js/editProfile.js"></script>
 <script src="/js/countriesJSON.js"></script>
+<script src="/js/addDetails.js"></script>
 
 
 
