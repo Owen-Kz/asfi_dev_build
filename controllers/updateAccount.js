@@ -196,11 +196,16 @@ const updateAccount = async (req, res) => {
                     await updateUserNameFields("messages", "recipient_id", "recipient_id", username, "MessagesUpdated")
                     await updateUserNameFields("messages", "sender_id", "sender_id", username, "MessagesUpdated")
 
-
                     await updateUserNameFields("podcasts", "podcast_owner", "podcast_owner", username, "Links Updated")
                     await updateUserNameFields("space_participants", "username", "username", username, "Links Updated")
 
                     await updateUserNameFields("spaces_messages", "sender_id", "sender_id", username, "Links Updated")
+
+                    await updateUserNameFields("awards_honors", "award_owner_username", "award_owner_username", username, "Awards updated")
+
+                    await updateUserNameFields("scholar_work_history", "work_owner_username", "work_owner_username", username, "Work History updated")
+
+                     await updateUserNameFields("technical_expertise", "skill_owner_username", "skill_owner_username", username, "Work History updated")
 
                 }
             })

@@ -21,6 +21,11 @@ const DeleteAccountTrue = async (req, res) => {
 
                   db.query("DELETE FROM comments WHERE comments_username = ?", [usernameDelete]);
 
+                  db.query("DELETE FROM scholar_work_history WHERE work_owner_username = ?", [usernameDelete]);
+
+                  db.query("DELETE FROM awards_honors WHERE award_owner_username = ?", [usernameDelete]);
+                  db.query("DELETE FROM technical_expertise WHERE skill_owner_username = ?", [usernameDelete]);
+
                    db.query("DELETE FROM podcasts WHERE podcast_owner = ?", [usernameDelete]);
 
                    db.query("DELETE FROM books WHERE book_author = ?", [usernameDelete]);
