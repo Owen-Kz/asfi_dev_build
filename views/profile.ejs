@@ -194,42 +194,34 @@ Page Banner START -->
                                            <%} else { %>
                                                 <button class="buttons " id="<%= followStatus %>">Follow</button>
                                                 <% } %>
-                                        <i class="fa fa-users text-purple me-1"></i>
-                                        <input type="number" value="<%= followersCount %>" id='FCT' readonly hidden>
-    
-                                        <% if(followersCount > 1 || followersCount  == 0) { %>
-                                            <a href="/userFollowers/<%=username_visitor%>"><span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
-											</a>
-                                            <% } else { %>
-												<a href="/userFollowers/<%=username_visitor%>">
-                                                <span> <span id="FL_COUNT"><%= followersCount %></span> <span id="followerTEXT">Follower</span></span> 
-											</a>
-                                        <% } %>
-                                    </li>
+										
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-										<a href="/userFollows/<%=username_visitor%>">
-											<span> <span id="totalFollowingCount"></span> <span id="followerTEXT">Following</span></span> 
-                                    </li>
-									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="/@<%= searchUSERNAME %>/chat"><button class="buttons">Message</button></a>
-                                        <i class="fas fa-comments text-info me-1"></i>
+                                        <a href="/@<%= searchUSERNAME %>/chat">
+											<button class="buttons">
+											<i class="fas fa-comments text-info me-1"></i>
+												Message</button></a>
+                                        
                                     </li>
 								
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="#"><button class="buttons">Books</button></a>
+                                        <a href="#">
+											<!-- <button class="buttons">										</button> -->
                                         <i class="fas fa-book text-purple me-1"></i><% if(BooksSum > 1 || BooksSum == 0) { %>
                                             <span><%= BooksSum %> Books</span> 
                                             <% } else { %>
                                                 <span><%= BooksSum %> Book</span>  
                                             <% } %>
+										</a>										
                                     </li>
                                     <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="/@<%= searchUSERNAME %>/podcasts"><button class="buttons">Podcasts</button></a>
+                                        <a href="/@<%= searchUSERNAME %>/podcasts">
+											<!-- <button class="buttons"></button> -->
                                         <i class="fas fa-microphone text-purple me-1"></i><% if(podcastSum > 1 || podcastSum == 0) { %>
                                             <span><%= podcastSum %> Podcasts</span>
                                             <% } else { %>
                                                 <span><%= podcastSum %> Podcast</span> 
                                         <% } %>
+										</a>
                                     </li>
 								</ul>
 							</div>
@@ -325,8 +317,31 @@ Page content START -->
 					<%= area_of_interest %>
 				</p>
 
+				<p class="mt-4">
+					<h6>Network</h6>
+					<ul>
+						<i class="fa fa-users text-purple me-1"></i>
+                                        <input type="number" value="<%= followersCount %>" id='FCT' readonly hidden>
+    
+                                        <% if(followersCount > 1 || followersCount  == 0) { %>
+                                            <a href="/userFollowers/<%=username_visitor%>"><span><span id="FL_COUNT"><%= followersCount %> </span><span id="followerTEXT">Followers</span></span>
+											</a>
+                                            <% } else { %>
+												<a href="/userFollowers/<%=username_visitor%>">
+                                                <span> <span id="FL_COUNT"><%= followersCount %></span> <span id="followerTEXT">Follower</span></span> 
+											</a>
+                                        <% } %>
+                                    </li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
+										<a href="/userFollows/<%=username_visitor%>">
+						
+											<span> <i class="fa fa-users text-purple me-1"></i><span id="totalFollowingCount"></span> <span id="followerTEXT">Following</span></span> 
+                                    </li>
+									</ul>
+				</p>
+
 				<span class="h6 fw-light"><i class="fas fa-fw fa-envelope text-primary me-1 me-sm-3"></i>Email:</span>
-						<a href="mailto:<%= EmailVisited %>"><%= EmailVisited %></a>
+				 <a href="mailto:<%= EmailVisited %>"><%= EmailVisited %></a>
 				<!-- Personal info -->
 				<%- include ("socialLinks") %>
 				
