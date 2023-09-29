@@ -2,7 +2,7 @@
 <div id="PodcastUploadModal" class="modal">
 
     <!-- Modal content 1-->
-    <div class="modal-content">
+    <div class="modal_content">
         <div class="close_btn">
             <span class="pdclose" onclick=modalDisappear()>&times;</span>
         </div>
@@ -20,13 +20,13 @@
 											<input class="form-control" type="text" name="podcastTitle" id="podcastTitle" value="" placeholder="Enter Podcast Title">
 										</div>
 										<div class="col-12">
-                                            <div class="input-group mb-3">
-                                               <input type="text" class="form-control" name="podcastOwner_fullname" id="podcastOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner" hidden>
+                                          
+                                               <input type="text" name="podcastOwner_fullname" id="podcastOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner" hidden>
 											   <input type="hidden" value="<%=Username%>" name="podcastOwner" id="podcastOwner" >
 
-                                               <input type="text" class="form-control buffer" name="buffer" id="buffer" value="" placeholder="buffer" readonly hidden required>\
+                                               <input type="text" class=" buffer" name="buffer" id="buffer" value="" placeholder="buffer" readonly hidden required>
 											   
-                                            </div>
+                                           
                                             <label class="form-label" for="file_audio">File:</label>
 											<div class="input-group mb-3">
 												<input type="file" class="form-control" accept=".mp3, .wav" name="file_audio" id="file_audio" required>

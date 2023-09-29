@@ -40,6 +40,27 @@ const removeImage = BookForm.querySelector("#removeImage")
 const url_Link = document.getElementById("url_Link")
 const file_pdf = document.getElementById("file_pdf")
 
+const YES_CLICK = document.getElementById("HasLicense")
+const NO_CLICK = document.getElementById("NoLicense")
+
+
+
+YES_CLICK.addEventListener("click", function(){
+    clickBook()
+})
+
+NO_CLICK.addEventListener("click", function(){
+    ClickLink()
+})
+
+
+function ClickLink(){
+    HasLink.click()
+}
+
+function clickBook(){
+    HasBook.click()
+}
 
 
 HasLink_Main.setAttribute("style", "display:none")

@@ -62,6 +62,7 @@ inputFields4.forEach(field => {
 profileEdit.addEventListener('click', () => {
     const inputFields1 = form1.querySelectorAll('.form-control');
     mainSaveChanges.removeAttribute("disabled")
+    addMoreButton.removeAttribute("disabled")
     inputFields1.forEach(field => {
         field.removeAttribute('readonly');
     })

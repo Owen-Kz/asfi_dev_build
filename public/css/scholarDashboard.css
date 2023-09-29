@@ -22342,7 +22342,7 @@ html[dir=rtl] .choices__input {
   animation-duration: 0.4s;
 }
 /* MODAL1 */
-.modal-content{
+.modal_content{
   display: flex;
   flex-direction: column;
   position: fixed;

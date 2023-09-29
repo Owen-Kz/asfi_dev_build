@@ -2,7 +2,7 @@
 <div id="BookUploadModal" class="modal">
 
     <!-- Modal content 1-->
-    <div class="modal-content">
+    <div class="modal_content">
         <div class="close_btn">
             <span class="bkclose">&times;</span>
         </div>
@@ -12,9 +12,17 @@
 	
 							<div class="upload_container">
                                 <form class="book_upload" enctype="multipart/form-data" id="book" action="/uploadBook" method="post">
+									<div>
+										<h6>Do you have license or rights to this material?</h6>
+										<input type="radio" id="HasLicense" name="licenseGroup" value="option1" checked>
+									<label for="HasLicense">Yes, I do.</label>
+									
+									<input type="radio" id="NoLicense" name="licenseGroup" value="option2">
+									<label for="NoLicense" >No, I do not.</label>
+									</div><br>
 									<div class="radioContainer">
 									<input type="radio" id="HasBook" name="radioGroup" value="option1" checked>
-									<label for="HasBook">Upload a pdf document</label>
+									<label for="HasBook">Upload a pdf document</label> <br>
 									
 									<input type="radio" id="HasLink" name="radioGroup" value="option2">
 									<label for="HasLink" >Share a Link instead</label>
@@ -26,16 +34,6 @@
 									<div class="left_uploadBook">
 									    <div class="text-center justify-content-center align-items-center border border-2 border-dashed rounded-3" id="HasBook_Header">
 											
-											<img src="files/images/gallery.svg" class="h-50px" alt="">
-											<div>
-												<h6 class="my-2">Upload book image here</h6>
-												
-													<span> 
-													<!-- <input class="form-control image_upload_file" type="file" name="image_upload" accept="image/jpg, image/jpeg, image/png"/> -->
-
-													</span>
-													<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Our suggested dimensions are 600px * 450px. Larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
-											</div>	
 										</div>
 
 										<!-- Button -->

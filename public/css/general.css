@@ -947,7 +947,7 @@ flex-direction: column;
 .book_upload {
 display: flex;
 flex-direction: column;
-width: 60%;
+width: 100%;
 padding: 7px;
 }
 .podcast_upload {
@@ -1022,7 +1022,7 @@ animation: slideAndDisappear 10s ease forwards;
 }
 
 .book_preview{
-display: flex;
+display: none;
 flex-direction: column;
 margin: auto;
 }
