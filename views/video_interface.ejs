@@ -36,6 +36,7 @@
 
     </head>
 <body>
+    <%- include ("reviewModal.ejs") %>
     <input type="hidden" value="<%=tutorialOwnerName%>" id="tutorialOwnerContainer" readonly>
     <input type="hidden" value="<%=tutorialCategory_value%>" id="tutorialCategory" readonly>
     <input type="text"  id="tutorialsByAuthor" hidden readonly>
@@ -180,7 +181,7 @@
                             <div class="card border rounded-3">
                                 <!-- Card header START -->
                                 <div class="card-header border-bottom">
-                                    <h3 class="mb-0">Comments</h3>
+                                    <h3 class="mb-0">Reviews</h3>
                                 </div>
                                 <!-- Card header END -->
             
@@ -188,35 +189,135 @@
                                 <div class="card-body">
                                     <div class="row g-5">
                                         
+                                        
                                     
                                         <div class="comments">
-                                            <div class="all_comments">
-                                
-                                                    <div class="user_comment">
-                                                        <div class="image bg-golden-yellow"><img src="" alt=""></div>
-                                                        <div class="comment_body">
-                                                            <div class="username">John Doe</div>
-                                                            <div class="main_body overflown">
-                                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis hic dolores tenetur accusamus quas nesciunt, aperiam delectus aspernatur nihil reiciendis at beatae, magni ad. Fuga libero necessitatibus saepe obcaecati consectetur.
-                                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis hic dolores tenetur accusamus quas nesciunt, aperiam delectus aspernatur nihil reiciendis at beatae, magni ad. Fuga libero necessitatibus saepe obcaecati consectetur.
-                                                            </div>
-                                                            <span class="read_more hidden_button">Read More</span>
-                                                            <div class="comment_actions">
-                                                                <span>Like</span>
-                                                                <span>Reply</span>
-                                                                <span>dislike</span>
-                                                                <span>report</span>
-                                                                <div class="line-break"></div>
+                                        <div class="all_comments">
+                                            <div class="d-sm-flex">
+                                                <div>
+                                                    <div class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+                                                        <!-- Title -->
+                                                        <div>
+                                                            <h5 class="m-0">S Eman</h5>
+                                                            <span class="me-3 small">ES</span>
                                                         </div>
+                                                        
+                                                        <ul class="list-inline mb-0" data-count="2">
+                                                            
+                                                        <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                        <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                        <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                        <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                        <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                        <small>2 / 5 </small>
+                                                        </ul>	
+                                                    </div>
+                                                    <!-- Content -->
+                                                    <p>This is a course? </p>
+                                                    
+                                                </div>
+                                            </div>
+                                            <!-- Divider -->
+                                            <hr>
+                                            <!-- Review item END -->
+                                
+                                            <div class="user_comment">
+                                                
+                                                    <div class="card-body mt-2 mt-sm-4 collapse" id="reviewsContainer">
+                                                        <div class="d-sm-flex">
+                                                            <div>
+                                                                <div class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+                                                                    <!-- Title -->
+                                                                    <div>
+                                                                        <h5 class="m-0">Bernard Duke</h5>
+                                                                        <span class="me-3 small">bernard_duke</span>
+                                                                    </div>
+                                                                    
+                                                                    <ul class="list-inline mb-0" data-count="3">
+                                                                        
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <small>3 / 5 </small>
+                                                                    </ul>	
+                                                                </div>
+                                                                <!-- Content -->
+                                                                <p>Na xo una dey do for here? </p>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Divider -->
+                                                        <hr>
+                                                        <!-- Review item END -->
+                                                        
+                                                        <div class="d-sm-flex">
+                                                            <div>
+                                                                <div class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+                                                                    <!-- Title -->
+                                                                    <div>
+                                                                        <h5 class="m-0">Bernard Duke</h5>
+                                                                        <span class="me-3 small">bernard_duke</span>
+                                                                    </div>
+                                                                    
+                                                                    <ul class="list-inline mb-0" data-count="3">
+                                                                        
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <small>3 / 5 </small>
+                                                                    </ul>	
+                                                                </div>
+                                                                <!-- Content -->
+                                                                <p>Na xo una dey do for here? </p>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Divider -->
+                                                        <hr>
+                                                        <!-- Review item END -->
+                                                        <div class="d-sm-flex">
+                                                            <div>
+                                                                <div class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+                                                                    <!-- Title -->
+                                                                    <div>
+                                                                        <h5 class="m-0">S Eman</h5>
+                                                                        <span class="me-3 small">ES</span>
+                                                                    </div>
+                                                                    
+                                                                    <ul class="list-inline mb-0" data-count="2">
+                                                                        
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="fa-star text-warning fas"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+                                                                    <small>2 / 5 </small>
+                                                                    </ul>	
+                                                                </div>
+                                                                <!-- Content -->
+                                                                <p>This is a course? </p>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <!-- Divider -->
+                                                        <hr>
+                                                        <!-- Review item END -->
                                                         </div>
                                                     </div>
+                                                    <span class="btn bg-purple text-white" data-bs-toggle="modal" data-bs-target="#editAction">Leave a Review</span>
+                                                   
                                 
                                                    
                                 
                                                     
-                                
+                                                    <a class="mb-0 mt-4 btn-more d-flex align-items-center justify-content-center" data-bs-toggle="collapse" href="#reviewsContainer" role="button" aria-expanded="false" aria-controls="reviewsContainer">
+                                                        See <span class="see-more mx-1">more</span><span class="see-less mx-1">less</span> Reviews<i class="fas fa-angle-down ms-2"></i>
+                                                    </a>
                                             </div>
-                                        </div>
+                                            
+                                        </div><br><br>
                                         
     
                                         

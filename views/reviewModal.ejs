@@ -1,0 +1,145 @@
+<div class="modal fade" id="editAction" tabindex="-1" aria-labelledby="appDetaillabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="appDetaillabel">Leave a Review</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body p-5" id="edit_section">
+				<form id="submitReview">
+                  <input type="hidden" name="courseID" id="courseID">
+                  <input type="hidden" name="courseName" id="courseName">
+                  <input type="hidden" name="reviewID" id="reviewID">
+                  <input type="hidden" name="ratingsCount" id="ratingsCount" value="1">
+                  <input type="hidden" name="course_owner_username" id="course_owner_username">
+
+                  <label for="review">Rate this course</label>
+                  <ul class="list-inline mb-0" data-count="1" id="stars_container">
+                                                                        
+                    <li class="list-inline-item me-0 star_one"><i class="fa-star text-warning far"></i></li>
+                    <li class="list-inline-item me-0 star_two"><i class="fa-star text-warning far"></i></li>
+                    <li class="list-inline-item me-0 star_three"><i class="far fa-star text-warning"></i></li>
+                    <li class="list-inline-item me-0 star_four"><i class="far fa-star text-warning"></i></li>
+                    <li class="list-inline-item me-0 star_five"><i class="far fa-star text-warning"></i></li>
+                    <small><span id="rate_of">1</span> / 5 </small>
+                    </ul> <br>
+                  <label for="review">Give a say about this course</label>
+                  <textarea class="form-control" name="" id="reviewText" cols="30" rows="10"></textarea>
+                   <input type="submit" id="reviewSubmit" hidden>
+                </form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" id="submitReviewModal" class="btn btn-warning-soft my-0">Submit</button>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<script>
+    // Get all <ul> elements with the specified data-count attribute
+        const ulElements = document.getElementById('stars_container');
+        const star_one  = ulElements.querySelector(".star_one")
+        const star_two  = ulElements.querySelector(".star_two")
+        const star_three  = ulElements.querySelector(".star_three")
+        const star_four  = ulElements.querySelector(".star_four")
+        const star_five  = ulElements.querySelector(".star_five")
+        const ratingsCount = document.getElementById("ratingsCount")
+        const rate_of = document.getElementById("rate_of")
+        const reviewSubmit = document.getElementById("reviewSubmit")
+        const submitReviewModal = document.getElementById("submitReviewModal")
+        const courseID = document.getElementById("courseID")
+        const courseName = document.getElementById("courseName")
+        const reviewID = document.getElementById("reviewID")
+        const course_owner_username = document.getElementById("course_owner_username")
+        const reviewText = document.getElementById("reviewText") 
+
+// ulElements.forEach(ulElement => {
+    // Get the data-count value and convert it to a number
+    const count_data = parseInt(ulElements.getAttribute('data-count'));
+    
+
+    // Get all <i> elements within this <ul>
+    const starIcons = ulElements.querySelectorAll('li i');
+    // Iterate through the <i> elements and update their class based on the count
+        function updateStars(count){
+    for (let i = 0; i < starIcons.length; i++) {
+        if (i < count) {
+            starIcons[i].classList.remove('far');
+            starIcons[i].classList.add('fas');
+        } else {
+            starIcons[i].classList.remove('fas');
+            starIcons[i].classList.add('far');
+        }
+    }
+   }
+
+updateStars(count_data)
+
+    star_one.addEventListener('click', function(){
+        rate_of.innerText = "1"
+        ratingsCount.value = '1'
+        updateStars("1")
+    })
+
+    star_two.addEventListener('click', function(){
+        rate_of.innerText = "2"
+        ratingsCount.value = '2'
+        updateStars("2")
+    })
+
+    star_three.addEventListener('click', function(){
+        rate_of.innerText = "3"
+        ratingsCount.value = '3'
+        updateStars("3")
+    })
+
+    star_four.addEventListener('click', function(){
+        rate_of.innerText = "4"
+        ratingsCount.value = '4'
+        updateStars("4")
+    })
+
+    star_five.addEventListener('click', function(){
+        // ulElements.setAttribute("data-count", "5")
+        rate_of.innerText = "5"
+        ratingsCount.value = '5'
+        updateStars("5")
+    })
+
+// });
+
+submitReview.addEventListener("submit", function(e){
+            e.preventDefault()
+            const newFormdata = {
+                ratingsCount:ratingsCount.value,
+                courseID:courseID.value,
+                courseName:courseName.value,
+                reviewID:reviewID.value,
+                course_owner_username:course_owner_username.value,
+                reviewText: reviewText.value,
+            } 
+            fetch("/createReview", {
+                method: "POST",
+                body: JSON.stringify(newFormdata),
+                headers: {
+                    "Content-type" : "application/JSON",
+                }
+            }).then(res => res.json())
+            .then(data =>{
+                alert(data.message)
+                
+            })
+        })
+        submitReviewModal.addEventListener("click", function(){
+            reviewSubmit.click()
+        })
+
+
+        
+</script>
