@@ -252,7 +252,7 @@ font-weight: 1000;
 ::-webkit-scrollbar{
   background-color: transparent;
   opacity: 0;
-  width: 5px;
+  width: 10px;
   z-index: 657;
   border-radius: 30px;
 }
@@ -301,7 +301,7 @@ color: rgb(255, 255, 255);
 } */
 
 ::-webkit-scrollbar-thumb{
-  background-color: rgb(228, 228, 228);
+  background-color: rgba(146, 145, 145, 0.61);
   width: 5px;
   border-radius: 30px;
   /* filter: opacity(0); */
