@@ -109,6 +109,7 @@ const totalFollowing = require("../controllers/SearchResults/totalFollowing");
 const MyCoursesList = require("../controllers/scholarContols/myCoursesresList");
 const SearchScholarCourses = require("../controllers/scholarContols/searchScholarCourses");
 const createReview = require("../controllers/createReview");
+const ReviewsSameCourse = require("../controllers/ReviewsSameCourse");
 
 const router = express.Router();
 router.use(express.json())
@@ -464,6 +465,8 @@ router.get("/instructorReviews/rating", LoggedIn, SortReviews)
 
 // Creata a review from teh courses interface 
 router.post("/createReview", LoggedIn, createReview)
+
+router.get("/getAllCourseReviews", LoggedIn, ReviewsSameCourse)
 
 
 router.get("/becomeScholar",LoggedIn, becomeScholarPage)
