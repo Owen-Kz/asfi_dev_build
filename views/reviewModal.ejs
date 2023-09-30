@@ -5,17 +5,18 @@
 			<!-- Modal header -->
 			<div class="modal-header bg-dark">
 				<h5 class="modal-title text-white" id="appDetaillabel">Leave a Review</h5>
-				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+				<button type="button" class="btn btn-sm btn-light mb-0 closeModalButton" data-bs-dismiss="modal" aria-label="Close">
+                    x <i class="bi bi-x-lg"></i></button>
 			</div>
 
 			<!-- Modal body -->
 			<div class="modal-body p-5" id="edit_section">
 				<form id="submitReview">
-                  <input type="hidden" name="courseID" id="courseID">
-                  <input type="hidden" name="courseName" id="courseName">
-                  <input type="hidden" name="reviewID" id="reviewID">
-                  <input type="hidden" name="ratingsCount" id="ratingsCount" value="1">
-                  <input type="hidden" name="course_owner_username" id="course_owner_username">
+                  <input type="hidden" readonly name="courseID" id="courseID" value="<%=tutorialCategory_value%>">
+                  <input type="hidden" readonly name="courseName" id="courseName" value="<%=mainTitle %>">
+                  <input type="hidden" readonly name="reviewID" id="reviewID">
+                  <input type="hidden" name="ratingsCount" id="ratingsCount" value="1" readonly>
+                  <input type="hidden" readonly name="course_owner_username" id="course_owner_username" value="<%=tutorialOwnerName%>" >
 
                   <label for="review">Rate this course</label>
                   <ul class="list-inline mb-0" data-count="1" id="stars_container">
@@ -58,6 +59,9 @@
         const reviewID = document.getElementById("reviewID")
         const course_owner_username = document.getElementById("course_owner_username")
         const reviewText = document.getElementById("reviewText") 
+        const closeModalButton = document.querySelector(".closeModalButton")
+
+
 
 // ulElements.forEach(ulElement => {
     // Get the data-count value and convert it to a number
@@ -113,6 +117,18 @@ updateStars(count_data)
     })
 
 // });
+genBuffer()
+function genBuffer() {
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    var passwordLength = 10;
+    var bufferID = "";
+    for (var i = 0; i <= passwordLength; i++) {
+        var randomNumber = Math.floor(Math.random() * chars.length);
+        bufferID += chars.substring(randomNumber, randomNumber + 1);
+    }
+    reviewID.value = bufferID
+}
+ 
 
 submitReview.addEventListener("submit", function(e){
             e.preventDefault()
@@ -124,17 +140,22 @@ submitReview.addEventListener("submit", function(e){
                 course_owner_username:course_owner_username.value,
                 reviewText: reviewText.value,
             } 
+            if(reviewText.value != ""){
             fetch("/createReview", {
                 method: "POST",
                 body: JSON.stringify(newFormdata),
-                headers: {
+                headers: { 
                     "Content-type" : "application/JSON",
                 }
             }).then(res => res.json())
             .then(data =>{
                 alert(data.message)
+                if(data.status == "Success"){
+                    closeModalButton.click()
+                }
                 
             })
+        }
         })
         submitReviewModal.addEventListener("click", function(){
             reviewSubmit.click()
