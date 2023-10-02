@@ -142,7 +142,9 @@ body[data-theme=dark] {
   overflow-y: auto;
 }
 
-
+.app-left .app-profile-box img {
+  border-radius: 50%;
+}
 
 .app-left-header {
   display: flex;
@@ -338,6 +340,7 @@ body[data-theme=dark] {
   line-height: 16px;
   font-weight: 500;
   color: var(--text-light);
+  margin-right: 5px;
 }
 .chat-list-header {
   font-weight: 700;
@@ -512,6 +515,7 @@ body[data-theme=dark] {
 }
 .message-wrap {
   padding: 5px;
+  color: whitesmoke;
   margin-bottom: 5px;
   border-radius: 5px;
   word-break: break-all;
@@ -816,6 +820,15 @@ body[data-theme=dark] {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color */
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+.info p b{
+  font-size: 20px;
+}
+
 @media screen and (max-width: 1025px) {
   .app-left {
     transform: translateX(-100%);
@@ -944,7 +957,7 @@ body[data-theme=dark] {
       font-size: 20px;
     }
     .chat-wrapper {
-      margin-top: 80px;
+      margin-top: 120px;
     }
     
     .bar { 
@@ -1005,3 +1018,4 @@ p{
     font-weight: 500;
     color: var(--text-light);
 }
+
