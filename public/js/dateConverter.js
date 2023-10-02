@@ -1,5 +1,5 @@
 // COnvert Video Duration to minutes 
-export function ConvertToMinutes(secondsProvided){
+  function ConvertToMinutes(secondsProvided){
     // Define the total seconds
 var totalSeconds = secondsProvided;
 
@@ -18,7 +18,7 @@ const result = [hoursStr, minutesStr, secondsStr].filter(Boolean).join(" ");
 return result
 }
 
-export function formatDateAgo(dateString) {
+  function formatDateAgo(dateString) {
     const inputDate = new Date(dateString); // Parse the input date string
     const currentDate = new Date(); // Get the current date
 
@@ -39,4 +39,4 @@ export function formatDateAgo(dateString) {
       return daysAgo + " Days Ago";
     }
   }
-// module.exports = { ConvertToMinutes }
+// module. s = { ConvertToMinutes }

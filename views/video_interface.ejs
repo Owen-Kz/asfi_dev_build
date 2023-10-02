@@ -39,7 +39,7 @@
     <%- include ("reviewModal.ejs") %>
     <input type="hidden" value="<%=tutorialOwnerName%>" id="tutorialOwnerContainer" readonly>
     <input type="hidden" value="<%=tutorialCategory_value%>" id="tutorialCategory" readonly>
-    <input type="text"  id="tutorialsByAuthor" hidden readonly>
+    <input type="text"  id="tutorialsByAuthor" hidden readonly value="">
     <input type="text" value="<%=tutorialsInSameCategory%>" id="tutorialsInCategory" hidden readonly>
     <input type="text" name="<%=TutorialsOfSameCourse%>" id="tutorialsofSameCourse" hidden readonly>
        <!-- NAVIGATION BAR  -->
@@ -91,8 +91,12 @@
                             <!-- Content -->
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-star me-2"></i>4.5/5.0</li>
-                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate me-2"></i>0 Enrolled</li>
-                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-signal me-2"></i>All levels</li>
+                                <% if(total_participants != "") {%>
+                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate me-2"></i><%=total_participants%> Enrolled</li>
+                                <%} %>
+                                <%if(course_level != "") {%>
+                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-signal me-2"></i><%=course_level%></li>
+                                <%} %>
                                 <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="bi bi-patch-exclamation-fill me-2"></i>Last updated - <%=mainDate %></li>
                                 <li class="list-inline-item fw-light h6"><i class="fas fa-globe me-2"></i>English</li>
                             </ul>
@@ -273,7 +277,8 @@
 
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script type="module" src="/js/videoplayer.js"></script>
+<script src="/js/dateConverter.js"></script>
+<script  src="/js/videoplayer.js"></script>
 <script src="/js/SearchQueries/getTutorialsByAuthor.js"></script>
 <script src="/js/getAllCourseReviews.js"></script>
 

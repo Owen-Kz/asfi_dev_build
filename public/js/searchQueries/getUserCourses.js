@@ -19,9 +19,9 @@ function updateCourseUI(CoursesArray){
             <button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled"><i class="fas fa-check me-1"></i>Complete</button>
         </form>
         `}else{
-            course_status_main = `<form nSubmit="return false">
-            <input type="hidden" class="coursesRestart">
-            <button href="#" class="btn btn-sm btn-light me-1" disabled><i class="fas fa-repeat me-1"></i>Restart</button>
+            course_status_main = `<form onSubmit="return false">
+
+            <button href="#" class="btn btn-sm btn-light me-1" disabled><i class="fas fa-repeat me-1"></i>In Progress</button>
         </form>`
         }
 
