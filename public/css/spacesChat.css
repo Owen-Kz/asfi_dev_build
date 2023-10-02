@@ -911,7 +911,7 @@ body[data-theme=dark] {
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
-      height: 10%;
+      /* height: 10%; */
       padding: 20px;
     }
 
@@ -919,7 +919,8 @@ body[data-theme=dark] {
       border-radius: 50%;
       width: 70px;
       height: 70px;
-      margin-left: -10%;
+      margin: 10px;
+
     }
     .app-right .app-profile-box .app-profile-box-title {
       width: 100%;
@@ -933,12 +934,14 @@ body[data-theme=dark] {
     .info {
       display: flex;
       flex-direction: column;
+      width: 60%;
     }
     .info p{
       margin: 2px;
+      font-size: 11px;
     }
     .info p b{
-      font-size: 25px;
+      font-size: 20px;
     }
     .chat-wrapper {
       margin-top: 80px;
@@ -950,10 +953,24 @@ body[data-theme=dark] {
       /* margin-left: -50px; */
       margin-right: 20px;
       fill: var(--bar-color);
-      margin-top: -70px;
+      /* margin-top: -70px; */
       display: flex;
       width: 5%;
     }
+
+    .archive-btn {
+      color: #fff;
+      height: 32px;
+      width: 45px;
+      margin-top: 16px;
+      border-radius: 4px;
+      background-color: var(--button-bg);
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: bolder;
+      border: none;
+  }
   }
   
   
