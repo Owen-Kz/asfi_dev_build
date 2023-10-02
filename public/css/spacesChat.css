@@ -68,7 +68,7 @@ body[data-theme=indigo] {
   --logo-path-2: #18689C;
   --list-item-active: #e5effb;
   --number-bg: #6895A3;
-  --message-box-1: #fff;
+  /* --message-box-1: #fff; */
   --message-box-2: #1a233b;
   --chat-input: #f5f8fc;
   --border-light: #e5e6eb;
