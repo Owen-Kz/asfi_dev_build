@@ -805,7 +805,7 @@ padding: 6px;
 }
 .profile_section {
     margin: auto;
-    width: 85%;
+    width: 80%;
     margin-top: 0;
 }
 .profile_section .cover_image_container {
@@ -827,3 +827,22 @@ span i{
 .fas svg{
     width: auto;
 }
+
+
+
+@media (max-width: 780px) {
+    .profile_section {
+        margin: auto;
+        width: 100%;
+        margin-top: 0;
+    }
+    .profile-tag {
+        padding-top: 10px;
+        font-size: 15px;
+        text-transform: uppercase;
+    }
+    .list-inline {
+        padding-left:0;
+        list-style: none;
+}
+    }

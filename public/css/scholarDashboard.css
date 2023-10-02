@@ -22611,3 +22611,9 @@ html[dir=rtl] .choices__input {
     width: 50%;
   }
 }
+
+@media (max-width: 768px){
+.card {
+    width: 110%;
+}
+}

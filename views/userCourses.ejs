@@ -164,11 +164,7 @@ Page Banner START -->
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
                                 <p class="profile-tag">@<%= UserName %></p>
 							
-									<% if(accountType == "user_account"){ %>
-										<%- include ("userSubmenu") %>
-									<% }else if(accountType == "scholar_account"){%>
-										<%- include ("scholarSubmenu") %>
-									<% } %>
+									
 
 
 							</div>
@@ -178,6 +174,11 @@ Page Banner START -->
 					</div>
 				</div>
 				<!-- Profile banner END -->
+				<% if(accountType == "user_account"){ %>
+					<%- include ("userSubmenu") %>
+				<% }else if(accountType == "scholar_account"){%>
+					<%- include ("scholarSubmenu") %>
+				<% } %>
 			</div>
 		</div>
 	</div>

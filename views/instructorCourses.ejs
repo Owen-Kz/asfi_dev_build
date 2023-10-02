@@ -164,7 +164,7 @@ Page Banner START -->
 							<div>
 								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
                                 <p class="profile-tag">@<%= UserName %></p>
-								<%- include ("instructorSubmenu") %>
+								
 							</div>
  
 						</div>
@@ -172,7 +172,10 @@ Page Banner START -->
 				</div>
 				<!-- Profile banner END -->
 
-				<!-- Advanced filter responsive toggler START -->
+				<%- include ("instructorSubmenu") %>
+			</div>
+		</div>
+		<!-- Advanced filter responsive toggler START -->
 				<!-- Divider -->
 				<hr class="d-xl-none">
 				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
@@ -182,8 +185,6 @@ Page Banner START -->
 					</button>
 				</div>
 				<!-- Advanced filter responsive toggler END -->
-			</div>
-		</div>
 	</div>
 </section>
 <!-- =======================
