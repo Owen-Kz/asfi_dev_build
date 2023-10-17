@@ -12,7 +12,6 @@ document.write("<div class='navbar-logo_container'> <a class='navbar-brand' href
             <a href='/Directory'><li class='navbar_item ' id='directory_link_pg' title='Directory'><span class='icon icon-folder'></span><p class='navName'>Directory</p><span class='nav_tool_tip'>Directory</span></li></a>\
             <a href='/Tutorials'><li class='navbar_item ' id='tutorials_link_pg' title='Tutorials'><img src='/files/icons_img/tutorial.png' alt='Tutorials'><p class='navName'>Tutorials</p><span class='nav_tool_tip'>Tutorials</span></li></a>\
             <a href='/Podcasts'><li class='navbar_item ' id='podcasts_link_pg' title='Podcasts'><span class='icon icon-mic'></span><p class='navName'>Podcasts</p><span class='nav_tool_tip'>Podcasts</span></li></a>\
-            <a href='/vc'><li class='navbar_item ' id='video_conferencing_link_pg' title='Video Conferencing'><img src='/files/icons_img/VC.png' alt=' Video Conferencing'><p class='navName'>Video Conferencing</p><span class='nav_tool_tip '>Video Conferencing</span></li></a>\
     </ul>\
         </div>\
         <div class='navbar_content_bottom'>\
