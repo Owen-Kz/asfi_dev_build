@@ -16,10 +16,10 @@ const createInstructor = async (req, res) => {
         db.query("SELECT * FROM user_info WHERE username =? AND acct_type = 'scholar_account'", [username], async(err,result_) =>{
             if(err) throw err
             if(result_[0]){
-                db.query("UPDATE user_info SET ? WHERE ?", [{acct_type:"instructor_account", bio:short_bio, home_address:address}, {username:username}], async (err, update) =>{
+                db.query("UPDATE user_info SET ? WHERE ?", [{account_status:"2", bio:short_bio, home_address:address}, {username:username}], async (err, update) =>{
                     if(err) throw err
 
-                    res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request (Demo)" });
+                    res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request " });
 
                 })
                 
@@ -33,16 +33,16 @@ const createInstructor = async (req, res) => {
                         db.query("SELECT * FROM user_info WHERE username =? AND acct_type = 'user_account'", [username],async(err, user)=>{
                             if(err) throw err
                             if(user[0]){
-                    res.status(200).json({ message: "You are not Eligible for this request (Demo)" });            
+                    res.status(200).json({ message: "You are not Eligible for this request " });            
                             }else{
                                 const Npassword  = await bcrypt.hash(password, 8)
 
-                                db.query("INSERT INTO user_info SET ?", [{first_name:first_name, last_name:last_name, username:username, email:email, phonenumber:phonenumber, nationality:nationality, gender:gender, home_address:address, password:Npassword, highest_level_of_education:highest_level_education, bio:short_bio, date_of_birth:dob, acct_type:'instructor_account'}], async (err, insert) => {
+                                db.query("INSERT INTO user_info SET ?", [{first_name:first_name, last_name:last_name, username:username, email:email, phonenumber:phonenumber, nationality:nationality, gender:gender, home_address:address, password:Npassword, highest_level_of_education:highest_level_education, bio:short_bio, date_of_birth:dob, acct_type:'scholar_account', account_status:'2'}], async (err, insert) => {
                                     if(err) throw err
                                     db.query("INSERT INTO honoraries SET ?", [{honorary_type:degree, additional_info:degree_subtext, scholar_username:username }],async (err,degre)=>{
                                         if(err) throw err
                                         if(degre && insert){
-                                           res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request (Demo)" });
+                                           res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request " });
 
                                         }
                                     })
@@ -55,7 +55,7 @@ const createInstructor = async (req, res) => {
         })
 
         // Send a response back to the client
-        // res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request (Demo)" });
+        // res.status(200).json({ message: "Your info has been recieved an Admin will contact you via your provided email to approve your request " });
     } else {
         res.status(400).json({ message: "Bad request" }); // Handle invalid requests
     }
