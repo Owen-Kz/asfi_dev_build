@@ -114,6 +114,10 @@ const ReviewsSameCourse = require("../controllers/ReviewsSameCourse");
 const router = express.Router();
 router.use(express.json())
 
+
+
+
+
 router.get("/", LoggedIn, (req,res)=>{
     if(req.user){
         const username_new = req.user.username
@@ -123,6 +127,12 @@ router.get("/", LoggedIn, (req,res)=>{
         // res.redirect("/home")
     }
 })
+
+router.get("/posters", (req,res)=>{
+    res.redirect("https://asfischolar.com/posters")
+})
+
+
 router.get("/home", (req,res)=>{
    if(req.cookies.userRegistered){
     res.render("home", {status :"no", logger:"Not logged in", user :"", });
@@ -545,7 +555,7 @@ router.get("/logout", logout)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {
-    res.status(404).render('error.ejs', {status: "Page doesn't exist"})
+    res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
 })
 
 

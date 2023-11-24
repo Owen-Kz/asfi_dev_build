@@ -44,7 +44,7 @@ app.use(session({
 
 app.set("view engine", "ejs");
 
-app.set("views", ["./views", "./public/Tutorials/VideoInterface", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
+app.set("views", ["./views", "./views/posters", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
 
 
 app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))
@@ -64,6 +64,7 @@ app.use("/userUploads/Videos", express.static(__dirname + "/public/userUpload/vi
 app.use("/userUploads/profileImages", express.static(__dirname + "/public/userUpload/profilePhotos", {type:'file/images'}))
 app.use("/userUploads/profileCovers", express.static(__dirname +"/public/userUpload/profileCovers", {type:'file/images'}))
 // app.use("/userUploads/spaceCovers", express.static(__dirname +"/public/userUpload/spaceCovers", {type:'file/images'}))
+// app.use("/files/images", express.static(__dirname + "/public/images", { type: 'file/images' }))
 
 app.use("/userUploads/thumbnails", express.static(__dirname + "/public/userUpload/thumbnails", {type: 'file/image'}))
 app.use("/js/instructorControls", express.static(__dirname + "/public/js/instructorControls", {type:"text/javascript"}))
@@ -89,8 +90,8 @@ function onConnected(socket) {
   io.emit('clients-total', socketsConnected.size);
 
   socket.on('disconnect', () => {
-    // console.log('Socket disconnected', socket.id);
-    socketsConnected.delete(socket.id);
+    // console.log('Socket disconnected', socket.id); 
+    socketsConnected.delete(socket.id); 
     io.emit('clients-total', socketsConnected.size);
   });
 
@@ -101,10 +102,10 @@ function onConnected(socket) {
     socket.join(roomId); // Join the room
   // console.log(roomId)
   })
-
+ 
   socket.on("message", async (data, roomId, userId) => {
     const recipientId = data.receiver;
-    const content = data.message;
+    const content = data.message; 
     const senderId = data.name;
     const timestamp = data.dateTime;
   

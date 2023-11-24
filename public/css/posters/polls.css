@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  main{
+    height: inherit;
+    width: inherit;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+.TotalVotes{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+  #poll-container {
+    max-width: 400px;
+    margin: auto;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .option input {
+    margin-right: 10px;
+  }
+
+  button {
+    display: block;
+    width: 20%;
+    float: right;
+    padding: 10px;
+    /* background-color: #4caf50; */
+    background-color:transparent;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    /* background-color: #45a049; */
+  }
+
+  progress {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 10px;
+  }
+
+  .noDataMessage{
+    width: 50%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+  }
