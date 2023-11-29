@@ -327,6 +327,8 @@ router.get("/settings", LoggedIn, ProfileSettings)
 // GET PROFILE IMAGES 
 router.get("/files/uploaded/images/:filename", async (req,res)=>{
     const fileName = req.params.filename;
+if(fileName !== "avatar.jpg" || fileName != "avatar.jpg" && fileName != ""){
+
 
     const query = 'SELECT * FROM files WHERE filename = ?';
     const values = [fileName];
@@ -346,6 +348,9 @@ router.get("/files/uploaded/images/:filename", async (req,res)=>{
       console.error('Error retrieving file:', error);
       res.status(500).send('Error retrieving file');
     }
+}else{
+    console.log(fileName)
+}
 })
 
 // Create work history 
