@@ -34,10 +34,13 @@ const newFollower = async (req, res) => {
           var summation_FX = 5
             const following = "Following";
               // this part of the code send the user data to our profile.ejs page 
-              res.render("profile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:follower, searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: following})
+              // res.render("profile", { searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:follower, searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: following, TutorialsArray:"[]", tutorialSum:0,  SocialLinks:"[]" })
+
+
+              // res.redirect(`/@${followed}`)
               console.log("success")
-           
-          //  }
+            
+          //  } 
         })
         
     })}

@@ -45,6 +45,8 @@ fetch("/api/createFollower", {
 .then(data => {
     if(data.status == "error") {
         console.log(data.error);
+    }else{
+        window.location.reload()
     }
   })
 })
@@ -67,6 +69,8 @@ fetch("/api/delFollower", {
 .then(data => {
     if(data.status == "error") {
         console.log(data.error);
+    } else{
+        window.location.reload()
     }
   })
 })
