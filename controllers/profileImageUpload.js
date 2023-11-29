@@ -67,9 +67,7 @@ const profileImageUpload = (req, res) => {
           const values = [uploadedFile.filename, buffer];
 
 
-      
-
-          db.query(
+          db.query( 
             "UPDATE user_info SET ? WHERE username =?",
             [{profile_picture:encryptedFileName, buffer:bufferImage}, [userName]],
             (err, podcastUploaded) => {
@@ -81,6 +79,9 @@ const profileImageUpload = (req, res) => {
               // Copy the uploaded file to the destination folder
               const sourcePath = uploadedFile.path;
               const destinationPath = path.join(folderPath, encryptedFileName);
+ 
+              // console.log(sourcePath)
+              // console.log(uploadedFile)
 
               fs.copyFile(sourcePath, destinationPath, (err) => {
                 if (err) {
@@ -92,7 +93,7 @@ const profileImageUpload = (req, res) => {
             if(err) throw err
             console.log("image Inserted Successfully")
 
-            fs.unlink(sourcePath.path, (unlinkErr) => {
+            fs.unlink(sourcePath, (unlinkErr) => {
             if (unlinkErr) {
               console.error('Error deleting local PDF file:', unlinkErr);
             } else {
