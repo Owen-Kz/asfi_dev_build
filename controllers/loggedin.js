@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const RestartConnection = require("./utils/restartConnection");
 
 const LoggedIn = async (req, res, next) => {
-  RestartConnection()
+  // RestartConnection()
   if (!req.cookies.userRegistered) {
     // Redirect to home if user is not logged in
     if (req.path === '/becomeInstructor') {

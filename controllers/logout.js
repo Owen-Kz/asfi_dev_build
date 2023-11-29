@@ -1,4 +1,4 @@
-const EndConnections = require("./utils/endConnections");
+// const EndConnections = require("./utils/endConnections");
 
 const logout = async (req,res) => {
 // Clear the user's session or token (JWT) on the server
