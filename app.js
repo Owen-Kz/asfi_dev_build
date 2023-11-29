@@ -11,6 +11,7 @@ const shortid = require("shortid");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 const LoggedIn = require("./controllers/loggedin");
+
 const MySQLStore = require('express-mysql-session')(session);
 
 
@@ -100,7 +101,7 @@ function onConnected(socket) {
   
   socket.on("join-room", async (roomId, userId) =>{
     socket.join(roomId); // Join the room
-  // console.log(roomId)
+  // console.log(roomId) 
   })
  
   socket.on("message", async (data, roomId, userId) => {
@@ -155,6 +156,7 @@ function onConnected(socket) {
 
   });
   
+ 
 
   // SOCKET IO CODE FOR THE VIDEO CONFERENCING
   socket.on('join-vc', (roomId_vc, userId_vc) => {

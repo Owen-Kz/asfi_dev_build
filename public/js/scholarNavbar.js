@@ -1,4 +1,4 @@
-document.write("<div class='navbar-logo_container'> <a class='navbar-brand' href=''>\
+document.write(`<div class='navbar-logo_container'> <a class='navbar-brand' href=''>\
 <img class='light-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'>\
 <img class='dark-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'></a>\
 </div>\
@@ -18,7 +18,7 @@ document.write("<div class='navbar-logo_container'> <a class='navbar-brand' href
             <ul class='bottom_navbar_ul'>\
                 <a href='/settings'><li class='navbar_item' id='settings_link_pg'><i class='fa fa-cogs'></i></li></a>\
             </ul>\
-        </div>");
+        </div>`);
 
 
 // CHECK FOR ACTIVE PAGES 

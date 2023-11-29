@@ -4,14 +4,19 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const router = require("./auth");
 const LoggedIn = require("./loggedin");
+const RestartConnection = require("./utils/restartConnection");
 
 const login_user = async (req, res) => {
+    // await RestartConnection()
+
     const { user, pass } = req.body;
 
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
     else{
-        db.query('SELECT * FROM user_info WHERE username = ? AND (account_status = "1" OR accounT_status = "3")', [user], async (Err, result) => {
+
+    try{
+       db.query('SELECT * FROM user_info WHERE username = ? AND (account_status = "1" OR accounT_status = "3")', [user], async (Err, result) => {
             if(Err) throw Err
             if(!result[0] || !await bcrypt.compare(pass, result[0].password )) return res.json({ status: "error", error: "Incorrect username / password combination"})
 
@@ -31,7 +36,10 @@ const login_user = async (req, res) => {
                 res.cookie("userRegistered", token, cookieOptions)
                 return res.json({ status: "success", success: "User Logged in"});
             }
-        });
+        })
+} catch (error) {
+  throw new Error('Error executing query: ' + error.message);
+}
     }
 
 }

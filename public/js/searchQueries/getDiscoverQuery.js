@@ -25,7 +25,7 @@ fetch("/directorydiscoverAccounts", ()=>{
 
 
 
-function DiscoverItems(data){
+async function DiscoverItems(data){
     discoverAccountsContainer.innerHTML = ""
     if(data.DiscoverData.length > 0){
 
@@ -37,34 +37,73 @@ function DiscoverItems(data){
             const Title = discover.title
             const account_Type = discover.acct_type
 
-            let ProfilePicture 
             let titleText 
             let AccountIcon
+        
+        if(Title == "N/A"){
+            titleText = ""
+        }else{
+            titleText = Title
+        }
 
-            if(ProfileImage == "avatar.jpg"){
-            ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-            }else{
-                ProfilePicture = `/userUploads/profileImages/${ProfileImage}`
-            }
+        if(account_Type == "scholar_account"){
+            AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
+        }else if(account_Type == "instructor_account"){
+            AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
+        }
 
-            if(Title == "N/A"){
-                titleText = ""
-            }else{
-                titleText = Title
-            }
+        if(ProfileImage == "avatar.jpg"){
+            const ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
 
-            if(account_Type == "scholar_account"){
-                AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
-            }else if(account_Type == "instructor_account"){
-                AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
-            }
-
-            discoverAccountsContainer.innerHTML +=`<account data-index="0${id}" id="li" data-name="${Fullname}"><a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
+            discoverAccountsContainer.innerHTML +=`
+            <account data-index="0${id}" id="li" data-name="${Fullname}">
+            <a href="/@${Username}">
+            <div class="image_container bg-purple-gradient">
+            <img src="${ProfilePicture}"></div></a>
+            <div class="details">
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
             </account>`
+            }else{
+                fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
+                    method:"GET"
+                })
+                .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return response.blob(); // Get the response as a Blob
+                  })
+                  .then(blob => {
+                    // Create a URL for the Blob object
+                    const fileURL = URL.createObjectURL(blob);
+                    const ProfilePicture = fileURL
+                    
+                    discoverAccountsContainer.innerHTML +=`
+                    <account data-index="0${id}" id="li" data-name="${Fullname}">
+                    <a href="/@${Username}">
+                    <div class="image_container bg-purple-gradient">
+                    <img src="${ProfilePicture}"></div></a>
+                    <div class="details">
+                    <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
+                    </div>
+                    <div css="degree">${titleText}</div></div>
+                    </account>`
+                    // Use the fileURL to display the PDF in an iframe or link to download
+                })
+                .catch(error => {
+                  console.error('There was a problem fetching the image:', error);
+                  // Handle errors, display a message, etc.
+                });
+          
+            }
+
+        
+
+         
         });
+
     }else{
         discoverAccountsContainer.innerHTML = `<div class="no_content_message" style='width:70%'>
         <svg class="icon icon-no_sim"><use xlink:href="#icon-no_sim"></use>

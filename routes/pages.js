@@ -110,15 +110,17 @@ const MyCoursesList = require("../controllers/scholarContols/myCoursesresList");
 const SearchScholarCourses = require("../controllers/scholarContols/searchScholarCourses");
 const createReview = require("../controllers/createReview");
 const ReviewsSameCourse = require("../controllers/ReviewsSameCourse");
+const EndConnections = require("../controllers/utils/endConnections");
+const RestartConnection = require("../controllers/utils/restartConnection");
+const db = require("./db.config");
+
 
 const router = express.Router();
 router.use(express.json())
 
 
-
-
-
 router.get("/", LoggedIn, (req,res)=>{
+
     if(req.user){
         const username_new = req.user.username
         res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
@@ -322,6 +324,29 @@ router.get("/:tutorialOwner/:courseID/:tutorialID", LoggedIn, watchTutorials);
 
 //Update user Profile and show the settings page
 router.get("/settings", LoggedIn, ProfileSettings)
+// GET PROFILE IMAGES 
+router.get("/files/uploaded/images/:filename", async (req,res)=>{
+    const fileName = req.params.filename;
+
+    const query = 'SELECT * FROM files WHERE filename = ?';
+    const values = [fileName];
+  
+    try {
+        
+      db.query(query, values, async(err,result)=>{
+        if(err) throw err
+        const fileData = result[0].filedata;
+        // Set appropriate headers for the response
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        res.end(fileData); // Send the file data as the response
+      })
+ 
+    } catch (error) {
+      console.error('Error retrieving file:', error);
+      res.status(500).send('Error retrieving file');
+    }
+})
 
 // Create work history 
 router.get("/Work", (req,res)=>{
@@ -376,7 +401,8 @@ router.get("/public", LoggedIn, (req, res) => {
     }
 })
 
-router.get("/login", (req, res) => {
+router.get("/login", async (req, res) => {
+    // await RestartConnection()
     res.sendFile("login.html", {root:"./public"})
 })
 

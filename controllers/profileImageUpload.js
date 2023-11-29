@@ -34,9 +34,9 @@ const profileImageUpload = (req, res) => {
 
     // Extract the relevant data from req.body
     const { bufferImage } = req.body;
-    // console.log(req.body)
-    // console.log(req.user.username)
-    // console.log(req.file)
+
+  
+
     const userName = req.user.username;
 
     if (bufferImage && userName) {
@@ -60,6 +60,15 @@ const profileImageUpload = (req, res) => {
           const encryptedFileName = uploadedFile.filename;
           const FileType = uploadedFile.mimetype;
 
+          const buffer = fs.readFileSync(uploadedFile.path);
+          // const imageBuffer = fs.readFileSync(imageFile.path)
+        
+          const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
+          const values = [uploadedFile.filename, buffer];
+
+
+      
+
           db.query(
             "UPDATE user_info SET ? WHERE username =?",
             [{profile_picture:encryptedFileName, buffer:bufferImage}, [userName]],
@@ -79,9 +88,20 @@ const profileImageUpload = (req, res) => {
                   return res.status(500).render("error.ejs",{status: "Error copying file" });
                 }
                // File copied successfully
-            //    res.json({status: "Podcast Updated successfully"});
-                // res.render("successful.ejs",{ status: "Image has been updated Successfully", page:"/settings" });
-                res.redirect('/settings')
+          db.query(query, values, async(err,image)=>{
+            if(err) throw err
+            console.log("image Inserted Successfully")
+
+            fs.unlink(sourcePath.path, (unlinkErr) => {
+            if (unlinkErr) {
+              console.error('Error deleting local PDF file:', unlinkErr);
+            } else {
+              console.log('Local PDF file deleted successfully.');
+            }
+            });
+          res.redirect('/settings')
+
+          })
               });
             }
           );

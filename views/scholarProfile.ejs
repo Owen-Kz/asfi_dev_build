@@ -29,7 +29,7 @@
 
 <body>
 	<input type="text" id="usernameContainer" value="<%= UserName %>" readonly hidden>
-
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
 	<%- include ("bookUploadModal") %>
 	<%- include ("podcastUploadModal") %>
@@ -85,9 +85,8 @@
                     <% if(ProfileImage == "avatar.jpg"){ %>
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
-
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+						<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+						src="" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -103,8 +102,8 @@
 									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 									<% } else { %>
 			
-									<img class="avatar-img rounded-circle border border-white border-3 shadow"
-									src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+						<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+						src="" alt="Loading" >
 									<% }%>
 							</div>
 							<div>
@@ -180,8 +179,8 @@ Page Banner START -->
 								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
                                 <% } else { %>
 
-                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+									<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+									src="" alt="Loading" >
                                 <% }%>
 							</div>
                            
@@ -286,8 +285,8 @@ Page content START -->
 												<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 												<% } else { %>
 						
-												<img class="avatar-img rounded-circle border border-white border-3 shadow"
-												src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+													<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+													src="" alt="Loading" >
 												<% }%>
 										</span>
 										<!-- Remove btn -->
@@ -732,7 +731,7 @@ Footer END -->
 <script src="/js/editProfile.js"></script>
 <script src="/js/countriesJSON.js"></script>
 <script src="/js/addDetails.js"></script>
-
+<script src="/js/fetchFiles.js"></script>
 
 
 

@@ -27,3 +27,15 @@ $(".search").on("click", function(){
 
     }
 })
+
+
+// async function EndUserConnections() {
+//     alert("Session Expired please login again")
+//     window.location.href = `/logout`
+//     // EndConnections()
+//     if(url == "/login"){
+//         window.location.reload()
+//     }
+//   }
+
+// const disconnectTimer = setInterval(EndUserConnections, 10000);

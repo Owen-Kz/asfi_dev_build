@@ -7,6 +7,16 @@ const db = sql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 })
+// Ensure the connection is closed when your application exits
+process.on('exit', () => {
+    db.end((err) => {
+        if (err) {
+            console.error('Error closing the connection:', err);
+        } else {
+            console.log('Connection closed.');
+        }
+    });
+});
 
 const { Pool } = require('pg');
 // const dotenv = require("dotenv").config();

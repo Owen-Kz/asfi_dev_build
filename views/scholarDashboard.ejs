@@ -26,6 +26,8 @@
 	<script src="/js/colorTheme.js"></script>
 </head>
 <body>
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+
 	<%- include ("bookUploadModal") %>
 
 	<%- include ("podcastUploadModal") %>
@@ -76,9 +78,8 @@
                     <% if(ProfileImage == "avatar.jpg"){ %>
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
-
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+							src="" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -91,11 +92,12 @@
 							<!-- Avatar -->
 							<div class="avatar me-3">
 								<% if(ProfileImage == "avatar.jpg"){ %>
-									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+									<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+													src="" alt="Loading" >
 									<% } else { %>
 			
-									<img class="avatar-img rounded-circle border border-white border-3 shadow"
-									src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+													src="" alt="Loading" >
 									<% }%>
 							</div>
 							<div>
@@ -316,6 +318,7 @@ Footer END -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
+<script src="/js/fetchFiles.js"></script>
 
 
 </body>

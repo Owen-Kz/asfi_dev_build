@@ -1,19 +1,19 @@
 const db = require("../routes/db.config");
 const jwt = require("jsonwebtoken");
+const RestartConnection = require("./utils/restartConnection");
 
-const LoggedIn = (req, res, next) => {
-
-
+const LoggedIn = async (req, res, next) => {
+  RestartConnection()
   if (!req.cookies.userRegistered) {
     // Redirect to home if user is not logged in
     if (req.path === '/becomeInstructor') {
         // Skip the middleware for the '/becomeInstructor' route
         return next();
       }else{
-    return res.redirect("/home");
+    return res.redirect("/home"); 
       }
   }
-
+ 
   try {
     // Decrypt the cookie and retrieve user data with the id
     const decoded = jwt.verify(req.cookies.userRegistered, process.env.JWT_SECRET);
@@ -25,11 +25,19 @@ const LoggedIn = (req, res, next) => {
 
       req.user = result[0];
       next();
+
+
+
     });
+
+   
+
+    // clearInterval(disconnectTimer);
   } catch (error) {
     console.log(error);
     res.redirect("/home"); // Redirect to home on error
   }
+
 };
 
 module.exports = LoggedIn;

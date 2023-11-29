@@ -30,6 +30,9 @@
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
 	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+	<input type="hidden" id="VisitedpPofilePhoto" value="<%=personProfilePicture%>" readonly>
+
 
     <% if(summation_FX = 1 + 4) { %>
         <form onsubmit="return false" method="post" id="follow" style="display: none; visibility: hidden;">
@@ -79,8 +82,8 @@
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastname %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
 
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+							src="" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -96,8 +99,8 @@
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastname %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
                                     <% } else { %>
             
-                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+										src="" alt="Loading" >
                                     <% }%>
 							</div>
 							<div>
@@ -169,7 +172,8 @@ Page Banner START -->
                                 <% if(personProfilePicture == "avatar.jpg") {%>
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" alt='<%= personProfilePicture %> '>
                                     <%} else { %>
-                                        <img class="avatar-img rounded-circle border border-white border-3 shadow" src="/userUploads/profileImages/<%= personProfilePicture %>" alt='<%= personProfilePicture %> '>
+                                    	<img class="avatar-img rounded-circle border border-white border-3 shadow personImageContainer"
+										src="" alt="Loading" >
                         
                                         <% }%>
 							</div>
@@ -454,7 +458,8 @@ Page content START -->
                                             <% if(personProfilePicture == "avatar.jpg") {%>
                                                 <img src="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" alt='<%= personProfilePicture  %> '>
                                                 <%} else { %>
-                                                <img src="/userUploads/profileImages/<%= personProfilePicture %>" alt='<%= personProfilePicture  %> '>
+													<img class="avatar-img rounded-circle border border-white border-3 shadow personImageContainer"
+													src="" alt="Loading" >
                                     
                                             <% }%>
                                         </div>
@@ -533,6 +538,7 @@ Footer END -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/js/CountUserFollowinOnProfile.js"></script>
 
+<script src="/js/fetchFiles.js"></script>
 
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
