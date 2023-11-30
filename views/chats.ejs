@@ -41,7 +41,7 @@
             </a>
           <% } else { %>
           <a href="/@<%=sender %>">
-            <img src="/userUploads/profileImages/<%= senderImage %>" alt="ProfileImage">
+            <img src="" alt="Loading" id="SenderimageContainerMain">
             </a>
             <% }%>
 
@@ -137,7 +137,7 @@
           <% } else { %>
           <a href="/@<%=recipient%>">
 
-            <img src="/userUploads/profileImages/<%= receiverImage%>" alt="ProfileImage">
+            <img src="" alt="Loading" id="recipientimageContainerMain">
             </a>
             <% }%>
               <div class="info">
@@ -169,13 +169,11 @@
       <script src="/js/chatUI.js"></script>
 
 
+      <script src="/js/fetchFiles.js"></script>
 
       <script src="/js/privateChatMain.js"></script>
-</body>
-
-</html>
-
 
 </body>
 
 </html>
+

@@ -134,7 +134,7 @@ router.get("/posters", (req,res)=>{
     res.redirect("https://asfischolar.com/posters")
 })
 
-
+ 
 router.get("/home", (req,res)=>{
    if(req.cookies.userRegistered){
     res.render("home", {status :"no", logger:"Not logged in", user :"", });
@@ -143,6 +143,10 @@ router.get("/home", (req,res)=>{
 
     }
 })
+ 
+router.get("/embedMega", (req,res)=>{
+    res.render("embedMega")
+}) 
 // router.get("/home", (req,res) =>{
 //     res.render("home", {
 //         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
@@ -175,6 +179,15 @@ router.get("/:username/totalcourses", totalCourses)
 router.get("/:username/totalfollowing", totalFollowing)
 
 router.get("/:username/totalstudents", totalStudents)
+
+router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
+    const username = req.params.username
+    const query = `SELECT profile_picture FROM user_info WHERE username =?`
+    db.query(query, username, async(err, data)=>{
+        if(err) throw err
+        res.json({profile_image: data[0].profile_picture})
+    })
+})
 
 
 // GET THE LIBRARY
@@ -234,6 +247,16 @@ router.get("/scholars/:scholarsearch", scholarSearchResults)
 router.get("/spaces/:spaceid", LoggedIn, SpacesChat)
 // GET SPACE PARTICIPANTS
 router.get("/getSpaceParticipants/:spaceid",SpaceParticipants)
+// GET TOTAL PARTICIPANTS 
+router.get("/spaces/total/perticipants/:spaceId", async(req,res)=>{
+    const spaceId = req.params.spaceId
+    const query = "SELECT COUNT(*) AS participantsCount FROM space_participants WHERE space_id = ?" 
+    
+    db.query(query, spaceId, async(err, data)=>{
+        if(err) throw err
+        res.json({ParticipantsCount:data[0].participantsCount})
+    })
+})
 // GET SPACE CHAT HISTORY 
 router.get("/getSpaceChatHistory/:spaceid", SpaceChatHistory)
 // Exit Space 
@@ -327,8 +350,7 @@ router.get("/settings", LoggedIn, ProfileSettings)
 // GET PROFILE IMAGES 
 router.get("/files/uploaded/images/:filename", async (req,res)=>{
     const fileName = req.params.filename;
-if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != ""){
-
+if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
 
     const query = 'SELECT * FROM files WHERE filename = ?';
     const values = [fileName];

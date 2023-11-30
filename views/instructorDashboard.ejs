@@ -32,6 +32,8 @@
      <script src="/js/colorTheme.js"></script>
 </head>
 <body>
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+
     <%- include ("tutorialUploadModal") %>
     <%- include ("bookUploadModal") %>
 	<%- include ("podcastUploadModal") %>
@@ -68,8 +70,8 @@
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
 
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+										src="" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -84,9 +86,8 @@
 								<% if(ProfileImage == "avatar.jpg"){ %>
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
                                     <% } else { %>
-            
-                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+										src="" alt="Loading" >
                                     <% }%>
 							</div>
 							<div>
@@ -309,6 +310,8 @@ Footer START -->
 		</div>
 	</div>
 </footer>
+<script src="/js/fetchFiles.js"></script>
+
 <!-- =======================
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>

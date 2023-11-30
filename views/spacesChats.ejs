@@ -40,7 +40,8 @@
             </a>
           <% } else { %>
           <a href="/@<%=username%>">
-            <img src="/userUploads/profileImages/<%=user_profile_picture%>" alt="ProfileImage">
+            <img src="" alt="Loading" id="SenderimageContainerMain">
+
             </a>
             <% }%>
 
@@ -128,7 +129,8 @@
           <% } else { %>
      
 
-            <img src="/userUploads/profileImages/<%= SpaceCover %>" alt="ProfileImage">
+            <img src="" alt="Loading" id="SpaceCoverContainerMain">
+
            
             <% }%>
              <div class="info">
@@ -152,9 +154,13 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
         integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
         crossorigin="anonymous"></script>
+    <script src="/js/fetchFiles.js"></script>
+
       <script src="/js/chatUI.js"></script>
     <script src="/js/searchQueries/getSpaceChatHistory.js"></script>
     <script src="/js/searchQueries/getSpaceParticipants.js"></script>
+
+
     <script src="/js/spacesChat.js"></script>
 
 

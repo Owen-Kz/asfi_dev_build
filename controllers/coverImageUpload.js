@@ -72,15 +72,34 @@ const profileCoverUpload = (req, res) => {
               const sourcePath = uploadedFile.path;
               const destinationPath = path.join(folderPath, encryptedFileName);
 
-              fs.copyFile(sourcePath, destinationPath, (err) => {
-                if (err) {
-                  console.error("Error copying file:", err);
-                  return res.status(500).render("error.ejs",{status: "Error copying file" });
-                }
-               // File copied successfully
-            //    res.json({status: "Podcast Updated successfully"});
-                res.render("successful.ejs",{ status: "Cover Photo Updated", page:"/settings", UserFirstname:username, UserLastName:username, UserName:username, Email:username+"@email.go", ProfileImage:"avatar.jpg" });
-              });
+              const buffer = fs.readFileSync(uploadedFile.path);
+              // const imageBuffer = fs.readFileSync(imageFile.path)
+            
+              const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
+              const values = [uploadedFile.filename, buffer];
+    
+                     fs.copyFile(sourcePath, destinationPath, (err) => {
+                       if (err) {
+                         console.error("Error copying file:", err);
+                         return res.status(500).render("error.ejs",{status: "Error copying file" });
+                       }
+                      // File copied successfully
+
+                 db.query(query, values, async(err,image)=>{
+                   if(err) throw err
+                   console.log("image Inserted Successfully")
+       
+                   fs.unlink(sourcePath, (unlinkErr) => {
+                   if (unlinkErr) {
+                     console.error('Error deleting local PDF file:', unlinkErr);
+                   } else {
+                     console.log('Local Cover photo deleted successfully.');
+                   }
+                   });
+                   res.render("successful.ejs",{ status: "Cover Photo Updated", page:"/settings", UserFirstname:username, UserLastName:username, UserName:username, Email:username+"@email.go", ProfileImage:"avatar.jpg" });
+       
+                 })
+              })
             }
           );
           }

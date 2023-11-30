@@ -27,6 +27,8 @@
 </head>
 
 <body>
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+
 	<%- include ("bookUploadModal") %>
 	<%- include ("podcastUploadModal") %>
     <!-- NAVIGATION BAR  -->
@@ -66,8 +68,8 @@
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
 
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+							src="" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -83,8 +85,8 @@
 									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 									<% } else { %>
 	
-									<img class="avatar-img rounded-circle border border-white border-3 shadow"
-									src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+										src="" alt="Loading" >
 									<% }%>
 							</div>
 							<div>
@@ -155,8 +157,8 @@ Page Banner START -->
 								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
                                 <% } else { %>
 
-                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+									<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+									src="" alt="Loading" >
                                 <% }%>
 							</div>
                           
@@ -462,6 +464,7 @@ Footer END -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
+<script src="/js/fetchFiles.js"></script>
 
 </body>
 </html>

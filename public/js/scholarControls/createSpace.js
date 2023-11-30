@@ -37,7 +37,7 @@ function genSpaceBuffer() {
 
   // HANDLE THE FROM SUBMISSION AND SPACE CONTENT 
 
-const thumbnail = document.getElementById("thumbnail")
+// const thumbnail = document.getElementById("thumbnail")
 const createNew_Space = document.getElementById("createNew_space")
 const shortDescription = document.getElementById("shortDescription")
 const spaceTitle = document.getElementById("spaceTitle")
@@ -45,22 +45,22 @@ const spaceTitle = document.getElementById("spaceTitle")
 
 createNew_Space.addEventListener("click", function(){
 
-if(thumbnail.files[0]){
-const FILE_SIZE = thumbnail.files[0].size
-const FILE_TYPE = thumbnail.files[0].type
+// if(thumbnail.files[0]){
+// const FILE_SIZE = thumbnail.files[0].size
+// const FILE_TYPE = thumbnail.files[0].type
 
-if(FILE_SIZE > 1000000000){
-    alert("File is too Large")
+// if(FILE_SIZE > 1000000000){
+//     alert("File is too Large")
  
-}
-if(FILE_TYPE !== "image/png" && FILE_TYPE !== "image/jpeg" && FILE_TYPE !== "image/jpg"){
-    var parentDiv = document.getElementById("BookUploadModal")
-    alert("File is Not an image")
-}
-if(FILE_SIZE < 1000000000 && (FILE_TYPE == "image/png" || FILE_TYPE == "image/jpeg" || FILE_TYPE == "image/jpg")){
+// }
+// if(FILE_TYPE !== "image/png" && FILE_TYPE !== "image/jpeg" && FILE_TYPE !== "image/jpg"){
+//     var parentDiv = document.getElementById("BookUploadModal")
+//     alert("File is Not an image")
+// }
+// if(FILE_SIZE < 1000000000 && (FILE_TYPE == "image/png" || FILE_TYPE == "image/jpeg" || FILE_TYPE == "image/jpg")){
  $("#create_SPACE").trigger("click")
-}
-}
+// }
+// }
 })
 
 
@@ -70,8 +70,8 @@ space.addEventListener("submit", (e)=>{
   const NewSpaceData = {
     spaceTitle:spaceTitle.value,
     shortDescription: shortDescription.value,
-    Buffer:bufferSpace.value,
-    thumbnail: thumbnail.files[0]
+    Buffer:bufferSpace.value
+    // thumbnail: thumbnail.files[0]
   }
   fetch("/createSpaces", {
     method:"POST",

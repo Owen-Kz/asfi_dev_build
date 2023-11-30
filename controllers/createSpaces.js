@@ -33,6 +33,7 @@ const createSpaces = async (req, res) =>{
     // if (err) {
     //   return res.status(500).send(err);
     // }
+
     const {spaceTitle, shortDescription, Buffer} = req.body
     console.log("REQUESTBODY: "+req.body)
 if(req.body){

@@ -2,9 +2,7 @@
 
 // require (jquery341Min);
 
-
 $("#close_cover_photo").on("click", function(){
-
     if($(".space_cover").hasClass("small_picture")){
     $(".space_cover").removeClass("small_picture");
     $("#close_cover_photo").html("Hide Image" + "<span> > </span>");

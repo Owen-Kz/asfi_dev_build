@@ -30,6 +30,7 @@
 <body>
 	<input type="text" id="usernameContainer" value="<%= UserName %>" readonly hidden>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+	<input type="hidden" id="CoverPhotoMain" value="<%=ProfileCover%>" readonly>
 
 	<%- include ("bookUploadModal") %>
 	<%- include ("podcastUploadModal") %>
@@ -162,7 +163,9 @@ Page Banner START -->
 <section class="pt-0">
 	<!-- Main banner background image -->
 	<div class="container-fluid px-0" style="margin-top: -20%;">
-		<div class="bg-blue h-400px h-md-400px rounded-0 d-flex " style="background:url(/userUploads/profileCovers/<%=ProfileCover%>) no-repeat center center; background-size:cover;">
+		
+			<div class="bg-blue h-00px h-md-400px rounded-0 d-flex cover_image_container" >
+		
 			<span class="edit-cover fas fa-pencil-alt"></span>
 		</div>
 	</div>

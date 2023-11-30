@@ -27,6 +27,7 @@
 </head>
 
 <body>
+	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
 	<%- include ("tutorialUploadModal") %>
     <%- include ("bookUploadModal") %>
@@ -66,8 +67,8 @@
 						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 						<% } else { %>
 
-						<img class="avatar-img rounded-circle border border-white border-3 shadow"
-						src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+							src="" alt="Loading" >
 						<% }%>
 				</a>
                 
@@ -82,8 +83,8 @@
 									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
 									<% } else { %>
 	
-									<img class="avatar-img rounded-circle border border-white border-3 shadow"
-									src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+										src="" alt="Loading" >
 									<% }%>
 							</div>
 							<div>
@@ -154,8 +155,8 @@ Page Banner START -->
 								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
                                 <% } else { %>
 
-                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                src="/userUploads/profileImages/<%=ProfileImage%>" alt="<%=ProfileImage%>">
+									<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+									src="" alt="Loading" >
                                 <% }%>
 							</div>
 						</div>
@@ -332,6 +333,8 @@ Footer END -->
   <script src="/js/instructorControls/instructorUpdateCoursesUI.js"></script>
   <script src="/js/instructorControls/getInstructorCourse.js"></script>
 <script src="/js/getInstructorFormEdit.js"></script>
+<script src="/js/fetchFiles.js"></script>
+
 
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>

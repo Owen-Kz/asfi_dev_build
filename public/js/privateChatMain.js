@@ -18,6 +18,37 @@ const recipientProfilrPicture = document.getElementById("receiverImage_").value
 const recipientFullname = document.getElementById("recipientFullname").value
 const senderFullname = document.getElementById("senderFulname").value
 
+const recipientimageContainerMain = document.getElementById("recipientimageContainerMain")
+const SenderimageContainerMain = document.getElementById("SenderimageContainerMain")
+
+
+if (recipientimageContainerMain) {
+  fetchProfileImage(recipientProfilrPicture)
+      .then(ReceiverImage => {
+// Output the received image URL
+          if (ReceiverImage) {
+              recipientimageContainerMain.setAttribute("src", ReceiverImage);
+          }
+      });
+}
+
+// Get teh senders image 
+if (SenderimageContainerMain) {
+  fetchProfileImage(senderProfilePicture)
+      .then(ReceiverImage => {
+// Output the received image URL
+          if (ReceiverImage) {
+            SenderimageContainerMain.setAttribute("src", ReceiverImage);
+          }
+      });
+}
+
+
+let recipientProfilePicture_main
+let senderProfilePicture_main
+
+
+
 let displayedMessages = 0; // Number of messages currently displayed
 const messagesPerLoad = 10; // Number of messages to load per scroll
 chatHistory.reverse();
@@ -80,7 +111,7 @@ function formatTimestamp(timestamp) {
 // Clear the newMessages array
 
 
-function chatHistory_(startIndex, endIndex) {
+async function chatHistory_(startIndex, endIndex) {
   if(chatHistory.length > 0){
   newMessages.length = 0;
   // Iterate through the chat history array
@@ -100,7 +131,7 @@ function chatHistory_(startIndex, endIndex) {
       const Sender_ = chatMessage.sender_id;
 
       // Add the message to the newMessages array
-      addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId);
+     await addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId);
 
       // Add the message ID to the displayedMessageIds set
       displayedMessageIds.add(messageId);
@@ -120,7 +151,7 @@ let isLoadingMessages = false; // Flag to track if messages are being loaded
 
 
 // Function to handle scroll event
-function handleScroll() {
+async function handleScroll() {
   const scrollTop = messageContainer.scrollTop;
   if (scrollTop === 0 && displayedMessages >= messagesPerLoad && !isLoadingMessages) {
     isLoadingMessages = true; // Set the flag to true
@@ -132,7 +163,7 @@ function handleScroll() {
 
     const endIndex = chatHistory.length;
 
-    chatHistory_(startIndex, endIndex);
+    await chatHistory_(startIndex, endIndex);
     displayedMessages = startIndex + 1;
     console.log(startIndex, endIndex,displayedMessages)
     }else if(messagesPerLoad <= chatHistory.length){
@@ -141,7 +172,7 @@ function handleScroll() {
     const endIndex = chatHistory.length;
 
     // console.log(chatHistory);
-    chatHistory_(startIndex, endIndex);
+    await chatHistory_(startIndex, endIndex);
 
     displayedMessages = displayedMessageIds_Array.length;
 
@@ -185,7 +216,7 @@ const userId = nameInput.value; // Replace with actual user ID
 
 socket.emit("join-room", roomId, userId);
 
-function sendMessage() {
+async function sendMessage() {
   if (messageInput.value === '') return
   const data = {
     name: nameInput.value,
@@ -198,31 +229,44 @@ function sendMessage() {
   messageInput.value = ''
 }
 
-socket.on('chat-message', (data, isOwnMessage) => {
+socket.on('chat-message', async (data, isOwnMessage) => {
   if(data.name === userId){
-    addMessageToUI(true, data)
+    await addMessageToUI(true, data)
   }else{
-    addMessageToUI(false, data)
+    await addMessageToUI(false, data)
   }
 })
 
-function addMessageToUI_HIstory(isOwnMessage, message, timestamp_,messageId) {
-  var recipientProfilePicture_main
-  var senderProfilePicture_main
+async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_,messageId) {
 
   if(recipientProfilrPicture == "avatar.jpg"){
-    var recipientProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${recipientFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
-  }else{
-    recipientProfilePicture_main = `/userUploads/profileImages/${recipientProfilrPicture}`
-  }
-
-  if(senderProfilePicture == "avatar.jpg"){
-    var senderProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
-  }else{
-    senderProfilePicture_main = `/userUploads/profileImages/${senderProfilePicture}`
-  }
-  clearFeedback();
-  const element = `
+    recipientProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${recipientFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
+   }else{
+ 
+    await fetchProfileImage(recipientProfilrPicture)
+     .then(ReceiverImage => {
+ // Output the received image URL
+         if (ReceiverImage) {
+           recipientProfilePicture_main = ReceiverImage
+         }
+     });
+     
+   }
+ 
+   if(senderProfilePicture == "avatar.jpg"){
+     senderProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
+   }else{ 
+ 
+    await fetchProfileImage(senderProfilePicture)
+     .then(SenderImage => {
+ // Output the received image URL
+         if (SenderImage) {
+           senderProfilePicture_main  = SenderImage
+         }
+     });
+   }
+  clearFeedback(); 
+  const element = ` 
       <div class="message-wrapper message ${isOwnMessage ? 'reverse' : ''}" data-message-id="${messageId}">
         <img class="message-pp" src="${isOwnMessage ? `${senderProfilePicture_main}` :  `${recipientProfilePicture_main}`}"  alt="profile-pic"/>
         <div class="message-box-wrapper">
@@ -238,24 +282,35 @@ function addMessageToUI_HIstory(isOwnMessage, message, timestamp_,messageId) {
 }
 
 
-function addMessageToUI(isOwnMessage, data) {
+async function addMessageToUI(isOwnMessage, data) {
   clearFeedback()
   // console.log(data)
-  var recipientProfilePicture_main
-  var senderProfilePicture_main
-
   if(recipientProfilrPicture == "avatar.jpg"){
-    var recipientProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${recipientFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
-  }else{
-    recipientProfilePicture_main = `/userUploads/profileImages/${recipientProfilrPicture}`
-  }
-
-  if(senderProfilePicture == "avatar.jpg"){
-    var senderProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
-  }else{
-    senderProfilePicture_main = `/userUploads/profileImages/${senderProfilePicture}`
-  }
-
+    recipientProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${recipientFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
+   }else{
+ 
+    await fetchProfileImage(recipientProfilrPicture)
+     .then(ReceiverImage => {
+ // Output the received image URL
+         if (ReceiverImage) {
+           recipientProfilePicture_main = ReceiverImage
+         }
+     });
+     
+   }
+ 
+   if(senderProfilePicture == "avatar.jpg"){
+     senderProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`;
+   }else{ 
+ 
+    await fetchProfileImage(senderProfilePicture)
+     .then(SenderImage => {
+ // Output the received image URL
+         if (SenderImage) {
+           senderProfilePicture_main  = SenderImage
+         }
+     });
+   }
   const element = `<div class="message-wrapper message ${isOwnMessage ? 'reverse' : ''}" data-message-id="${data.dateTime+data.inbox}">
   <img class="message-pp" src="${isOwnMessage ? `${senderProfilePicture_main}` :  `${recipientProfilePicture_main}`}"  alt="profile-pic"/>
   <div class="message-box-wrapper">
@@ -316,7 +371,7 @@ if(RecentMessage.length > 0){
   const RecentCountContainer = document.getElementById("c-number")
   RecentCountContainer.innerText = RecentMessage.length
   const RecentChatList = document.getElementById("active_conversations")
-  RecentMessage.forEach(recentChat => {
+  RecentMessage.forEach(async (recentChat) => {
     // console.log(RecentMessage)
 
     const messageContent = recentChat.LastMessage
@@ -324,12 +379,19 @@ if(RecentMessage.length > 0){
     const messageSender = recentChat.SentBy
     const messageTimestamp = recentChat.TimeStamp
 
+    let PersonProfileImage 
+
+ 
+
+
     var ActualSender
     var ActualReceiver
     var ActualSenderText
 
     if(MessageRecipient == nameInput.value){
       ActualSender = messageSender
+
+      
     }else{
       ActualSender = MessageRecipient
       ActualSenderText = `@${ActualSender}`
@@ -346,12 +408,33 @@ if(RecentMessage.length > 0){
       ActualSenderText = "Note To Self"
     }
 
+// GET sENDER IMAGE 
+    fetch(`/userprofile/image/profileImage/${ActualSender}`,()=>{
+      method: "GET"
+    }).then(res => res.json())
+    .then(data =>{
+      PersonProfileImage = data.profile_image
+    })
+let SenderMainProfileimage
+
+    if(PersonProfileImage != "avatar.jpg"){
+     await fetchProfileImage(recipientProfilrPicture)
+      .then(ReceiverImage => {
+// Output the received image URL
+          if (ReceiverImage) {
+            SenderMainProfileimage =  `${ReceiverImage}`
+          }
+      });
+    }else{
+      SenderMainProfileimage  = `https://eu.ui-avatars.com/api/?background=random&name=${ActualSender}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt="ProfileImage`
+      }
+
     const originalMessageTimestamp = new Date(messageTimestamp);
     const formattedMessageTimestamp = formatTimestamp(originalMessageTimestamp);
 
     const RecentChatContent = `<li class="chat-list-item active">
     <a href="/@${ActualSender}"> 
-      <img src="https://eu.ui-avatars.com/api/?background=random&name=${ActualSender}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt="ProfileImage"/>
+      <img src=${SenderMainProfileimage} />
       </a>
           <a href="/@${ActualSender}/chat"><div class='recent_chat_content'>
           <span class="chat-list-name">${ActualSenderText}</span>

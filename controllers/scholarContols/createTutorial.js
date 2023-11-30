@@ -42,7 +42,7 @@ const createTutorial = (req, res) => {
         const thumbnailPath = ThumbnailDestination + req.files['thumbnail'][0].filename;
 
         
-        const newVideoName = req.files['video'][0].filename;
+        const newVideoName = req.body.video_link
         const newThumbnailName = req.files['thumbnail'][0].filename;
         const CourseTitle = "N/A"
         const CourseID = req.body.course_id
@@ -64,11 +64,11 @@ const createTutorial = (req, res) => {
 
 function processVideo(videoPath, thumbnailPath,  newVideoName, TutorialTitle, tutorialID, newThumbnailName, CourseID, CourseOwner, CommentId, CourseDescription, tutorialCategory, res) {
 //     // Get video duration using fluent-ffmpeg
-    ffmpeg.ffprobe(videoPath, (err, metadata) => {
-        if (err) {
-            console.error(err);
-            res.send('Error processing video.');
-        } else {
+    // ffmpeg.ffprobe(videoPath, (err, metadata) => {
+    //     if (err) {
+    //         console.error(err);
+    //         res.send('Error processing video.');
+    //     } else {
             const duration = metadata.format.duration; // Video duration in seconds
 
             // console.log(duration);
@@ -79,7 +79,7 @@ function processVideo(videoPath, thumbnailPath,  newVideoName, TutorialTitle, tu
                     // console.log("Turorial Exists")
                     res.redirect("/Tutorials")
                 }else{
-                    db.query("INSERT INTO tutorials SET ?", [{tutorial_title:TutorialTitle, tutorial_id:tutorialID, tutorial_description: CourseDescription, tutorial_owner:CourseOwner, comments_ID:CommentId, related_course_id:CourseID, tutorial_thumbnail:newThumbnailName, tutorial_video:newVideoName, video_duration: duration, category:tutorialCategory}], async (err, tutorialCreated) => {
+                    db.query("INSERT INTO tutorials SET ?", [{tutorial_title:TutorialTitle, tutorial_id:tutorialID, tutorial_description: CourseDescription, tutorial_owner:CourseOwner, comments_ID:CommentId, related_course_id:CourseID, tutorial_thumbnail:newThumbnailName, tutorial_video:newVideoName, video_duration: "N/A", category:tutorialCategory}], async (err, tutorialCreated) => {
                         if(err) throw err
                         res.redirect("/Tutorials")
                     })
@@ -87,8 +87,8 @@ function processVideo(videoPath, thumbnailPath,  newVideoName, TutorialTitle, tu
             })
    
             // res.render('upload', { duration, thumbnailPath }); 
-        }
-    });
+    //     }
+    // });
 }
 
 module.exports = createTutorial;

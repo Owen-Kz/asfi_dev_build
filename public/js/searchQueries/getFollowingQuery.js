@@ -7,7 +7,7 @@ fetch("/directory/userFollows", ()=>{
 .then(data =>{
 
     if(data.followingData.length > 0){
-        data.followingData.forEach(following => {
+        data.followingData.forEach(async (following) => {
             const id = following[0].id
             const Fullname = `${following[0].first_name} ${following[0].last_name}`
             const Username = `${following[0].username}`
@@ -23,28 +23,8 @@ fetch("/directory/userFollows", ()=>{
             if(ProfileImage == "avatar.jpg"){
             ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
             }else{
-                
-                fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
-                    method:"GET"
-                })
-                .then(response => {
-                    if (!response.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return response.blob(); // Get the response as a Blob
-                  })
-                  .then(blob => {
-                    // Create a URL for the Blob object
-                    const fileURL = URL.createObjectURL(blob);
-                
-                    // Use the fileURL to display the PDF in an iframe or link to download
-                    ProfilePicture = fileURL
-                
-                  })
-                  .catch(error => {
-                    console.error('There was a problem fetching the image:', error);
-                    // Handle errors, display a message, etc.
-                  });
+            ProfilePicture = await fetchProfileImage(ProfileImage)
+             
             }
 
             if(Title == "N/A"){ 

@@ -26,7 +26,7 @@ const active_conversations = document.getElementById("active_conversations")
 if(PArticipants.length > 0){
     // active_conversations.classList += "active"
     ParticipantsCount.removeAttribute("style", "display:none")
-    PArticipants.forEach(participant => {
+    PArticipants.forEach( async (participant) => {
         const user_name = participant[0].username
         const Fullname = participant[0].first_name +" "+ participant[0].last_name
         const ProfilePicture = participant[0].profile_picture
@@ -52,7 +52,7 @@ if(PArticipants.length > 0){
         if(ProfilePicture == "avatar.jpg"){
             ProfileImageSrc = `https://eu.ui-avatars.com/api/?background=random&name=${Fullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`
         }else{
-            ProfileImageSrc = `/userUploads/profileImages/${ProfilePicture}`
+            ProfileImageSrc =  await fetchProfileImage(ProfilePicture)
         }
 
 

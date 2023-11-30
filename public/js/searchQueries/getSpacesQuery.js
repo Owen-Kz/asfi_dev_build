@@ -1,5 +1,24 @@
+async function getParticipantsCount(space) {
+    try {
+        const response = await fetch(`/spaces/total/perticipants/${space}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const participantsCount = data.ParticipantsCount;
+        return participantsCount;
+    } catch (error) {
+        console.error('There was a problem fetching number of participants:', error);
+        return null;
+    }
+}
 
-fetch("/directorySpaces", ()=>{
+// // Usage
+// const members_count = await getParticipantsCount(space_id);
+// console.log(members_count); // Use the received participants count
+
+
+fetch("/directorySpaces", async ()=>{
     method:"GET"
 })
 .then(res => res.json())
@@ -9,16 +28,28 @@ fetch("/directorySpaces", ()=>{
 
 
     if(data.spacesArray.length > 0){
-        data.spacesArray.forEach(space => {
+        data.spacesArray.forEach(async (space) => {
             const space_cover = space.space_cover
             const space_description = space.space_description
             const space_focus = space.space_focus
-            const members_count = space.members_count
+
+        
+
             const space_id = space.space_id
+            const members_count =   await getParticipantsCount(space_id)
+
+
+
+            // .then(count => {
+            //     // Output the received image URL
+            //             if (count) {
+            //                 members_count  = count
+            //             }
+            //         });
             let spacePreview
 
             if(space_cover == "image.jpg" || space_cover == "images.jpg" || space_cover == "avatar.jpg" || space_cover == "cover.jpg"){
-                spacePreview = ""
+                spacePreview = `https://eu.ui-avatars.com/api/?rounded=false&amp;background=2b2b2b&amp;color=fff&amp;name=${space_focus}&amp;font-size=0.4`
                 }else{
                 spacePreview = `/userUploads/spaceCovers/${space_cover}`
             }
@@ -29,7 +60,7 @@ fetch("/directorySpaces", ()=>{
             <div class="image_container bg-purple-gradient">
             <img src="${spacePreview}"></div>
             </a><div class="title"> ${space_focus}</div>
-            <div class="participants">${members_count} Participants  <span class="img bg-purple-gradient"><img src="https://eu.ui-avatars.com/api/?rounded=true&amp;background=random&amp;name=${space_focus}&amp;font-size=0.6;"></span></div></div>`;
+            <div class="participants">${members_count} Participants </div></div>`;
 
         });
     }

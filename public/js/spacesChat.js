@@ -15,6 +15,19 @@ const RoomIDContainer = document.getElementById("SpaceID")
 
 const senderFullname = document.getElementById("senderFulname").value;
 
+const SenderimageContainerMain = document.getElementById("SenderimageContainerMain")
+
+// Get teh senders image 
+if (SenderimageContainerMain) {
+  fetchProfileImage(sender_Image)
+      .then(ReceiverImage => {
+// Output the received image URL
+          if (ReceiverImage) {
+            SenderimageContainerMain.setAttribute("src", ReceiverImage);
+          }
+      });
+}
+
 const messagesPerLoad = 10;
 let displayedMessages = 0;
 const newMessages = [];
@@ -52,14 +65,14 @@ function formatTimestamp(timestamp) {
 
 }
 
-function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId, profile_picture, message_sender, SenderFullname) {
+async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId, profile_picture, message_sender, SenderFullname) {
 
     let senderProfilePicture_main
 
     if (profile_picture == "avatar.jpg") {
         senderProfilePicture_main = `https://eu.ui-avatars.com/api/?background=random&name=${SenderFullname}&font-size=0.5&rounded=true&size=128&background=random&color=ffffff`;
     } else {
-        senderProfilePicture_main = `/userUploads/profileImages/${profile_picture}`
+        senderProfilePicture_main = await fetchProfileImage(profile_picture)
     }
     clearFeedback();
     const element = `
@@ -102,7 +115,7 @@ getChatHistory(SpaceId)
                 }
             }
         }
-function chatHistory_(startIndex, endIndex) {
+async function chatHistory_(startIndex, endIndex) {
 
 
     if (chatHistoryContainer.length > 0) {
@@ -128,7 +141,7 @@ function chatHistory_(startIndex, endIndex) {
 
 
                 // Add the message to the newMessages array
-                addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId, profile_picture, Sender_, SenderFullname);
+                await addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId, profile_picture, Sender_, SenderFullname);
 
                 // Add the message ID to the displayedMessageIds set
                 displayedMessageIds.add(messageId);
@@ -230,16 +243,16 @@ function sendMessage() {
     messageInput.value = '';
 }
 
-socket.on('group-chat-message', (data) => {
+socket.on('group-chat-message', async (data) => {
 
     if (data.name === userId) {
-        addMessageToUI(true, data)
+        await addMessageToUI(true, data)
     } else {
-        addMessageToUI(false, data)
+        await addMessageToUI(false, data)
     }
 });
 
-function addMessageToUI(isOwnMessage, data) {
+async function addMessageToUI(isOwnMessage, data) {
     clearFeedback();
 
     const others_profileImage = data.profile_image
@@ -247,9 +260,11 @@ function addMessageToUI(isOwnMessage, data) {
     
     const senderProfilePicture = sender_Image
 
-    const senderProfilePicture_main = (senderProfilePicture === "avatar.jpg") ? `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff` : `/userUploads/profileImages/${senderProfilePicture}`;
 
-    const othersProfileImage_main = (others_profileImage === "avatar.jpg") ? `https://eu.ui-avatars.com/api/?background=random&name=${others_fullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff` : `/userUploads/profileImages/${others_profileImage}`;
+
+    const senderProfilePicture_main = (senderProfilePicture === "avatar.jpg") ? `https://eu.ui-avatars.com/api/?background=random&name=${senderFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff` : await fetchProfileImage(senderProfilePicture);
+
+    const othersProfileImage_main = (others_profileImage === "avatar.jpg") ? `https://eu.ui-avatars.com/api/?background=random&name=${others_fullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff` : await fetchProfileImage(others_profileImage);
 
     const element = `
     <div class="message-wrapper message ${isOwnMessage ? 'reverse' : ''}">
