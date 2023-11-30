@@ -89,6 +89,9 @@ async function fetchProfileImage(Image) {
 
 
 if (CoverPhotoContainer) {
+    if(CoverPhotoMain.value != "avatar.jpg" && CoverPhotoMain.value != "cover.jpg" && CoverPhotoMain.value != ""){
+
+
     async function setCoverPhotoImage() {
         try {
             const coverPhoto = await fetchProfileImage(CoverPhotoMain.value);
@@ -107,5 +110,7 @@ if (CoverPhotoContainer) {
     }
 
     // Call the function
-    setCoverPhotoImage();
+    setCoverPhotoImage(); 
+}
+
 }
