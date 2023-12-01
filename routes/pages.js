@@ -182,10 +182,10 @@ router.get("/:username/totalstudents", totalStudents)
 
 router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
     const username = req.params.username
-    const query = `SELECT profile_picture FROM user_info WHERE username =?`
+    const query = `SELECT * FROM user_info WHERE username =?`
     db.query(query, username, async(err, data)=>{
         if(err) throw err
-        res.json({profile_image: data[0].profile_picture})
+        res.json({profile_image: data[0].profile_picture, first_name: data[0].first_name, last_name:data[0].last_name})
     })
 })
 
@@ -352,11 +352,14 @@ router.get("/files/uploaded/images/:filename", async (req,res)=>{
     const fileName = req.params.filename;
 if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
 
+    db.query("SELECT * FROM files WHERE filename =?", [fileName], async(err,data)=>{
+        if(err) throw err
+        if(data[0]){
+
     const query = 'SELECT * FROM files WHERE filename = ?';
     const values = [fileName];
   
-    try {
-        
+    try {        
       db.query(query, values, async(err,result)=>{
         if(err) throw err
         const fileData = result[0].filedata;
@@ -371,9 +374,16 @@ if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != "" && fi
       res.status(500).send('Error retrieving file');
     }
 }else{
-    console.log(fileName)
+    console.log("File Not Found")
 }
 })
+}else{
+    console.log(fileName)
+}
+
+
+})
+
 
 // Create work history 
 router.get("/Work", (req,res)=>{

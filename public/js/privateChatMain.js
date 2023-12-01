@@ -380,6 +380,7 @@ if(RecentMessage.length > 0){
     const messageTimestamp = recentChat.TimeStamp
 
     let PersonProfileImage 
+    let PersonFullname
 
  
 
@@ -388,10 +389,13 @@ if(RecentMessage.length > 0){
     var ActualReceiver
     var ActualSenderText
 
+let SenderMainProfileimage
+
+
     if(MessageRecipient == nameInput.value){
       ActualSender = messageSender
 
-      
+       
     }else{
       ActualSender = MessageRecipient
       ActualSenderText = `@${ActualSender}`
@@ -414,8 +418,8 @@ if(RecentMessage.length > 0){
     }).then(res => res.json())
     .then(data =>{
       PersonProfileImage = data.profile_image
+      PersonFullname = `${data.first_name} + ${data.last_name}` 
     })
-let SenderMainProfileimage
 
     if(PersonProfileImage != "avatar.jpg"){
      await fetchProfileImage(recipientProfilrPicture)
@@ -426,8 +430,9 @@ let SenderMainProfileimage
           }
       });
     }else{
-      SenderMainProfileimage  = `https://eu.ui-avatars.com/api/?background=random&name=${ActualSender}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt="ProfileImage`
+      SenderMainProfileimage  = `https://eu.ui-avatars.com/api/?background=random&name=${PersonFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff`
       }
+      SenderMainProfileimage  = `https://eu.ui-avatars.com/api/?background=random&name=${PersonFullname}&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff `
 
     const originalMessageTimestamp = new Date(messageTimestamp);
     const formattedMessageTimestamp = formatTimestamp(originalMessageTimestamp);
