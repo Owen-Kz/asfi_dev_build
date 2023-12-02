@@ -24,9 +24,52 @@ const book = async (req, res) => {
           const bookQsf = book;
           const BOOK_FILE = book[0]["file"];
 
+        
+          async function getFile(BOOK_FILE) {
+            if (
+              BOOK_FILE != "avatar.jpg" &&
+              BOOK_FILE != "avatar.jpeg" &&
+              BOOK_FILE != "" &&
+              BOOK_FILE != "cover.jpg"
+            ) {
+              return new Promise((resolve, reject) => {
+                db.query("SELECT * FROM files WHERE filename = ?", [BOOK_FILE], async (err, data) => {
+                  if (err) reject(err);
+          
+                  if (data[0]) {
+                    const query = 'SELECT * FROM files WHERE filename = ?';
+                    const values = [BOOK_FILE];
+          
+                    try {
+                      db.query(query, values, async(err, data) =>{
+                        if(err) throw err
+                        const fileData = data[0].filedata;
+                        resolve(fileData);
+                      });
+                  // Resolve with the file data
+                    } catch (error) {
+                      console.error('Error retrieving file:', error);
+                      reject(null); // Reject with null in case of an error
+                    }
+                  } else {
+                    console.log("File Not Found");
+                    resolve(null); // Resolve with null if file not found
+                  }
+                });
+              });
+            } else {
+              console.log(BOOK_FILE);
+              return null;
+            }
+          }
+      
+          
+          (async () => {
+            try {
+      
           // Read the PDF file and extract the page data
-          const pdfPath = `./public/userUpload/books/${BOOK_FILE}`; // Provide the path to your PDF file
-          const data = fs.readFileSync(pdfPath);
+          const pdfPath = await getFile(BOOK_FILE);        // Provide the path to your PDF file
+          const data = pdfPath;
           const dataArrayBuffer = new Uint8Array(data).buffer; // Convert Buffer to Uint8Array
           const pdf = await pdfjs.getDocument(dataArrayBuffer).promise;
           const totalPages = pdf.numPages;
@@ -90,9 +133,14 @@ const book = async (req, res) => {
             prevPAGE: prevPageARRAY[0],    
             nextPAGE: nextPageArray[0]
             });
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        })();
           }else{
             res.redirect("/library")
           }
+          
         });
       });
     }

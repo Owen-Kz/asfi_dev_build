@@ -67,8 +67,7 @@ const createPodcast = (req, res) => {
           const encryptedFileName = uploadedFile.filename;
           const FileType = uploadedFile.mimetype;
 
-          // console.log(FileType)
-
+    
           db.query(
             "INSERT INTO podcasts SET ?",
             [
@@ -92,14 +91,39 @@ const createPodcast = (req, res) => {
               const sourcePath = uploadedFile.path;
               const destinationPath = path.join(folderPath, encryptedFileName);
 
-              fs.copyFile(sourcePath, destinationPath, (err) => {
-                if (err) {
-                  console.error("Error copying file:", err);
-                  return res.status(500).render("error.ejs",{status: "Error copying file" });
+      // console.log(FileType)
+      const buffer = fs.readFileSync(uploadedFile.path);
+              
+            const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
+            const values = [uploadedFile.filename, buffer];
+
+                  fs.copyFile(sourcePath, destinationPath, (err) => {
+                    if (err) {
+                      console.error("Error copying file:", err);
+                      return res.status(500).render("error.ejs",{status: "Error copying file" });
+                    }
+                  // File copied successfully
+              db.query(query, values, async(err,image)=>{
+                if(err) throw err
+                console.log("Pocast Inserted Successfully")
+
+                fs.unlink(sourcePath, (unlinkErr) => {
+                if (unlinkErr) {
+                  console.error('Error deleting local Audio file:', unlinkErr);
+                } else {
+                  console.log('Local Audio file deleted successfully.');
                 }
-               // File copied successfully
-                res.render("successful.ejs",{ status: "Podcast has been uploaded", page:"/podcasts" });
-              });
+                });
+
+
+              })
+
+
+
+          // Files copied successfully
+          res.render("successful.ejs", { status: "Podcast has been uploaded", page: "/podcasts" });
+        // });
+        });
             }
           );
           }

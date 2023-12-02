@@ -61,12 +61,13 @@
                     <div class="bud upload_title"><b><%= PodcastTitle %></b></div>
                     <div class="bud upload_name">@<%= PodcastOwner %></div>
                 </div>
+                <audio src="" id="audio" controls></audio>
                 </div>
         
                 <!-- SOUND WAVE  -->
                 <div class="wave_form" id="<%= PodcastOwner %>" ></div>
                 <!-- END SOUND WAVE  -->
-        
+                
         
                 <div class="actions">
                     <div class="time_span">
@@ -106,6 +107,7 @@
         <div class="wave_form" id="<%= BufferString %>" ></div>
         <!-- END SOUND WAVE  -->
 
+       
 
         <div class="actions">
             <div class="time_span">
@@ -122,22 +124,14 @@
         </div>
     </div>
 
+    <script src="/js/fetchFiles.js"></script>
 
     <script>
+    async function initializeAudio(){
+    try {
+        var OwnerID = "#<%= PodcastOwner %>"
 
-    var PLAYBUTTON_ID = "<%= PodcastOwner %>_ctrl"
-    var OwnerID = "#<%= PodcastOwner %>"
-
-
-    var Owner = document.getElementById(OwnerID)
-    var playbutton = document.getElementById(PLAYBUTTON_ID)
-    var DownloadBTN = document.getElementById("<%= PodcastOwner %>_dload")
-    var FILE_NAME = "<%= Podcast_File %>"
-    var DurationSpan = document.getElementById("<%= PodcastOwner %>_duration")
-    var FILE_URL = "/userUploads/Audio/<%= Podcast_File %>";
-
-
-  var wavesurfer = WaveSurfer.create({
+      var wavesurfer = WaveSurfer.create({
       container: OwnerID,
       waveColor: 'rgb(205, 205, 205)',
       progressColor: 'rgb(255, 150, 0)',
@@ -150,8 +144,27 @@
       hideScrollbar: true
     })
 
-    wavesurfer.load(FILE_URL)
+
+    var PLAYBUTTON_ID = "<%= PodcastOwner %>_ctrl"
+
+
+    var Owner = document.getElementById(OwnerID)
+    var playbutton = document.getElementById(PLAYBUTTON_ID)
+    var DownloadBTN = document.getElementById("<%= PodcastOwner %>_dload")
+    var FILE_NAME = "<%= Podcast_File %>"
+    var DurationSpan = document.getElementById("<%= PodcastOwner %>_duration")
+
+ 
+    // var FILE_URL = "/userUploads/Audio/<%= Podcast_File %>";
+    const FILE_URL = await fetchProfileImage("<%= Podcast_File %>")
+  const audio = document.getElementById("audio")
+
+  audio.setAttribute("src", FILE_URL)
+    if(FILE_URL){
+        wavesurfer.load(FILE_URL)
     wavesurfer.backend.getDuration()
+    }
+    
 
 
     DownloadBTN.setAttribute("href", '/podcasts/download/'+`<%= BufferString %>`)  
@@ -176,16 +189,26 @@
             $("#<%= PodcastOwner %>_ctrl").addClass("fa-play")
         }
     }
+} catch (error) {
+            console.error('Error:', error);
+          }
+        };
 
+  
+            initializeAudio()
+
+      
     </script>
+
+
 
         <script>
             var podcasts =  document.getElementById("podcasts_link_pg");
             podcasts.classList += "active_item";
         </script>
+
 <script src="/js/footer.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
-
 
 </main>
 </body>

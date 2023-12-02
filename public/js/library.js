@@ -75,7 +75,7 @@ Books_Data.forEach(book => {
     <h5 class="card-title"><a href="/library/b/${bookId}">${bookTitle}</a></h5>
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">${book_owner_username}</a>
    
-  </div>
+  </div> 
   <!-- Card footer -->
   <div class="card-footer pt-0 pb-3">
     <hr>

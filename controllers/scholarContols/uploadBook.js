@@ -121,23 +121,40 @@ const uploadBook = (req, res) => {
               return res.status(500).render("error.ejs", { status: "Network Error" });
             }
 
+          const buffer = fs.readFileSync(uploadedFile.path);
+
             // Copy the uploaded files to the destination folders
             const sourcePath = uploadedFile.path;
             // const thumbnailPath = thumbnailFile.path;
             const destinationPath = path.join(booksFolderPath, encryptedFileName);
             // const thumbnailDestinationPath = path.join(thumbnailsFolderPath, thumbnailFileName);
 
-            fs.copyFile(sourcePath, destinationPath, (err) => {
-              if (err) {
-                console.error("Error copying file:", err);
-                return res.status(500).render("error.ejs", { status: "Error copying file" });
-              }
+              
+            const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
+            const values = [uploadedFile.filename, buffer];
+ 
+                        fs.copyFile(sourcePath, destinationPath, (err) => {
+                          if (err) {
+                            console.error("Error copying file:", err);
+                            return res.status(500).render("error.ejs",{status: "Error copying file" });
+                          }
+                         // File copied successfully
+                    db.query(query, values, async(err,image)=>{
+                      if(err) throw err
+                      console.log("Book Inserted Successfully")
+          
+                      fs.unlink(sourcePath, (unlinkErr) => {
+                      if (unlinkErr) {
+                        console.error('Error deleting local PDF file:', unlinkErr);
+                      } else {
+                        console.log('Local PDF file deleted successfully.');
+                      }
+                      });
+    
+          
+                    })
 
-              // fs.copyFile(thumbnailPath, thumbnailDestinationPath, (err) => {
-              //   if (err) {
-              //     console.error("Error copying thumbnail:", err);
-              //     return res.status(500).render("error.ejs", { status: "Error copying thumbnail" });
-              //   }
+    
 
                 // Files copied successfully
                 res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });

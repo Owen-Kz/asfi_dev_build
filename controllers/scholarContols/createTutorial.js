@@ -28,20 +28,45 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const fs = require('fs')
+const Storage = require('megajs');
+ 
+
 
 // Define the createTutorial function
-const createTutorial = (req, res) => {
+const createTutorial = async (req, res) => {
+    const megaStorage = await new Storage({
+        email: 'bensonmichaelowen@gmail.com',
+        password: '7xB:9TCk5E_xFsN'
+      }).ready;
     // Handle video and thumbnail uploads
-    upload.fields([{ name: 'video', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }])(req, res, (uploadError) => {
+    upload.fields([{ name: 'video', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }]) (req, res, async (uploadError) => {
         if (uploadError) {
             console.error(uploadError);
             return res.status(500).json({ error: 'Error uploading files' });
         }
+        try {
         // The uploaded files are now available in req.files
         const videoPath = VideoDestination + req.files['video'][0].filename;
         const thumbnailPath = ThumbnailDestination + req.files['thumbnail'][0].filename;
 
-        
+        const fileData = req.files['video'][0]
+        const renamedFileName = req.files['video'][0].filename 
+     
+       
+          
+            const fileStats = fs.statSync(fileData.path); // Retrieve file stats
+            const fileSizeInBytes = fileStats.size; // Get the size in bytes
+          
+            // Modify the opt object to include the file size
+            const optWithSize = {
+              ...opt,
+              size: fileSizeInBytes // Provide the file size obtained
+            };
+          
+            const megaFile = await megaStorage.upload(renamedFileName, fileData, optWithSize);
+            console.log(`File ${renamedFileName} uploaded to folder A`);
+    
         const newVideoName = req.body.video_link
         const newThumbnailName = req.files['thumbnail'][0].filename;
         const CourseTitle = "N/A"
@@ -57,19 +82,23 @@ const createTutorial = (req, res) => {
         const tutorialID = req.body.tutorialBuffer
         const TutorialTitle = req.body.tutorialTitle
         
-        processVideo(videoPath, thumbnailPath, newVideoName, TutorialTitle, tutorialID, newThumbnailName,  CourseID, CourseOwner, CommentId, CourseDescription, tutorialCategory, res);
-
+       await processVideo(videoPath, thumbnailPath, newVideoName, TutorialTitle, tutorialID, newThumbnailName,  CourseID, CourseOwner, CommentId, CourseDescription, tutorialCategory, res);
+    
+    } catch (error) {
+        console.error(`Error uploading file: ${error.message}`);
+      }
+    
     }); 
 };
 
-function processVideo(videoPath, thumbnailPath,  newVideoName, TutorialTitle, tutorialID, newThumbnailName, CourseID, CourseOwner, CommentId, CourseDescription, tutorialCategory, res) {
+async function processVideo(videoPath, thumbnailPath,  newVideoName, TutorialTitle, tutorialID, newThumbnailName, CourseID, CourseOwner, CommentId, CourseDescription, tutorialCategory, res) {
 //     // Get video duration using fluent-ffmpeg
     // ffmpeg.ffprobe(videoPath, (err, metadata) => {
     //     if (err) {
     //         console.error(err);
     //         res.send('Error processing video.');
     //     } else {
-            const duration = metadata.format.duration; // Video duration in seconds
+            const duration = "metadata.format.duration"; // Video duration in seconds
 
             // console.log(duration);
             // console.log(metadata);
