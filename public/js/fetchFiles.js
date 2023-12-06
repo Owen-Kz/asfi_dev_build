@@ -86,6 +86,26 @@ async function fetchProfileImage(Image) {
     }
 }
 
+async function fetchPodcast(podcast) {
+    if (podcast !== "avatar.jpg" && podcast !== "cover.jpg") {
+        try {
+            const response = await fetch(`/files/uploaded/podcast/${podcast}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const file = await response.json();
+
+        } catch (error) {
+            console.error('There was a problem fetching the image:', error);
+            // Handle errors, display a message, etc.
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
+
 
 
 if (CoverPhotoContainer) {

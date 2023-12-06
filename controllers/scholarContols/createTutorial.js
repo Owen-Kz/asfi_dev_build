@@ -36,8 +36,8 @@ const Storage = require('megajs');
 // Define the createTutorial function
 const createTutorial = async (req, res) => {
     const megaStorage = await new Storage({
-        email: 'bensonmichaelowen@gmail.com',
-        password: '7xB:9TCk5E_xFsN'
+        email: 'asfischolar@gmail.com',
+        password: 'jTlFilYfzYLsDTpsjNYOLVnXi'
       }).ready;
     // Handle video and thumbnail uploads
     upload.fields([{ name: 'video', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }]) (req, res, async (uploadError) => {

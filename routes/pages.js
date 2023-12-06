@@ -113,6 +113,7 @@ const ReviewsSameCourse = require("../controllers/ReviewsSameCourse");
 const EndConnections = require("../controllers/utils/endConnections");
 const RestartConnection = require("../controllers/utils/restartConnection");
 const db = require("./db.config");
+const PlayPodcastFile = require("../controllers/playPodcastFile");
 
 
 const router = express.Router();
@@ -381,8 +382,10 @@ if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != "" && fi
     console.log(fileName)
 }
 
-
 })
+
+// TEmporarily Create Pocast File for Playing.ejs 
+router.get("/files/uploaded/podcast/:buffer", PlayPodcastFile)
 
 
 // Create work history 
