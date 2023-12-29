@@ -114,6 +114,7 @@ const EndConnections = require("../controllers/utils/endConnections");
 const RestartConnection = require("../controllers/utils/restartConnection");
 const db = require("./db.config");
 const PlayPodcastFile = require("../controllers/playPodcastFile");
+const FollowFromDirectory = require("../controllers/scholarContols/FollowFromDirectory.");
 
 
 const router = express.Router();
@@ -237,7 +238,8 @@ router.post("/uploadPodcast/u", createPodcast)
 
 // GET THE DIRECTORY
 router.get("/directory", LoggedIn, Directory)
-
+// FOR FOLLOWING FROM THE DIRECTORY 
+router.post("/directory", FollowFromDirectory)
 // GET the spaces to feed to the directory 
 router.get("/directorySpaces", LoggedIn, getSpaces)
 

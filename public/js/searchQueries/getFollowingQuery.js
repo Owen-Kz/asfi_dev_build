@@ -6,7 +6,26 @@ fetch("/directory/userFollows", ()=>{
 .then(res => res.json())
 .then(data =>{
 
+    for(i=0; i<5; i++){
+followingAccountsContainer.innerHTML += `<account data-index="0" id="li" data-name="" style="opacity:0.6;">
+<div class="AccountLeft">
+<a href="#">
+<div class="image_container"  style="background-color:grey;">
+<img src=""></div></a>
+<div class="details">
+<div css="name"  style="width:150px; height:20px; background-color:grey">
+</div>
+<div css="degree"  style="width:80px; height:20px; background-color:grey"></div>
+</div>
+</div>
+
+</account>
+
+`
+}
+
     if(data.followingData.length > 0){
+        followingAccountsContainer.innerHTML = ""
         data.followingData.forEach(async (following) => {
             const id = following[0].id
             const Fullname = `${following[0].first_name} ${following[0].last_name}`
@@ -39,10 +58,14 @@ fetch("/directory/userFollows", ()=>{
                 AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
             }
 
-            followingAccountsContainer.innerHTML +=`<account data-index="0${id}" id="li" data-name="${Fullname}"><a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
+            followingAccountsContainer.innerHTML +=`
+            <account data-index="0${id}" id="li" data-name="${Fullname}">
+            <div class="AccountLeft">
+            <a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
+            </div>
             </account>`
         });
     }else{

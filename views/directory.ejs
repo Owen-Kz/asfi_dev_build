@@ -27,9 +27,41 @@
     <script src="/js/colorTheme.js"></script>
 
     </head>
-<body class="main_directory_body">
 
- 
+<body class="main_directory_body">
+<input type="hidden" id="loggedUser" value="<%=user%>" readonly>
+    <style>
+        .AccountLeft{
+            display: flex;
+        }
+        account{
+
+            justify-content: space-between;
+        }
+        .followButton{
+            width: 20%;
+            display: flex;
+            padding-right: 10px;
+            justify-content: flex-end;
+            align-items: center;
+            align-self: center;
+            position: relative;
+            right: 0;
+            justify-self: center;
+        }
+        .followButton button{
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            background-color: purple;
+            color: white;
+            padding: 5px 15px 5px 15px;
+            /* width: 50px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+            </style>
 
     <!-- NAVIGATION BAR  -->
     <sidebar class="left-navigation-bar bg-shadow ">
@@ -139,7 +171,6 @@ Footer START -->
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/fetchFiles.js"></script>
-
 <script src="/js/mainjs.js"></script>
 <script src="/js/directory.js"></script>
 <!-- <script src="/js/userDirectory.js"></script> -->
@@ -149,6 +180,7 @@ Footer END -->
 <script src="/js/searchQueries/updateDiscoverUI.js"></script>
 <script src="/js/searchQueries/scholarsSearchQuery.js"></script>
 
+<!-- <script src="/js/newFollower.js"></script> -->
 
 
 <% if(accountType != "user_account") { %>
@@ -163,6 +195,8 @@ Footer END -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
-
+<script>
+    FollowingSlide.click()
+</script>
 </body>
 </html>

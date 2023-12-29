@@ -1,4 +1,5 @@
 const discoverAccountsContainer = document.getElementById("DiscoverAccounts")
+const loggedUser = document.getElementById("loggedUser")
 
 const SearchBar = document.getElementById("searchDirectory")
 SearchBar.addEventListener("keyup", function(){
@@ -22,8 +23,25 @@ fetch("/directorydiscoverAccounts", ()=>{
 })
 
 
+for(i=0; i<5; i++){
+discoverAccountsContainer.innerHTML += `
+<account data-index="0" id="li" data-name="" style="opacity:0.6;">
+<div class="AccountLeft">
+<a href="#">
+<div class="image_container"  style="background-color:grey;">
+<img src=""></div></a>
+<div class="details">
+<div css="name"  style="width:150px; height:20px; background-color:grey">
+</div>
+<div css="degree"  style="width:80px; height:20px; background-color:grey"></div>
+</div>
+</div>
+<div class="followButton"  style="height:20px; background-color:grey">
+</div>
+</account>
 
-
+`
+}
 
 async function DiscoverItems(data){
     discoverAccountsContainer.innerHTML = ""
@@ -54,9 +72,10 @@ async function DiscoverItems(data){
 
         if(ProfileImage == "avatar.jpg"){
             const ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-
+       
             discoverAccountsContainer.innerHTML +=`
             <account data-index="0${id}" id="li" data-name="${Fullname}">
+            <div class="AccountLeft">
             <a href="/@${Username}">
             <div class="image_container bg-purple-gradient">
             <img src="${ProfilePicture}"></div></a>
@@ -64,8 +83,25 @@ async function DiscoverItems(data){
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
+            </div>
+            <div class="followButton">
+
+            <form method="post" class="follow">
+            <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
+            <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
+            <button class="discoverFollowButton" value="${Username}">Follow</button>
+
+        </form> 
+   
+
+            </div>
+            
             </account>`
-            }else{
+
+            
+
+
+            }else{ 
                 fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
                     method:"GET"
                 })
@@ -82,13 +118,27 @@ async function DiscoverItems(data){
                     
                     discoverAccountsContainer.innerHTML +=`
                     <account data-index="0${id}" id="li" data-name="${Fullname}">
+                    <div class="AccountLeft">
                     <a href="/@${Username}">
                     <div class="image_container bg-purple-gradient">
                     <img src="${ProfilePicture}"></div></a>
                     <div class="details">
                     <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
                     </div>
-                    <div css="degree">${titleText}</div></div>
+                    <div class="degree">${titleText}</div></div>
+                    </div>
+
+                    <div class="followButton">
+
+                    <form method="post" class="follow">
+                    <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
+                    <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
+                    <button class="discoverFollowButton" value="${Username}">Follow</button>
+        
+                </form> 
+           
+        
+                    </div>
                     </account>`
                     // Use the fileURL to display the PDF in an iframe or link to download
                 })
@@ -101,7 +151,7 @@ async function DiscoverItems(data){
 
         
 
-         
+           
         });
 
     }else{
@@ -116,3 +166,7 @@ async function DiscoverItems(data){
       </div>`
     }
 }
+
+
+
+
