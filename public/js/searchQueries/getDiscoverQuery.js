@@ -23,7 +23,7 @@ fetch("/directorydiscoverAccounts", ()=>{
 })
 
 
-for(i=0; i<5; i++){
+for(i=0; i<10; i++){
 discoverAccountsContainer.innerHTML += `
 <account data-index="0" id="li" data-name="" style="opacity:0.6;">
 <div class="AccountLeft">
@@ -44,48 +44,62 @@ discoverAccountsContainer.innerHTML += `
 }
 
 async function DiscoverItems(data){
+    const Discover = JSON.parse(data.DiscoverData)
+
+    const sortedDiscover = [...Discover].sort((a, b) => a.first_name.localeCompare(b.first_name));
     discoverAccountsContainer.innerHTML = ""
-    if(data.DiscoverData.length > 0){
 
-        data.DiscoverData.forEach(discover => {
-            const id = discover.ID
-            const Fullname = `${discover.first_name} ${discover.last_name}`
-            const Username = `${discover.username}`
-            const ProfileImage = discover.profile_picture
-            const Title = discover.title
-            const account_Type = discover.acct_type
+        if (sortedDiscover.length > 0) {
+            for(i =0; i < sortedDiscover.length; i++){
+               
+         
+            const id = i
+            const Fullname = `${sortedDiscover[i].first_name} ${sortedDiscover[i].last_name}`
+            const Username = `${sortedDiscover[i].username}`
+            const ProfileImage = `${sortedDiscover[i].profile_picture}`
+            const Title = `${sortedDiscover[i].title}`
+            const account_Type = `${sortedDiscover[i].acct_type}`
 
-            let titleText 
-            let AccountIcon
+
+            await fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
+                method:"GET"
+            })
+            .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.blob(); // Get the response as a Blob
+              })
+              .then(blob => {
+                // Create a URL for the Blob object
+                const fileURL = URL.createObjectURL(blob);
+                const ProfilePicture = fileURL
+
+            let titleText
+    
+
+            if(Title == "N/A"){
+                titleText = "" 
+            }else{
+                titleText = Title
+            }
+            let AccountIcon = `${account_Type  == "scholar_account" ? '<i class="fas fa-check-circle text-warning me-2"></i>' : '<i class="fas fa-check-circle text-instagram-gradient me-2"></i>'}`
+            // data-index="${index}" id="li" data-name="${Fullname}"
         
-        if(Title == "N/A"){
-            titleText = ""
-        }else{
-            titleText = Title
-        }
-
-        if(account_Type == "scholar_account"){
-            AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
-        }else if(account_Type == "instructor_account"){
-            AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
-        }
-
-        if(ProfileImage == "avatar.jpg"){
-            const ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-       
             discoverAccountsContainer.innerHTML +=`
-            <account data-index="0${id}" id="li" data-name="${Fullname}">
+            <account data-index="${id}">
             <div class="AccountLeft">
             <a href="/@${Username}">
             <div class="image_container bg-purple-gradient">
-            <img src="${ProfilePicture}"></div></a>
+          <img src= ${ProfilePicture} />
+            </div></a> 
             <div class="details">
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
             </div>
-            <div css="degree">${titleText}</div></div>
+            <div class="degree">${titleText}</div></div>
             </div>
-            <div class="followButton">
 
+            <div class="followButton">
             <form method="post" class="follow">
             <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
             <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
@@ -95,64 +109,10 @@ async function DiscoverItems(data){
    
 
             </div>
+            </account>`;
             
-            </account>`
-
-            
-
-
-            }else{ 
-                fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
-                    method:"GET"
-                })
-                .then(response => {
-                    if (!response.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return response.blob(); // Get the response as a Blob
-                  })
-                  .then(blob => {
-                    // Create a URL for the Blob object
-                    const fileURL = URL.createObjectURL(blob);
-                    const ProfilePicture = fileURL
-                    
-                    discoverAccountsContainer.innerHTML +=`
-                    <account data-index="0${id}" id="li" data-name="${Fullname}">
-                    <div class="AccountLeft">
-                    <a href="/@${Username}">
-                    <div class="image_container bg-purple-gradient">
-                    <img src="${ProfilePicture}"></div></a>
-                    <div class="details">
-                    <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
-                    </div>
-                    <div class="degree">${titleText}</div></div>
-                    </div>
-
-                    <div class="followButton">
-
-                    <form method="post" class="follow">
-                    <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
-                    <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
-                    <button class="discoverFollowButton" value="${Username}">Follow</button>
-        
-                </form> 
-           
-        
-                    </div>
-                    </account>`
-                    // Use the fileURL to display the PDF in an iframe or link to download
-                })
-                .catch(error => {
-                  console.error('There was a problem fetching the image:', error);
-                  // Handle errors, display a message, etc.
-                });
-          
-            }
-
-        
-
-           
         });
+    }
 
     }else{
         discoverAccountsContainer.innerHTML = `<div class="no_content_message" style='width:70%'>

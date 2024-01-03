@@ -5,7 +5,7 @@ function updateDiscoverUI(scholarArray){
     discoverAccountsContainer.innerHTML = ""
     FollowingSlide.click()
     if(scholarArray.length > 0){
-        scholarArray.forEach(discover => {
+        scholarArray.forEach(async (discover,index) => {
             const id = discover.ID
             const Fullname = `${discover.first_name} ${discover.last_name}`
             const Username = `${discover.username}`
@@ -14,66 +14,49 @@ function updateDiscoverUI(scholarArray){
             const account_Type = discover.acct_type
 
             let ProfilePicture 
-            let titleText 
-            let AccountIcon
+            
+
+            if(ProfileImage == "avatar.jpg"){
+                ProfilePicture = await fetchProfileImage("dummy.jpg")
+            }else{
+                ProfilePicture = await fetchProfileImage(ProfileImage)
+            }
+
+            let titleText
+            
 
             if(Title == "N/A"){
                 titleText = ""
             }else{
                 titleText = Title
             }
-    
-            if(account_Type == "scholar_account"){
-                AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
-            }else if(account_Type == "instructor_account"){
-                AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
-            }
-    
-            if(ProfileImage == "avatar.jpg"){
-                const ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-    
-                discoverAccountsContainer.innerHTML +=`
-                <account data-index="0${id}" id="li" data-name="${Fullname}">
-                <a href="/@${Username}">
-                <div class="image_container bg-purple-gradient">
-                <img src="${ProfilePicture}"></div></a>
-                <div class="details">
-                <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
-                </div>
-                <div css="degree">${titleText}</div></div>
-                </account>`
-                }else{
-                    fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
-                        method:"GET"
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                          throw new Error('Network response was not ok');
-                        }
-                        return response.blob(); // Get the response as a Blob
-                      })
-                      .then(blob => {
-                        // Create a URL for the Blob object
-                        const fileURL = URL.createObjectURL(blob);
-                        const ProfilePicture = fileURL
-                        
-                        discoverAccountsContainer.innerHTML +=`
-                        <account data-index="0${id}" id="li" data-name="${Fullname}">
-                        <a href="/@${Username}">
-                        <div class="image_container bg-purple-gradient">
-                        <img src="${ProfilePicture}"></div></a>
-                        <div class="details">
-                        <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
-                        </div>
-                        <div css="degree">${titleText}</div></div>
-                        </account>`
-                        // Use the fileURL to display the PDF in an iframe or link to download
-                    })
-                    .catch(error => {
-                      console.error('There was a problem fetching the image:', error);
-                      // Handle errors, display a message, etc.
-                    });
-                }
+            let AccountIcon = `${account_Type  == "scholar_account" ? '<i class="fas fa-check-circle text-warning me-2"></i>' : '<i class="fas fa-check-circle text-instagram-gradient me-2"></i>'}`
+            // data-index="${index}" id="li" data-name="${Fullname}"
+            discoverAccountsContainer.innerHTML +=`
+            <account data-index="${index}">
+            <div class="AccountLeft">
+            <a href="/@${Username}">
+            <div class="image_container bg-purple-gradient">
+            <img src="${ProfilePicture}"></div></a>
+            <div class="details">
+            <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
+            </div>
+            <div class="degree">${titleText}</div></div>
+            </div>
+
+            <div class="followButton">
+
+            <form method="post" class="follow">
+            <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
+            <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
+            <button class="discoverFollowButton" value="${Username}">Follow</button>
+
+        </form> 
+   
+
+            </div>
+            </account>`
+
         });
     }else{
         discoverAccountsContainer.innerHTML = `<div class="no_content_message" style='width:70%'>

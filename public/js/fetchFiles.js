@@ -67,7 +67,7 @@ fetch(`/files/uploaded/images/${ProfilePhoto.value}`, ()=>{
 
 
 async function fetchProfileImage(Image) {
-    if (Image !== "avatar.jpg" && Image !== "cover.jpg") {
+    if (Image !== "cover.jpg") {
         try {
             const response = await fetch(`/files/uploaded/images/${Image}`);
             if (!response.ok) {

@@ -3,7 +3,6 @@ var searchButton = document.querySelector(".fa-search")
 let Scholar_Data = []
 let Scholar_SEARCH_ARRAY = []
 
-
 function removeExisitng() {
     Scholar_Data = []
     Scholar_SEARCH_ARRAY = []

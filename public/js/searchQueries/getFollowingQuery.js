@@ -23,35 +23,41 @@ followingAccountsContainer.innerHTML += `<account data-index="0" id="li" data-na
 
 `
 }
+followingAccountsContainer.innerHTML = ""
+ 
+    if(JSON.parse(data.followingData).length > 0){ 
 
-    if(data.followingData.length > 0){
-        followingAccountsContainer.innerHTML = ""
-        data.followingData.forEach(async (following) => {
-            const id = following[0].id
+        JSON.parse(data.followingData).forEach(async (following, index) => {
+            const id = index
             const Fullname = `${following[0].first_name} ${following[0].last_name}`
             const Username = `${following[0].username}`
             const ProfileImage = following[0].profile_picture
             const Title = following[0].title
             const account_Type = following[0].acct_type
 
-            let ProfilePicture 
+            let ProfilePicture = `${await fetchProfileImage(ProfileImage)}`
+
+            if(ProfileImage == "avatar.jpg"){
+                ProfilePicture = await fetchProfileImage("dummy.jpg")
+            }else{
+                ProfilePicture = await fetchProfileImage(ProfileImage)
+            }
             let titleText 
             let AccountIcon
 
 
-            if(ProfileImage == "avatar.jpg"){
-            ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-            }else{
-            ProfilePicture = await fetchProfileImage(ProfileImage)
-             
-            }
+
+            // if(ProfileImage == "avatar.jpg" ? ProfilePicture : "aaf" | "tetet" ){
+            // ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
+            // }else{
+            // ProfilePicture = await fetchProfileImage(ProfileImage)
+            // }
 
             if(Title == "N/A"){ 
                 titleText = ""
             }else{
                 titleText = Title
             }
-
             if(account_Type == "scholar_account"){
                 AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
             }else if(account_Type == "instructor_account"){
@@ -65,7 +71,7 @@ followingAccountsContainer.innerHTML += `<account data-index="0" id="li" data-na
             <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
-            </div>
+            </div> 
             </account>`
         });
     }else{

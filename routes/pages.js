@@ -353,14 +353,14 @@ router.get("/settings", LoggedIn, ProfileSettings)
 // GET PROFILE IMAGES 
 router.get("/files/uploaded/images/:filename", async (req,res)=>{
     const fileName = req.params.filename;
-if(fileName != "avatar.jpg" && fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
+if(fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
 
     db.query("SELECT * FROM files WHERE filename =?", [fileName], async(err,data)=>{
         if(err) throw err
         if(data[0]){
 
     const query = 'SELECT * FROM files WHERE filename = ?';
-    const values = [fileName];
+    const values = [fileName]; 
   
     try {        
       db.query(query, values, async(err,result)=>{

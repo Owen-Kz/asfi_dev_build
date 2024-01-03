@@ -155,9 +155,8 @@ function onConnected(socket) {
     });
 
   });
-  
- 
 
+ 
   // SOCKET IO CODE FOR THE VIDEO CONFERENCING
   socket.on('join-vc', (roomId_vc, userId_vc) => {
     socket.join(roomId_vc);

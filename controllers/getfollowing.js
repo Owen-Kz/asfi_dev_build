@@ -11,7 +11,7 @@ const getFollowing = async (req, res) => {
         const userPromises = followingData.map((userFollowed) => {
           const userFollowedUsername = userFollowed.followingUsername;
           return new Promise((resolve, reject) => {
-            db.query("SELECT * FROM user_info WHERE username =?", [userFollowedUsername], (err, userData) => {
+            db.query("SELECT * FROM user_info WHERE username =? ORDER BY first_name", [userFollowedUsername], (err, userData) => {
               if (err) reject(err);
               resolve(userData);
             });
@@ -23,7 +23,7 @@ const getFollowing = async (req, res) => {
           .then((userDataArray) => {
             FollowedUsers = []
             FollowedUsers.push(...userDataArray);
-            res.json({ message: "userFollowsSome", followingData: FollowedUsers });
+            res.json({ message: "userFollowsSome", followingData: JSON.stringify(FollowedUsers) });
           })
           .catch((err) => {
             // Handle errors here
@@ -31,7 +31,7 @@ const getFollowing = async (req, res) => {
             res.status(500).json({ message: "An error occurred" });
           });
       } else {
-        res.json({ message: "noFollowing", followingData: [] });
+        res.json({ message: "noFollowing", followingData: "[]" });
       }
     });
   }
