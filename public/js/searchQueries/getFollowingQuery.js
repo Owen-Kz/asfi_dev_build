@@ -77,9 +77,9 @@ if(pageCountContainerFollowing){
             paginationHTMLFollowing += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
           } else {
             paginationHTMLFollowing += `<li class="page-item mb-0"><a class="page-link" onClick="FindFollowingAccounts(${i})">  ${i}  </a></li>`;
-            paginationHTMLFollowing += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${SortNextFollowing})">... </a></li>`;
           }
         }
+        paginationHTMLFollowing += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${SortNextFollowing})">... </a></li>`;
       }else{
         for (let i = 1; i <= totalPagesFollowing; i++) {
           if (i === currentPageFollowing) {
@@ -95,7 +95,15 @@ if(pageCountContainerFollowing){
         } else {
           // paginationHTMLFollowing += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
         }
+
+        // if(totalPagesFollowing > 10){
+        //   for (let i = 1; i <= 8; i++) {
+        //     let SortNextFollowing = Math.floor(new Number(currentPageFollowing) + 8)
+
       
+        //   }
+        // }
+
         paginationHTMLFollowing += `</ul>
         </nav>
        `;
