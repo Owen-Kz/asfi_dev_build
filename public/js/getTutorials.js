@@ -7,7 +7,7 @@ const maxLength = 50; // Maximum number of characters
 // COnvert Video Duration to minutes 
 function ConvertToMinutes(secondsProvided, ParentElement){
     // Define the total seconds
-var totalSeconds = secondsProvided;
+var totalSeconds = secondsProvided; 
 
 // Calculate hours, minutes, and seconds
 var hours = Math.floor(totalSeconds / 3600);

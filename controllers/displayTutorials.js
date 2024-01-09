@@ -15,7 +15,7 @@ let pagetutorials = req.query.page || 1;
 const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials; 
         const username_new = req.user.username;
         const userData = []
-        if (username_new) {
+        if (username_new) { 
             db.query("SELECT * FROM user_info WHERE username = ?",[username_new],async(err,user)=>{
                 if(err) throw err
                 if(user[0]){

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>ADMIN Scholars List</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Weperch Technologies">
+	<meta name="description" content="ASFIScholar ADMIN">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/images/favicon.png">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/aos/aos.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	
+<!-- Sidebar START -->
+<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+	<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+	
+	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+			<!-- Sidebar menu START -->
+			<%- include("adminNavigation.ejs") %>
+			<!-- Sidebar menu end -->
+
+			<!-- Sidebar footer START -->
+			<div class="px-3 mt-auto pt-3">
+				<div class="d-flex align-items-center justify-content-between text-primary-hover">
+						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+							<i class="bi bi-gear-fill"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href=" " data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+							<i class="bi bi-globe"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+							<i class="bi bi-power"></i>
+						</a>
+				</div>
+			</div>
+			<!-- Sidebar footer END -->
+			
+		</div>
+	</div>
+</nav>
+<!-- Sidebar END -->
+
+<!-- Page content START -->
+<div class="page-content">
+
+	<!-- Top bar START -->
+	<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
+		<div class="container-fluid p-0">
+			<div class="d-flex align-items-center w-100">
+
+				<!-- Logo START -->
+				<div class="d-flex align-items-center d-xl-none">
+					<a class="navbar-brand" href=" ">
+						<img class="light-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+					</a>
+				</div>
+				<!-- Logo END -->
+
+				<!-- Toggler for sidebar START -->
+				<div class="navbar-expand-xl sidebar-offcanvas-menu">
+					<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
+						<i class="bi bi-text-right fa-fw h2 lh-0 mb-0 rtl-flip" data-bs-target="#offcanvasMenu"> </i>
+					</button>
+				</div>
+				<!-- Toggler for sidebar END -->
+				
+				<!-- Top bar left -->
+				<div class="navbar-expand-lg ms-auto ms-xl-0">
+					
+					<!-- Toggler for menubar START -->
+					<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopContent" aria-controls="navbarTopContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+					<!-- Toggler for menubar END -->
+
+					<!-- Topbar menu START -->
+					<div class="collapse navbar-collapse w-100" id="navbarTopContent">
+						<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+					</div>
+					<!-- Topbar menu END -->
+				</div>
+				<!-- Top bar left END -->
+				
+				<!-- Top bar right START -->
+				<div class="ms-xl-auto">
+					<%- include("TopBar.ejs") %>
+				</div>
+				<!-- Top bar right END -->
+			</div>
+		</div>
+	</nav>
+	<!-- Top bar END -->
+
+	<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+
+		<!-- Title -->
+		<div class="row">
+			<div class="col-12">
+				<h1 class="h3 mb-2 mb-sm-0">Scholars</h1>
+			</div>
+		</div>
+			
+		<div class="card bg-transparent">
+
+			<!-- Card header START -->
+			<div class="card-header bg-transparent border-bottom px-0">
+				<!-- Search and select START -->
+				<div class="row g-3 align-items-center justify-content-between">
+
+					<!-- Search bar -->
+					<div class="col-md-8">
+						<form class="rounded position-relative" id="searchScholarsForm">
+							<input class="form-control bg-transparent" type="search" placeholder="Search" aria-label="Search" id="searchScholarsQuery">
+							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+						</form>
+					</div>
+
+					<!-- Tab button -->
+					<div class="col-md-3">
+						<!-- Tabs START -->
+						<ul class="list-inline mb-0 nav nav-pills nav-pill-dark-soft border-0 justify-content-end" id="pills-tab" role="tablist">
+							<!-- Grid tab -->
+							<li class="nav-item">
+								<a href="#nav-preview-tab-1" class="nav-link mb-0 me-2 active" data-bs-toggle="tab">
+									<i class="fas fa-fw fa-th-large"></i>
+								</a>
+							</li>
+							<!-- List tab -->
+							<li class="nav-item">
+								<a href="#nav-html-tab-1" class="nav-link mb-0" data-bs-toggle="tab">
+									<i class="fas fa-fw fa-list-ul"></i>
+								</a>
+							</li>
+						</ul>
+						<!-- Tabs end -->
+					</div>
+				</div>
+				<!-- Search and select END -->
+			</div>
+			<!-- Card header END -->
+
+			<!-- Card body START -->
+			<div class="card-body px-0">
+
+				<!-- Tabs content START -->
+				<div class="tab-content">
+
+					<!-- Tabs content item START -->
+					<div class="tab-pane fade show active" id="nav-preview-tab-1">
+						<div class="row g-4" id="ScholarListContainer">
+
+							<!-- Card item START -->
+							
+							<!-- Card item END -->
+
+							
+						</div>
+					</div>
+					<!-- Tabs content item END -->
+
+					<!-- Tabs content item START -->
+					<div class="tab-pane fade" id="nav-html-tab-1">
+						<div class="table-responsive border-0">
+							<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Scholar name</th>
+										<th scope="col" class="border-0">Courses</th>
+										<th scope="col" class="border-0">Resources</th>
+										<th scope="col" class="border-0 rounded-end">Action</th>
+									</tr>
+								</thead>
+
+								<!-- Table body START -->
+								<tbody id="tableScholarList">
+
+									
+
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
+					</div>
+					<!-- Tabs content item END -->
+
+				</div>
+				<!-- Tabs content END -->
+			</div>
+			<!-- Card body END -->
+
+			<!-- Card footer START -->
+			<div class="card-footer bg-transparent pt-0 px-0">
+				<!-- Pagination START -->
+				<div id="pageCountContainer"></div>				
+				<div class="d-sm-flex justify-content-sm-between align-items-sm-center" id="footer_container">
+				</div>
+
+				<!-- Pagination END -->
+			</div>
+			<!-- Card footer END -->
+		</div>
+	</div>
+	<!-- Page main content END -->
+
+</div>
+<!-- Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Remove Modal START -->
+<div class="modal fade" id="removeScholar" tabindex="-1" aria-labelledby="removeScholarlabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="removeScholarlabel">Remove Scholar</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body p-5">
+				<form action="">
+				<!-- Name -->
+				<span class="small">Scholar Name:</span>
+				<h6 class="mb-3">John Doe</h6>
+
+				<!-- Email -->
+				<span class="small">Scholar Email id:</span>
+				<h6 class="mb-3">example@gmail.com</h6>
+
+				<!-- Summary -->
+				<span class="small">NOTE:</span>
+				<p class="text-dark mb-2">Completing this process will remove this scholar from the ASFIScholar platform</p>
+				<button type="button" class="btn btn-danger-soft my-0">Remove</button>
+			</form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>   
+<!--Remove Modal END -->
+
+<!-- Block Modal START -->
+<div class="modal fade" id="blockScholar" tabindex="-1" aria-labelledby="blockScholarlabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="blockScholarlabel">Block Scholar</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body p-5" id="block_modal">
+				
+		</div>
+	</div>
+</div>   
+<!--Block Modal END -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/assets/vendor/aos/aos.js"></script>
+<script src="/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js"></script>
+<script src="/js/paginationScript.js"></script>
+<script src="/js/formatDate.js"></script>
+<script src="/js/scholars/blockScholar.js"></script>
+<script src="/js/scholars/updateScholarsList.js"></script>
+<script src="/js/scholars/getAllScholars.js"></script>
+
+
+<!-- Template Functions -->
+<script src="/assets/js/functions.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<title>ADMIN Course Detail</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Weperch Technologies">
+	<meta name="description" content="ASFIScholar ADMIN">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/images/favicon.png">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/choices/css/choices.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/apexcharts/css/apexcharts.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+</head>
+
+<body>
+<input type="hidden" id="course_details" value="<%=CourseID%>" readonly>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	
+<!-- Sidebar START -->
+<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+	<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+	
+	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+			<!-- Sidebar menu START -->
+			<%- include("adminNavigation.ejs") %>
+			<!-- Sidebar menu end -->
+
+
+			<!-- Sidebar footer START -->
+			<div class="px-3 mt-auto pt-3">
+				<div class="d-flex align-items-center justify-content-between text-primary-hover">
+						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+							<i class="bi bi-gear-fill"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href=" " data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+							<i class="bi bi-globe"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+							<i class="bi bi-power"></i>
+						</a>
+				</div>
+			</div>
+			<!-- Sidebar footer END -->
+			
+		</div>
+	</div>
+</nav>
+<!-- Sidebar END -->
+
+<!-- Page content START -->
+<div class="page-content">
+
+	<!-- Top bar START -->
+	<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
+		<div class="container-fluid p-0">
+			<div class="d-flex align-items-center w-100">
+
+				<!-- Logo START -->
+				<div class="d-flex align-items-center d-xl-none">
+					<a class="navbar-brand" href=" ">
+						<img class="light-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+					</a>
+				</div>
+				<!-- Logo END -->
+
+				<!-- Toggler for sidebar START -->
+				<div class="navbar-expand-xl sidebar-offcanvas-menu">
+					<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
+						<i class="bi bi-text-right fa-fw h2 lh-0 mb-0 rtl-flip" data-bs-target="#offcanvasMenu"> </i>
+					</button>
+				</div>
+				<!-- Toggler for sidebar END -->
+				
+				<!-- Top bar left -->
+				<div class="navbar-expand-lg ms-auto ms-xl-0">
+					
+					<!-- Toggler for menubar START -->
+					<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopContent" aria-controls="navbarTopContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+					<!-- Toggler for menubar END -->
+
+					<!-- Topbar menu START -->
+					<div class="collapse navbar-collapse w-100" id="navbarTopContent">
+						<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+					</div>
+					<!-- Topbar menu END -->
+				</div>
+				<!-- Top bar left END -->
+				
+				<!-- Top bar right START -->
+				<div class="ms-xl-auto">
+					<%- include("TopBar.ejs") %>
+				</div>
+				<!-- Top bar right END -->
+			</div>
+		</div>
+	</nav>
+	<!-- Top bar END -->
+
+	<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+
+		<!-- Title -->
+		<div class="row mb-3">
+			<div class="col-12 d-sm-flex justify-content-between align-items-center">
+				<h1 class="h3 mb-2 mb-sm-0">Course Details</h1>
+				<a href="/admin/courses/edit" class="btn btn-sm btn-primary mb-0">Edit Course</a>
+			</div>
+		</div>
+				
+		<div class="row g-4">
+
+			<!-- Course information START -->
+			<div class="col-xxl-6">
+				<div class="card bg-transparent border rounded-3 h-100">
+
+					<!-- Catd header -->
+					<div class="card-header bg-light border-bottom">
+						<h5 class="card-header-title" id="course_title"></h5>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body">
+
+						<!-- Course image and info START -->
+						<div class="row g-4">
+							<!-- Course image -->
+							<div class="col-md-6">
+								<img src="/assets/images/courses/4by3/01.jpg" class="rounded" alt="">
+							</div>
+							<!-- Course info and avatar -->
+							<div class="col-md-6">
+								<!-- Info -->
+								<p class="mb-3" id="course_description"></p>
+
+								
+								<!-- Avatar -->
+								<div class="d-sm-flex align-items-center">
+									<!-- Avatar image -->
+									<div class="avatar avatar-md">
+										<img class="avatar-img rounded-circle" alt="avatar" id="owner_profile_picture">
+									</div>
+									<div class="ms-sm-3 mt-2 mt-sm-0">
+										<h6 class="mb-0"><a href="#" id="course_owner_fullname"></a></h6>
+										<p class="mb-0 small" id="course_owner_title"></p>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						<!-- Course image and info END -->
+
+						<!-- Information START -->
+						<div class="row mt-3">
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+									<!-- <li class="list-group-item">
+										<span>release date:</span>
+										<span class="h6 mb-0">29 Aug 2020</span>
+									</li> -->
+
+									<li class="list-group-item">
+										<span>Total Hour:</span>
+										<span class="h6 mb-0" id="course_duration"></span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Total Enrolled:</span>
+										<span class="h6 mb-0" id="total_students"></span>
+									</li>
+									<li class="list-group-item">
+										<span>Level:</span>
+										<span class="h6 mb-0"id="course_level">All level</span>
+									</li>
+
+									<!-- <li class="list-group-item">
+										<span>Certificate:</span>
+										<span class="h6 mb-0">Yes</span>
+									</li> -->
+								</ul>
+							</div>
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+
+									<li class="list-group-item">
+										<span>Total Lecture:</span>
+										<span class="h6 mb-0" id="total_lectures">0</span>
+									</li>
+
+									<!-- <li class="list-group-item">
+										<span>Language:</span>
+										<span class="h6 mb-0">English</span>
+									</li> -->
+
+									<li class="list-group-item">
+										<span>Reviews:</span>
+										<span class="h6 mb-0">4.5<i class="fas fa-star text-warning ms-1"></i></span>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+						<!-- Information END -->
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Course information END -->
+
+			
+			<!-- Student review START -->
+			<div class="col-12">
+				<div class="card bg-transparent border">
+
+					<!-- Card header START -->
+					<div class="card-header bg-light border-bottom">
+						<h5 class="mb-0">Scholars all Reviews</h5>
+					</div>
+					<!-- Card header END -->
+		
+					<!-- Card body START -->
+					<div class="card-body pb-0">
+						<!-- Table START -->
+						<div class="table-responsive border-0">
+							<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Scholar Name</th>
+										<th scope="col" class="border-0">Date</th>
+										<th scope="col" class="border-0">Rating</th>
+										<th scope="col" class="border-0 rounded-end">Action</th>
+									</tr>
+								</thead>
+		
+								<!-- Table body START -->
+								<tbody id="course_reviews_container">
+									<!-- Table row -->
+									<tr>
+								
+		
+									
+		
+									<td>Loading......</td>
+									</tr>
+		
+									
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
+						<!-- Table END -->
+					</div>
+					<!-- Card body END -->
+		
+					<!-- Card footer START -->
+					<div class="card-footer bg-transparent" id="footer_container">
+						<!-- Pagination START -->
+					<div id="pageCountContainer"></div>
+						<!-- Pagination END -->
+					</div>
+					<!-- Card footer END -->
+				</div>
+			</div>
+			<!-- Student review END -->
+
+		</div> <!-- Row END -->
+	</div>
+	<!-- Page main content END -->
+
+</div>
+<!-- Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Popup modal for reviwe START -->
+<div class="modal fade" id="viewReview" tabindex="-1" aria-labelledby="viewReviewLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="viewReviewLabel">Review</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body" id="viewReviewModalBody">
+				
+			
+		</div>
+	</div>
+</div>
+<!-- Popup modal for reviwe END --> 
+
+<!-- Delete Modal START -->
+<div class="modal fade" id="deleteReview" tabindex="-1" aria-labelledby="deleteReviewlabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="deleteReviewlabel">Delete Review</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body p-5">
+				<form action="">
+					<div class="d-md-flex">
+						<!-- Avatar -->
+						<div class="avatar avatar-md me-4 flex-shrink-0">
+							<img class="avatar-img rounded-circle" src="/assets/images/avatar/09.jpg" alt="avatar">
+						</div>
+						<!-- Text -->
+						<div>
+							<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+								<h5 class="me-3 mb-0">Lori Stevens</h5>
+								<!-- Review star -->
+								<ul class="list-inline mb-0">
+									<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+									<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+									<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+									<li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+									<li class="list-inline-item me-0"><i class="far fa-star text-warning"></i></li>
+								</ul>
+							</div>
+							<!-- Info -->
+							<p class="small mb-2">2 days ago</p>
+							<p class="mb-2">Handsome met debating sir dwelling age material. As style lived he worse dried. Offered related so visitors we private removed. Moderate do subjects to distance. </p>
+							<p class="mb-2">As style lived he worse dried. Offered related so visitors we private removed. Moderate do subjects to distance. </p>
+						</div>	
+					</div>
+				<!-- Summary -->
+				<span class="small">NOTE:</span>
+				<p class="text-dark mb-2">Completing this process will delete this review from the ASFIScholar platform</p>
+				<button type="button" class="btn btn-danger-soft my-0">Delete</button>
+			</form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>   
+<!--Delete Modal END -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/assets/vendor/choices/js/choices.min.js"></script>
+<script src="/assets/vendor/apexcharts/js/apexcharts.min.js"></script>
+<script src="/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js"></script>
+<script src="/js/formatDate.js"></script>
+<script src="/js/ratingsStarCount.js"></script>
+<script src="/js/paginationScript.js"></script>
+<script src="/js/getCourseDetails.js"></script>
+<!-- Template Functions -->
+<script src="/assets/js/functions.js"></script>
+
+</body>
+
+</html>

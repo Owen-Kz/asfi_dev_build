@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Admin Scholar Detail</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Weperch Technologies">
+	<meta name="description" content="ASFIScholar ADMIN">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/images/favicon.png">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/choices/css/choices.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/apexcharts/css/apexcharts.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	
+<!-- Sidebar START -->
+<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+	<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+	
+	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+			<!-- Sidebar menu START -->
+			<%- include("adminNavigation.ejs") %>
+			<!-- Sidebar menu end -->
+
+			<!-- Sidebar footer START -->
+			<div class="px-3 mt-auto pt-3">
+				<div class="d-flex align-items-center justify-content-between text-primary-hover">
+						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+							<i class="bi bi-gear-fill"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href=" " data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+							<i class="bi bi-globe"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+							<i class="bi bi-power"></i>
+						</a>
+				</div>
+			</div>
+			<!-- Sidebar footer END -->
+			
+		</div>
+	</div>
+</nav>
+<!-- Sidebar END -->
+
+<!-- Page content START -->
+<div class="page-content">
+
+	<!-- Top bar START -->
+	<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
+		<div class="container-fluid p-0">
+			<div class="d-flex align-items-center w-100">
+
+				<!-- Logo START -->
+				<div class="d-flex align-items-center d-xl-none">
+					<a class="navbar-brand" href=" ">
+						<img class="light-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+					</a>
+				</div>
+				<!-- Logo END -->
+
+				<!-- Toggler for sidebar START -->
+				<div class="navbar-expand-xl sidebar-offcanvas-menu">
+					<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
+						<i class="bi bi-text-right fa-fw h2 lh-0 mb-0 rtl-flip" data-bs-target="#offcanvasMenu"> </i>
+					</button>
+				</div>
+				<!-- Toggler for sidebar END -->
+				
+				<!-- Top bar left -->
+				<div class="navbar-expand-lg ms-auto ms-xl-0">
+					
+					<!-- Toggler for menubar START -->
+					<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopContent" aria-controls="navbarTopContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+					<!-- Toggler for menubar END -->
+
+					<!-- Topbar menu START -->
+					<div class="collapse navbar-collapse w-100" id="navbarTopContent">
+						<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+					</div>
+					<!-- Topbar menu END -->
+				</div>
+				<!-- Top bar left END -->
+				
+				<!-- Top bar right START -->
+				<div class="ms-xl-auto">
+					<%- include("TopBar.ejs") %>
+				</div>
+				<!-- Top bar right END -->
+			</div>
+		</div>
+	</nav>
+	<!-- Top bar END -->
+
+	<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+
+		<!-- Title -->
+		<div class="row">
+			<div class="col-12 mb-3">
+				<h1 class="h3 mb-2 mb-sm-0">Scholar detail</h1>
+			</div>
+		</div>
+				
+		<div class="row g-4">
+
+			<!-- Personal information START -->
+			<div class="col-xxl-7">
+				<div class="card bg-transparent border rounded-3 h-100">
+
+					<!-- Card header -->
+					<div class="card-header bg-light border-bottom">
+						<h5 class="card-header-title mb-0">Personal Information</h5>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body">
+						<!-- Profile picture -->
+						<div class="avatar avatar-xl mb-3">
+							<% if(profile_picture == "avatar.jpg") { %>
+							<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&amp;name=<%=fullname%>&amp;font-size=0.6" alt="">
+							<%} else {%>
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/<%=profile_picture%>" alt="">
+							<%}%>
+						</div>
+
+						<!-- Information START -->
+						<div class="row">
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+									<li class="list-group-item">
+										<span>Title:</span>
+										<span class="h6 mb-0"><%=prefix%></span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Full Name:</span>
+										<span class="h6 mb-0"><%=fullname%></span>
+									</li>
+
+									<li class="list-group-item">
+										<span>User Name:</span>
+										<span class="h6 mb-0" id="username_container"><%=username%></span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Mobile Number:</span>
+										<span class="h6 mb-0"><%=phonenumber%></span>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+									<li class="list-group-item">
+										<span>Email ID:</span>
+										<span class="h6 mb-0"><%=email%></span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Location:</span>
+										<span class="h6 mb-0"><%=location%></span>
+									</li>
+<!-- 
+									<li class="list-group-item">
+										<span>Joining Date:</span>
+										<span class="h6 mb-0">29 Aug 2019</span>
+									</li> -->
+								</ul>
+							</div>
+
+							<!-- Information item -->
+							<div class="col-12">
+								<ul class="list-group list-group-borderless">
+									<li class="list-group-item" id="degrees_container">
+										<span>Education:</span>
+									
+									</li>
+								</ul>
+							</div>
+
+							<!-- Information item -->
+							<div class="col-12">
+								<ul class="list-group list-group-borderless">
+									<li class="list-group-item d-flex">
+										<span>Description:</span>
+										<p class="h6 mb-0"><%=Bio%></p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- Information END -->
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Personal information END -->
+
+			
+		
+			<!-- Resources list START -->
+			<div class="col-12">
+				<div class="card bg-transparent border h-100">
+
+					<!-- Card header -->
+					<div class="card-header bg-light border-bottom">
+						<h5 class="mb-0">Uploaded Resources</h5>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body pb-0">
+						<!-- Table START -->
+						<div class="table-responsive border-0">
+							<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Resource Title</th>
+										<th scope="col" class="border-0">type</th>
+										<th scope="col" class="border-0">Status</th>
+										<th scope="col" class="border-0 rounded-end">Action</th>
+									</tr>
+								</thead>
+
+								<!-- Table body START -->
+								<tbody id="userResourceContainer">
+																		
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
+						<!-- Table END -->
+					</div>
+					<!-- Card body END -->
+
+					<!-- Card footer START -->
+					<div class="card-footer bg-transparent">
+						<!-- Pagination START -->
+						<div id="paginationContainer"></div>
+						<div id="footer_container"></div>
+						<!-- Pagination END -->
+					</div>
+					<!-- Card footer END -->
+				</div>
+			</div>
+			<!-- Resources list END -->
+
+			
+		</div> <!-- Row END -->
+	</div>
+	<!-- Page main content END -->
+
+</div>
+<!-- Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Modal START -->
+<div class="modal fade" id="appDetail" tabindex="-1" aria-labelledby="appDetaillabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="appDetaillabel">Resource details</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body p-5">
+				<!-- Name -->
+				<span class="small">Title:</span>
+				<h6 class="mb-3">Lorem...</h6>
+
+				<!-- Email -->
+				<span class="small">File:</span>
+				<h6 class="mb-3">File goes here...</h6>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>   
+<!-- Modal END -->
+
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/assets/vendor/choices/js/choices.min.js"></script>
+<script src="/assets/vendor/apexcharts/js/apexcharts.min.js"></script>
+<script src="/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js"></script>
+
+<!-- Template Functions -->
+<script src="/assets/js/functions.js"></script>
+<script src="/js/scholars/getScholarDegrees.js"></script>
+
+</body>
+
+</html>

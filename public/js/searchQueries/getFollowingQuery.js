@@ -1,10 +1,33 @@
 const followingAccountsContainer = document.getElementById("FollowingAccounts")
+const footerContainerFollowing = document.getElementById("footerContainerFollowing")
 
-fetch("/directory/userFollows", ()=>{
+
+// const SearchBar = document.getElementById("searchDirectory")
+// SearchBar.addEventListener("keyup", function(){
+//     if(SearchBar.value ==""){
+//    FindFollowingAccounts(1)
+//     }
+// })
+
+function FindFollowingAccounts(page){
+fetch(`/directory/userFollows/${page}`, ()=>{
     method:"GET"
 })
 .then(res => res.json())
 .then(data =>{
+    const totalPagesFollowing = data.totalPagesFollowing
+    const currentPageFollowing = data.currentPageFollowing
+    const prevPageFollowing = Math.floor(parseInt(currentPageFollowing) - 1)
+    const NexxtPageFollowing = Math.floor(parseInt(currentPageFollowing) + 1)
+
+
+    if(totalPagesFollowing > 0){
+        // Update the pagination UI
+        if(footerContainerFollowing){
+       const paginationHTMLFollowing = PaginationFollowing(currentPageFollowing, totalPagesFollowing, prevPageFollowing, NexxtPageFollowing);
+       footerContainerFollowing.innerHTML = paginationHTMLFollowing;
+        }
+    }
 
     for(i=0; i<5; i++){
 followingAccountsContainer.innerHTML += `<account data-index="0" id="li" data-name="" style="opacity:0.6;">
@@ -23,6 +46,54 @@ followingAccountsContainer.innerHTML += `<account data-index="0" id="li" data-na
 
 `
 }
+
+
+function PaginationFollowing(currentPageFollowing, totalPagesFollowing, prevPageFollowing, NexxtPageFollowing){
+    const pageCountContainerFollowing = document.getElementById("pageCountContainerFollowing")
+  
+if(pageCountContainerFollowing){
+       
+        pageCountContainerFollowing.innerHTML = ` <p class="mb-0 text-center text-sm-start">Page ${currentPageFollowing} of ${totalPagesFollowing}</p>`;
+
+        let paginationHTMLFollowing = `
+        <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+        <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+
+        <!-- Pagination -->
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0" id="footer_list">`;
+      
+        if (currentPageFollowing > 1) {
+            paginationHTMLFollowing +=  `<li class="page-item mb-0">
+            <a class="page-link" onClick="FindFollowingAccounts(${prevPageFollowing})" tabindex="-1" id="prevTutorialPage">
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+          </li>`
+        }
+      
+        for (let i = 1; i <= totalPagesFollowing; i++) {
+          if (i === currentPageFollowing) {
+            paginationHTMLFollowing += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
+          } else {
+            paginationHTMLFollowing += `<li class="page-item mb-0"><a class="page-link" onClick="FindFollowingAccounts(${i})">  ${i}  </a></li>`;
+          }
+        }
+      
+        if (currentPageFollowing < totalPagesFollowing) {
+          paginationHTMLFollowing += `<li class="page-item mb-0"><a class="page-link" onClick="FindFollowingAccounts(${NexxtPageFollowing})"><i class="fas fa-angle-right"></i></a></li>`;
+        } else {
+          // paginationHTMLFollowing += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
+        }
+      
+        paginationHTMLFollowing += `</ul>
+        </nav>
+       `;
+      
+        return paginationHTMLFollowing;
+}
+}
+
+
 followingAccountsContainer.innerHTML = ""
  
     if(JSON.parse(data.followingData).length > 0){ 
@@ -35,23 +106,29 @@ followingAccountsContainer.innerHTML = ""
             const Title = following[0].title
             const account_Type = following[0].acct_type
 
-            let ProfilePicture = `${await fetchProfileImage(ProfileImage)}`
+            let ProfilePicture
 
             if(ProfileImage == "avatar.jpg"){
-                ProfilePicture = await fetchProfileImage("dummy.jpg")
+                ProfilePicture = "dummy.jpg"
             }else{
-                ProfilePicture = await fetchProfileImage(ProfileImage)
+                ProfilePicture = ProfileImage
             }
             let titleText 
             let AccountIcon
 
-
-
-            // if(ProfileImage == "avatar.jpg" ? ProfilePicture : "aaf" | "tetet" ){
-            // ProfilePicture = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
-            // }else{
-            // ProfilePicture = await fetchProfileImage(ProfileImage)
-            // }
+            await fetch(`/files/uploaded/images/${ProfilePicture}`, ()=>{
+                method:"GET"
+            })
+            .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.blob(); // Get the response as a Blob
+              })
+              .then(blob => {
+                // Create a URL for the Blob object
+                const fileURL = URL.createObjectURL(blob);
+                const ProfilePicture = fileURL
 
             if(Title == "N/A"){ 
                 titleText = ""
@@ -74,6 +151,7 @@ followingAccountsContainer.innerHTML = ""
             </div> 
             </account>`
         });
+    })
     }else{
         followingAccountsContainer.innerHTML=`<div class="no_content_message" style='width:70%'>
         <svg class="icon icon-no_sim"><use xlink:href="#icon-no_sim"></use>
@@ -86,4 +164,7 @@ followingAccountsContainer.innerHTML = ""
       </div>`
     }
 })
+}
+
+FindFollowingAccounts(1)
 

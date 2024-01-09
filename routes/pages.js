@@ -116,6 +116,56 @@ const db = require("./db.config");
 const PlayPodcastFile = require("../controllers/playPodcastFile");
 const FollowFromDirectory = require("../controllers/scholarContols/FollowFromDirectory.");
 
+// ADMINISTRATOR
+const AdminLoggedIn = require("../controllers/admin/loggedin");
+const courseDetail = require("../controllers/admin/utils/CourseDetails");
+const UserInfo = require("../controllers/admin/utils/userInfo");
+const EnrolledStudents = require("../controllers/admin/utils/enrolledstudents");
+const CourseReviews = require("../controllers/admin/utils/courseReviews");
+const OpenReviews = require("../controllers/admin/utils/openReviews");
+const TotalActivatedCourses = require("../controllers/admin/utils/totalActivatedCourses");
+const TotalPendingCourses = require("../controllers/admin/utils/totalPendingCourses");
+const TotalCourses = require("../controllers/admin/utils/totalCourses");
+const courseList = require("../controllers/admin/utils/courseList");
+const ApproveCourses = require("../controllers/admin/utils/approveCourses");
+const RejectCourses = require("../controllers/admin/utils/rejectCourse");
+const DeleteCourses = require("../controllers/admin/utils/deleteCourse");
+const ScholarsList = require("../controllers/admin/utils/ScholarsList");
+const TotalBooks = require("../controllers/admin/utils/TotalBooksScholars");
+const TotalPodcasts = require("../controllers/admin/utils/TotalPodcasts");
+const TotalLinks = require("../controllers/admin/utils/TotalLinks");
+const TotalCoursesTaken = require("../controllers/admin/utils/CoursesTaken");
+const ScholarDetails = require("../controllers/admin/utils/scholarDetails");
+const ScholarDegrees = require("../controllers/admin/utils/scholarDegress");
+const AllResources_admin = require("../controllers/admin/utils/scholarResources");
+const TotalResourcesCount = require("../controllers/admin/utils/countResources");
+const TotalActiveResources = require("../controllers/admin/utils/countActiveResources");
+const TotalPendingResources = require("../controllers/admin/utils/countPendingResources");
+const AdminResourcesMain = require("../controllers/admin/utils/adminResourcesMain");
+const SearchResources_admin = require("../controllers/admin/utils/searchResources");
+const FilterResources_admin = require("../controllers/admin/utils/filterResources");
+const ApproveItem = require("../controllers/admin/utils/approveItem");
+const RejectItem = require("../controllers/admin/utils/rejectItem");
+const DeleteItem = require("../controllers/admin/utils/deleteItem");
+const InstructorRequests = require("../controllers/admin/utils/instructor/instructorRequests");
+const ApproveInstructorAccount = require("../controllers/admin/utils/instructor/ApproveInstructorAccount");
+const RejectInstructorAccount = require("../controllers/admin/utils/instructor/RejectInstructorAccount");
+const CompletedCourses = require("../controllers/admin/utils/dashboard/countCompletedCourses");
+const EnrolledCourses = require("../controllers/admin/utils/dashboard/countEnrolledCourses");
+const TotalINstructors = require("../controllers/admin/utils/dashboard/countTotalInstructors");
+const TotalScholars = require("../controllers/admin/utils/dashboard/countTotalScholars");
+const pendingResources = require("../controllers/admin/utils/dashboard/countpendingResources");
+const uploadedResources = require("../controllers/admin/utils/dashboard/countAllRecources");
+const TotalInstructorCourses = require("../controllers/admin/utils/instructor/TotalInstructorCourses");
+const TotalInstructorStudents = require("../controllers/admin/utils/instructor/TotalInstructorStudents");
+const InstructorsList = require("../controllers/admin/utils/instructor/InstructorsList");
+const InstructorDetails = require("../controllers/admin/utils/instructor/InstructorDetails");
+const AllInstructorCourses = require("../controllers/admin/utils/instructor/AllInstructorCourses");
+const ValidateFollower = require("../controllers/ValidateFollowers");
+
+// ADMINISTRATOR 
+
+
 
 const router = express.Router();
 router.use(express.json())
@@ -270,7 +320,7 @@ router.post("/createSpaces", LoggedIn, createSpaces)
 
 
 // GET the accounts a user follows
-router.get("/directory/userFollows", LoggedIn, getFollowing)
+router.get("/directory/userFollows/:page", LoggedIn, getFollowing)
 
 // GEt the other Accounts users do not follow 
 router.get("/directorydiscoverAccounts", LoggedIn, getDiscover)
@@ -314,7 +364,7 @@ router.get("/tutorial/:q",LoggedIn, tutorialSearchResults)
 router.get("/:tutorialOwner/tutorialsByAuthor", LoggedIn, tutorialsByAuthor)
 router.get("/:tutorialOwner/:tutorialCategory/tutorialsSameCourse", LoggedIn, TutorialOfSameCategory)
 router.get("/getAllCourseCategories", CourseCategories)
-router.get("/filterCategory/:filter",FilterCoursesInCategory )
+router.get("/filterCategory/:filter",FilterCoursesInCategory)
 router.get("/getAllAsTutorials", getAsTutorial)
 router.get("/getAllAsCourses", getAsCourses)
 router.get("/getAllAsLevels/:level", getAsLevels)
@@ -377,7 +427,7 @@ if(fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
       res.status(500).send('Error retrieving file');
     }
 }else{
-    console.log("File Not Found")
+    console.log(`File, ${fileName} Not Found`)
 }
 })
 }else{
@@ -434,7 +484,7 @@ router.get("/followers", LoggedIn, userFollowers)
 router.get("/userFollowers/:loggedUser", LoggedIn, AccountFollowers)
 router.get("/userFollows/:loggedUser", LoggedIn, accountFollows)
 router.get("/api/userFollowers", LoggedIn, userFollowers)
-
+router.get("/check/validate/follower/:username", LoggedIn, ValidateFollower)
 
 // GET THE LOGIN PAGE 
 router.get("/public", LoggedIn, (req, res) => {
@@ -616,6 +666,150 @@ router.get("/scholarCourses/search/q/:searchQuery", LoggedIn, SearchScholarCours
 
 router.post("/coverImage", LoggedIn, profileCoverUpload)
 
+
+// FOR ADMIN 
+// DASHBOARD AND DASHBOARD DATA 
+router.get("/:SessionId/admin", (req,res)=>{
+    res.render("admin-dashboard")
+})
+
+router.get("/admin/dashboard/countCourses/completed", CompletedCourses)
+router.get("/admin/dashboard/countCourses/enrolled", EnrolledCourses)
+router.get("/admin/dashboard/instructors/registeredCount", TotalINstructors)
+router.get("/admin/dashboard/scholars/registeredCount", TotalScholars)
+router.get("/admin/dashboard/count/pending/resources", pendingResources)
+router.get("/admin/dashboard/count/uploaded/resources", uploadedResources)
+// END DASHBOARD 
+
+router.get("/admin/courses", (req,res) =>{
+    res.render("admin-course-list")
+})
+ 
+router.get("/admin/pages/courses/categories", (req,res) =>{
+    res.render("admin-course-category")
+})
+
+// COURSE DETAILS 
+router.get("/admin/course/details/:courseId", (req,res) =>{
+    const courseID = req.params.courseId
+    res.render("admin-course-detail", {CourseID:courseID})
+})
+// feed data to the course Details Page 
+router.get("/getcoursedetails/:courseId", courseDetail)
+// Get user info 
+router.get("/admin/query/users/:username", UserInfo)
+// Get Enrolled Students 
+router.get("/enrolledstudents/:courseId", EnrolledStudents)
+// GEt the course REviews 
+router.get("/courseReviews/:courseId", CourseReviews)
+// Open a Review and Read it 
+router.get("/openReview/:reviewId", OpenReviews)
+// END COURSE DETAILS 
+
+
+// >>>>>> Courses PAGE 
+router.get("/admin/getTotalActivatedCourses", TotalActivatedCourses)
+router.get("/admin/getTotalPendingCourses", TotalPendingCourses)
+router.get("/admin/getTotalCourses", TotalCourses)
+router.get("/admin/getAllCourses", courseList)
+router.post("/approveCourse", ApproveCourses)
+router.post("/rejectCourse", RejectCourses)
+router.post("/deleteCourse", DeleteCourses)
+// >>>> ENd Course PAge 
+
+router.get("/admin/courses/create",(req,res)=>{
+    res.render("admin-create-course")
+})
+
+router.get("/admin/courses/edit/:courseId", (req,res)=>{
+    res.render("admin-edit-course-detail")
+})
+
+// INSTRUCTOR CONTENT 
+router.get("/admin/instructors", (req,res)=>{
+    res.render("admin-instructor-list")
+})
+router.get("/admin/totalCourse/instructor/:username", TotalInstructorCourses)
+router.get("/admin/instructors/totalStudents/:username", TotalInstructorStudents)
+router.get("/admin/allInstructors", InstructorsList)
+router.get("/admin/instructors/details/:username", InstructorDetails)
+router.get("/allInstructorCourses/:username", AllInstructorCourses )
+
+
+
+router.get("/admin/pages/instructors/requests", (req,res)=>{
+    res.render("admin-instructor-request")
+})
+
+// END INSTRUCTOR CONTEXT 
+
+router.get("/admin/review", (req,res)=>{
+    res.render("admin-review")
+})
+
+// SCHOLAR DETAILS 
+router.get("/admin/scholars/details/:username", ScholarDetails)
+router.get("/scholars/degrees/:username", ScholarDegrees)
+router.get("/allResources/:username", AllResources)
+router.get("/resources/totalResources", TotalResourcesCount)
+router.get("/resources/active", TotalActiveResources)
+router.get("/resources/pending", TotalPendingResources)
+router.get("/admin/getAllResources", AdminResourcesMain)
+router.get("/myAssets/search/q/:searchQuery",  SearchResources)
+router.get("/myAssets/search/type/:filterQuery", FilterResources)
+router.get("/approveResource/:ItemType",ApproveItem )
+router.get("/rejectResource/:ItemType", RejectItem)
+router.get("/deleteResource/:ItemType", DeleteItem)
+
+// END SCHOLAR DETAILS 
+
+router.get("/admin/scholars/requests", (req,res)=>{
+    res.render("/admin-scholar-request")
+})
+
+router.get("/admin/settings", (req,res)=>{
+    res.render("admin-setting")
+})
+
+
+
+// Get scholars 
+router.get("/admin/students", (req,res) =>{
+    res.render("admin-student-list")
+})
+
+router.get("/admin/allScholars", ScholarsList)
+router.get("/totalCourseTaken/scholar/:username", TotalCoursesTaken)
+router.get("/totalBooks/:username", TotalBooks)
+router.get("/totalPodcasts/:username", TotalPodcasts)
+router.get("/totalLinks/:username", TotalLinks)
+// END SCHOLARS 
+
+// ISNTRUCTOR REQUESTS 
+router.get("/admin/admin/instructors/uploadRequests", (req,res)=>{
+    res.render("InstructorUploadRequests")
+})
+router.get("/admin/instructors/account/requests", InstructorRequests)
+router.post("/instructors/applications/accept/:username", ApproveInstructorAccount)
+router.post("/instructors/applications/reject/:username", RejectInstructorAccount)
+
+// END INSTUCTOR REQUESTS
+router.get("/admin/pages/scholars/uploadRequests", (req,res)=>{
+    res.render("scholarUploadRequests")
+})
+
+router.get("/admin/sign-in.html", (req,res)=>{
+    res.render("sign-in")
+})
+
+router.get("/admin/query/pages/signup", (req,res)=>{
+    res.render("sign-up")
+})
+
+router.get("/admin/forgotPassword", (req,res)=>{
+    res.render("forgot-password")
+})
+router.get("/admin/logout")
 
 
 

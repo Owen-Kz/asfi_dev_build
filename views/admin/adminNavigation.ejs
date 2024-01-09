@@ -1,0 +1,58 @@
+<!-- Sidebar menu START -->
+<ul class="navbar-nav flex-column" id="navbar-sidebar">
+				
+    <!-- Menu item 1 -->
+    <li class="nav-item"><a href="/" class="nav-link active"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
+    
+    <!-- Title -->
+    <li class="nav-item ms-2 my-2">Pages</li>
+
+    
+
+    <!-- Menu item 3 -->
+    <li class="nav-item"> 
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapsescholars" role="button" aria-expanded="false" aria-controls="collapsescholars"><i class="fas fa-user-graduate fa-fw me-2"></i>Scholars</a>
+        <!-- Submenu -->
+        <ul class="nav collapse flex-column" id="collapsescholars" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/students">Scholars</a></li>
+        </ul>
+    </li>
+
+    <!-- Menu item 4 -->
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapseinstructors" role="button" aria-expanded="false" aria-controls="collapseinstructors">
+            <i class="fas fa-user-tie fa-fw me-2"></i>Instructors
+        </a>
+        <!-- Submenu -->
+        <ul class="nav collapse flex-column" id="collapseinstructors" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/instructors">Instructors</a></li>
+            <li class="nav-item"> 
+                <a class="nav-link" href="/admin/pages/instructors/requests">Instructor requests
+                    <span class="badge text-bg-success rounded-circle ms-2">2</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- menu item 2 -->
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="false" aria-controls="collapsepage">
+            <i class="bi bi-basket fa-fw me-2"></i>Courses
+        </a>
+        <!-- Submenu -->
+        <ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/courses">All Courses</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/admin/pages/courses/categories">Course Category</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"> <a class="nav-link" href="/admin/pages/scholars/uploadRequests"><i class="far fa-file fa-fw me-2"></i>Upload Requests <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
+    
+    <!-- Menu item 5 -->
+    <li class="nav-item"> <a class="nav-link" href="/admin/review"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
+
+    <!-- Menu item 7 -->
+    <li class="nav-item"> <a class="nav-link" href="/admin/settings"><i class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
+
+    
+</ul>
+<!-- Sidebar menu end -->

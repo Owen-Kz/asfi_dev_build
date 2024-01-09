@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>ASFIScholar Course List</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Weperch Technologies">
+	<meta name="description" content="ASFIScholar ADMIN">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/images/favicon.png">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/choices/css/choices.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	
+<!-- Sidebar START -->
+<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+	<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+	
+	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+			<!-- Sidebar menu START -->
+			<%- include("adminNavigation.ejs") %>
+			<!-- Sidebar menu end -->
+
+
+			<!-- Sidebar footer START -->
+			<div class="px-3 mt-auto pt-3">
+				<div class="d-flex align-items-center justify-content-between text-primary-hover">
+						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+							<i class="bi bi-gear-fill"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href=" " data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+							<i class="bi bi-globe"></i>
+						</a>
+						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+							<i class="bi bi-power"></i>
+						</a>
+				</div>
+			</div>
+			<!-- Sidebar footer END -->
+			
+		</div>
+	</div>
+</nav>
+<!-- Sidebar END -->
+
+<!-- Page content START -->
+<div class="page-content">
+
+	<!-- Top bar START -->
+	<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
+		<div class="container-fluid p-0">
+			<div class="d-flex align-items-center w-100">
+
+				<!-- Logo START -->
+				<div class="d-flex align-items-center d-xl-none">
+					<a class="navbar-brand" href=" ">
+						<img class="light-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="/assets/images/ASFIScholar_Logo.png" alt="">
+					</a>
+				</div>
+				<!-- Logo END -->
+
+				<!-- Toggler for sidebar START -->
+				<div class="navbar-expand-xl sidebar-offcanvas-menu">
+					<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
+						<i class="bi bi-text-right fa-fw h2 lh-0 mb-0 rtl-flip" data-bs-target="#offcanvasMenu"> </i>
+					</button>
+				</div>
+				<!-- Toggler for sidebar END -->
+				
+				<!-- Top bar left -->
+				<div class="navbar-expand-lg ms-auto ms-xl-0">
+					
+					<!-- Toggler for menubar START -->
+					<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopContent" aria-controls="navbarTopContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+					<!-- Toggler for menubar END -->
+
+					<!-- Topbar menu START -->
+					<div class="collapse navbar-collapse w-100" id="navbarTopContent">
+						<!-- Navbar brand for xl START -->
+	<div class="d-flex align-items-center">
+		<a class="navbar-brand" href=" ">
+			<img class="navbar-brand-item" src="/assets/images/ASFIScholar_Logo.png" alt="">
+		</a>
+	</div>
+	<!-- Navbar brand for xl END -->
+					</div>
+					<!-- Topbar menu END -->
+				</div>
+				<!-- Top bar left END -->
+				
+				<!-- Top bar right START -->
+				<div class="ms-xl-auto">
+					<%- include("TopBar.ejs") %>
+				</div>
+				<!-- Top bar right END -->
+			</div>
+		</div>
+	</nav>
+	<!-- Top bar END -->
+
+	<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+
+		<!-- Title -->
+		<div class="row mb-3">
+			<div class="col-12 d-sm-flex justify-content-between align-items-center">
+				<h1 class="h3 mb-2 mb-sm-0">Courses</h1>
+				<a href="/admin/courses/create" class="btn btn-sm btn-primary mb-0">Create a Course</a>
+			</div>
+		</div>
+
+		<!-- Course boxes START -->
+		<div class="row g-4 mb-4">
+			<!-- Course item -->
+			<div class="col-sm-6 col-lg-4">
+				<div class="text-center p-4 bg-primary bg-opacity-10 border border-primary rounded-3">
+					<h6>Total Courses</h6>
+					<h2 class="mb-0 fs-1 text-primary" id="TotalCourses">0</h2>
+				</div>
+			</div>
+
+			<!-- Course item -->
+			<div class="col-sm-6 col-lg-4">
+				<div class="text-center p-4 bg-success bg-opacity-10 border border-success rounded-3">
+					<h6>Activated Courses</h6>
+					<h2 class="mb-0 fs-1 text-success" id="TotalActivated">0</h2>
+				</div>
+			</div>
+
+			<!-- Course item -->
+			<div class="col-sm-6 col-lg-4">
+				<div class="text-center p-4  bg-warning bg-opacity-15 border border-warning rounded-3">
+					<h6>Pending Courses</h6>
+					<h2 class="mb-0 fs-1 text-warning" id="TotalPending">0</h2>
+				</div>
+			</div>
+		</div>
+		<!-- Course boxes END -->
+
+		<!-- Card START -->
+		<div class="card bg-transparent border">
+
+			<!-- Card header START -->
+			<div class="card-header bg-light border-bottom">
+				<!-- Search and select START -->
+				<div class="row g-3 align-items-center justify-content-between">
+					<!-- Search bar -->
+					<div class="col-md-8">
+						<form class="rounded position-relative" id="searchCourses">
+							<input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+						</form>
+					</div>
+
+					<!-- Select option -->
+					<div class="col-md-3">
+						<!-- Short by filter -->
+						<form>
+							<select class="form-select js-choice border-0 z-index-9" aria-label=".form-select-sm" id="sort_by">
+								<option value="">Sort by</option>
+								<option value="applied">Pending</option>
+								<option value="live">Live</option>
+								<option value="rejected">Rejected</option>
+							</select>
+						</form>
+					</div>
+				</div>
+				<!-- Search and select END -->
+			</div>
+			<!-- Card header END -->
+
+			<!-- Card body START -->
+			<div class="card-body">
+				<!-- Course table START -->
+				<div class="table-responsive border-0 rounded-3">
+					<!-- Table START -->
+					<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+						<!-- Table head -->
+						<thead>
+							<tr>
+								<th scope="col" class="border-0 rounded-start">Course Name</th>
+								<th scope="col" class="border-0">Instructor</th>
+								<th scope="col" class="border-0">Added Date</th>
+								<th scope="col" class="border-0">Type</th>
+								<th scope="col" class="border-0">View</th>
+								<th scope="col" class="border-0">Status</th>
+								<th scope="col" class="border-0 rounded-end">Action</th>
+							</tr>
+						</thead>
+						
+						<!-- Table body START -->
+						<tbody id="course_list_Container">
+							
+	
+
+							
+
+						</tbody>
+						<!-- Table body END -->
+					</table>
+					<!-- Table END -->
+				</div>
+				<!-- Course table END -->
+			</div>
+			<!-- Card body END -->
+
+			<!-- Card footer START -->
+			<div class="card-footer bg-transparent pt-0">
+				<!-- Pagination START -->
+				<div class="d-sm-flex justify-content-sm-between align-items-sm-center" id="footer_container">
+				</div>
+				<div id="pageCountContainer"></div>
+
+				<!-- Pagination END -->
+			</div>
+			<!-- Card footer END -->
+		</div>
+		<!-- Card END -->
+	</div>
+	<!-- Page main content END -->
+
+</div>
+<!-- Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/assets/vendor/choices/js/choices.min.js"></script>
+<script src="/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js"></script>
+
+<!-- Template Functions -->
+<script src="/assets/js/functions.js"></script>
+
+<script src="/js/courses/countActivatedCourses.js"></script>
+<script src="/js/courses/countPendingCourses.js"></script>
+<script src="/js/courses/countTotalCourses.js"></script>
+<script src="/js/formatDate.js"></script>
+<script src="/js/courses/updateCourseslist.js"></script>
+<script src="/js/paginationScript.js"></script>
+<script src="/js/courses/coursesList.js"></script>
+
+
+</body>
+
+</html>

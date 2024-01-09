@@ -45,7 +45,7 @@ app.use(session({
 
 app.set("view engine", "ejs");
 
-app.set("views", ["./views", "./views/posters", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
+app.set("views", ["./views", "./views/admin", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
 
 
 app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))
@@ -56,7 +56,9 @@ app.use("/css", express.static(__dirname + "/public/css", { type: 'text/css' }))
 app.use("/js", express.static(__dirname + "/public/js", { type: 'text/javascript' }))
 app.use("/vendor", express.static(__dirname + "/public/vendor", {type: 'text/javacript'}))
 app.use("/js/bootstrap", express.static(__dirname + "/public/js/bootstrap/dist/js", {type:"text/javascript"}))
+app.use("/assets", express.static(__dirname + "/public/assets/", { type: 'text/folder' }))
 
+app.use("/assets/images", express.static(__dirname + "/public//assets/images", {type: 'text/folder'}))
 // app.use("/css/icons/font-awesome/css/", express.static(__dirname + "/public/css/icons/font-awesome/css/", {type : 'text/css'}))
 app.use("/files", express.static(__dirname + "/public/files", {type: 'text/folder'}))
 app.use("/files/images", express.static(__dirname + "/public/files/images", {type: 'file/image'}))
@@ -169,6 +171,8 @@ function onConnected(socket) {
   });
 }
 app.use("/", require("./routes/pages"));
+app.use("/administrator", require("./routes/adminPages"));
+
 app.use("/api", require("./controllers/auth"));
 app.use("/api/createFollower", require("./controllers/createFollower"));
 app.use("/api/delFollower", require("./controllers/deleteFollower"));
@@ -183,5 +187,5 @@ app.use("/create/newInstructor", require("./controllers/InstructorControls/creat
 app.use("/api/uploadBooks/set", require("./controllers/scholarContols/uploadBook"))
 app.use("/update/newPasword", require("./controllers/updatePassword"))
 
-
+ 
 server.listen(PORT);

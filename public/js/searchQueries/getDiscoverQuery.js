@@ -1,27 +1,85 @@
 const discoverAccountsContainer = document.getElementById("DiscoverAccounts")
 const loggedUser = document.getElementById("loggedUser")
+const footerContainer = document.getElementById("footerContainer")
+
+
 
 const SearchBar = document.getElementById("searchDirectory")
 SearchBar.addEventListener("keyup", function(){
     if(SearchBar.value ==""){
-        fetch("/directorydiscoverAccounts", ()=>{
-            method:"GET"
-        })
-        .then(res => res.json())
-        .then(data =>{
-            DiscoverItems(data)
-        })
+   FindDiscoverAccounts(1)
     }
 })
 
-fetch("/directorydiscoverAccounts", ()=>{
-    method:"GET"
-})
-.then(res => res.json())
-.then(data =>{
-    DiscoverItems(data)
-})
+function FindDiscoverAccounts(page){
+    fetch(`/directorydiscoverAccounts?page=${page}`, ()=>{
+        method:"GET"
+    })
+    .then(res => res.json())
+    .then(data =>{
+        // const TutorialsArray = JSON.parse(data.AllTutorials)
+        const TotalPages = data.totalPages
+        const CurrentPage = data.currentPage
+        const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
+        const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
 
+        DiscoverItems(data)
+
+        if(TotalPages > 0){
+            // Update the pagination UI
+            if(footerContainer){
+           const paginationHTML = Pagination(CurrentPage, TotalPages, PrevPage, NexxtPage);
+           footerContainer.innerHTML = paginationHTML;
+            }
+        }
+    })    
+}
+
+
+function Pagination(currentPage, totalPages, PrevPage, NexxtPage){
+    const pageCountContainer = document.getElementById("pageCountContainer")
+  
+if(pageCountContainer){
+       
+        pageCountContainer.innerHTML = ` <p class="mb-0 text-center text-sm-start">Page ${currentPage} of ${totalPages}</p>`;
+
+        let paginationHTML = `
+        <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+        <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+
+        <!-- Pagination -->
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0" id="footer_list">`;
+      
+        if (currentPage > 1) {
+            paginationHTML +=  `<li class="page-item mb-0">
+            <a class="page-link" onClick="FindDiscoverAccounts(${PrevPage})" tabindex="-1" id="prevTutorialPage">
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+          </li>`
+        }
+      
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            paginationHTML += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
+          } else {
+            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${i})">  ${i}  </a></li>`;
+          }
+        }
+      
+        if (currentPage < totalPages) {
+          paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${NexxtPage})"><i class="fas fa-angle-right"></i></a></li>`;
+        } else {
+          // paginationHTML += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
+        }
+      
+        paginationHTML += `</ul>
+        </nav>
+       `;
+      
+        return paginationHTML;
+}
+}
 
 for(i=0; i<10; i++){
 discoverAccountsContainer.innerHTML += `
@@ -60,8 +118,15 @@ async function DiscoverItems(data){
             const Title = `${sortedDiscover[i].title}`
             const account_Type = `${sortedDiscover[i].acct_type}`
 
+            let profileimageMain
+            if(ProfileImage == "avatar.jpg"){
+                profileimageMain = "dummy.jpg"
+            }else{
+                profileimageMain = ProfileImage
+            }
 
-            await fetch(`/files/uploaded/images/${ProfileImage}`, ()=>{
+
+            await fetch(`/files/uploaded/images/${profileimageMain}`, ()=>{
                 method:"GET"
             })
             .then(response => {
@@ -70,13 +135,29 @@ async function DiscoverItems(data){
                 }
                 return response.blob(); // Get the response as a Blob
               })
-              .then(blob => {
+              .then(async blob => {
                 // Create a URL for the Blob object
                 const fileURL = URL.createObjectURL(blob);
                 const ProfilePicture = fileURL
 
             let titleText
-    
+            let FollowingStatus
+
+            await fetch(`/check/validate/follower/${Username}`, ()=>{
+                method:"GET"
+            }).then(res => res.json())
+            .then(data =>{
+                if(data.message === "following"){
+                    FollowingStatus = `<button> Following </button>`
+                }else{
+                    FollowingStatus = `<form method="post" class="follow">
+                    <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
+                    <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
+                    <button class="discoverFollowButton" value="${Username}">Follow</button>
+        
+                </form> `
+                }
+            })
 
             if(Title == "N/A"){
                 titleText = "" 
@@ -100,14 +181,7 @@ async function DiscoverItems(data){
             </div>
 
             <div class="followButton">
-            <form method="post" class="follow">
-            <input type="hidden" name="followed" id="followed"  value="${Username}" readonly>
-            <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
-            <button class="discoverFollowButton" value="${Username}">Follow</button>
-
-        </form> 
-   
-
+            ${FollowingStatus}
             </div>
             </account>`;
             
@@ -130,3 +204,4 @@ async function DiscoverItems(data){
 
 
 
+FindDiscoverAccounts(1)

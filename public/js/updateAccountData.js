@@ -12,7 +12,7 @@ form1.addEventListener("submit", (e) =>{
         firstname: firstname.value,
         lastname: lastname.value,
         username: username.value,
-        title: titleValue,
+        title: title.value,
         bio: bio.value,
         NewLocation: newLocation.value,
         usernameValidator: usernameValidator.value,
