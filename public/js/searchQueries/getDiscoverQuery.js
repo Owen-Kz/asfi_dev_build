@@ -59,16 +59,16 @@ if(pageCountContainer){
           </li>`
         }
       if(totalPages > 10){
+        let SortNext = Math.floor(new Number(currentPage) + 8)
+
         for (let i = 1; i <= 8; i++) {
-          let SortNext = Math.floor(new Number(currentPage) + 8)
           if (i === currentPage) {
             paginationHTML += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
           } else {
             paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${i})">  ${i}  </a></li>`;
-         
           }
         }
-        paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${SortNext})">... </a></li>`;
+           paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${SortNext})">... </a></li>`;
       }else{
         for (let i = 1; i <= totalPages; i++) {
           if (i === currentPage) {
