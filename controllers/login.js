@@ -13,10 +13,10 @@ const login_user = async (req, res) => {
 
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
-    else{
+    else{ 
  
     try{
-       db.query('SELECT * FROM user_info WHERE username = ? AND (account_status = "1" OR account_status = "3")', [user], async (Err, result) => {
+       db.query('SELECT * FROM user_info WHERE (username = ? OR email =?) AND (account_status = "1" OR account_status = "3")', [user, user], async (Err, result) => {
             if(Err) throw Err
             if(!result[0] || !await bcrypt.compare(pass, result[0].password )) return res.json({ status: "error", error: "Incorrect username / password combination"})
 

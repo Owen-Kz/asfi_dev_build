@@ -10,17 +10,27 @@ confrimResetCode.addEventListener("submit", () =>{
         headers: {
             "Content-type" : "application/JSON"
         }
-    })    .then((response) => {
-        if (response.status === 200) {
+    }) .then(res => res.json())
+    .then(data =>{
+      if(data){
+         if (data.message === "EmailConfirmed") {
             // alert("afafafaf")
           // Redirect to the new page if the response is successful
 
         window.location.href = `/createPassword`; // Change to the actual route
+        }else{
+          alert("Invalid Code Provided")
+          
         }
-      })
-      .catch((error) => {
+      }else{
         console.error('Error submitting form:', error);
-        // Handle the error here if needed
-      });
-})
+
+      }
+      })
+      })
+      // .catch((error) => {
+      //   console.error('Error submitting form:', error);
+      //   // Handle the error here if needed
+      // });
+
 

@@ -162,6 +162,7 @@ const InstructorsList = require("../controllers/admin/utils/instructor/Instructo
 const InstructorDetails = require("../controllers/admin/utils/instructor/InstructorDetails");
 const AllInstructorCourses = require("../controllers/admin/utils/instructor/AllInstructorCourses");
 const ValidateFollower = require("../controllers/ValidateFollowers");
+const CreateNewPassword = require("../controllers/createNewPassword");
 
 // ADMINISTRATOR 
 
@@ -510,16 +511,17 @@ router.get("/myresults", (req, res) =>{
 
 // RESET USER PASSWORD 
 router.get("/passwordReset", (req, res) =>{
-    // res.sendFile("forgotPassword.html", {root: "./public"})
     res.render("forgotPassword")
 })
+
 router.post("/api/forgot-password", forgotPassword)
+router.post("/ap/create/new/password", CreateNewPassword)
+
 
 router.get("/EmailConfirmation",(req,res)=>{
     const emailData = req.session.emailData || {}
-    // console.log(req.session)
     if(emailData){
-        res.render("confirmCode.ejs", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
+        res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:req.session.emailData.email})
     }else{
         // res.render("confrimCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
         res.redirect("/passwordReset")
@@ -527,16 +529,13 @@ router.get("/EmailConfirmation",(req,res)=>{
 })
 
 router.get("/createPassword", (req,res) => {
-    // const emailData = req.session.emailData 
-    console.log(req.session)
     const emailData = req.session.emailData || {}
     const ConfrimCodeData_ = req.session.tokenData || {}
 
-    if(ConfrimCodeData_){
-        res.render("newPassword", {ConfrimCodeData_:ConfrimCodeData_, message:ConfrimCodeData_.confirmCode, email:emailData.email})
+    if(emailData.email){
+        res.render("newPassword", {ConfrimCodeData_:ConfrimCodeData_, message:emailData.message, email:emailData.email})
     }else{
-        // res.render("confrimCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
-        // res.redirect("/passwordReset")
+        res.redirect("/passwordReset")
         console.log("NO SESSION DATA")
     }
 })
@@ -547,8 +546,6 @@ router.get("/getInstructorCourse", LoggedIn, instructorCourseResult)
 
 router.get("/getMycoursesList", LoggedIn, MyCoursesList)
 
-// router.post("/api/confirmEmail/*", ConfrimEmailReset)
-// router.post("/api/passwordReset", forgotPassword) 
 
 
 // Stuff from Funso 
@@ -610,17 +607,6 @@ router.get("/forgotpassword", (req,res) =>{
    res.redirect("passwordReset")
 })
 
-// router.get("/confirmCode", (req,res) =>{
-//     res.render("confirmCode", {
-//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
-//     })
-// })
-
-// router.get("/newPassword", (req,res) =>{
-//     res.render("newPassword", {
-//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", email:"email@hok.com", message:"Confirm Code",
-//     })
-// })
 
 
 router.get("/scholarAssets", LoggedIn, Assets)

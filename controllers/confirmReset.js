@@ -1,19 +1,22 @@
 const db = require("../routes/db.config");
 
 const confrim_code = async (req,res) =>{
-    const {confirmCode, confirmEmail} = req.body
-    console.log(req.body)
+    const {code, email} = req.body
 
-    if(!confirmCode || !confirmEmail){
+
+    if(!code || !email){
         return res.json({Status: "Err", Error: "You Did not provide Valid credentials"})
     }else{
-        db.query("SELECT * FROM user_info WHERE ?", [{email:confirmEmail, resetToken:confirmCode}], async (err, cnf) => {
+        db.query("SELECT * FROM user_info WHERE ? AND ?", [{email:email}, {resetToken:code}], async (err, cnf) => {
+          
             if (err) throw err
-            if(cnf){
-           req.session.tokenData = { confirmCode:confirmCode,  confirmEmail: confirmEmail};
+            if(cnf[0]){
+           req.session.tokenData = { confirmCode:code,  confirmEmail: email};
                 
-                // res.render("newPassword", {message:"Enter New Password", email:confirmEmail})
-                res.status(200).json({success:"Code is confirmed"})
+                res.status(200).json({message:"EmailConfirmed"})
+            }else{
+                console.log("Invalid Code")
+                res.status(500).json({message: "Internal Server Error"})
             }
         })
     } 
