@@ -1,0 +1,84 @@
+/* Resetting default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.welcome-container {
+    max-width: 800px;
+    margin: 100px auto;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    margin-top: 30px;
+}
+
+main h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.explore-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.explore-button:hover {
+    background-color: #2980b9;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #888;
+}

@@ -798,7 +798,9 @@ router.get("/admin/forgotPassword", (req,res)=>{
 router.get("/admin/logout")
 
 
-
+router.get("/welcome/email",(req,res)=>{
+    res.render("welcomeEmail") 
+})
 router.get("/logout", logout)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
