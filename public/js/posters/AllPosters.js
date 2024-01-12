@@ -25,7 +25,7 @@ searchQuery.addEventListener("change", function(){
 function NewposterPage(page){
     posterContainer.innerHTML  = "Loading...."
   
-    fetch(`http://localhost:2020/admin/posters/list?page=${page}`, {
+    fetch(`https://asfischolar.com/admin/posters/list?page=${page}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data => { 
@@ -42,7 +42,7 @@ NewposterPage(1)
 
 // Search for posters 
 function SearchForposter(value, page){
-    fetch(`http://localhost:2020/admin/posters/list?page=${page}&q=${value}`, {
+    fetch(`https://asfischolar.com/admin/posters/list?page=${page}&q=${value}`, {
         method:"GET"
     }).then(res => res.json())
     .then(data =>{
@@ -56,7 +56,7 @@ function SearchForposter(value, page){
 
 // GET The Total Number of Posters 
 function Countposters(){
-fetch(`http://localhost:2020/admin/posters/list/total`, {
+fetch(`https://asfischolar.com/admin/posters/list/total`, {
     method:"GET"
 }).then(res => res.json())
 .then( data => {
@@ -135,7 +135,7 @@ async function updateUi(data){
 
 async function GetMeetingName(meetingName){
     let Title
-    await fetch(`http://localhost:2020/admin/meeting?name=${meetingName}`, {
+    await fetch(`https://asfischolar.com/admin/meeting?name=${meetingName}`, {
         method :"GET"
     }).then(res => res.json())
     .then(data =>{

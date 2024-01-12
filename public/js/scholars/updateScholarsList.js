@@ -3,7 +3,7 @@ const tableScholarList = document.getElementById("tableScholarList")
 const footerContainer = document.getElementById("footer_container") 
 
 function UpdateScholarsList(scholarsArray, data){
-
+   
         const List = scholarsArray
              ScholarListContainer.innerHTML = `<tr><td><span>Loading.....</span></td></tr>`
             if(List.length > 0){
@@ -14,29 +14,30 @@ function UpdateScholarsList(scholarsArray, data){
                 const TotalScholars = data.totalScholars
                 const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
                 const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
-                List.forEach(Scholar => {
+                List.forEach(async Scholar => {
                    
                     const Scholar_name = `${Scholar.first_name} ${Scholar.last_name}`
                     const ScholarUsername = Scholar.username
                     const ScholarLocation = Scholar.home_address
                     const ScholarProfilePicture = Scholar.profile_picture
                     const Email  = Scholar.email
+            
                     const messageLink = `https://asfischolar.org/${ScholarUsername}/chat`
-                    // const date_uploaded = formatTimestamp(Scholar.date_updated)
+                    const date_joined = formatTimestamp(Scholar.joined_date)
                     
                     let ProfileSource
                     if(ScholarProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Scholar_name}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://asfischolar.org/userUploads/profileImages/${ScholarProfilePicture}`
+                        ProfileSource = await fetchProfileImage(ScholarProfilePicture)
                     }                   
 
-                    fetch(`/totalCourseTaken/scholar/${ScholarUsername}`, ()=>{
+                    fetch(`/totalCourseTaken/pages/scholar/${ScholarUsername}`, ()=>{
                         method:"GET"
                     }).then(res => res.json())
                     .then(data =>{
                         const TotalCourses = data.TotalCoursesTaken
-
+          
                         fetch(`/totalBooks/${ScholarUsername}`, ()=>{
                             method : "GET"
                         }).then(res => res.json())
@@ -112,7 +113,7 @@ function UpdateScholarsList(scholarsArray, data){
                             <div class="d-sm-flex justify-content-between align-items-center">
                                 <!-- Rating star -->
                                 <h6 class="mb-2 mb-sm-0">
-                                    <i class="bi bi-calendar fa-fw text-orange me-2"></i><span class="text-body">Join at:</span> 29 Aug 2023
+                                    <i class="bi bi-calendar fa-fw text-orange me-2"></i><span class="text-body">Join on:</span> ${date_joined}
                                 </h6>
                                 <!-- Buttons -->
                                 <div class="text-end text-primary-hover">

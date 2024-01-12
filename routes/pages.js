@@ -165,6 +165,9 @@ const ValidateFollower = require("../controllers/ValidateFollowers");
 const CreateNewPassword = require("../controllers/createNewPassword");
 const CountNewUploads = require("../controllers/admin/utils/countNewUploads");
 const CountNewInstructorRequests = require("../controllers/admin/utils/countNewInstructorRequests");
+const register_admin = require("../controllers/admin/register");
+const login_admin = require("../controllers/admin/login");
+const logout_admin = require("../controllers/admin/logout");
 // const { SelectMeetings } = require("./queries");
 
 // ADMINISTRATOR 
@@ -659,162 +662,210 @@ router.post("/coverImage", LoggedIn, profileCoverUpload)
 // FOR ADMIN 
 // DASHBOARD AND DASHBOARD DATA 
 router.get("/:SessionId/admin", (req,res)=>{
+    const SessionId = req.params.SessionId
+    db.query("SELECT * FROM user_info WHERE buffer =?",[SessionId], async (err, data)=>{
+        if(err) throw err
+        if(data[0]){
+            res.render("sign-in")
+        }else{
+            res.render("error", {message:"Unathorized Access", page:"/"})
+        }
+    })
+})
+router.get("/admin/pages/dashboard/user", AdminLoggedIn, async (req,res)=>{
+    const Username = req.admin.username
+    const buffer = req.admin.buffer
+
     res.render("admin-dashboard")
+ 
 })
 
-router.get("/admin/dashboard/countCourses/completed", CompletedCourses)
-router.get("/admin/dashboard/countCourses/enrolled", EnrolledCourses)
-router.get("/admin/dashboard/instructors/registeredCount", TotalINstructors)
-router.get("/admin/dashboard/scholars/registeredCount", TotalScholars)
-router.get("/admin/dashboard/count/pending/resources", pendingResources)
-router.get("/admin/dashboard/count/uploaded/resources", uploadedResources)
+router.get("/admin/dashboard/countCourses/completed",AdminLoggedIn, CompletedCourses)
+router.get("/admin/dashboard/countCourses/enrolled",AdminLoggedIn, EnrolledCourses)
+router.get("/admin/dashboard/instructors/registeredCount",AdminLoggedIn, TotalINstructors)
+router.get("/admin/dashboard/scholars/registeredCount",AdminLoggedIn, TotalScholars)
+router.get("/admin/dashboard/count/pending/resources",AdminLoggedIn, pendingResources)
+router.get("/admin/dashboard/count/uploaded/resources",AdminLoggedIn, uploadedResources)
 // END DASHBOARD 
 
-router.get("/admin/courses", (req,res) =>{
+router.get("/admin/courses",AdminLoggedIn, (req,res) =>{
     res.render("admin-course-list")
 })
  
-router.get("/admin/pages/courses/categories", (req,res) =>{
+router.get("/admin/pages/courses/categories",AdminLoggedIn, (req,res) =>{
     res.render("admin-course-category")
 })
 
 // COURSE DETAILS 
-router.get("/admin/course/details/:courseId", (req,res) =>{
+router.get("/admin/course/details/:courseId",AdminLoggedIn, (req,res) =>{
     const courseID = req.params.courseId
     res.render("admin-course-detail", {CourseID:courseID})
 })
 // feed data to the course Details Page 
-router.get("/getcoursedetails/:courseId", courseDetail)
+router.get("/getcoursedetails/:courseId",AdminLoggedIn, courseDetail)
 // Get user info 
-router.get("/admin/query/users/:username", UserInfo)
+router.get("/admin/query/users/:username",AdminLoggedIn, UserInfo)
 // Get Enrolled Students 
-router.get("/enrolledstudents/:courseId", EnrolledStudents)
+router.get("/enrolledstudents/:courseId",AdminLoggedIn, EnrolledStudents)
 // GEt the course REviews 
-router.get("/courseReviews/:courseId", CourseReviews)
+router.get("/courseReviews/:courseId",AdminLoggedIn, CourseReviews)
 // Open a Review and Read it 
-router.get("/openReview/:reviewId", OpenReviews)
+router.get("/openReview/:reviewId",AdminLoggedIn, OpenReviews)
 // END COURSE DETAILS 
 
 
 // >>>>>> Courses PAGE 
-router.get("/admin/getTotalActivatedCourses", TotalActivatedCourses)
-router.get("/admin/getTotalPendingCourses", TotalPendingCourses)
-router.get("/admin/getTotalCourses", TotalCourses)
-router.get("/admin/getAllCourses", courseList)
-router.post("/approveCourse", ApproveCourses)
-router.post("/rejectCourse", RejectCourses)
-router.post("/deleteCourse", DeleteCourses)
+router.get("/admin/getTotalActivatedCourses",AdminLoggedIn, TotalActivatedCourses)
+router.get("/admin/getTotalPendingCourses",AdminLoggedIn, TotalPendingCourses)
+router.get("/admin/getTotalCourses",AdminLoggedIn, TotalCourses)
+router.get("/admin/getAllCourses",AdminLoggedIn, courseList)
+router.post("/approveCourse",AdminLoggedIn, ApproveCourses)
+router.post("/rejectCourse",AdminLoggedIn, RejectCourses)
+router.post("/deleteCourse",AdminLoggedIn, DeleteCourses)
 // >>>> ENd Course PAge 
 
-router.get("/admin/courses/create",(req,res)=>{
+router.get("/admin/courses/create",AdminLoggedIn,(req,res)=>{
     res.render("admin-create-course")
 })
 
-router.get("/admin/courses/edit/:courseId", (req,res)=>{
+router.get("/admin/courses/edit/:courseId",AdminLoggedIn, (req,res)=>{
     res.render("admin-edit-course-detail")
 })
 
 // INSTRUCTOR CONTENT 
-router.get("/admin/instructors", (req,res)=>{
+router.get("/admin/instructors",AdminLoggedIn, (req,res)=>{
     res.render("admin-instructor-list")
 })
-router.get("/admin/totalCourse/instructor/:username", TotalInstructorCourses)
-router.get("/admin/instructors/totalStudents/:username", TotalInstructorStudents)
-router.get("/admin/allInstructors", InstructorsList)
-router.get("/admin/instructors/details/:username", InstructorDetails)
-router.get("/allInstructorCourses/:username", AllInstructorCourses )
+router.get("/admin/totalCourse/instructor/:username",AdminLoggedIn, TotalInstructorCourses)
+router.get("/admin/instructors/totalStudents/:username",AdminLoggedIn, TotalInstructorStudents)
+router.get("/admin/allInstructors",AdminLoggedIn, InstructorsList)
+router.get("/admin/instructors/details/:username",AdminLoggedIn, InstructorDetails)
+router.get("/allInstructorCourses/:username",AdminLoggedIn, AllInstructorCourses )
 
 
 
-router.get("/admin/pages/instructors/requests", (req,res)=>{
+router.get("/admin/pages/instructors/requests",AdminLoggedIn, (req,res)=>{
     res.render("admin-instructor-request")
 })
 
 // END INSTRUCTOR CONTEXT 
 
-router.get("/admin/review", (req,res)=>{
+router.get("/admin/review",AdminLoggedIn, (req,res)=>{
     res.render("admin-review")
 })
 
 // SCHOLAR DETAILS 
-router.get("/admin/scholars/details/:username", ScholarDetails)
-router.get("/scholars/degrees/:username", ScholarDegrees)
-router.get("/allResources/:username", AllResources)
-router.get("/resources/totalResources", TotalResourcesCount)
-router.get("/resources/active", TotalActiveResources)
+router.get("/admin/scholars/details/:username",AdminLoggedIn, ScholarDetails)
+router.get("/scholars/degrees/:username",AdminLoggedIn, ScholarDegrees)
+router.get("/allResources/:username",AdminLoggedIn, AllResources)
+router.get("/resources/totalResources",AdminLoggedIn, TotalResourcesCount)
+router.get("/resources/active",AdminLoggedIn, TotalActiveResources)
 router.get("/resources/pending", TotalPendingResources)
-router.get("/admin/getAllResources", AdminResourcesMain)
-router.get("/myAssets/search/q/:searchQuery",  SearchResources)
-router.get("/myAssets/search/type/:filterQuery", FilterResources)
-router.get("/approveResource/:ItemType",ApproveItem )
-router.get("/rejectResource/:ItemType", RejectItem)
-router.get("/deleteResource/:ItemType", DeleteItem)
+router.get("/admin/getAllResources",AdminLoggedIn, AdminResourcesMain)
+router.get("/myAssets/search/q/:searchQuery",AdminLoggedIn,  SearchResources)
+router.get("/myAssets/search/type/:filterQuery",AdminLoggedIn, FilterResources)
+router.get("/approveResource/:ItemType",AdminLoggedIn,ApproveItem )
+router.get("/rejectResource/:ItemType",AdminLoggedIn, RejectItem)
+router.get("/deleteResource/:ItemType",AdminLoggedIn, DeleteItem)
 
 // END SCHOLAR DETAILS 
 
-router.get("/admin/scholars/requests", (req,res)=>{
+router.get("/admin/scholars/requests",AdminLoggedIn, (req,res)=>{
     res.render("/admin-scholar-request")
 })
 
-router.get("/admin/settings", (req,res)=>{
+router.get("/admin/pages/settings",AdminLoggedIn, (req,res) =>{
     res.render("admin-setting")
+})
+
+router.get("/admin/settings",AdminLoggedIn, (req,res)=>{
+    res.render("error", {status: "Comming Soon", page:"/Timothy/admin"})
 })
 
 
 
 // Get scholars 
-router.get("/admin/students", (req,res) =>{
+router.get("/admin/students",AdminLoggedIn, (req,res) =>{
     res.render("admin-student-list")
 })
 
-router.get("/admin/allScholars", ScholarsList)
-router.get("/totalCourseTaken/scholar/:username", TotalCoursesTaken)
-router.get("/totalBooks/:username", TotalBooks)
-router.get("/totalPodcasts/:username", TotalPodcasts)
-router.get("/totalLinks/:username", TotalLinks)
+router.get("/admin/allScholars",AdminLoggedIn, ScholarsList)
+router.get("/totalCourseTaken/pages/scholar/:username",AdminLoggedIn, TotalCoursesTaken)
+router.get("/totalBooks/:username",AdminLoggedIn, TotalBooks)
+router.get("/totalPodcasts/:username",AdminLoggedIn, TotalPodcasts)
+router.get("/totalLinks/:username",AdminLoggedIn, TotalLinks)
 // END SCHOLARS 
 
 // ISNTRUCTOR REQUESTS 
-router.get("/admin/admin/instructors/uploadRequests", (req,res)=>{
+router.get("/admin/admin/instructors/uploadRequests",AdminLoggedIn, (req,res)=>{
     res.render("InstructorUploadRequests")
 })
 router.get("/admin/instructors/account/requests", InstructorRequests)
-router.post("/instructors/applications/accept/:username", ApproveInstructorAccount)
-router.post("/instructors/applications/reject/:username", RejectInstructorAccount)
+router.post("/instructors/applications/accept/:username",AdminLoggedIn, ApproveInstructorAccount)
+router.post("/instructors/applications/reject/:username",AdminLoggedIn, RejectInstructorAccount)
 
 // END INSTUCTOR REQUESTS
-router.get("/admin/pages/scholars/uploadRequests", (req,res)=>{
+router.get("/admin/pages/scholars/uploadRequests",AdminLoggedIn, (req,res)=>{
     res.render("scholarUploadRequests")
 })
 
 // GET POSTERS Management PAge 
-router.get("/admin/pages/posters/all", (req,res)=>{
+router.get("/admin/pages/posters/all",AdminLoggedIn, (req,res)=>{
     res.render('posterManagement.ejs')
 })
 
 // GET THE LIVE EVENTS PAGE 
-router.get("/admin/pages/pages/asfimeet/events", (req,res) =>{
+router.get("/admin/pages/pages/asfimeet/events",AdminLoggedIn, (req,res) =>{
     res.render("liveEventsManagement")
 })
 
 // Count NEw upload Requests 
-router.get("/admin/upload/request/count", CountNewUploads)
+router.get("/admin/upload/request/count",AdminLoggedIn, CountNewUploads)
 // Count Instructor Request
-router.get("/admin/instructors/request/count", CountNewInstructorRequests)
+router.get("/admin/instructors/request/count",AdminLoggedIn, CountNewInstructorRequests)
 
+
+// GET POLLS
+router.get("/admin/pages/polls/all",AdminLoggedIn, async (req,res)=>{
+    res.render("pollsManagement.ejs")
+})
+router.get("/admin/sign-in", async(req,res)=>{
+    if(req.user){
+        res.redirect("/admin/pages/dashboard/user")
+    }else{
+    res.redirect("/admin/sign-in.html")
+    }
+})
+
+router.post("/admin/pages/login/oauth/verify", login_admin)
 
 router.get("/admin/sign-in.html", (req,res)=>{
-    res.render("sign-in")
+    if(req.user){
+        res.redirect("/admin/pages/dashboard/user")
+    }else{
+        res.render("sign-in")
+    }
 })
 
 router.get("/admin/query/pages/signup", (req,res)=>{
     res.render("sign-up")
 })
 
+// CREATE INSTRUCTOR ACCOUNT
+router.post("/adminstrator/create/new/secured", register_admin)
+
 router.get("/admin/forgotPassword", (req,res)=>{
     res.render("forgot-password")
 })
-router.get("/admin/logout")
+// GET ADMIN INFO 
+router.get("/admin/secured/info/get/:webToken", AdminLoggedIn, (req,res)=>{
+    const webToken = req.params.webToken
+
+    if(webToken){
+    res.json({UserName:req.admin.username, FirstName:req.admin.first_name, LastName:req.admin.last_name, Email: req.admin.email, ProfilePicture:req.admin.profile_picture})
+    }
+})
+router.get("/admin/logout/kill/session", logout_admin)
 
 
 router.get("/welcome/email",(req,res)=>{

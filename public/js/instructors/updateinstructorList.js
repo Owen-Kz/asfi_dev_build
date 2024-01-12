@@ -29,7 +29,8 @@ async function UpdateInstructorsList(InstructorsArray, data){
                     if(InstructorProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Instructor_name}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Instructor_name}&amp;font-size=0.6`
+                        ProfileSource = await fetchProfileImage(InstructorProfilePicture)
+                        
                     }                   
                    
                     await fetch(`/admin/totalCourse/instructor/${InstructorUsername}`, ()=>{

@@ -22,8 +22,6 @@ function renderResources(data, ForQuery) {
         if(queryResult.length > 0){
         queryResult.forEach(Item => {
 
-           
-
             let Action
             let CarryAction
             let TypeText = '';
@@ -87,7 +85,7 @@ function renderResources(data, ForQuery) {
             fetch(`/admin/query/users/${Item.Owner}`, ()=>{
                 method: "GET"
             }).then(res => res.json())
-            .then(data =>{
+            .then(async data =>{
                
                 const ReviewerData = JSON.parse(data.UserInfo)
                 if(ReviewerData.length > 0){
@@ -98,7 +96,9 @@ function renderResources(data, ForQuery) {
                 if(ReviewerProfilePicture == "avatar.jpg"){
                     ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
                 }else{
-                    ProfileSource = `https://asfischolar.org/userUploads/profileImages/${ReviewerProfilePicture}`
+                 
+                    ProfileSource = await fetchProfileImage(ReviewerProfilePicture)
+
                 }
 
             

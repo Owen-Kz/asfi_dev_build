@@ -4,7 +4,7 @@ const logout_admin = async (req,res) => {
       res.clearCookie('adminRegistered');
     
       // Redirect the user to the login page or a logout_admin success page
-      res.redirect('/admin/login');
+      res.redirect('/admin/sign-in');
     }
     
     module.exports = logout_admin;

@@ -1,5 +1,5 @@
 function DeleteChannel(channelSecret){
-    fetch(`http://localhost:2020/admin/meetings/delete?channel=${channelSecret}`, {
+    fetch(`https://asfischolar.com/admin/meetings/delete?channel=${channelSecret}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data =>{

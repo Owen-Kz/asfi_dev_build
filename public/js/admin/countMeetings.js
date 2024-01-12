@@ -2,7 +2,7 @@
 const TotalChannelsContainer = document.getElementById("TotalChannelsContainer")
 
 function CountMeetings(){
-    fetch(`http://localhost:2020/admin/meetings/list/total`, {
+    fetch(`https://asfischolar.com/admin/meetings/list/total`, {
         method:"GET"
     }).then(res => res.json())
     .then( data => {

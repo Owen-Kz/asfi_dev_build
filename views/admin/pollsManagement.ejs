@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>ADMIN Instructor Request</title>
+	<title>ASFIScholar L- ASFIMeet</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
@@ -113,7 +113,6 @@
 			<%- include("adminNavigation.ejs") %>
 			<!-- Sidebar menu end -->
 
-
 			<!-- Sidebar footer START -->
 			<div class="px-3 mt-auto pt-3">
 				<div class="d-flex align-items-center justify-content-between text-primary-hover">
@@ -202,23 +201,38 @@
 
 		<!-- Title -->
 		<div class="row mb-3">
-			<div class="col-12">
-				<h1 class="h3 mb-2 mb-sm-0">Instructor Requests</h1>
+			<div class="col-12 d-sm-flex justify-content-between align-items-center">
+				<h1 class="h3 mb-2 mb-sm-0">Polls On ASFIScholar</h1>
+                <a href="https://asfischolar.com/polls/create" target="_blank" class="btn btn-sm btn-primary mb-0">Create a poll</a>
 			</div>
 		</div>
+		<!-- Course boxes START -->
+		<div class="row g-4 mb-4">
+			
+			<!-- Course item -->
+			<div class="col-sm-6 col-lg-4">
+				<div class="text-center p-4 bg-success bg-opacity-10 border border-success rounded-3">
+					<h6>Polls</h6>
+					<h2 class="mb-0 fs-1 text-success" id="TotalChannelsContainer">0</h2>
+				</div>
+			</div>
 
-		<!-- Main card START -->
+			<!-- Course item -->
+
+		</div>
+		<!-- Course boxes END -->
+ 
+		<!-- Card START -->
 		<div class="card bg-transparent border">
 
 			<!-- Card header START -->
 			<div class="card-header bg-light border-bottom">
 				<!-- Search and select START -->
 				<div class="row g-3 align-items-center justify-content-between">
-
 					<!-- Search bar -->
 					<div class="col-md-8">
-						<form class="rounded position-relative" id="searchResources">
-							<input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search" id="searchForResources">
+						<form class="rounded position-relative" id="searchForm">
+							<input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search" id="searchField">
 							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
 								<i class="fas fa-search fs-6 "></i>
 							</button>
@@ -226,18 +240,7 @@
 					</div>
 
 					<!-- Select option -->
-					<div class="col-md-3">
-						<!-- Short by filter -->
-						<form id="filterByType">
-							<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" id="filterType">
-								<option value="" >Sort by</option>
-								<option value="2">Newest</option>
-								<option value="3">Accepted</option>
-								<option value="0">Rejected</option>
-							</select>
-							<input type="submit" hidden id="submitFilter">
-						</form>
-					</div>
+	
 				</div>
 				<!-- Search and select END -->
 			</div>
@@ -245,42 +248,45 @@
 
 			<!-- Card body START -->
 			<div class="card-body">
-				<!-- Instructor request table START -->
-				<div class="table-responsive border-0">
+				<!-- Course table START -->
+				<div class="table-responsive border-0 rounded-3">
+					<!-- Table START -->
 					<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-
 						<!-- Table head -->
 						<thead>
 							<tr>
-								<th scope="col" class="border-0 rounded-start">Instructor name</th>
-								<th scope="col" class="border-0">Bio</th>
-								<th scope="col" class="border-0">Requested Date</th>
+								<th scope="col" class="border-0 rounded-start">Poll Question</th>
+								<th scope="col" class="border-0">Options</th>
 								<th scope="col" class="border-0 rounded-end">Action</th>
 							</tr>
 						</thead>
-
+						
 						<!-- Table body START -->
-						<tbody id="listContainer">						
-
+						<tbody id="meetingContainer">
+							   <!-- Table PDF item -->
+					
 						</tbody>
 						<!-- Table body END -->
 					</table>
+					<!-- Table END -->
 				</div>
-				<!-- Instructor request table END -->
+				<!-- Course table END -->
 			</div>
 			<!-- Card body END -->
 
 			<!-- Card footer START -->
 			<div class="card-footer bg-transparent pt-0">
 				<!-- Pagination START -->
-				<!-- <div class="d-sm-flex justify-content-sm-between align-items-sm-center"> -->
-				<div id="footer_container"></div>
-				<!-- </div> -->
+				<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+					<div id="paginationContainer"></div>
+					<div id="footer_container"></div>
+				
+				</div>
 				<!-- Pagination END -->
 			</div>
 			<!-- Card footer END -->
 		</div>
-		<!-- Main card END -->
+		<!-- Card END -->
 	</div>
 	<!-- Page main content END -->
 
@@ -290,38 +296,13 @@
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
-<!-- Modal START -->
-<div class="modal fade" id="appDetail" tabindex="-1" aria-labelledby="appDetaillabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
-		<div class="modal-content">
-			
-			<!-- Modal header -->
-			<div class="modal-header bg-dark">
-				<h5 class="modal-title text-white" id="appDetaillabel">Applicant details</h5>
-				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
-			</div>
 
-			<!-- Modal body -->
-			<div class="modal-body p-5" id="applicationBody">
-
-			</div>
-
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>   
-<!-- Modal END -->
 
 <!-- Back to top -->
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
 <!-- Bootstrap JS -->
 <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/instructors/instructorAccountRequests.js"></script>
-<script src="/js/fetchFiles.js"></script>
 
 <!-- Vendors -->
 <script src="/assets/vendor/choices/js/choices.min.js"></script>
@@ -330,6 +311,11 @@
 <!-- Template Functions -->
 <script src="/assets/js/functions.js"></script>
 
+<script src="/js/formatDate.js"></script>
+<script src="/js/paginationScript.js"></script>
+<script src="/js/admin/deleteChannel.js"></script>
+<script src="/js/admin/meetingList.js"></script>
+<script src="/js/admin/countMeetings.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 function DeletePoster(channelSecret){
-    fetch(`http://localhost:2020/admin/poster/delete?posterID=${channelSecret}`, {
+    fetch(`https://asfischolar.com/admin/poster/delete?posterID=${channelSecret}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data =>{

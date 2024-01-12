@@ -24,7 +24,7 @@ searchQuery.addEventListener("change", function(){
 function NewMeetingPage(page){
     meetingContainer.innerHTML  = "Loading...."
 
-    fetch(`http://localhost:2020/admin/meetings/list?page=${page}`, {
+    fetch(`https://asfischolar.com/admin/meetings/list?page=${page}`, {
         method: "GET"
     }).then(res => res.json())
     .then(data => { 
@@ -40,7 +40,7 @@ NewMeetingPage(1)
 
 // Search for meetings 
 function SearchForMeeting(value, page){
-    fetch(`http://localhost:2020/admin/meetings/list?page=${page}&q=${value}`, {
+    fetch(`https://asfischolar.com/admin/meetings/list?page=${page}&q=${value}`, {
         method:"GET"
     }).then(res => res.json())
     .then(data =>{
