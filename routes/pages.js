@@ -163,6 +163,9 @@ const InstructorDetails = require("../controllers/admin/utils/instructor/Instruc
 const AllInstructorCourses = require("../controllers/admin/utils/instructor/AllInstructorCourses");
 const ValidateFollower = require("../controllers/ValidateFollowers");
 const CreateNewPassword = require("../controllers/createNewPassword");
+const CountNewUploads = require("../controllers/admin/utils/countNewUploads");
+const CountNewInstructorRequests = require("../controllers/admin/utils/countNewInstructorRequests");
+// const { SelectMeetings } = require("./queries");
 
 // ADMINISTRATOR 
 
@@ -783,6 +786,22 @@ router.post("/instructors/applications/reject/:username", RejectInstructorAccoun
 router.get("/admin/pages/scholars/uploadRequests", (req,res)=>{
     res.render("scholarUploadRequests")
 })
+
+// GET POSTERS Management PAge 
+router.get("/admin/pages/posters/all", (req,res)=>{
+    res.render('posterManagement.ejs')
+})
+
+// GET THE LIVE EVENTS PAGE 
+router.get("/admin/pages/pages/asfimeet/events", (req,res) =>{
+    res.render("liveEventsManagement")
+})
+
+// Count NEw upload Requests 
+router.get("/admin/upload/request/count", CountNewUploads)
+// Count Instructor Request
+router.get("/admin/instructors/request/count", CountNewInstructorRequests)
+
 
 router.get("/admin/sign-in.html", (req,res)=>{
     res.render("sign-in")

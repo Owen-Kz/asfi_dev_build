@@ -3,6 +3,7 @@ const tableScholarList = document.getElementById("tableScholarList")
 const footerContainer = document.getElementById("footer_container") 
 
 function UpdateScholarsList(scholarsArray, data){
+
         const List = scholarsArray
              ScholarListContainer.innerHTML = `<tr><td><span>Loading.....</span></td></tr>`
             if(List.length > 0){
@@ -20,14 +21,14 @@ function UpdateScholarsList(scholarsArray, data){
                     const ScholarLocation = Scholar.home_address
                     const ScholarProfilePicture = Scholar.profile_picture
                     const Email  = Scholar.email
-                    const messageLink = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/${ScholarUsername}/chat`
+                    const messageLink = `https://asfischolar.org/${ScholarUsername}/chat`
                     // const date_uploaded = formatTimestamp(Scholar.date_updated)
                     
                     let ProfileSource
                     if(ScholarProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Scholar_name}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ScholarProfilePicture}`
+                        ProfileSource = `https://asfischolar.org/userUploads/profileImages/${ScholarProfilePicture}`
                     }                   
 
                     fetch(`/totalCourseTaken/scholar/${ScholarUsername}`, ()=>{

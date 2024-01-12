@@ -1,5 +1,6 @@
 const sql = require("mysql2");
 const dotenv = require("dotenv").config();
+// const { Pool } = require('pg');
 
 const db = sql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -18,8 +19,6 @@ const db = sql.createConnection({
 //     });
 // });
 
-// const { Pool } = require('pg');
-// // const dotenv = require("dotenv").config();
  
 // const pool = new Pool({
 //   user: process.env.PGUSER,
@@ -29,12 +28,8 @@ const db = sql.createConnection({
 //   database: process.env.PGDATABASE
   
 // });
-
+ 
 // Rest of your code using the 'pool' for database operations 
-// module.exports = pool
 module.exports = db;
+// module.exports = pool;
 
-// module.exports = { 
-//     pool,
-//     db
-// }

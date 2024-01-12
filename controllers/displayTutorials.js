@@ -49,7 +49,7 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
             db.query("SELECT COUNT(*) AS tutorialsCount from tutorials WHERE status = 'live'", (err, totalTutorials)=> {
                 if (err) {
                   console.error(err);
-                  return res.status(500).send("Internal Server Error: More info: Error Getting Links");
+                  return res.status(500).send("Internal Server Error: More info: Error Getting Links");   
                 }
                 const tutorialsCountTotal = JSON.stringify(totalTutorials[0]["tutorialsCount"])
         
@@ -57,7 +57,7 @@ const offsettutorials = (pagetutorials - 1) * ITEMS_PER_PAGE_tutorials;
             db.query("SELECT * FROM tutorials WHERE 1 AND status = 'live' LIMIT ? OFFSET ?",
             [ITEMS_PER_PAGE_tutorials, offsettutorials], async (err, result) => {
                 if (err) throw err;
-                var tutorialsCount = result.length
+                var tutorialsCount = result.length 
 
                 totalTutorialsCount = Math.ceil(tutorialsCount / ITEMS_PER_PAGE_tutorials);
 

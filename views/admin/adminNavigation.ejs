@@ -28,7 +28,8 @@
             <li class="nav-item"> <a class="nav-link" href="/admin/instructors">Instructors</a></li>
             <li class="nav-item"> 
                 <a class="nav-link" href="/admin/pages/instructors/requests">Instructor requests
-                    <span class="badge text-bg-success rounded-circle ms-2">2</span>
+                    <span id="instructorRequestCountContainer"></span>
+                    
                 </a>
             </li>
         </ul>
@@ -45,8 +46,14 @@
             <li class="nav-item"> <a class="nav-link" href="/admin/pages/courses/categories">Course Category</a></li>
         </ul>
     </li>
-    <li class="nav-item"> <a class="nav-link" href="/admin/pages/scholars/uploadRequests"><i class="far fa-file fa-fw me-2"></i>Upload Requests <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
-    
+    <li class="nav-item"> <a class="nav-link" href="/admin/pages/scholars/uploadRequests"><i class="fa fa-cloud-upload-alt fa-fw me-2"></i>Upload Requests
+        <span id="uploadRequestCount">
+           
+        </span></a></li>
+
+    <li class="nav-item"> <a class="nav-link" href="/admin/pages/posters/all"><i class="far fa-address-card fa-fw me-2"></i>Posters </a></li>
+
+    <li class="nav-item"> <a class="nav-link" href="/admin/pages/pages/asfimeet/events"><i class="fa fa-video fa-fw me-2"></i>Live Events (ASFI-Meet)</a></li>
     <!-- Menu item 5 -->
     <li class="nav-item"> <a class="nav-link" href="/admin/review"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
 
@@ -55,4 +62,47 @@
 
     
 </ul>
+
+
+<script>
+    const uploadRequestCount = document.getElementById("uploadRequestCount")
+    const InstructoRequestCountContainer = document.getElementById("instructorRequestCountContainer")
+
+    fetch("/admin/upload/request/count", {
+        method:"GET"
+    }).then(res => res.json())
+    .then(data => {
+        if(data){
+        const UploadCount = new Number (data.uploadCount)
+
+        if(UploadCount > 0){
+        if(UploadCount > 99){
+            uploadRequestCount.innerHTML = `<span class="badge text-bg-success rounded-circle ms-2">99+</span>`;
+        }else{
+            uploadRequestCount.innerHTML = `<span class="badge text-bg-success rounded-circle ms-2">${UploadCount}</span>`;
+        }
+    }
+    }
+    })
+
+
+    fetch("/admin/instructors/request/count", {
+        method:"GET"
+    }).then(res => res.json())
+    .then(data =>{
+        if(data){
+            const instructorRequestcount = data.requestCount
+
+            if(instructorRequestcount > 0){
+                if(instructorRequestcount > 99){
+                    InstructoRequestCountContainer.innerHTML  = `<span class="badge text-bg-success rounded-circle ms-2">99+</span>`
+                }else{
+                    InstructoRequestCountContainer.innerHTML  = `<span class="badge text-bg-success rounded-circle ms-2">${instructorRequestcount}</span>`
+                }
+
+            }
+        }
+    })
+    
+</script>
 <!-- Sidebar menu end -->

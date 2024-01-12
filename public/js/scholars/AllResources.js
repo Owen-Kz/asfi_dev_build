@@ -29,16 +29,16 @@ function renderResources(data, ForQuery) {
             let TypeText = '';
             if (Item.itemType === "book") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">BOOK</span>`;
-                Action = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/library/books/${Item.File}`
+                Action = `https://asfischolar.org/library/books/${Item.File}`
             } else if (Item.itemType === "link") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">PUBLICATION LINK</span>`;
                 Action = `${Item.title}`
             } else if (Item.itemType === "podcast") {
                 TypeText = `<span class="badge bg-purple bg-opacity-10 text-purple">PODCAST</span>`;
-                Action = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/Audio/${Item.File}`
+                Action = `https://asfischolar.org/userUploads/Audio/${Item.File}`
             } else if (Item.itemType === "tutorial") {
                 TypeText = `<span class="badge bg-warning bg-opacity-10 text-warning">TUTORIAL</span>`;
-                Action = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/Videos/${Item.File}`
+                Action = `https://asfischolar.org/userUploads/Videos/${Item.File}`
             }
 
             if(Item.Status == "live"){
@@ -98,7 +98,7 @@ function renderResources(data, ForQuery) {
                 if(ReviewerProfilePicture == "avatar.jpg"){
                     ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
                 }else{
-                    ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ReviewerProfilePicture}`
+                    ProfileSource = `https://asfischolar.org/userUploads/profileImages/${ReviewerProfilePicture}`
                 }
 
             

@@ -1,6 +1,7 @@
 
 
 function NewPage(page){
+
 fetch(`/admin/allScholars?page=${page}`, ()=>{
     method:"GET"
 }).then(res => res.json())

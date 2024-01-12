@@ -22,7 +22,7 @@ function renderResources(data, ForQuery){
             if(profile_picture == "avatar.jpg"){
                 displayPhoto = `https://eu.ui-avatars.com/api/?background=random&amp;name=${fullname}&amp;font-size=0.6`
             }else{
-                displayPhoto =  `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${profile_picture}`
+                displayPhoto =  `https://asfischolar.org/userUploads/profileImages/${profile_picture}`
             }
 
             if(account_status == "3"){
@@ -109,7 +109,7 @@ const applicationBody = document.getElementById("applicationBody")
 function ViewApplication(username){
     applicationBody.innerHTML = ""
 
-    fetch(`/users/${username}`, ()=>{
+    fetch(`/admin/query/users/${username}`, ()=>{
         method: "GET"
     }).then(res => res.json())
     .then(data =>{
@@ -124,7 +124,7 @@ function ViewApplication(username){
         if(ReviewerProfilePicture == "avatar.jpg"){
             ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
         }else{
-            ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ReviewerProfilePicture}`
+            ProfileSource = `https://asfischolar.org/userUploads/profileImages/${ReviewerProfilePicture}`
         }
         applicationBody.innerHTML = `		<span class="small">Applicant Name:</span>
         <h6 class="mb-3">${Fullname}</h6>

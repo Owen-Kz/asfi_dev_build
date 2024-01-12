@@ -26,7 +26,7 @@ const FilterResources = async (req, res) => {
                                             title: newdata.podcast_title,
                                             itemID: newdata.buffer,
                                             itemType: "podcast",
-                                            Status: "Live",
+                                            Status: newdata.status,
                                         });
                                     } else if (tableName === "tutorials") {
                                         DataArray.push({
