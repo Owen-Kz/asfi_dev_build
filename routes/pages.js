@@ -862,7 +862,7 @@ router.get("/admin/secured/info/get/:webToken", AdminLoggedIn, (req,res)=>{
     const webToken = req.params.webToken
 
     if(webToken){
-    res.json({UserName:req.admin.username, FirstName:req.admin.first_name, LastName:req.admin.last_name, Email: req.admin.email, ProfilePicture:req.admin.profile_picture})
+    res.json({UserName:req.admin.username, FirstName:req.admin.first_name, LastName:req.admin.last_name, Email: req.admin.email, ProfilePicture:req.admin.profile_picture, Buffer:req.admin.buffer})
     }
 })
 router.get("/admin/logout/kill/session", logout_admin)
