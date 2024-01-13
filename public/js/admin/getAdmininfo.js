@@ -23,8 +23,8 @@ const ProfilePictureContainer = document.querySelectorAll(".profilePictureContai
 
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    fetch(`/admin/secured/info/get`, {
+console.log("loaded")
+    fetch(`/admin/secured/info/get/profile`, {
         method: "GET"
     }).then(res => res.json())
         .then(async data => {
