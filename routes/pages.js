@@ -806,7 +806,7 @@ router.post("/instructors/applications/reject/:username",AdminLoggedIn, RejectIn
 
 // END INSTUCTOR REQUESTS
 router.get("/admin/pages/scholars/uploadRequests",AdminLoggedIn, (req,res)=>{
-    res.render("scholarUploadRequests")
+    res.render("ScholarUploadRequests")
 })
 
 // GET POSTERS Management PAge 
