@@ -8,7 +8,7 @@ const CountNewUploads = async (req, res) => {
     async function FindASum(toSum, tableName, status, variable) {
         db.query(`SELECT * FROM ${tableName} WHERE 1`, async (Err, dataExist) => {
             if (Err) throw Err
-            if (dataExist[0]) {
+            if (dataExist.length > 0) {
 
                 db.query(`SELECT COUNT(*) AS ${toSum} FROM ${tableName} WHERE status = '${status}'`, async (err, data) => {
                     if (err) throw err
