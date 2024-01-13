@@ -1,18 +1,18 @@
-function getCookie(cookieName) {
-    const name = cookieName + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i];
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(name) == 0) {
-            return cookie.substring(name.length, cookie.length);
-        }
-    }
-    return null; // Cookie not found
-}
+// function getCookie(cookieName) {
+//     const name = cookieName + "=";
+//     const decodedCookie = decodeURIComponent(document.cookie);
+//     const cookieArray = decodedCookie.split(';');
+//     for (let i = 0; i < cookieArray.length; i++) {
+//         let cookie = cookieArray[i];
+//         while (cookie.charAt(0) == ' ') {
+//             cookie = cookie.substring(1);
+//         }
+//         if (cookie.indexOf(name) == 0) {
+//             return cookie.substring(name.length, cookie.length);
+//         }
+//     }
+//     return null; // Cookie not found
+// }
 
 
 
@@ -24,10 +24,11 @@ const ProfilePictureContainer = document.querySelectorAll(".profilePictureContai
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    fetch(`/admin/secured/info/get/adkljdadMAGbwgo`, {
+    fetch(`/admin/secured/info/get`, {
         method: "GET"
     }).then(res => res.json())
         .then(async data => {
+            console.log(data)
             if (data) {
                 const username = data.UserName
                 const profilePicture = data.ProfilePicture
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const LastName = data.LastName
                 const Email = data.Email
                 let Profileimage
-
+ 
                 if (profilePicture == 'avatar.jpg') {
                     Profileimage = await fetchProfileImage("dummy.jpg")
                 } else {
@@ -46,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 EmailContainer.innerHTML = `<span>${Email}</span>`
                 ProfilePictureContainer.forEach(image => {
                     image.setAttribute("src", `${Profileimage}`)
-
                 })
 
             }
