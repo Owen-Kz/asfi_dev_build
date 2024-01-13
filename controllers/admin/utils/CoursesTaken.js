@@ -9,6 +9,8 @@ const TotalCoursesTaken = async (req,res) =>{
                 if(err) throw err
                 res.json({TotalCoursesTaken:new Number(data[0]["CoursesTaken_count"])})
             })
+        }else{
+            res.json({TotalCoursesTaken:0})
         }
     })
  
