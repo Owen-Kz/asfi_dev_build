@@ -819,7 +819,7 @@ router.get("/admin/pages/pages/asfimeet/events",AdminLoggedIn, (req,res) =>{
     res.render("liveEventsManagement")
 })
 
-// Count NEw upload Requests 
+// Count NEw upload Requests
 router.get("/admin/upload/request/count",AdminLoggedIn, CountNewUploads)
 // Count Instructor Request
 router.get("/admin/instructors/request/count",AdminLoggedIn, CountNewInstructorRequests)
