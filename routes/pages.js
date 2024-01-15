@@ -809,8 +809,8 @@ router.get("/admin/pages/scholars/uploadRequests",AdminLoggedIn, (req,res)=>{
     res.render("ScholarUploadRequests")
 })
 
-// GET POSTERS Management PAge 
-router.get("/admin/pages/posters/all",AdminLoggedIn, (req,res)=>{
+// GET POSTERS Management PAge
+router.get("/admin/pages/posters/all", AdminLoggedIn, (req,res)=>{
     res.render('posterManagement.ejs')
 })
 
@@ -859,7 +859,7 @@ router.get("/admin/forgotPassword", (req,res)=>{
 })
 // GET ADMIN INFO 
 router.get("/admin/secured/info/get/profile", AdminLoggedIn, (req,res)=>{
-
+console.log(req.admin)
     res.json({UserName:req.admin.username, FirstName:req.admin.first_name, LastName:req.admin.last_name, Email: req.admin.email, ProfilePicture:req.admin.profile_picture, Buffer:req.admin.buffer})
     
 })
