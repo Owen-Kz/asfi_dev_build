@@ -858,9 +858,21 @@ router.get("/admin/forgotPassword", (req,res)=>{
     res.render("forgot-password")
 })
 // GET ADMIN INFO 
-router.get("/admin/search/info/get/profile", AdminLoggedIn, (req,res)=>{
+router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
+    const Username = req.admin.username
+    const FirstName = req.admin.first_name
+    const LastName = req.admin.last_name
+    const Email = req.admin.email
+    const ProfilePicture = req.admin.profile_picture
 
-    res.json({UserName:req.admin.username, FirstName:req.admin.first_name, LastName:req.admin.last_name, Email: req.admin.email, ProfilePicture:req.admin.profile_picture, Buffer:req.admin.buffer})
+
+    res.json({
+        UserName:Username,
+        FirstName:FirstName,
+        LastName:LastName,
+        Email: Email,
+        ProfilePicture:ProfilePicture
+    })
 
 })
 router.get("/admin/logout/kill/session", logout_admin)
