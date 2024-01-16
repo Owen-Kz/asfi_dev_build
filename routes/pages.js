@@ -419,14 +419,16 @@ if(fileName != "avatar.jpeg" && fileName != "" && fileName != "cover.jpg"){
     const query = 'SELECT * FROM files WHERE filename = ?';
     const values = [fileName]; 
   
-    try {        
+    try {         
       db.query(query, values, async(err,result)=>{
         if(err) throw err
         const fileData = result[0].filedata;
         // Set appropriate headers for the response
-        res.setHeader('Content-Type', 'application/pdf');
+        // res.setHeader('Content-Type', 'application/pdf');
+        // res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        res.setHeader('Content-Type', 'application/octet-stream'); 
         res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
-        res.end(fileData); // Send the file data as the response
+        res.send(fileData); // Send the file data as the response
       })
  
     } catch (error) {
@@ -674,7 +676,7 @@ router.get("/:SessionId/admin", (req,res)=>{
 })
 router.get("/admin/pages/dashboard/user", AdminLoggedIn, async (req,res)=>{
 
-    res.render("admin-dashboard")
+    res.render("admin-dashboard",{username:req.admin.username, firstName:req.admin.first_name})
  
 })
 
@@ -858,7 +860,7 @@ router.get("/admin/forgotPassword", (req,res)=>{
 // GET ADMIN INFO 
 router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
     console.log(req)
-    const Username = req.admin.username
+    const Username = req.admin.username 
     console.log(Username)
     db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [Username], (err, result) => {
         if (err) {

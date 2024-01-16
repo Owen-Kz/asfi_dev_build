@@ -12,6 +12,7 @@ function UpdateScholarsList(scholarsArray, data){
                 const CurrentPage = data.currentPageScholars
                 const TotalPages = data.totalPagesScholars
                 const TotalScholars = data.totalScholars
+                const AdminBuffer = data.adminBuffer
                 const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
                 const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
                 List.forEach(async Scholar => {
@@ -22,7 +23,7 @@ function UpdateScholarsList(scholarsArray, data){
                     const ScholarProfilePicture = Scholar.profile_picture
                     const Email  = Scholar.email
             
-                    const messageLink = `https://asfischolar.org/${ScholarUsername}/chat`
+                    const messageLink = `/@${ScholarUsername}/chat?admin=${AdminBuffer}`
                     const date_joined = formatTimestamp(Scholar.joined_date)
                     
                     let ProfileSource

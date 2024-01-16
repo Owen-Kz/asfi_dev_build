@@ -85,7 +85,7 @@
 						<% } else { %>
 
 							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
-													src="" alt="Loading" >
+													src="<%=ProfileImage%>" alt="Loading" >
 						<% }%>
 					
 				</a>
@@ -102,7 +102,7 @@
                                     <% } else { %>
             
 										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
-										src="" alt="Loading" >
+										src="<%=ProfileImage%>" alt="Loading" >
                                     <% }%>
 							</div>
 							<div>
@@ -175,7 +175,7 @@ Page Banner START -->
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" alt='<%= personProfilePicture %> '>
                                     <%} else { %>
 										<img class="avatar-img rounded-circle border border-white border-3 shadow personImageContainer"
-										src="" alt="Loading" >
+										src="<%= personProfilePicture %>" alt="Loading" >
                         
                                         <% }%>
 							</div>
@@ -468,7 +468,7 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/fetchFiles.js"></script>
+// <script src="/js/fetchFiles.js"></script>
 
 </body>
 </html>

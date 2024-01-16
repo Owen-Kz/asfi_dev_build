@@ -132,25 +132,12 @@ async function DiscoverItems(data){
 
             let profileimageMain
             if(ProfileImage == "avatar.jpg"){
-                profileimageMain = "dummy.jpg"
+                profileimageMain = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
             }else{
                 profileimageMain = ProfileImage
             }
 
-
-            await fetch(`/files/uploaded/images/${profileimageMain}`, ()=>{
-                method:"GET"
-            })
-            .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.blob(); // Get the response as a Blob
-              })
-              .then(async blob => {
-                // Create a URL for the Blob object
-                const fileURL = URL.createObjectURL(blob);
-                const ProfilePicture = fileURL
+                const ProfilePicture = profileimageMain
 
             let titleText
             let FollowingStatus
@@ -197,7 +184,7 @@ async function DiscoverItems(data){
             </div>
             </account>`;
             
-        });
+    
     }
 
     }else{

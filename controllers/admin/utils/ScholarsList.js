@@ -26,12 +26,13 @@ function SendResponse(dataArray){
     scholars_list: JSON.stringify(dataArray), 
     currentPageScholars:pageScholarss,
     totalPagesScholars: totalPages,
+    adminBuffer:req.admin.buffer,
     totalScholars: totalScholarssCount
 })
 }
 
    if(!searchQuery && !Filter){
-    db.query("SELECT * FROM user_info WHERE acct_type = 'scholar_account' ORDER BY id DESC LIMIT ? OFFSET ? ",
+    db.query("SELECT * FROM user_info WHERE acct_type = 'scholar_account' ORDER BY joined_date DESC LIMIT ? OFFSET ? ",
     [ITEMS_PER_PAGE_Scholarss, offsetScholarss], async (err,data)=>{
         if(err) throw err
         SendResponse(data)

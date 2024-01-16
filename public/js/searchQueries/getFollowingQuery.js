@@ -129,26 +129,14 @@ followingAccountsContainer.innerHTML = ""
             let ProfilePicture
 
             if(ProfileImage == "avatar.jpg"){
-                ProfilePicture = "dummy.jpg"
+                ProfilePicture = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
             }else{
                 ProfilePicture = ProfileImage
             }
             let titleText 
             let AccountIcon
 
-            await fetch(`/files/uploaded/images/${ProfilePicture}`, ()=>{
-                method:"GET"
-            })
-            .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.blob(); // Get the response as a Blob
-              })
-              .then(blob => {
-                // Create a URL for the Blob object
-                const fileURL = URL.createObjectURL(blob);
-                const ProfilePicture = fileURL
+ 
 
             if(Title == "N/A"){ 
                 titleText = ""
@@ -170,7 +158,7 @@ followingAccountsContainer.innerHTML = ""
             <div css="degree">${titleText}</div></div>
             </div> 
             </account>`
-        });
+     
     })
     }else{
         followingAccountsContainer.innerHTML=`<div class="no_content_message" style='width:70%'>

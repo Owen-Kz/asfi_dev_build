@@ -1,5 +1,6 @@
 const db = require("../routes/db.config");
 const bcrypt = require("bcryptjs");
+const AdminLoggedIn = require("./admin/loggedin");
 const ChatBufferID = [];
 const recentMessagesArray = [];
 
@@ -116,10 +117,25 @@ const fetchRecentMessages = async (senderUsername, recipientUsername) => {
 };
 
 const PrivateChatRoom = async (req, res) => {
-  if (req.user) {
+  // if (req.user || req.admin) {
+  let senderUsername  
+  if(req.query.admin){
+
+    const Buffer = req.query.admin
+    // db.query("SELECT * FROM user_info WHERE buffer = 'AGentEKYO' ", async (er, data) => {
+    //   if(er) throw er
+    //   console.log(data)
+
+      // if(data){
+        senderUsername = "admin_weperch"
+      // }
+    // })
+    }else{
+ senderUsername = req.user.username;
+    }
+
     // Call this function when you start a new chat session
     startNewChatSession();
-    const senderUsername = req.user.username;
     const recipientUsername = req.params["username"];
     const messageHistory = [];
     const bufferGenerated = await bcrypt.hash(senderUsername + recipientUsername, 8);
@@ -172,7 +188,7 @@ const PrivateChatRoom = async (req, res) => {
       console.log("Error:", error);
       res.status(500).send("Chats Could not be loaded");
     }
-  }
+  // }
 };
 
 module.exports = PrivateChatRoom;

@@ -2,6 +2,15 @@ const db = require("../routes/db.config");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+// import {v2 as cloudinary} from 'cloudinary'; 
+const cloudinary = require('cloudinary').v2;
+
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 const folderPath = path.join(__dirname, "../public/userUpload/profilePhotos");
 fs.access(folderPath, fs.constants.W_OK, (err) => {
@@ -60,6 +69,14 @@ const profileImageUpload = (req, res) => {
           const encryptedFileName = uploadedFile.filename;
           const FileType = uploadedFile.mimetype;
 
+            cloudinary.uploader.upload(req.file.path, (error, result) => {
+            if (error) {
+              return console.log({ error: 'Upload to Cloudinary failed' });
+            }
+            // Access the Cloudinary URL from result and save it as needed
+            const cloudinaryUrl = result.url;
+        
+   
           const buffer = fs.readFileSync(uploadedFile.path);
           // const imageBuffer = fs.readFileSync(imageFile.path)
         
@@ -69,7 +86,7 @@ const profileImageUpload = (req, res) => {
 
           db.query( 
             "UPDATE user_info SET ? WHERE username =?",
-            [{profile_picture:encryptedFileName, buffer:bufferImage}, [userName]],
+            [{profile_picture:cloudinaryUrl, buffer:bufferImage}, [userName]],
             (err, podcastUploaded) => {
               if (err) {
                 console.error(err);
@@ -89,9 +106,9 @@ const profileImageUpload = (req, res) => {
                   return res.status(500).render("error.ejs",{status: "Error copying file" });
                 }
                // File copied successfully
-          db.query(query, values, async(err,image)=>{
-            if(err) throw err
-            console.log("image Inserted Successfully")
+          // db.query(query, values, async(err,image)=>{
+          //   if(err) throw err
+          //   console.log("image Inserted Successfully")
 
             fs.unlink(sourcePath, (unlinkErr) => {
             if (unlinkErr) {
@@ -101,7 +118,7 @@ const profileImageUpload = (req, res) => {
             }
             });
           res.redirect('/settings')
-
+      
           })
               });
             }

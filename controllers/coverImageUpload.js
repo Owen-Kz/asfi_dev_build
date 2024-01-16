@@ -2,6 +2,14 @@ const db = require("../routes/db.config");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require('cloudinary').v2;
+
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 const folderPath = path.join(__dirname, "../public/userUpload/profileCovers");
 fs.access(folderPath, fs.constants.W_OK, (err) => {
@@ -58,10 +66,16 @@ const profileCoverUpload = (req, res) => {
           // INSERT THE UPLOADED FILE WITH DATA INTO THE DATABASE
           const encryptedFileName = uploadedFile.filename;
           const FileType = uploadedFile.mimetype;
-
+          cloudinary.uploader.upload(req.file.path, (error, result) => {
+            if (error) {
+              return console.log({ error: 'Upload to Cloudinary failed' });
+            }
+            // Access the Cloudinary URL from result and save it as needed
+            const cloudinaryUrl = result.url;
+            
           db.query(
             "UPDATE user_info SET ? WHERE username =?",
-            [{cover_photo:encryptedFileName, buffer:bufferCover}, [username]],
+            [{cover_photo:cloudinaryUrl, buffer:bufferCover}, [username]],
             (err, podcastUploaded) => {
               if (err) {
                 console.error(err);
@@ -85,10 +99,8 @@ const profileCoverUpload = (req, res) => {
                        }
                       // File copied successfully
 
-                 db.query(query, values, async(err,image)=>{
-                   if(err) throw err
-                   console.log("image Inserted Successfully")
-       
+            
+
                    fs.unlink(sourcePath, (unlinkErr) => {
                    if (unlinkErr) {
                      console.error('Error deleting local PDF file:', unlinkErr);
@@ -99,9 +111,10 @@ const profileCoverUpload = (req, res) => {
                    res.render("successful.ejs",{ status: "Cover Photo Updated", page:"/settings", UserFirstname:username, UserLastName:username, UserName:username, Email:username+"@email.go", ProfileImage:"avatar.jpg" });
        
                  })
-              })
+            
             }
           );
+        })
           }
      
     } else {

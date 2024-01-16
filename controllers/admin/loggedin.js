@@ -25,7 +25,7 @@ const AdminLoggedIn = (req, res, next) => {
 
       req.admin = result[0];
       next();
-    }); 
+    });
   } catch (error) {
     console.log(error);
     res.redirect("/admin/sign-in"); // Redirect to home on error
