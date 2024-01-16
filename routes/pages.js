@@ -857,6 +857,7 @@ router.get("/admin/forgotPassword", (req,res)=>{
 })
 // GET ADMIN INFO 
 router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
+    console.log(req)
     const Username = req.admin.username
     console.log(Username)
     db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [Username], (err, result) => {
