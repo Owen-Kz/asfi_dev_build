@@ -858,11 +858,12 @@ router.get("/admin/forgotPassword", (req,res)=>{
 // GET ADMIN INFO 
 router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
     const Username = req.admin.username
-
+    console.log(Username)
     db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [Username], (err, result) => {
         if (err) {
           console.log(err);
         }
+    console.log(result[0])
     if(result.length > 0){
 
     const FirstName = result[0].first_name
