@@ -22,9 +22,8 @@ const ProfilePictureContainer = document.querySelectorAll(".profilePictureContai
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-console.log("loaded")
-    fetch(`/admin/secured/info/get/profile`, {
+
+    fetch(`/admin/search/info/get/profile`, {
         method: "GET"
     }).then(res => res.json())
         .then(async data => {
@@ -42,15 +41,17 @@ console.log("loaded")
                 } else {
                     Profileimage = await fetchProfileImage(profilePicture)
                 }
+            // document.addEventListener("DOMContentLoaded", function () {
+
 
                 FullNameContainer.innerHTML = `<span>${FirstName} ${LastName}</span>`
                 EmailContainer.innerHTML = `<span>${Email}</span>`
                 ProfilePictureContainer.forEach(image => {
                     image.setAttribute("src", `${Profileimage}`)
                 })
+            // })
 
             }
-        })
 
 
 })
