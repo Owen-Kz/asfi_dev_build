@@ -1,30 +1,10 @@
-// function getCookie(cookieName) {
-//     const name = cookieName + "=";
-//     const decodedCookie = decodeURIComponent(document.cookie);
-//     const cookieArray = decodedCookie.split(';');
-//     for (let i = 0; i < cookieArray.length; i++) {
-//         let cookie = cookieArray[i];
-//         while (cookie.charAt(0) == ' ') {
-//             cookie = cookie.substring(1);
-//         }
-//         if (cookie.indexOf(name) == 0) {
-//             return cookie.substring(name.length, cookie.length);
-//         }
-//     }
-//     return null; // Cookie not found
-// }
-
-
-
 const FullNameContainer = document.getElementById("fullNameContainer")
 const EmailContainer = document.getElementById("emailContainer")
 const ProfilePictureContainer = document.querySelectorAll(".profilePictureContainer")
 
-
-
-
-    fetch(`/admin/search/info/get/profile`, {
-        method: "GET"
+function GetAdminInfo(){
+ fetch(`/admin/search/info/get/profile`, {
+        method: "GET",
     }).then(res => res.json())
         .then(async data => {
             console.log(data)
@@ -52,9 +32,10 @@ const ProfilePictureContainer = document.querySelectorAll(".profilePictureContai
             // })
 
             }
-
-
 })
+}
+
+GetAdminInfo()
 
 async function fetchProfileImage(Image) {
     let imageToFind
