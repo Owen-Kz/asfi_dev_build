@@ -673,8 +673,6 @@ router.get("/:SessionId/admin", (req,res)=>{
     })
 })
 router.get("/admin/pages/dashboard/user", AdminLoggedIn, async (req,res)=>{
-    const Username = req.admin.username
-    const buffer = req.admin.buffer
 
     res.render("admin-dashboard")
  
@@ -860,11 +858,17 @@ router.get("/admin/forgotPassword", (req,res)=>{
 // GET ADMIN INFO 
 router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
     const Username = req.admin.username
-    const FirstName = req.admin.first_name
-    const LastName = req.admin.last_name
-    const Email = req.admin.email
-    const ProfilePicture = req.admin.profile_picture
 
+    db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [Username], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+    if(result.length > 0){
+
+    const FirstName = result[0].first_name
+    const LastName = result[0].last_name
+    const Email = result[0].email
+    const ProfilePicture = result[0].profile_picture
 
     res.json({
         UserName:Username,
@@ -873,6 +877,17 @@ router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
         Email: Email,
         ProfilePicture:ProfilePicture
     })
+}else{
+    res.json({
+        UserName:"unset",
+        FirstName:"unset",
+        LastName:"unset",
+        Email: "unset",
+        ProfilePicture:"unset",
+    }) 
+}
+
+})
 
 })
 router.get("/admin/logout/kill/session", logout_admin)
