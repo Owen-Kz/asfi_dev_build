@@ -36,6 +36,7 @@ if(req.user){
     });
   };
 
+  
   // Query user_info
   db.query("SELECT * FROM user_info WHERE username = ?", [username_new], (err, data) => {
     if (err) {

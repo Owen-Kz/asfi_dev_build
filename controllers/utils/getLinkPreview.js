@@ -26,7 +26,7 @@ async function fetchWebsiteData(urls) {
         const LINK_DATA_RECEIVED = {
           LINK_TITLE: `${url.title}`,
           LINK_DESCRIPTION: "This is an external Link to an article / publication",
-          LINK_IMAGE: "https://img.freepik.com/free-vector/library-book-collection_1010-420.jpg?w=740&t=st=1693921589~exp=1693922189~hmac=edeb773869b509e95b34ab5c4e6153e84a6861681091247f14ad731080d91477",
+          LINK_IMAGE: "https://media.istockphoto.com/id/519476132/photo/edge-of-open-book-pages.jpg?s=612x612&w=0&k=20&c=NljbavTkSaHBX_0g9Za8tCebyTTXVLSGJuw2In-qco0=",
           LINK_URL: url.link,
         };
         allData.push(LINK_DATA_RECEIVED);
