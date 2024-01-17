@@ -46,7 +46,7 @@ function renderResources(data) {
                         <div class="d-flex align-items-center">
                             <div class="mb-0 ms-2">
                                 <!-- Title -->
-                                <h6><a href="${ItemLink}">${ItemTitle}</a></h6>
+                                <h6 style=" text-wrap:wrap;><a href="${ItemLink}">${ItemTitle}</a></h6>
                             </div>
                         </div>
                     </td>
