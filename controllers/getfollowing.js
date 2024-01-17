@@ -5,7 +5,7 @@ const getFollowing = async (req, res) => {
   if (req.user) {
     let totalPagesFollowing, totalCount;
 
-    const  ITEMS_PER_PAGE = 6
+    const  ITEMS_PER_PAGE = 20
 
 // Get the current book page from the query parameter
 let page = req.params.page || 1; 

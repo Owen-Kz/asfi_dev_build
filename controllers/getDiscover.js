@@ -5,7 +5,7 @@ const getDiscover = async (req, res) => {
   if (req.user) {
 let totalPages, totalCount;
 
-    const  ITEMS_PER_PAGE = 6
+    const  ITEMS_PER_PAGE = 20
 
 
 // Get the current book page from the query parameter
