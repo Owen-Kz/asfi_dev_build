@@ -847,9 +847,9 @@ router.get("/admin/sign-in.html", (req,res)=>{
     }
 })
 
-router.get("/admin/query/pages/signup", (req,res)=>{
-    res.render("sign-up")
-})
+// router.get("/admin/query/pages/signup", (req,res)=>{
+//     res.render("sign-up")
+// })
 
 // CREATE INSTRUCTOR ACCOUNT
 router.post("/adminstrator/create/new/secured", register_admin)
