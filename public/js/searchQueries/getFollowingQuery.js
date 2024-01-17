@@ -125,8 +125,16 @@ followingAccountsContainer.innerHTML = ""
             const ProfileImage = following[0].profile_picture
             const Title = following[0].title
             const account_Type = following[0].acct_type
-
+            const prefixMainDisc = following[0].prefix
+            
+            let prefix
             let ProfilePicture
+            
+            if(prefixMainDisc == "null"){
+              prefix = " "
+            }else{
+              prefix = prefixMainDisc
+            }
 
             if(ProfileImage == "avatar.jpg"){
                 ProfilePicture = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
@@ -153,7 +161,7 @@ followingAccountsContainer.innerHTML = ""
             <account data-index="0${id}" id="li" data-name="${Fullname}">
             <div class="AccountLeft">
             <a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
-            <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
+            <div css="name"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
             </div> 

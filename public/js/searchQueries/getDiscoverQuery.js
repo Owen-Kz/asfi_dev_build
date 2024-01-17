@@ -129,6 +129,15 @@ async function DiscoverItems(data){
             const ProfileImage = `${sortedDiscover[i].profile_picture}`
             const Title = `${sortedDiscover[i].title}`
             const account_Type = `${sortedDiscover[i].acct_type}`
+            const prefixMain = `${sortedDiscover[i].prefix}`
+
+            let prefix
+
+            if(prefixMain != "null"){
+              prefix = prefixMain
+            }else{
+              prefix = ""
+            }
 
             let profileimageMain
             if(ProfileImage == "avatar.jpg"){
@@ -174,7 +183,7 @@ async function DiscoverItems(data){
           <img src= ${ProfilePicture} />
             </div></a> 
             <div class="details">
-            <div css="name"><a href="/@${Username}">${Fullname} ${AccountIcon}</a>
+            <div css="name"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
             </div>
             <div class="degree">${titleText}</div></div>
             </div>

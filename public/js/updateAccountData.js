@@ -1,5 +1,6 @@
 let titleValue
 const title = document.getElementById("title")
+const prefix = document.getElementById("prefix")
 if(title){
     titleValue = title.value
 }else{
@@ -13,6 +14,7 @@ form1.addEventListener("submit", (e) =>{
         lastname: lastname.value,
         username: username.value,
         title: title.value,
+        prefix: prefix.value,
         bio: bio.value,
         NewLocation: newLocation.value,
         usernameValidator: usernameValidator.value,

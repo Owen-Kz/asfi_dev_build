@@ -42,7 +42,7 @@ const AllResourcesAdmin = async (req, res) => {
                                             title: newdata.link_href,
                                             itemID: newdata.link_buffer,
                                             itemType: "link",
-                                            Status: "Live",
+                                            Status: newdata.link_title,
                                             File:"N/A"
                                         });
                                     } else if (tableName === "books") {

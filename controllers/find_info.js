@@ -40,7 +40,16 @@ const find_info = async (req,res) => {
             //   count books by SCholar
         db.query("SELECT COUNT(*) AS bookCount FROM books WHERE book_author = ?", [username_visitor], async (err_books, CountBooks) => {
         if(err_books) throw err_books
-        var BooksCount =JSON.stringify(CountBooks[0]["bookCount"]);
+        let BooksCount 
+
+        var BooksCountMain = CountBooks[0]["bookCount"]
+    
+        db.query("SELECT COUNT(*) AS linksCount FROM external_links WHERE link_owner =?", [username_visitor], async(err, LinkCount)=>{
+            if(err) throw err
+           var LinksCount = LinkCount[0].linksCount
+    
+            BooksCount = Math.floor(BooksCountMain + LinksCount)
+
         
            //   count podcasts by SCholar
            db.query("SELECT COUNT(*) AS podcastCount FROM podcasts WHERE podcast_owner = ?", [username_visitor], async (err_Podcast, CountPodcast) => {
@@ -112,6 +121,7 @@ const find_info = async (req,res) => {
           const area_of_interest = scholar_user[0]["area_of_interest"]
           const person_user_name = scholar_user[0]["username"]
           const displayName = firstName + "  " + LastName;
+          const Prefix = scholar_user[0]["prefix"]
 
           const TutorialFinal = []
 
@@ -157,11 +167,11 @@ const find_info = async (req,res) => {
         if(person_user_name == req.user.username){
             res.redirect("/settings") 
         }else if(acct_type == "scholar_account"){
-            res.render("profile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo:cover_photo,accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor, UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor})
+            res.render("profile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo:cover_photo,accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor, UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor, prefix:Prefix})
         }else if(acct_type == "user_account"){
-            res.render("regularProfile", {root: "./public/directory/profile", searchName: displayName, personTitle: courseAssigned, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount, Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount,  cover_photo, accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor,  TutorialsArray:JSON.stringify(TutorialFinal), UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor})
+            res.render("regularProfile", {root: "./public/directory/profile", searchName: displayName, personTitle: courseAssigned, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount, Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount,  cover_photo, accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor,  TutorialsArray:JSON.stringify(TutorialFinal), UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor, prefix:Prefix})
         }else if(acct_type == "instructor_account"){
-            res.render("instructProfile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo, accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor, UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor})
+            res.render("instructProfile", {root: "./public/directory/profile", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo, accountType: accountType_visitor, ProfileImage:profilePicture_visitor, UserFirstname:FirstName_visitor, UserLastname:LastName_visitor, Email:Email_visitor, UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor, prefix:Prefix})
         }
     }) 
 })
@@ -181,6 +191,7 @@ else {
             })
         })
         })
+    })
     })
 })
 

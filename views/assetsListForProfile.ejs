@@ -2,7 +2,7 @@
     <!-- Table head -->
     <thead>
         <tr>
-            <th scope="col" class="border-0 rounded-start">Resource Title</th>
+            <th scope="col" class="border-0 rounded-start">Title</th>
             <!-- <th scope="col" class="border-0">Status</th> -->
             <th scope="col" class="border-0">Type</th>
             <th scope="col" class="border-0 rounded-end" id="actionPanelControl">Action</th>
@@ -21,11 +21,10 @@
  <div id="footer_container"></div>
  <!-- Pagination END -->
 <script>
-if (url == "/dashboard" || url == "/Dashboard") {
-    const actionPanelControl  = document.getElementById("actionPanelControl")
+      const actionPanelControl  = document.getElementById("actionPanelControl")
 
-    actionPanelControl.setAttribute("style", "display:none")
-}
+actionPanelControl.setAttribute("style", "display:none")
+
 function hideActionButtons(){
     const action_table = document.querySelectorAll(".action-table")
 
@@ -35,4 +34,4 @@ tableAction.setAttribute("style", "display:none; visibility:hidden; opacity:0")
 }
 </script>
 
-<script src="/js/searchQueries/getAllResources.js"></script>
+<script src="/js/searchQueries/getResourcesForProfile.js"></script>

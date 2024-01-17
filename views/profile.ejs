@@ -33,6 +33,8 @@
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 	<input type="hidden" id="VisitedpPofilePhoto" value="<%=personProfilePicture%>" readonly>
 	<input type="hidden" id="CoverPhotoMain" value="<%=cover_photo%>" readonly>
+	<input type="hidden" id="usernameContainer" value="<%=searchUSERNAME%>" readonly>
+
 
     <% if(summation_FX = 1 + 4) { %>
         <form onsubmit="return false" method="post" id="follow" style="display: none; visibility: hidden;">
@@ -182,7 +184,7 @@ Page Banner START -->
 						<div class="col d-md-flex justify-content-between align-items-center mt-4">
 							<div><i class="bi bi-patch-check-fill text-info small"></i></h1>
                                 <p class="profile-tag">
-                                        <%= searchName %>
+                                        <%=prefix%> <%= searchName %>
                                         <% if(accountStatus > 0 ) { %>
                                             <i class="fas fa-check-circle text-warning small"></i>
                                         <% } %>
@@ -404,92 +406,9 @@ Page content START -->
 				</div>
 				<!-- Counter END -->
 
+				<%- include ("assetsListForProfile") %>
 
-                    <% if(TutorialSum > 0) { %>
-                        <% for(var i=0; i <  TutorialSum ; i++) { 
-                        const TutorialTopic = Tutorial[i][TTT]; 
-                        const TutorialDesc = Tutorial[i][Tutorial_desc];
-                        %>
-
-                    
-					<!-- Card item START -->
-					<div class="col-sm-6">
-						<div class="card shadow h-100">
-							<div class="preview">
-                                <img src="" alt="cover"/>
-                            </div> 
-                            <div class="overlay">
-                                <div class="player">
-                                    <a href="#">  <i class="fa fa-play"></i>  </a>
-                                </div>
-                          
-                                <div class="duration">01 : 00 : 00</div>
-                               </div>
-							<!-- Card body -->
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								<div class="d-flex justify-content-between mb-2">
-									<a href="#" class="badge bg-purple bg-opacity-10 text-purple">All level</a>
-									<a href="#" class="h6 fw-light mb-0"><i class="far fa-heart"></i></a>
-								</div>
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#"><%= TutorialTopic %></a></h5>
-								<p class="mb-2 text-truncate-2">Sub text goes here...</p>
-								<!-- Rating star -->
-								<ul class="list-inline mb-0">
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-									<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-									<li class="list-inline-item ms-2 h6 fw-light mb-0">4.0/5.0</li>
-								</ul>
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-								</div>
-                                <div class="creator bud">
-                                    <div class="first_name">
-                                        <div class="profile_container bg-golden-yellow">
-                                            <% if(personProfilePicture == "avatar.jpg") {%>
-                                                <img src="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" alt='<%= personProfilePicture  %> '>
-                                                <%} else { %>
-													<img class="avatar-img rounded-circle border border-white border-3 shadow personImageContainer"
-													src="" alt="Loading" >
-                                    
-                                            <% }%>
-                                        </div>
-                                        <div class="name"> <%= searchName %></div>
-                                    </div>
-                                    <span>
-                                        | 6 Days Ago
-                                    </span>
-                                </div>
-                                </div>
-                                <% } %>
-                                <% } else {%>
-                                    <div class="no_content_message">
-                                      <svg class="icon icon-no_sim"><use xlink:href="#icon-no_sim"></use>
-                                    
-                                        <symbol id="icon-no_sim" viewBox="0 0 24 24">
-                                            <path d="M3.656 3.891l17.484 17.438-1.313 1.313-1.875-1.922q-0.563 0.281-0.938 0.281h-10.031q-0.797 0-1.383-0.609t-0.586-1.406v-11.203l-2.625-2.625zM18.984 5.016v11.672l-11.344-11.344 2.344-2.344h7.031q0.797 0 1.383 0.609t0.586 1.406z"></path>
-                                    </symbol>
-                                </svg>              
-                                        <span class="text">No further activites to display yet</span>
-                                    </div>
-                                <% } %>
-                    
-                                     
-                        </div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
+             
 					
 				</div>
 				<!-- Activities END -->

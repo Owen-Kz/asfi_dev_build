@@ -177,7 +177,7 @@ Page Banner START -->
 						<!-- Profile info -->
 						<div class="col d-md-flex justify-content-between align-items-center mt-4">
 							<div>
-								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
+								<h1 class="my-1 fs-4"><%=prefix%>. <%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
                                 <p class="profile-tag">@<%= UserName %></p>
 								
 								
@@ -300,15 +300,33 @@ Page content START -->
 								</div>
 							</div>
 
-							<!-- Title -->
-							<div class="col-md-6">
-								<label class="form-label">Title</label>
-								<div class="input-group">
-									<span class="input-group-text">Your Title</span>
-									<input type="text" class="form-control" name="username" id="title" class='profile_input_field' value="<%=Title%>">
-								</div>
+						<!-- Description -->
+						<div class="col-md-6">
+							<label class="form-label">Your Description / Job title</label>
+							<div class="input-group">
+								<!-- <span class="input-group-text"></span> -->
+								<input type="text" class="form-control" name="title" id="title" class='profile_input_field' value="<%= Title %>">
 							</div>
+						</div>
 
+									
+						<!-- Title -->
+						<div class="col-md-6">
+							<label class="form-label">Title</label>
+							<div class="input-group">
+								<span class="input-group-text">Your Title</span>
+								<select class="form-control profile_input_field" name="prefix" id="prefix" >
+									<option value="<%= prefix %>">Select your preffered title (if any)</option>
+									<option value="Prof">Prof</option>
+									<option value="Dr">Dr</option> 
+									<option value="Mr">Mr</option>
+									<option value="Mrs">Mrs</option>
+									<option value="Miss">Mis</option>
+									
+								</select>
+								
+							</div>
+						</div>
 							<!-- Username -->
 							<div class="col-md-6">
 								<label class="form-label">Username</label>

@@ -4,13 +4,13 @@ const updateAccount = async (req, res) => {
     if(req.user){
         const  usernameValidator_main = req.user.username
         const AccountType = req.user.acct_type
-    const { firstname, lastname, username, phonenumber, title, bio, ID_Validator, gender, NewLocation } = req.body;
+    const { firstname, lastname, username, phonenumber, title, prefix, bio, ID_Validator, gender, NewLocation } = req.body;
 
     try {
         const success = [];
         if (usernameValidator_main) {
-            db.query("SELECT * FROM user_info WHERE ID = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND gender = ? AND home_address = ?", 
-            [ID_Validator, phonenumber, bio, firstname, lastname, title, gender, NewLocation], async (err, exists) => {
+            db.query("SELECT * FROM user_info WHERE ID = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND prefix =? AND gender = ? AND home_address = ?", 
+            [ID_Validator, phonenumber, bio, firstname, lastname, title, prefix, gender, NewLocation], async (err, exists) => {
                 if (err) throw err
                 if (exists[0]) {
                     res.json({ message: "Data has not changed" });
@@ -132,6 +132,17 @@ const updateAccount = async (req, res) => {
                     await updateUserField("title", title, "Title updated");
                 }
             })
+        }
+
+        if(prefix !== ""){
+            db.query("SELECT *  FROM user_info WHERE ID  =? AND prefix =?", [ID_Validator, title], async (err, title_) => {
+                if (err) throw err
+                if (title_[0]) {
+                    console.log("Title did not change")
+                } else {
+                    await updateUserField("prefix", prefix, "Prefix updated");
+                }
+            }) 
         }
 
         if(gender !== ""){

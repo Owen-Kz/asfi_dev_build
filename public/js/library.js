@@ -11,6 +11,7 @@ $("#close_modal").on("click", function(){
 
     }
 })
+const book_list = document.getElementById("book_list")
 
  
 // SEARCH FOR A PAGE
@@ -40,7 +41,8 @@ $("#close_modal").on("click", function(){
     // body.removeChild(MSG_CONTAINER)
   })
 
-const book_list = document.getElementById("book_list")
+
+
 
 function updateUIWithData(Books_Data){
   book_list.innerHTML = ""
@@ -90,6 +92,34 @@ Books_Data.forEach(book => {
 
 });
 
+}else{
+  
+for(i =0; i < 10; i++){
+  book_list.innerHTML+= `
+  <li class="card shadow h-50">
+ 
+  <div class="card-body pb-0">
+    <!-- Badge and favorite -->
+    <div class="d-flex justify-content-between mb-2">
+          <div class="book_year" style="background-color:grey;">
+              
+          </div>
+    </div>
+    <!-- Title -->
+    <h5 class="card-title" style="background-color:grey;"><a href="#" ></a></h5>
+      <a href="#" class="badge bg-purple bg-opacity-10 text-purple" style="background-color:grey;"></a>
+   
+  </div> 
+  <!-- Card footer -->
+  <div class="card-footer pt-0 pb-3">
+    <hr>
+    <div class="d-flex justify-content-around">
+                        <a href="#" style="background-color:ash;"><div class="h6 fw-light mb-0 button refad"></div></a>
+                 <a href="#" style="background-color:ash;"> <div class="h6 fw-light mb-0 button download"></div></a>
+    </div>
+  </div>
+</li>` 
+}
 }
 }
 
@@ -116,6 +146,18 @@ LINkS_body.innerHTML += `<li class="card shadow h-50">
  
   </li>`
   })
+}else{
+  for(i =0; i < 10; i++){
+    LINkS_body.innerHTML += `<li class="card shadow h-50">
+    
+    <div class="card-body pb-0">
+
+      <h5 class="card-title" style="background-color:grey;"><a href="#" target=_blank class="limited-text"></a></h5>
+      <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
+  
+ 
+  </li>`
+  }
 }
 
 

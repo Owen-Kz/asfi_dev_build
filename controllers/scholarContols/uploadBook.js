@@ -62,7 +62,7 @@ const uploadBook = (req, res) => {
     //   }
 
       // Extract the relevant data from req.body
-      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link} = req.body;
+      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link, url_title} = req.body;
       // console.log(req.body)
       // console.log(req.file)
 
@@ -176,7 +176,7 @@ const uploadBook = (req, res) => {
           const linkExists_href = linkExists[0]["link_href"]
           res.render("error", {status:"Link Already Exists"})
           }else{
-            db.query("INSERT INTO external_links SET ?", [{link_href:mainLink, link_owner:owner, link_buffer: bufferLink, link_owner_fullname: OwnerFullname}], async (err,Lnk) => {
+            db.query("INSERT INTO external_links SET ?", [{link_href:mainLink, link_owner:owner, link_buffer: bufferLink, link_owner_fullname: OwnerFullname, link_title:url_title}], async (err,Lnk) => {
   
               if(err) throw err
               res.render("successful", {status:"Link Added Succesfully", page:"/library"})

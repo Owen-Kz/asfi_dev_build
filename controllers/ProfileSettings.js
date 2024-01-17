@@ -43,6 +43,7 @@ const ProfileSettings = async (req,res) =>{
             ProfileCover = result[0]["cover_photo"]
             Title = result[0]["title"]
             Bio = result[0]["bio"]
+            Prefix = result[0]["prefix"]
 
             ID_ = result[0]["ID"]
             CountryCode_ = result[0]["country_code"]
@@ -97,19 +98,19 @@ const ProfileSettings = async (req,res) =>{
                 // Render i logged in username belongs to regular user 
                 if(AccountType == "user_account"){
                 res.render("userProfile.ejs", {status:"loggedIn", root:"./public",UserFirstname:FirstName, UserLastName:LastName, ProfileImage:ProfileImage, FirstName:FirstName, LastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration,Following:FOLLOWING[0], accountType:AccountType, Course:CourseAssigned, CourseYear:SchoolYear, ProfileCover:ProfileCover, Username:UserName, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix})
                 }
                 else if(AccountType == "scholar_account"){
  
         // Render if loggedin user name belongs to a scholar  
                 res.render("scholarProfile.ejs", {status:"loggedIn", root:"./public", Username:UserName, ProfileImage:ProfileImage, FirstName:FirstName, LastName:LastName, UserFirstname:FirstName, UserLastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration, Following:FOLLOWING[0],accountType:AccountType, Course:CourseAssigned, CourseYear:SchoolYear,ProfileCover:ProfileCover, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix})
 
                 }
                 // Render if the username belongs to an instructor 
                 else if(AccountType == "instructor_account"){
                 res.render("instructorProfile.ejs", {status:"loggedIn", root:"./public", Username:UserName, ProfileImage:ProfileImage, FirstName:FirstName,UserFirstname:FirstName, UserLastName:LastName, LastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration, FOLLOWING:FOLLOWING[0], accountType:AccountType,ProfileCover:ProfileCover, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix})
              
                 }
             })

@@ -27,7 +27,7 @@
 									<input type="radio" id="HasLink" name="radioGroup" value="option2">
 									<label for="HasLink" >Share a Link instead</label>
 								</div>
-								<input type="text" class="form-control" name="BookOwner_fullname" id="BookOwner_fullname" value="<%=UserFirstname %> <%= UserLastName %>" readonly placeholder="Podcast Owner">
+								<input type="text" class="form-control" name="BookOwner_fullname" id="BookOwner_fullname" value="" required placeholder="Publication owner full name">
 								<input type="hidden" value="<%=Username%>" name="BookOwner" id="BookOwner" >
 
 									<!-- Upload image START -->
@@ -47,17 +47,22 @@
 									<div class="col-12 left_uploadPublication" id="HasLink_Body">
 										<!-- Input -->
 										<div class="col-12 mt-4 mb-5" id="HasLink_main">
+											<label class="form-label">Publication Title</label>
+											<input type="text" class="form-control" type="text" placeholder="Enter Publication title" name="url_title"id="url_title">
+
 											<label class="form-label">Publication URL/External Link (if you have any)</label>
 											<input type="url" class="form-control" type="text" placeholder="Enter Publication url" name="url_Link"id="url_Link">
 										</div>
+
+								
 										<!-- <div class="position-relative my-4">
 											<hr>
 											<p class="small position-absolute top-50 start-50 translate-middle bg-body px-3 mb-0">&</p>
 										</div> -->
 										<div class="col-12" id="HasBook_Main">
-											<label class="form-label">Upload Book</label>
+											<label class="form-label">Upload Publication</label>
                                             <div class="input-group mb-3">
-                                               <input type="text" class="form-control" placeholder="Book Title" name="booksTitle" id="booksTitle" value="">
+                                               <input type="text" class="form-control" placeholder="Publication Title" name="booksTitle" id="booksTitle" value="">
                                             </div>
 											<div class="input-group mb-3">
 												<input type="file" class="form-control" accept=".pdf" name="file_pdf" id="file_pdf" required>
@@ -70,8 +75,6 @@
                                                 <div class="input-group mb-3">
                                                     <input type="hidden" name="booksOwner" id="booksOwner" readonly value="">
                                                 </div>
-                                           
-								
                                             
                                            <button type="submit" class="submitBookM" hidden>Upload</button>
 										</div>

@@ -38,6 +38,7 @@ const HasBook_Main = document.getElementById("HasBook_Main")
 const HasLink_Main = document.getElementById("HasLink_main")
 const removeImage = BookForm.querySelector("#removeImage")
 const url_Link = document.getElementById("url_Link")
+const url_title = document.getElementById("url_title")
 const file_pdf = document.getElementById("file_pdf")
 
 const YES_CLICK = document.getElementById("HasLicense")
@@ -97,6 +98,7 @@ function DoLink(){
     yearPublished.removeAttribute("required")
     HasLink_Main.removeAttribute("style")
     url_Link.setAttribute("required", "true")
+    url_title.setAttribute("required", "true")
     if(HasLink.checked){
         $("#submitBook").on("click", function(){
         $(".submitBookM").trigger("click")
@@ -115,6 +117,7 @@ function DoBook(){
     yearPublished.setAttribute("required", true)
     HasLink_Main.setAttribute("style", "display:none")
     url_Link.removeAttribute("required")
+    url_title.removeAttribute("required")
 
         // module.exports = register;
 $(".submitBookM").css("display", "none");

@@ -1,9 +1,9 @@
 const userResourceContainer = document.getElementById("userResourceContainer")
-
+const usernameContainer = document.getElementById("usernameContainer")
 const footerContainer = document.getElementById("footer_container")
 
 async function NewPage(page) {
-    const response = await fetch(`/getAllResources?page=${page}`);
+    const response = await fetch(`/getAllResources?page=${page}&username=${usernameContainer.value}`);
     const data = await response.json();
     renderResources(data);
 }
@@ -54,20 +54,6 @@ function renderResources(data) {
                     <!-- Assset Type -->
                     <td>
                         ${TypeText}
-                    </td>
-                    <!-- Action item -->
-                    <td class="action-table">
-                        <form class="editAssetForm" onsubmit="return false">
-                            <input type="hidden" id="editResourceID" value="${Item.itemID}" >
-                            <input type="hidden" id="editResourceType" value="${Item.itemType}">
-                            <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
-                        </form>
-                        <br>
-                        <form class="deleteAssetForm" onsubmit="return false">
-                            <input type="hidden" id="deleteResourceID" value="${Item.itemID}" readonly>
-                            <input type="hidden" id="deleteResourceType" value="${Item.itemType}" readonly>
-                            <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
-                        </form>
                     </td>
                 </tr>`;
         });

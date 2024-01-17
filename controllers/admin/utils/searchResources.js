@@ -45,7 +45,7 @@ const SearchResources_admin = async (req, res) => {
                                             title: newdata.link_href,
                                             itemID: newdata.link_buffer,
                                             itemType: "link",
-                                            Status: newdata.status,
+                                            Status: newdata.link_title,
                                             File:"N/A",
                                             Owner:newdata.link_owner
                                         });

@@ -3,9 +3,15 @@ const db = require("../../routes/db.config");
 const AllResources = async (req, res) => {
     const itemsPerPage = 5; // Number of items to display per page
     const page = req.query.page || 1; // Current page, default is 1
+    let username
+    if (req.query.username){
+        username = req.query.username
+    }else{
+        username = req.user.username
+    }
 
     if (req.user) {
-        const username = req.user.username;
+        // const username = req.user.username;
         const DataArray = [];
         let completedQueries = 0;
         const totalQueries = 4; // Total number of queries to run
@@ -38,7 +44,7 @@ const AllResources = async (req, res) => {
                                             title: newdata.link_href,
                                             itemID: newdata.link_buffer,
                                             itemType: "link",
-                                            Status: "Live",
+                                            Status: newdata.link_title,
                                         });
                                     } else if (tableName === "books") {
                                         DataArray.push({

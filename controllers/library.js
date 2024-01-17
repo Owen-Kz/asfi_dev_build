@@ -82,9 +82,11 @@ if(req.user){
               }
               externalLinks = linkResult
               const dataLinksArray = []
+              
               linkResult.forEach(async (url) => {
                 const dataLink = url.link_href
-                dataLinksArray.push(dataLink)
+                const linkTitle = url.link_title
+                dataLinksArray.push({link:dataLink, title:linkTitle})
               })
               const allDataLink = await fetchWebsiteData(dataLinksArray);
               if(allDataLink){
