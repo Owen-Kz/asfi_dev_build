@@ -169,6 +169,8 @@ const register_admin = require("../controllers/admin/register");
 const login_admin = require("../controllers/admin/login");
 const logout_admin = require("../controllers/admin/logout");
 // const { SelectMeetings } = require("./queries");
+const crypto = require('crypto');
+const SendWelcomeEmail = require("../controllers/admin/sendEmail");
 
 // ADMINISTRATOR 
 
@@ -177,6 +179,16 @@ const logout_admin = require("../controllers/admin/logout");
 const router = express.Router();
 router.use(express.json())
 
+
+// Enable CORS for this router
+router.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
 
 router.get("/", LoggedIn, (req,res)=>{
 
@@ -895,7 +907,35 @@ router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
 
 })
 router.get("/admin/logout/kill/session", logout_admin)
+router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
 
+    // Function to generate MD5 hash
+    function generateMD5(input) {
+    const hash = crypto.createHash('md5');
+    hash.update(input);
+    return hash.digest('hex');
+    }
+
+
+    const email  = req.params.emailTo
+    const fullname = req.params.fullname
+    const subject = req.params.subject
+    const year = req.params.year
+    const encryptedButton = generateMD5(email)
+    const message = `
+    <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1710946645/pf5b8n55pol5kvkpimfa.jpg" width=100% alt=www.alphaforexlyfe.com></div>
+    <h1>Hi there, ${fullname}</h1>
+    <h2>Thanks For Joining us,</h2>
+    <p>Please proceed to, verify your email, make a deposit and start earning.</p>
+    <p><a href=http://test.weperch.live/0auth?email=${email}&verify=${encryptedButton}>
+            <button style='padding:10px 50px 10px 50px; display:flex; align-self:center; alignt-items:center; justify-self:center; background:dodgerblue; color:white; border:none; outline:none; border-radius:24px; text-align:center;  justfy-content:center;'>
+            Verify Email
+            </button></a></p>
+            <p>(c) ${year} . Alphaforexlyfe</p>
+    `
+    SendWelcomeEmail(email, fullname, subject, message)
+})
+ 
 
 router.get("/welcome/email",(req,res)=>{
     res.render("welcomeEmail") 

@@ -22,7 +22,7 @@ const io = require("socket.io")(server, {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(express.json());
 
@@ -187,5 +187,5 @@ app.use("/create/newInstructor", require("./controllers/InstructorControls/creat
 app.use("/api/uploadBooks/set", require("./controllers/scholarContols/uploadBook"))
 app.use("/update/newPasword", require("./controllers/updatePassword"))
 
- 
+
 server.listen(PORT);
