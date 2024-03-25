@@ -183,7 +183,6 @@ router.use(express.json())
 // Enable CORS for this router
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -927,7 +926,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
     <h1>Hi there, ${fullname}</h1>
     <h2>Thanks For Joining us,</h2>
     <p>Please proceed to, verify your email, make a deposit and start earning.</p>
-    <p><a href=http://test.weperch.live/0auth?email=${email}&verify=${encryptedButton}>
+    <p><a href=http://alphaforexlyfe.pro/0auth?email=${email}&verify=${encryptedButton}>
             <button style='padding:10px 50px 10px 50px; display:flex; align-self:center; alignt-items:center; justify-self:center; background:dodgerblue; color:white; border:none; outline:none; border-radius:24px; text-align:center;  justfy-content:center;'>
             Verify Email
             </button></a></p>
