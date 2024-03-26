@@ -921,7 +921,19 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
     const subject = req.params.subject
     const year = req.params.year
     const encryptedButton = generateMD5(email)
-    const message = `
+    const resetToken = req.query.resetToken
+    let message
+    if(resetToken){
+ message = `
+    <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1710946645/pf5b8n55pol5kvkpimfa.jpg" width=100% alt=www.alphaforexlyfe.com></div>
+    <h2>Your Password Reset Code is</h2>
+    <h1>${resetToken}</h1>
+    <p>Please ignore if this wasn't requested by you</p>
+  
+    <p>(c) ${year} . Alphaforexlyfe</p>
+    `
+    }else{
+ message = `
     <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1710946645/pf5b8n55pol5kvkpimfa.jpg" width=100% alt=www.alphaforexlyfe.com></div>
     <h1>Hi there, ${fullname}</h1>
     <h2>Thanks For Joining us,</h2>
@@ -932,6 +944,8 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
             </button></a></p>
             <p>(c) ${year} . Alphaforexlyfe</p>
     `
+    }
+   
     SendWelcomeEmail(email, fullname, subject, message)
 })
  
