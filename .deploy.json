@@ -2,6 +2,9 @@
     "DEPLOYPATH" : "/home/asfischolar/public_html/",
     "task" :  [
       "app.js",
-      "images"
+      "views",
+      "routes",
+      "public",
+      "controllers"
     ]
   }
