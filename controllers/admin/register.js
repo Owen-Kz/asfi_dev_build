@@ -15,11 +15,10 @@ async function getRandomString() {
     return bufferID
 }
 const register_admin = async (req, res) => {
-    const { firstname, lastname, username, email, password } = req.body
+    const { firstname, lastname, username, email, password } = req.body 
     const Npassword = password
 
     if(!firstname || !lastname || !username || !email || !password) return res.json({ status: "error", error: "Please fill all fields"});
-    if (!validator.isEmail(email)) return res.json({ status: "error", error: "Please provide a valid email" });
       
     else{
         db.query("SELECT * FROM user_info WHERE email = ? AND acct_type = 'administrator'", [email], async (err, result) => {
