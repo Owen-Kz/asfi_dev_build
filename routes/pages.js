@@ -180,13 +180,13 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const router = express.Router();
 router.use(express.json())
 // Example: Proxy all requests to /api to a different service
-router.use('/api', createProxyMiddleware({
-    target: 'https://asfischolar.org', // Change to your target service
-    changeOrigin: true, // If the target server requires the host header to match
-    pathRewrite: {
-        '^/api': '', // Remove '/api' from the beginning of the path
-    },
-}));
+// router.use('/home', createProxyMiddleware({
+//     target: 'https://asfischolar.org', // Change to your target service
+//     changeOrigin: true, // If the target server requires the host header to match
+//     pathRewrite: {
+//         '^/home': '', // Remove '/api' from the beginning of the path
+//     },
+// }));
 
 
 // Enable CORS for this router

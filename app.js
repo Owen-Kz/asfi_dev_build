@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 
 const app =  express();
 const cookie = require("cookie-parser");
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 31000;
 const server = require("http").Server(app)
 const session = require("express-session");
 const shortid = require("shortid");
@@ -187,5 +187,5 @@ app.use("/create/newInstructor", require("./controllers/InstructorControls/creat
 app.use("/api/uploadBooks/set", require("./controllers/scholarContols/uploadBook"))
 app.use("/update/newPasword", require("./controllers/updatePassword"))
 
-
-server.listen(PORT);
+ 
+server.listen(PORT); 
