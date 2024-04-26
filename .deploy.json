@@ -1,0 +1,7 @@
+{
+    "DEPLOYPATH" : "/home/asfischolar/public_html/",
+    "task" :  [
+      "app.js",
+      "images"
+    ]
+  }
