@@ -80,7 +80,7 @@ app.use("/directory", express.static(__dirname + "/public/Directory"))
 
 db.connect((err) => {
     if(err) throw err;
-    console.log("Database connected");
+    console.log(`Database connected and server running on ${PORT}`);
 })
 
 let socketsConnected = new Set();
