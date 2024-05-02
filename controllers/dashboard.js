@@ -28,6 +28,7 @@ const dashboard = async(req, res) => {
        }
        else{
         console.log("ERROR :  user not logged in")
+        res.json({status:"error", message:"userNotLoggedIn"})
         // res.render("index", {status :"no", user:"NotLoggedIn"})
        }
 }
