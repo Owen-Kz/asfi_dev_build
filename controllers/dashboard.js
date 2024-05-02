@@ -1,6 +1,7 @@
 const db = require("../routes/db.config");
 
 const dashboard = async(req, res) => {
+    console.log(req)
     if(req.user){
         username_new = req.user.username
         if(username_new){

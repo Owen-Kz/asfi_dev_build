@@ -213,7 +213,7 @@ router.get("/posters", (req,res)=>{
     res.redirect("https://asfischolar.com/posters")
 })
 
- 
+
 router.get("/home", (req,res)=>{
    if(req.cookies.userRegistered){
     res.render("home", {status :"no", logger:"Not logged in", user :"", });
