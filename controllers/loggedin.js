@@ -17,10 +17,7 @@ const LoggedIn = async (req, res, next) => {
   try {
     // Decrypt the cookie and retrieve user data with the id
     const decoded = jwt.verify(req.cookies.userRegistered, process.env.JWT_SECRET);
-    console.log(req.cookies)
-    console.log(process.env.JWT_SECRET)
-    console.log(decoded)
-    console.log(decoded.id)
+
     db.query("SELECT * FROM user_info WHERE id = ? ", [decoded.id], (err, result) => {
       if (err) {
         console.log(err);
@@ -28,8 +25,6 @@ const LoggedIn = async (req, res, next) => {
       }
 
       req.user = result[0];
-    console.log(req.user)
-
       next();
     });
 
