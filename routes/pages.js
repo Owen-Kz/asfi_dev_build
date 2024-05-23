@@ -953,7 +953,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
  
 
 router.post("/forgot/password/main", forgotPassword)
-router.post("/ap/create/new/password", CreateNewPassword)
+router.post("/api/create/new/password", CreateNewPassword)
 
 router.get("/welcome/email",(req,res)=>{
     res.render("welcomeEmail") 

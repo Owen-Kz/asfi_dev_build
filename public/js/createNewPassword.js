@@ -12,7 +12,7 @@ $("#submitNewPassword").on("submit", () => {
     if(Password.value != password2.value){
         alert("Passwords do not match")
     }else{
-    fetch("/ap/create/new/password", {
+    fetch("/api/create/new/password", {
         method: "POST",
         body: JSON.stringify(FData), 
         headers:{
