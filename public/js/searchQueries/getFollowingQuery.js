@@ -130,8 +130,8 @@ followingAccountsContainer.innerHTML = ""
             let prefix
             let ProfilePicture
             
-            if(prefixMainDisc == "null"){
-              prefix = " "
+            if(prefixMainDisc === "null" || prefixMainDisc == null){
+              prefix = ""
             }else{
               prefix = prefixMainDisc
             }

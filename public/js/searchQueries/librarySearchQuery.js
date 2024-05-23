@@ -1,15 +1,17 @@
+import { updateUIWithData } from "../library.js"
+
 var searchButton = document.querySelector(".fa-search")
 const SearchBar = document.getElementById("searchLibrary")
 
 let Books_Data = []
 let BOOKS_SEARCH_ARRAY = []
 
-const BOOKS_DATA_ARRAY = document.getElementById("books_Array").value
-Books_Data = JSON.parse(BOOKS_DATA_ARRAY)
+// const BOOKS_DATA_ARRAY = document.getElementById("books_Array").value
+Books_Data = document.getElementById("books_container")
 
 
 function removeExisitng() {
-    Books_Data = []
+    Books_Data.innerHTML = ""
     BOOKS_SEARCH_ARRAY = []
 }
 
@@ -46,10 +48,4 @@ searchButton.addEventListener("click",()=>{
         } 
     })
 })
-
-// Call updateUIWithData when the DOM is ready, or when needed
-document.addEventListener("DOMContentLoaded", function () {
-    updateUIWithData(Books_Data);
-});
-
 

@@ -18,7 +18,7 @@ const watchTutorials = async (req, res) => {
                 const SearchCourseID = req.params["courseID"];
                 const SearchTutorialID = req.params["tutorialID"];
         
-                    db.query("SELECT * FROM tutorials WHERE related_course_id = ? AND tutorial_id = ?", [SearchCourseID,SearchTutorialID], (err, result) => {
+                    db.query("SELECT * FROM `tutorials` WHERE `related_course_id` = ? AND `tutorial_id` = ?", [SearchCourseID,SearchTutorialID], (err, result) => {
                         if (err) throw err;                        
                 if (result[0]) {
                     const tutorialID = result[0]["tutorial_id"];
@@ -36,7 +36,7 @@ const watchTutorials = async (req, res) => {
                     const TutorialBySameAuthor = [];
                     const AllTutorials = [];
 
-                        db.query("SELECT * FROM user_info WHERE username=?", [tutorial_owner], (err, result) => {
+                        db.query("SELECT * FROM `user_info` WHERE `username`=?", [tutorial_owner], (err, result) => {
                             if (err) return reject(err);             
 
                         const ownerFirstname = result[0]["first_name"];

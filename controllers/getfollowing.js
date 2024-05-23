@@ -2,6 +2,7 @@ const db = require("../routes/db.config");
 let FollowedUsers 
 
 const getFollowing = async (req, res) => {
+  
   if (req.user) {
     let totalPagesFollowing, totalCount;
 
@@ -46,7 +47,7 @@ const offset = (page - 1) * ITEMS_PER_PAGE;
           .then((userDataArray) => {
             FollowedUsers = []
             FollowedUsers.push(...userDataArray);
-
+ 
 
             res.json({ message: "userFollowsSome", followingData: JSON.stringify(FollowedUsers),totalPagesFollowing: totalPagesFollowing, currentPageFollowing:page });
           })

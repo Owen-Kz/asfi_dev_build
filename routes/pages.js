@@ -172,6 +172,8 @@ const logout_admin = require("../controllers/admin/logout");
 const crypto = require('crypto');
 const SendWelcomeEmail = require("../controllers/admin/sendEmail");
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const getLinksForLibrary = require("../controllers/libraryLinks");
+const GetBooksForLibrary = require("../controllers/libraryBooks");
 
 // ADMINISTRATOR 
 
@@ -271,6 +273,9 @@ router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
 
 // GET THE LIBRARY
 router.get("/library", LoggedIn, library)
+// GET Links for Library
+router.get("/library/links", getLinksForLibrary)
+router.get("/library/books", GetBooksForLibrary)
 
 // GET OPEN BOOK
 router.get("/library/b/:bookID",LoggedIn, book)

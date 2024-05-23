@@ -6,6 +6,7 @@ async function fetchWebsiteData(urls) {
   for (const url of urls) {
     try {
       const response = await axios.get(url.link);
+      if(response){
       const html = response.data;
       const $ = cheerio.load(html);
 
@@ -33,8 +34,13 @@ async function fetchWebsiteData(urls) {
 
         // console.log('No Open Graph metadata found for URL:', url);
       }
+    }else{
+      console.log("NoExternalDataFor ", url)
+      return null
+    }
     } catch (error) {
       console.error('Error fetching data for URL', url, ':', error.message);
+      return null
     }
   }
 

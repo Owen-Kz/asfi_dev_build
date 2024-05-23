@@ -28,8 +28,6 @@
 </head>
 
 <body>
-	<input type="text" id="books_Array" value="<%=BOOK_DATA_ARRAY%>" hidden readonly>
-	<input type="text" name="externalLinks" id="externalLinks" value="<%=externalLinks%>" hidden readonly>
     <!-- NAVIGATION BAR  -->
     <sidebar class="left-navigation-bar bg-shadow ">
         <%if(accountType == "scholar_account") {%>
@@ -89,57 +87,8 @@ Page content START -->
 				
 				<!-- Pagination START -->
 				<div class="col-12">
-					<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-						<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-							<% if (totalPagesBooks > 1) { %>
-							  <% if (currentPageBooks > 1) { %>
-								<li class="page-item mb-0">
-								  <a class="page-link" href="?pageBook=<%= currentPageBooks - 1 %>" tabindex="-1" id="prevBookPage">
-									<i class="fas fa-angle-double-left"></i>
-								  </a>
-								</li>
-							  <% } %>
-						  
-							  <% const maxPagesToShow = 5; %>
-							  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
-							  <% const startPage = Math.max(currentPageBooks - halfMax, 1); %>
-							  <% const endPage = Math.min(currentPageBooks + halfMax, totalPagesBooks); %>
-							  <% const nextPage = Math.floor(currentPageBooks) + 1 %>
+					<nav class="mt-4 d-flex justify-content-center" aria-label="navigation" id="booksNavigation">
 
-						  
-							  <% if (startPage > 1) { %>
-								<li class="page-item mb-0">
-								  <a class="page-link" href="?pageBook=1">1</a>
-								</li>
-								<% if (startPage > 2) { %>
-								  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-								<% } %>
-							  <% } %>
-						  
-							  <% for (let i = startPage; i <= endPage; i++) { %>
-								<li class="page-item mb-0 <%= i === currentPageBooks ? 'active' : '' %>">
-								  <a class="page-link" href="?pageBook=<%= i %>"><%= i %></a>
-								</li>
-							  <% } %>
-						  
-							  <% if (endPage < totalPagesBooks) { %>
-								<% if (endPage < totalPagesBooks - 1) { %>
-								  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-								<% } %>
-								<li class="page-item mb-0"><a class="page-link" href="?pageBook=<%= totalPagesBooks %>"><%= totalPagesBooks %></a></li>
-							  <% } %>
-						  
-							  <% if (currentPageBooks < totalPagesBooks) { %>
-								<li class="page-item mb-0">
-								  <a class="page-link" href="?pageBook=<%= nextPage %>" id="nextBookPage">
-									<i class="fas fa-angle-double-right"></i>
-								  </a>
-								</li>
-							  <% } %>
-							<% } %>
-						  </ul>
-						  
-						<span id="bookPageInfo">Page <%=currentPageBooks%> of <%=totalPagesBooks  %></span>
 
 					</nav>
 			
@@ -160,60 +109,11 @@ Page content START -->
                     </div>
 								<!-- Pagination START -->
 								<div class="col-12">
-									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-										<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-											<% if (totalPagesLinks > 1) { %>
-											  <% if (currentPageLinks > 1) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageLink=<%= currentPageLinks - 1 %>" tabindex="-1" id="prevLinkPage">
-													<i class="fas fa-angle-double-left"></i>
-												  </a>
-												</li>
-											  <% } %>
-										  
-											  <% const maxPagesToShow = 5; %>
-											  <% const halfMax = Math.floor(maxPagesToShow / 2); %>
-											  <% const startPage = Math.max(currentPageLinks - halfMax, 1); %>
-											  <% const endPage = Math.min(currentPageLinks + halfMax, totalPagesLinks); %>
-											  <% const nextPage = Math.floor(currentPageLinks) + 1 %>
-				
-										  
-											  <% if (startPage > 1) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageLink=1">1</a>
-												</li>
-												<% if (startPage > 2) { %>
-												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-												<% } %>
-											  <% } %>
-										  
-											  <% for (let i = startPage; i <= endPage; i++) { %>
-												<li class="page-item mb-0 <%= i === currentPageLinks ? 'active' : '' %>">
-												  <a class="page-link" href="?pageLink=<%= i %>"><%= i %></a>
-												</li>
-											  <% } %>
-										  
-											  <% if (endPage < totalPagesLinks) { %>
-												<% if (endPage < totalPagesLinks - 1) { %>
-												  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-												<% } %>
-												<li class="page-item mb-0"><a class="page-link" href="?pageLink=<%= totalPagesLinks %>"><%= totalPagesLinks %></a></li>
-											  <% } %>
-										  
-											  <% if (currentPageLinks < totalPagesLinks) { %>
-												<li class="page-item mb-0">
-												  <a class="page-link" href="?pageLink=<%= nextPage %>" id="nextBookPage">
-													<i class="fas fa-angle-double-right"></i>
-												  </a>
-												</li>
-											  <% } %>
-											<% } %>
-										  </ul>
-										  
-										<span class="bookPageInfo">Page <%=currentPageLinks%> of <%=totalPagesLinks  %></span>
-				
+									
+									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation" id="LinksPaginationContainer">
+
+
 									</nav>
-							
 								</div>
 								<!-- Pagination END -->
 				</div>
@@ -245,8 +145,8 @@ Footer END -->
 <script src="/js/fetchFiles.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script src="/js/library.js"></script>
-<script src="/js/searchQueries/librarySearchQuery.js"></script>
+<script src="/js/library.js" type="module"></script>
+<script src="/js/searchQueries/librarySearchQuery.js" type="module"></script>
 <!-- <script src="./js/updateAccountData.js"></script> -->
 
 <!-- Back to top -->
