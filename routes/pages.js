@@ -548,21 +548,21 @@ router.get("/myresults", (req, res) =>{
 router.get("/passwordReset", (req, res) =>{
     res.render("forgotPassword")
 })
+ 
+router.get("/easyFlex/reset",(req,res)=>{
 
-
-
-router.get("/confirm/email/reset",(req,res)=>{
-    const emailData = req.session.emailData || {}
+    const emailData = JSON.parse(req.cookies.resetPasswordData) || {}
     if(emailData){
-        res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:"bensonmichaelowen#myspace.com"})
+        res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:emailData.email})
     }else{
         // res.render("confrimCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
         res.redirect("/passwordReset")
-    }
+    } 
 })
 
+
 router.get("/createPassword", (req,res) => {
-    const emailData = req.session.emailData || {}
+    const emailData = JSON.parse(req.cookies.resetPasswordData)|| {}
     const ConfrimCodeData_ = req.session.tokenData || {}
 
     if(emailData.email){
@@ -964,6 +964,4 @@ router.get("/logout", logout)
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
 })
-
-
 module.exports = router;

@@ -1,3 +1,5 @@
+import { SetCookies } from "./setCookies.js"
+
 const email = document.getElementById("email")
 const resetForm = document.getElementById("resetForm")
 resetForm.addEventListener("submit", () =>{
@@ -13,17 +15,13 @@ resetForm.addEventListener("submit", () =>{
         }
     }) .then(res => res.json())
       .then(data =>{
-        if(data.status === "success"){
-          console.log(data)
-          window.location.href = `/confirm/email/reset`; // Change to the actual rout 
+        if(data.status === "success"){ 
+        SetCookies("emailData", data.emailData)
+          window.location.href = `/easyFlex/reset`; // Change to the actual rout 
         }else{
           console.log(data.message)
           console.log(data)
         }
       })
-      .catch((error) => {
-        console.error('Error submitting form:', error);
-        // Handle the error here if needed
-      });
 })
 

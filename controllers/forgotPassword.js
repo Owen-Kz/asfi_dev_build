@@ -23,9 +23,18 @@ const forgotPassword = async (req, res) => {
         } else {
           // Create an email message 
           const emailDataH  = { email:email, message:message };
-          req.session.emailData  = emailDataH
+   
         //   console.log(emailDataH)
+        // create cookie token
 
+      // create cookie expiry date 
+      const cookieOptions = {
+          expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+          httpOnly: true
+      }
+      // save cookie 
+  
+      res.cookie("resetPasswordData", JSON.stringify(emailDataH), cookieOptions)
           // Send the email
 
           
@@ -46,7 +55,7 @@ const forgotPassword = async (req, res) => {
         .send(msg)
         .then(() => {
           console.log('Email sent')
-               res.json({status:"success", message: 'Reset token sent to your email', emailData:emailDataH});
+               res.json({status:"success", message: 'Reset token sent to your email', emailData:JSON.stringify(emailDataH)});
             // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
         })
         .catch((error) => {
