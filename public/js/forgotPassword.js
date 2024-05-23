@@ -11,7 +11,7 @@ resetForm.addEventListener("submit", () =>{
         headers: {
             "Content-type" : "application/JSON"
         }
-    }) .thenn(res => res.json())
+    }) .then(res => res.json())
       .then(data =>{
         if(data.status === "success"){
           console.log(data)
