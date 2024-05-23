@@ -274,8 +274,8 @@ router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
 // GET THE LIBRARY
 router.get("/library", LoggedIn, library)
 // GET Links for Library
-router.get("/item/content/pages/links", getLinksForLibrary)
-router.get("/item/content/pages/books", GetBooksForLibrary)
+router.get("/getAllLinksOnLibrary", getLinksForLibrary)
+router.get("/getAllBooksOnLibrary", GetBooksForLibrary)
 
 // GET OPEN BOOK
 router.get("/library/b/:bookID",LoggedIn, book)
