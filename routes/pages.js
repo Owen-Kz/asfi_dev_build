@@ -550,7 +550,7 @@ router.get("/passwordReset", (req, res) =>{
 })
 
 
-router.post("/api/forgot-password", forgotPassword)
+router.post("/forgot/password/main", forgotPassword)
 router.post("/ap/create/new/password", CreateNewPassword)
 
 

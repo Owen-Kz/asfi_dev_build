@@ -5,7 +5,7 @@ resetForm.addEventListener("submit", () =>{
         email:email.value,
         message: `Code has been sent to ${email.value}`
     } 
-    fetch("/api/forgot-password", {
+    fetch("/forgot/password/main", {
         method: "POST",
         body: JSON.stringify(resetPassword),
         headers: {
