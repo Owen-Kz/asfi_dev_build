@@ -1,5 +1,5 @@
 const email = document.getElementById("email")
-
+const resetForm = document.getElementById("resetForm")
 resetForm.addEventListener("submit", () =>{
     const resetPassword = {
         email:email.value,
@@ -11,11 +11,13 @@ resetForm.addEventListener("submit", () =>{
         headers: {
             "Content-type" : "application/JSON"
         }
-    })    .then((response) => {
-        if (response.status === 200) {
-            // alert("afafafaf")
-          // Redirect to the new page if the response is successful
-        window.location.href = `/EmailConfirmation`; // Change to the actual route
+    }) .thenn(res => res.json())
+      .then(data =>{
+        if(data.status === "success"){
+          console.log(data)
+          // window.location.href = `/EmailConfirmation`; // Change to the actual rout 
+        }else{
+          console.log(data.message)
         }
       })
       .catch((error) => {
