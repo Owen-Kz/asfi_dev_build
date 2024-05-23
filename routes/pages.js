@@ -554,7 +554,7 @@ router.post("/api/forgot-password", forgotPassword)
 router.post("/ap/create/new/password", CreateNewPassword)
 
 
-router.get("/EmailConfirmation",(req,res)=>{
+router.get("/confirm/email/reset",(req,res)=>{
     const emailData = req.session.emailData || {}
     if(emailData){
         res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:"bensonmichaelowen#myspace.com"})
