@@ -3,7 +3,8 @@ const dotenv = require("dotenv").config();
 // const { Pool } = require('pg');
 
 const db = sql.createConnection({
-    host: "db4free.net",
+    // host: "db4free.net",
+    host: "localhost",
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
