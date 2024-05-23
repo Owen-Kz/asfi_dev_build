@@ -15,7 +15,7 @@ resetForm.addEventListener("submit", () =>{
       .then(data =>{
         if(data.status === "success"){
           console.log(data)
-          // window.location.href = `/confirm/email/reset`; // Change to the actual rout 
+          window.location.href = `/confirm/email/reset`; // Change to the actual rout 
         }else{
           console.log(data.message)
         }

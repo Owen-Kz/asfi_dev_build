@@ -19,7 +19,7 @@ const forgotPassword = async (req, res) => {
       db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email], (err) => {
         if (err) {
           console.error('Error updating resetToken:', err);
-          res.status(500).json({ message: 'Internal server error' });
+          res.status(500).json({ status:"error", message: 'Internal server error' });
         } else {
           // Create an email message 
           const emailDataH  = { email:email, message:message };
@@ -46,7 +46,7 @@ const forgotPassword = async (req, res) => {
         .send(msg)
         .then(() => {
           console.log('Email sent')
-               res.status(200).json({ message: 'Reset token sent to your email', emailData:emailDataH});
+               res.status(200).json({status:"success", message: 'Reset token sent to your email', emailData:emailDataH});
             // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
         })
         .catch((error) => {
