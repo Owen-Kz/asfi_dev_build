@@ -171,7 +171,7 @@ for(let i=0; i<5; i++){
   </li>`
 } 
 
-fetch("/library/links", {
+fetch("/library/content/pages/links", {
   method:"GET"
 }).then(res => res.json())
 .then(data =>{
@@ -234,7 +234,7 @@ LinksPagination(totalLinksPage, currentLinkPage)
  
 
   // FEtch the books and update ui 
-  fetch(`/library/books`, {
+  fetch(`/library/content/pages/books`, {
     method:"GET",
   }).then(res =>res.json())
   .then(data =>{
