@@ -18,6 +18,7 @@ resetForm.addEventListener("submit", () =>{
           window.location.href = `/confirm/email/reset`; // Change to the actual rout 
         }else{
           console.log(data.message)
+          console.log(data)
         }
       })
       .catch((error) => {
