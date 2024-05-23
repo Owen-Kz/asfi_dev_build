@@ -45,7 +45,7 @@ const forgotPassword = async (req, res) => {
         .send(msg)
         .then(() => {
           console.log('Email sent')
-               res.status(200).json({ message: 'Reset token sent to your email' });
+               res.status(200).json({ message: 'Reset token sent to your email', emailData:emailDataH});
             // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
         })
         .catch((error) => {

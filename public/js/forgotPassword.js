@@ -13,7 +13,7 @@ resetForm.addEventListener("submit", () =>{
         if (response.status === 200) {
             // alert("afafafaf")
           // Redirect to the new page if the response is successful
-
+          console.log(data.emailData)
         window.location.href = `/EmailConfirmation`; // Change to the actual route
         }
       })

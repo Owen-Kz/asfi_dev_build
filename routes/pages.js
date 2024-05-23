@@ -556,7 +556,7 @@ router.post("/ap/create/new/password", CreateNewPassword)
 router.get("/EmailConfirmation",(req,res)=>{
     const emailData = req.session.emailData || {}
     if(emailData){
-        res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:req.session.emailData.email})
+        res.render("confirmCode.ejs", {emailData:emailData, message:emailData.message, email:emailData.email})
     }else{
         // res.render("confrimCode", {emailData:emailData, message:req.session.emailData.message, email:req.session.emailData.email})
         res.redirect("/passwordReset")
