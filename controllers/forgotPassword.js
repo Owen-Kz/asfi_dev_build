@@ -22,7 +22,8 @@ const forgotPassword = async (req, res) => {
           res.status(500).json({ message: 'Internal server error' });
         } else {
           // Create an email message 
-          const emailDataH = req.session.emailData = { email:email, message:message };
+          const emailDataH  = { email:email, message:message };
+          req.session.emailData  = emailDataH
         //   console.log(emailDataH)
 
           // Send the email

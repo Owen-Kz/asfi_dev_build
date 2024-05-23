@@ -549,6 +549,7 @@ router.get("/passwordReset", (req, res) =>{
     res.render("forgotPassword")
 })
 
+
 router.post("/api/forgot-password", forgotPassword)
 router.post("/ap/create/new/password", CreateNewPassword)
 
