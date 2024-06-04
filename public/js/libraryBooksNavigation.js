@@ -33,7 +33,7 @@ function booksNavigation(totalPagesBooks, currentPageBooks) {
     }
 
     for (let i = startPage; i <= endPage; i++) {
-      let active = (i === currentPageBooks ? 'active' : '');
+      let active = (i == currentPageBooks ? 'active' : '');
       OtherPages += `<li class="page-item mb-0 ${active}">
         <a class="page-link" href="?pageBook=${i}">${i}</a>
       </li>`;

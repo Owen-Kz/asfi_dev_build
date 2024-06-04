@@ -10,8 +10,8 @@ function SendWelcomeEmail(email,fullname, subject, message){
             name: fullname  // Add receiver's name here
           },
           from: {
-            email: "no-reply@alphaforexlyfe.pro",
-            name: "Alpha Forex Lyfe"  // Optionally, you can also add sender's name
+            email: "no-reply@raysonfinance.vercel.app",
+            name: "Rayson Finance"  // Optionally, you can also add sender's name
           },
       subject: `${subject}`,
       html: `${message}`
