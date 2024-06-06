@@ -178,7 +178,7 @@ app.use("/api/createFollower", require("./controllers/createFollower"));
 app.use("/api/delFollower", require("./controllers/deleteFollower"));
 app.use("/api/scholar/createPodcast", require("./controllers/scholarContols/createPodcast"));
 // app.use("/api/scholar/newCourse", require("./controllers/scholarContols/createCourse"))
-app.use("/api/updateAccount", LoggedIn, require("./controllers/updateAccount"));
+// app.use("/api/updateAccount", LoggedIn, require("./controllers/updateAccount"));
 app.use("/api/updateLinks", require("./controllers/createLink"))
 app.use("/api/data", require("./controllers/PodcastDownload"));
 app.use("/api/join-Room", require("./controllers/joinRoom"));

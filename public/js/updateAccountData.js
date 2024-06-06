@@ -1,6 +1,7 @@
 let titleValue
 const title = document.getElementById("title")
 const prefix = document.getElementById("prefix")
+const user = document.getElementById("user")
 if(title){
     titleValue = title.value
 }else{
@@ -19,7 +20,7 @@ form1.addEventListener("submit", (e) =>{
         NewLocation: newLocation.value,
         usernameValidator: usernameValidator.value,
         phonenumber: phonenumber.value,
-        ID_Validator: ID_Validator.value
+        user: user.value
     }
     fetch("/api/updateAccount", {
         method: "POST",

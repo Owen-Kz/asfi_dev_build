@@ -45,7 +45,7 @@ const ProfileSettings = async (req,res) =>{
             Bio = result[0]["bio"]
             Prefix = result[0]["prefix"]
 
-            ID_ = result[0]["ID"]
+            ID_ = result[0]["id"]
             CountryCode_ = result[0]["country_code"]
 
             ProfileImage.push(ProfileImage_)

@@ -3,7 +3,7 @@ const sgMail = require("@sendgrid/mail");
 function SendWelcomeEmail(email,fullname, subject, message){
  
     sgMail.setApiKey(process.env.SENDGRID_API_KEY_ALPHA)
-
+ 
     const msg = {
         to: {
             email: email,

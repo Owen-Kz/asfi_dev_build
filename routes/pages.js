@@ -174,6 +174,7 @@ const SendWelcomeEmail = require("../controllers/admin/sendEmail");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const getLinksForLibrary = require("../controllers/libraryLinks");
 const GetBooksForLibrary = require("../controllers/libraryBooks");
+const updateAccount = require("../controllers/updateAccount");
 
 // ADMINISTRATOR 
 
@@ -434,6 +435,7 @@ router.get("/:tutorialOwner/:courseID/:tutorialID", LoggedIn, watchTutorials);
 
 //Update user Profile and show the settings page
 router.get("/settings", LoggedIn, ProfileSettings)
+router.post("/api/updateAccount", LoggedIn, updateAccount)
 // GET PROFILE IMAGES 
 router.get("/files/uploaded/images/:filename", async (req,res)=>{
     const fileName = req.params.filename;
