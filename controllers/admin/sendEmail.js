@@ -1,6 +1,6 @@
 const sgMail = require("@sendgrid/mail");
 
-function SendWelcomeEmail(email,fullname, subject, message){
+function SendWelcomeEmail(email, fullname, subject, message){
  
     sgMail.setApiKey(process.env.SENDGRID_API_KEY_ALPHA)
  
@@ -10,7 +10,7 @@ function SendWelcomeEmail(email,fullname, subject, message){
             name: fullname  // Add receiver's name here
           },
           from: {
-            email: "no-reply@raysonfinance.vercel.app",
+            email: "support@asfischolar.org",
             name: "Rayson Finance"  // Optionally, you can also add sender's name
           },
       subject: `${subject}`,
@@ -19,7 +19,7 @@ function SendWelcomeEmail(email,fullname, subject, message){
     sgMail
       .send(msg)
       .then(() => {
-        console.log('Welcome Email sent for Alpha')
+        console.log('Email sent for Alpha')
             //  res.status(200).json({ message: 'Reset token sent to your email' });
           // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
       })
