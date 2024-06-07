@@ -964,7 +964,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
     SendWelcomeEmail(email, fullname, subject, message)
 })
  
-router.post("/api/email/external", async(req,res) =>{
+router.post("/email/external", async(req,res) =>{
     const {to, fullname, subject, html} = req.body
     SendWelcomeEmail(to, fullname, subject, html)
 })
