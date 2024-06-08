@@ -954,7 +954,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
         <h1>Hi there, ${fullname}</h1>
         <h2>Thanks For Joining us,</h2>
         <p>Please proceed to, verify your email, make a deposit and start earning.</p>
-        <p><a href=https://raysonfinance.vercel.app/0auth?email=${email}&verify=${encryptedButton}>
+        <p><a href=https://raysonfinance.org/0auth?email=${email}&verify=${encryptedButton}>
         <button style='padding:10px 50px 10px 50px; display:flex; align-self:center; alignt-items:center; justify-self:center; background:dodgerblue; color:white; border:none; outline:none; border-radius:24px; text-align:center;  justfy-content:center;'>
         Verify Email
         </button></a></p>
