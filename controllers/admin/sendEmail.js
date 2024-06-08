@@ -2,13 +2,14 @@ const sgMail = require("@sendgrid/mail");
 
 function SendWelcomeEmail(email, fullname, subject, message){
  
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY_ALPHA)
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
  
     const msg = {
         to: {
             email: email,
             name: fullname  // Add receiver's name here
-          },
+          },	
+          
           from: {
             email: "no-reply@raysonfinance.org",
             name: "Rayson Finance"  // Optionally, you can also add sender's name

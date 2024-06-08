@@ -941,7 +941,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
     let message
     if(resetToken){
  message = `
-    <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1717282518/raysonFinance_lg8whf.jpg" width=100% alt=www.alphaforexlyfe.com></div>
+    <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1717282518/raysonFinance_lg8whf.jpg" width=100% alt=www.raysonfinance.org></div>
     <h2>Your Password Reset Code is</h2>
     <h1>${resetToken}</h1>
     <p>Please ignore if this wasn't requested by you</p>
@@ -950,7 +950,7 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
     `
     }else{
         message = `
-        <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1717282518/raysonFinance_lg8whf.jpg" width=100% alt=www.alphaforexlyfe.com></div>
+        <div><img src="https://res.cloudinary.com/dll8awuig/image/upload/v1717282518/raysonFinance_lg8whf.jpg" width=100% alt=www.raysonfinance.org></div>
         <h1>Hi there, ${fullname}</h1>
         <h2>Thanks For Joining us,</h2>
         <p>Please proceed to, verify your email, make a deposit and start earning.</p>
