@@ -10,7 +10,7 @@ function SendWelcomeEmail(email, fullname, subject, message){
             name: fullname  // Add receiver's name here
           },
           from: {
-            email: "support@asfischolar.org",
+            email: "no-reply@raysonfinance.org",
             name: "Rayson Finance"  // Optionally, you can also add sender's name
           },
       subject: `${subject}`,
