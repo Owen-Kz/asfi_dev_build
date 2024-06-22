@@ -175,6 +175,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const getLinksForLibrary = require("../controllers/libraryLinks");
 const GetBooksForLibrary = require("../controllers/libraryBooks");
 const updateAccount = require("../controllers/updateAccount");
+const CombinePDF = require("../controllers/external/combinePDF");
 
 // ADMINISTRATOR 
 
@@ -960,7 +961,6 @@ router.get("/api/email/:year/:emailTo/:fullname/:subject", async (req,res) =>{
         </button></a></p>
         <p>(c) ${year} . Rayson Finance</p>`
     }
-   
     SendWelcomeEmail(email, fullname, subject, message)
 })
  
@@ -975,6 +975,9 @@ router.get("/welcome/email",(req,res)=>{
     res.render("welcomeEmail") 
 })
 router.get("/logout", logout)
+
+// #xternal ENdpoints for Other applications 
+router.post("/external/api/combinePDF", CombinePDF)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {
