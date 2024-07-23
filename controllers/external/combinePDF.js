@@ -8,6 +8,7 @@ const { exec } = require('child_process');
 
 const upload = multer({ dest: 'uploads/' }).fields([
     { name: 'manuscript_file', maxCount: 1 },
+    { name: 'tracked_manuscript', maxCount: 1 },
     { name: 'figures', maxCount: 10 },
     { name: 'supplementary_material', maxCount: 1 },
     { name: 'graphic_abstract', maxCount: 1 },
@@ -117,11 +118,12 @@ const CombinePDF = async (req, res) => {
         console.log("Files Received");
 
         try {
-            const { manuscript_file, figures, supplementary_material, graphic_abstract, tables } = req.files;
+            const { manuscript_file, tracked_manuscript, figures, supplementary_material, graphic_abstract, tables } = req.files;
 
             // Convert all files to PDF
             const convertedFiles = await convertFilesToPDF([
                 ...(manuscript_file || []),
+                ...(tracked_manuscript || []),
                 ...(figures || []),
                 ...(supplementary_material || []),
                 ...(graphic_abstract || []),
