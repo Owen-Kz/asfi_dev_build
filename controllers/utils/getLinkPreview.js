@@ -32,15 +32,31 @@ async function fetchWebsiteData(urls) {
         };
         allData.push(LINK_DATA_RECEIVED);
 
-        // console.log('No Open Graph metadata found for URL:', url);
+        console.log('No Open Graph metadata found for URL:', url);
       }
     }else{
-      console.log("NoExternalDataFor ", url)
-      return null
+      const LINK_DATA_RECEIVED = {
+        LINK_TITLE: `${url.title}`,
+        LINK_DESCRIPTION: "Could Not Fetch Publication / Broken Pipe",
+        LINK_IMAGE: "https://asfischolar.org/files/images/ASFIScholar_Logo.png",
+        LINK_URL: url.link,
+      };
+      allData.push(LINK_DATA_RECEIVED);
+      // console.log("NoExternalDataFor ", url)
+      // return null
     }
     } catch (error) {
-      console.error('Error fetching data for URL', url, ':', error.message);
-      return null
+      const LINK_DATA_RECEIVED = {
+        LINK_TITLE: `${url.title}`,
+        LINK_DESCRIPTION: "Could Not Fetch Publication / Broken Pipe",
+        LINK_IMAGE: "https://asfischolar.org/files/images/ASFIScholar_Logo.png",
+        LINK_URL: url.link,
+      };
+      allData.push(LINK_DATA_RECEIVED);
+      // console.log('Error fetching data for URL', url, ':', error.message);
+      // return []
+      
+      // return null
     }
   }
 

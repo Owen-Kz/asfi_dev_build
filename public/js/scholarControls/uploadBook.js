@@ -3,7 +3,6 @@ const BookForm = document.getElementById("book");
 genBuffer()
 // GENERATE RANDOM ID TO AD TO PODCAST SERACH QUERY 
 function genBuffer() {
-
 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 var passwordLength = 24;
 var bufferID  = "";

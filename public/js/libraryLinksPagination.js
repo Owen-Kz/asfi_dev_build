@@ -1,4 +1,4 @@
-function LinksPagination(totalPagesLinks, currentpageLinks){
+async function LinksPagination(totalPagesLinks, currentpageLinks){
     const LinksPaginationContainer = document.getElementsByName("LinksPaginationContainer")
     let Previous = "";
   let AfterPrevious = "";
@@ -57,6 +57,7 @@ function LinksPagination(totalPagesLinks, currentpageLinks){
   } 
 
   LinksPaginationContainer.innerHTML = `
+<div> Dev</div>
     <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
       ${Previous}
       ${AfterPrevious}
@@ -66,6 +67,7 @@ function LinksPagination(totalPagesLinks, currentpageLinks){
       ${nextPageContainer}
     </ul>
     <span id="bookPageInfo">Page ${currentpageLinks} of ${totalPagesLinks}</span>`;
+    
 }
  
 export {

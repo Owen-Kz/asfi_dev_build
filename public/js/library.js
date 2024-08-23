@@ -52,6 +52,7 @@ const book_list = document.getElementById("book_list")
   // Initialize the current page numbers
   let currentPageBooks = 1;
   let currentPageLinks = 1; 
+  
   for(let i =0; i < 10; i++){
     book_list.innerHTML+= `
     <li class="card shadow h-50">
@@ -174,7 +175,7 @@ for(let i=0; i<5; i++){
 fetch("/getAllLinksOnLibrary", {
   method:"GET",
 }).then(res => res.json())
-.then(data =>{
+.then(async data =>{
   if(data.status === "success"){
 const LINKS_ARRAY_container = data.externalLinks
 const currentLinkPage = data.currentPageLinks
@@ -182,18 +183,20 @@ const totalLinksPage = data.totalPagesLinks
 const totalLinks = data.totalLinks
 currentPageLinks = currentLinkPage
 
-LinksPagination(totalLinksPage, currentLinkPage)
+
+await LinksPagination(totalLinksPage, currentLinkPage)
     const LinksArray = JSON.parse(LINKS_ARRAY_container)
     // updateLinkPaginationButtons();
     // updateLinkList(currentPageLinks);
 
     if(LinksArray.length > 0){
       LINkS_body.innerHTML = ""
-      LinksArray.forEach(link => {
+      LinksArray.forEach(async link => {
         const LINK_TITLE = link.LINK_TITLE
         const LINK_DESCRIPTION = link.LINK_DESCRIPTION
         const LINK_IMAGE = link.LINK_IMAGE
         const LINK_URL = link.LINK_URL
+       
     
     
     LINkS_body.innerHTML += `<li class="card shadow h-50">

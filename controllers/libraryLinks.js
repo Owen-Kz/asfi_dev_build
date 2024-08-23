@@ -1,6 +1,6 @@
 const db = require("../routes/db.config");
 const fetchWebsiteData = require("./utils/getLinkPreview");
-const ITEMS_PER_PAGE_LINKS = 3; // Number of links per page
+const ITEMS_PER_PAGE_LINKS = 5; // Number of links per page
 
 const getLinksForLibrary = async (req,res) =>{
     let pageLinks = req.query.pageLink || 1; // Get the current link page from the query parameter
@@ -21,10 +21,9 @@ const getLinksForLibrary = async (req,res) =>{
 
         totalLinksCount = Math.ceil(linksCount / ITEMS_PER_PAGE_LINKS);
       });
-
-
         // Query external links
-        db.query("SELECT * FROM external_links WHERE 1 LIMIT ? OFFSET ?",
+  
+        db.query("SELECT * FROM external_links ORDER BY `id` DESC LIMIT ? OFFSET ?",
         [ITEMS_PER_PAGE_LINKS, offsetLinks], async (err, linkResult) => {
           if (err) {
             console.error(err);
@@ -41,6 +40,7 @@ const getLinksForLibrary = async (req,res) =>{
           // Find the external link Data 
           const allDataLink = await fetchWebsiteData(dataLinksArray);
           if(allDataLink){
+            
           res.json({
             status:"success",
             externalLinks: JSON.stringify(allDataLink),
@@ -57,6 +57,7 @@ const getLinksForLibrary = async (req,res) =>{
                 totalPagesLinks: totalLinksCount
             })
           }
+          
         });
 }
 

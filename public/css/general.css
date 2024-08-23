@@ -40,7 +40,10 @@ height: 100vh;
   background-image: -webkit-linear-gradient( 21deg, rgb(127,65,125) 0%, rgb(61,31,60) 99%);
   background-image: -ms-linear-gradient( 21deg, rgb(127,65,125) 0%, rgb(61,31,60) 99%);
 }
-
+img{
+  object-fit: contain;
+  height:100%;
+}
 input:focus, input:hover{
   outline: none;
   border: none;

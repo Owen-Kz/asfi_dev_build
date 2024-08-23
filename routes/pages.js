@@ -176,6 +176,8 @@ const getLinksForLibrary = require("../controllers/libraryLinks");
 const GetBooksForLibrary = require("../controllers/libraryBooks");
 const updateAccount = require("../controllers/updateAccount");
 const CombinePDF = require("../controllers/external/combinePDF");
+const shareFrom = require("../controllers/shareFrom");
+const LoggedInExternal = require("../controllers/loggedInExternal");
 
 // ADMINISTRATOR 
 
@@ -978,6 +980,10 @@ router.get("/logout", logout)
 
 // #xternal ENdpoints for Other applications 
 router.post("/external/api/combinePDF", CombinePDF)
+
+// Share From ASFIRJ 
+
+router.get("/share", LoggedInExternal,  shareFrom)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {

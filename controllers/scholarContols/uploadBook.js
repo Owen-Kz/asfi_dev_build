@@ -164,7 +164,6 @@ const uploadBook = (req, res) => {
         }
       })
       } if(url_Link){
-        console.log(req.body)
         const owner = req.body.BookOwner
         const OwnerFullname = req.body.BookOwner_fullname
         const mainLink = req.body.url_Link
