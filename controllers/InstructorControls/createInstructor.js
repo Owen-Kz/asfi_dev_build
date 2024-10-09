@@ -2,7 +2,7 @@ const db = require("../../routes/db.config");
 const bcrypt = require("bcryptjs")
 
 const createInstructor = async (req, res) => {
-    console.log("POST_MADE_HERE");
+
     if (req.body) {
        const { username, first_name, last_name, dob, email, phonenumber, nationality, gender, address, degree, password, degree_subtext,
         area_of_interest,

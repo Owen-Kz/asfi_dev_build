@@ -10,7 +10,6 @@ const login_user = async (req, res) => {
     // await RestartConnection()
 
     const { user, pass } = req.body;
-
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
     else{ 
@@ -34,7 +33,7 @@ const login_user = async (req, res) => {
                 // save cookie 
              
                 res.cookie("userRegistered", token, cookieOptions)
-                return res.json({ status: "success", success: "User Logged in"});
+                return res.json({ status: "success", success: "User Logged in", userToken:token});
             }
         })
 } catch (error) {

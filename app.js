@@ -170,9 +170,9 @@ function onConnected(socket) {
     });
   });
 }
+
 app.use("/", require("./routes/pages"));
 app.use("/administrator", require("./routes/adminPages"));
-
 app.use("/api", require("./controllers/auth"));
 app.use("/api/createFollower", require("./controllers/createFollower"));
 app.use("/api/delFollower", require("./controllers/deleteFollower"));
