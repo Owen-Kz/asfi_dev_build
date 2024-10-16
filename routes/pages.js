@@ -268,8 +268,8 @@ router.get("/:username/totalstudents", totalStudents)
 
 router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
     const username = req.params.username
-    const query = `SELECT * FROM user_info WHERE username =?`
-    db.query(query, username, async(err, data)=>{
+    const query = `SELECT * FROM user_info WHERE username =? OR email = ?`
+    db.query(query, [username, username], async(err, data)=>{
         if(err) throw err
         res.json({profile_image: data[0].profile_picture, first_name: data[0].first_name, last_name:data[0].last_name})
     })
@@ -985,6 +985,7 @@ router.post("/external/api/validateLogin", ValidateLogin)
 // Share From ASFIRJ 
 
 router.get("/share", LoggedInExternal,  shareFrom)
+router.get("/chat/:username", LoggedInExternal, PrivateChatRoom)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {

@@ -2,11 +2,13 @@ const db = require("../routes/db.config");
 const transporter = require("./utils/mailTransporter");
 const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const sendEmail = require("./utils/sendEmail");
  
 
 
 const forgotPassword = async (req, res) => {
+  const currentYear = new Date().getFullYear();
 
       const { email, message } = req.body;
       if(!email) return res.json({ status: "error", error: "Please fill all fields"});
@@ -16,7 +18,7 @@ const forgotPassword = async (req, res) => {
       const resetToken = randomstring.generate(6);
     //   console.log(req.body)
       // Save the reset token in the database 
-      db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email], (err) => {
+      db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email],async (err) => {
         if (err) {
           console.error('Error updating resetToken:', err);
           res.json({ status:"error", message: 'Internal server error' });
@@ -40,27 +42,39 @@ const forgotPassword = async (req, res) => {
           
       sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-      const msg = {
-        to: email,
-        from: 'support@asfischolar.org', 
-        subject: 'PASSWORD RESET TOKEN',
-        // text: `Your password reset code is: ${resetToken}`,
-        html: `
+      // const msg = {
+      //   to: email,
+      //   from: 'support@asfischolar.org', 
+      //   subject: 'PASSWORD RESET TOKEN',
+      //   // text: `Your password reset code is: ${resetToken}`,
+      //   html: `
     
-        <div class="strongText">Your password reset code is: <h2>${resetToken} </h2>
+      // `,
+      // }
+      // Send Message With brevo 
+      const subject = "PASSWORD RESET TOKEN"
+      const mainMessage = `  
+      <html>
+      <body>
+      <div class="strongText">Your password reset code is: <h2>${resetToken} </h2>
         <br> if this was not initiated by you please ignore.
-        <br>Do Not Provide this code to anyone</div>`,
-      }
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log('Email sent')
-               res.json({status:"success", message: 'Reset token sent to your email', emailData:JSON.stringify(emailDataH)});
-            // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+        <br>Do Not Provide this code to anyone</div>
+          <p>© ${currentYear} asfischolar.org. All rights reserved.</p>
+          </body>
+          </html>
+          `
+      await sendEmail(email,subject, mainMessage)
+      res.json({status:"success", message: 'Reset token sent to your email', emailData:JSON.stringify(emailDataH)});
+      // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
+      // sgMail
+      //   .send(msg)
+      //   .then(() => {
+      //     console.log('Email sent')
+             
+      //   })
+      //   .catch((error) => {
+      //     console.error(error)
+      //   })
         }
       });
     }

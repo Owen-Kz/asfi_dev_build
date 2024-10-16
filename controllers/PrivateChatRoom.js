@@ -74,13 +74,13 @@ const fetchProfileInfo = async (senderUsername, recipientUsername) => {
   return new Promise((resolve, reject) => {
     const profiles = {};
 
-    const fetchSenderProfileQuery = "SELECT * FROM user_info WHERE username = ?";
-    db.query(fetchSenderProfileQuery, [senderUsername], (err, senderResult) => {
+    const fetchSenderProfileQuery = "SELECT * FROM user_info WHERE username = ? OR email = ?";
+    db.query(fetchSenderProfileQuery, [senderUsername, senderUsername], (err, senderResult) => {
       if (err) return reject(err);
       profiles.senderProfileInfo = senderResult[0];
 
-      const fetchRecipientProfileQuery = "SELECT * FROM user_info WHERE username = ?";
-      db.query(fetchRecipientProfileQuery, [recipientUsername], (err, recipientResult) => {
+      const fetchRecipientProfileQuery = "SELECT * FROM user_info WHERE username = ? OR email = ?";
+      db.query(fetchRecipientProfileQuery, [recipientUsername, recipientUsername], (err, recipientResult) => {
         if (err) return reject(err);
         profiles.recipientProfileInfo = recipientResult[0];
         resolve(profiles);
@@ -117,6 +117,7 @@ const fetchRecentMessages = async (senderUsername, recipientUsername) => {
 };
 
 const PrivateChatRoom = async (req, res) => {
+  if(req.user){
   // if (req.user || req.admin) {
   let senderUsername  
   if(req.query.admin){
@@ -160,6 +161,7 @@ const PrivateChatRoom = async (req, res) => {
           sender_last_name: senderProfileInfo.last_name,
         });
       }
+   
       var RECENT_MESSAGES
       const recentMessages = await fetchRecentMessages(senderUsername, recipientUsername)  .then(recentMessagesArray => {
          RECENT_MESSAGES = recentMessagesArray
@@ -169,7 +171,7 @@ const PrivateChatRoom = async (req, res) => {
     });
       
       const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
-
+      if(receiverPoints.length >0){
       res.render("chats.ejs", {
         status: "loggedIn",
         recipient: recipientUsername,
@@ -184,11 +186,18 @@ const PrivateChatRoom = async (req, res) => {
         chatHistory: JSON.stringify(messageHistory),
         ChatBufferID: JSON.stringify(ChatBufferID),
       });
+      }else{
+
+        res.render('error.ejs', {status: "No ASFI Scholar Account Associated with this Presenter", page:"#"})
+      }
     } catch (error) {
       console.log("Error:", error);
       res.status(500).send("Chats Could not be loaded");
     }
   // }
+  }else{
+    res.render("loginExternal")
+  }
 };
 
 module.exports = PrivateChatRoom;

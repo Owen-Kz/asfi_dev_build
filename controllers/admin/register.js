@@ -3,6 +3,7 @@ const db = require("../../routes/db.config");
 
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
+const sendEmail = require("../utils/sendEmail");
 
 async function getRandomString() {
     var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -57,18 +58,16 @@ const register_admin = async (req, res) => {
     }
 }
 
-function SendWelcomeEmail(email, firstname, buffer){
+const currentYear = new Date().getFullYear();
+
+
+async function SendWelcomeEmail(email, firstname, buffer){
     const msgContent = `<iframe src="https://asfischolar.org/aboutUs" frameborder="0" width="100%" height="900px"></iframe>`
 
          
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-    const msg = {
-      to: email,
-      from: 'support@asfischolar.org', 
-      subject: `Hi, ${firstname} - Admin Credentials`,
-      // text: `Your password reset code is: ${resetToken}`,
-      html: `<!DOCTYPE html>
+    const subject = `Hi, ${firstname} - Admin Credentials`
+    const message = `<!DOCTYPE html>
       <html lang="en">
       <head>
           <meta charset="UTF-8">
@@ -97,25 +96,16 @@ function SendWelcomeEmail(email, firstname, buffer){
               
               <tr>
                   <td align="center" style="margin-top: 40px; font-size: 14px; color: #888;">
-                      <p>© 2024 asfischolar.org. All rights reserved.</p>
+                      <p>© ${currentYear} asfischolar.org. All rights reserved.</p>
                   </td>
               </tr>
           </table>
-      
+    
       </body>
-      </html>
-      `,
-    } 
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Welcome Email sent')
-            //  res.status(200).json({ message: 'Reset token sent to your email' });
-          // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
-      })
-      .catch((error) => {
-        console.error(error)
-      }) 
+      </html>`
+    await sendEmail(email, subject, message)
+
+
 }
 
 module.exports = register_admin;
