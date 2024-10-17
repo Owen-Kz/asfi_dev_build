@@ -179,6 +179,7 @@ const CombinePDF = require("../controllers/external/combinePDF");
 const shareFrom = require("../controllers/shareFrom");
 const LoggedInExternal = require("../controllers/loggedInExternal");
 const ValidateLogin = require("../controllers/external/validateLogin");
+const LoggedInONPosters = require("../controllers/loggedInOnPosters");
 
 // ADMINISTRATOR 
 
@@ -985,7 +986,7 @@ router.post("/external/api/validateLogin", ValidateLogin)
 // Share From ASFIRJ 
 
 router.get("/share", LoggedInExternal,  shareFrom)
-router.get("/chat/:username", LoggedInExternal, PrivateChatRoom)
+router.get("/chat/:username/v/:token", LoggedInONPosters, PrivateChatRoom)
 
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {

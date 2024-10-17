@@ -117,6 +117,7 @@ const fetchRecentMessages = async (senderUsername, recipientUsername) => {
 };
 
 const PrivateChatRoom = async (req, res) => {
+
   if(req.user){
   // if (req.user || req.admin) {
   let senderUsername  
