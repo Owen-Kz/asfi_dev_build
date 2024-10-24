@@ -180,6 +180,7 @@ const shareFrom = require("../controllers/shareFrom");
 const LoggedInExternal = require("../controllers/loggedInExternal");
 const ValidateLogin = require("../controllers/external/validateLogin");
 const LoggedInONPosters = require("../controllers/loggedInOnPosters");
+const PresenterDetails = require("../controllers/external/presenterDetails");
 
 // ADMINISTRATOR 
 
@@ -989,6 +990,9 @@ router.post("/external/api/createSpace", createSpaces)
 
 router.get("/share", LoggedInExternal,  shareFrom)
 router.get("/chat/:spaceid/v/:token", LoggedInONPosters, SpacesChat)
+
+// GEt PROFILE DETAILS FRO EXERNAL 
+router.get("/p/s/v/details/:email", PresenterDetails)
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
