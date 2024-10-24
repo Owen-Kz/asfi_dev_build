@@ -33,16 +33,25 @@ const createSpaces = async (req, res) =>{
     // if (err) {
     //   return res.status(500).send(err);
     // }
-
+    
     const {spaceTitle, shortDescription, Buffer} = req.body
-    console.log("REQUESTBODY: "+req.body)
-if(req.body){
+    const FromPosters = req.query.fromPosters
+    try{
+
+    let isFromPoster = "false"
+    if(FromPosters && FromPosters === "true"){
+        isFromPoster = "true"
+    }
+
+    console.log("REQUESTBODY: ", req.body)
+
+if(Buffer){
     db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
         if(err) throw err
         if(spaceData[0]){
             res.json({message:"This space already Exists"})
         }else{
-            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription}], (err, newSpace)=>{
+            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster}], (err, newSpace)=>{
                 if(err) throw err
                 if(newSpace){
                     res.json({ message: "Space Data received" });
@@ -56,7 +65,11 @@ if(req.body){
     res.json({ message: "An Error Occured" });
 
 }
-};
+    }catch(error){
+        console.log(error)
+        return res.json({message:error.message})
+    }
+}; 
 
 
 module.exports = createSpaces;

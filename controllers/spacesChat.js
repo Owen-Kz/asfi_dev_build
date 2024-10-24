@@ -1,6 +1,7 @@
 const db = require("../routes/db.config");
 const SpacesChat = async (req,res) =>{
     const SpaceId = req.params.spaceid
+    try{
     if(req.user){
     const username = req.user.username
     if(SpaceId){
@@ -54,8 +55,13 @@ const SpacesChat = async (req,res) =>{
     res.render("error", {status:"Uncaught Exception"})
 }
   
+    }else{
+        res.render("error", {status:"User Not Logged In"})
     }
-
+    }catch(error){
+        console.log(error)
+        res.render("error", {status:error.message})
+    }
 }
 
 module.exports = SpacesChat

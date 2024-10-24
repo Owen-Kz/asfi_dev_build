@@ -187,6 +187,7 @@ const LoggedInONPosters = require("../controllers/loggedInOnPosters");
 
 const router = express.Router();
 router.use(express.json())
+router.use(express.urlencoded({ extended: true }));
 // Example: Proxy all requests to /api to a different service
 // router.use('/home', createProxyMiddleware({
 //     target: 'https://asfischolar.org', // Change to your target service
@@ -983,11 +984,11 @@ router.get("/logout", logout)
 // #xternal ENdpoints for Other applications 
 router.post("/external/api/combinePDF", CombinePDF)
 router.post("/external/api/validateLogin", ValidateLogin)
+router.post("/external/api/createSpace", createSpaces)
 // Share From ASFIRJ 
 
 router.get("/share", LoggedInExternal,  shareFrom)
-router.get("/chat/:username/v/:token", LoggedInONPosters, PrivateChatRoom)
-
+router.get("/chat/:spaceid/v/:token", LoggedInONPosters, SpacesChat)
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})

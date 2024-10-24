@@ -20,9 +20,9 @@ const io = require("socket.io")(server, {
   })
 
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+//   app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(express.json());
 
