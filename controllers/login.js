@@ -5,6 +5,7 @@ const validator = require("validator");
 const router = require("./auth");
 const LoggedIn = require("./loggedin");
 const RestartConnection = require("./utils/restartConnection");
+const generateCode = require("./admin/generateUniqueCOde");
 
 const login_user = async (req, res) => {
     // await RestartConnection()
@@ -20,6 +21,8 @@ const login_user = async (req, res) => {
             if(!result[0] || !await bcrypt.compare(pass, result[0].password )) return res.json({ status: "error", error: "Incorrect username / password combination"})
 
             else{
+                const createUniqueCode = await generateCode(result[0].email)
+                console.log(createUniqueCode)
                 // create cookie token
                 const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES

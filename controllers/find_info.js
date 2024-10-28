@@ -2,7 +2,7 @@ var summation_FX = 5
 const db = require("../routes/db.config");
 
 const find_info = async (req,res) => {
-    if(req.params["username"]){
+    if(req.params["username"] && req.params.username != null){
     const username_visitor = req.params["username"];
     // console.log(username_visitor);
     // const username_visitor = "VC_of_lagos";
@@ -16,7 +16,7 @@ const find_info = async (req,res) => {
                 var visitor = "VALAK_REHONDA";
                 res.redirect("/login")
             }
-    db.query("SELECT * FROM user_info WHERE username =?", [visitor], async (err, data) =>{
+    db.query("SELECT * FROM user_info WHERE username =? OR unique_code = ?", [visitor, visitor], async (err, data) =>{
         if(err) throw err
       
         const FirstName_visitor = data[0]["first_name"]
@@ -102,7 +102,7 @@ const find_info = async (req,res) => {
             })
             resolve()
 
-        db.query("SELECT * FROM user_info WHERE username = ?", [username_visitor], async (err, scholar_user) => {
+        db.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ?", [username_visitor, username_visitor], async (err, scholar_user) => {
             if(err) throw err
            if(scholar_user[0]) {
             // console.log(scholar_user[0])

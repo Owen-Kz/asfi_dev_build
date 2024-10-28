@@ -330,8 +330,10 @@ router.post("/uploadPodcast/u", createPodcast)
 
 // GET THE DIRECTORY
 router.get("/directory", LoggedIn, Directory)
-// FOR FOLLOWING FROM THE DIRECTORY 
-router.post("/directory", FollowFromDirectory)
+// FOR FOLLOWING FROM THE DIRECTORY
+router.post("/directory", LoggedIn, FollowFromDirectory)
+
+
 // GET the spaces to feed to the directory 
 router.get("/directorySpaces", LoggedIn, getSpaces)
 
@@ -370,7 +372,8 @@ router.get("/directorydiscoverAccounts", LoggedIn, getDiscover)
 
 //GET THE PROFILE PAGE
 router.get("/@:username",LoggedIn, profile_page, find_info);
-
+// GET THE PROFILE PAGE BY THE ID 
+router.get("/v/:username",LoggedIn, profile_page, find_info);
 // GET THE TUTORIALS PAGE 
 router.get("/tutorials", LoggedIn, renderTutorialsPage)
 router.get("/feedTutorials", LoggedIn, displayTutorials)
@@ -986,8 +989,8 @@ router.get("/logout", logout)
 router.post("/external/api/combinePDF", CombinePDF)
 router.post("/external/api/validateLogin", ValidateLogin)
 router.post("/external/api/createSpace", createSpaces)
-// Share From ASFIRJ 
 
+// Share From ASFIRJ
 router.get("/share", LoggedInExternal,  shareFrom)
 router.get("/chat/:spaceid/v/:token", LoggedInONPosters, SpacesChat)
 

@@ -174,7 +174,7 @@ function onConnected(socket) {
 app.use("/", require("./routes/pages"));
 app.use("/administrator", require("./routes/adminPages"));
 app.use("/api", require("./controllers/auth"));
-app.use("/api/createFollower", require("./controllers/createFollower"));
+app.use("/api/createFollower", LoggedIn, require("./controllers/createFollower"));
 app.use("/api/delFollower", require("./controllers/deleteFollower"));
 app.use("/api/scholar/createPodcast", require("./controllers/scholarContols/createPodcast"));
 // app.use("/api/scholar/newCourse", require("./controllers/scholarContols/createCourse"))

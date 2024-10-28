@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            box-sizing: border-box;
+            padding: 0;
+            margin:0;
+        }
+        .card{
+            display:flex;
+            flex-direction: row;
+            width: max-content;
+            align-items: center;
+            background:white;
+            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 25px;
+            border:1px solid purple;
+            padding:0px 0px 20px 0px;
+        }
+        .profileImg{
+            display:flex;
+            width:100px;
+            height:100px;
+            /* background:red; */
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        img{
+            width:100%;
+            height:100%;
+            border-radius: inherit;
+            object-fit: cover;
+        }
+
+        .text-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .name{
+            font-weight: bold;
+        }
+        .logo_container{
+            display:flex;
+            align-items:center;
+            justify-content: center;
+            width:150px;
+            padding:0px 50px;
+            /* height:00px; */
+            background-color: white;
+            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 25px;
+            /* border:1px solid purple; */
+        }
+        button{
+            display: flex;
+            padding:10px;
+            background:purple;
+            border:none;
+            outline:none;
+            color:white;
+            border-radius: 25px;
+        }
+    </style>
+    <div class="card">
+        <div class="logo_container">
+            <img src="https://asfischolar.org/files/images/ASFIScholar_Logo.png" alt="logo">
+        </div>
+        <div class="profileImg">
+            <img src="https://res.cloudinary.com/dll8awuig/image/upload/v1712997020/mchfv0dzeqhek6ensh61.jpg" alt="profile_img">
+        </div>
+        <div class="text-container">
+            <div class="name">Benson Owen</div>
+            <div>Just Followed you</div>
+        </div>
+        <button>View Profile</button>
+    </div>
+</body>
+</html>

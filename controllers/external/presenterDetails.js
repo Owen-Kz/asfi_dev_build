@@ -8,16 +8,16 @@ const PresenterDetails = async (req,res) =>{
               if (err) { 
                 console.log(err);
                 reject(err); // Reject the promise with the error
-              } else { 
+              } else {
                 if(data[0]){                 
                 resolve( res.json({userDetails:data[0]})); 
                 }else{
-                  resolve(res.json({error:"NO USErDATA"})); 
+                  resolve(res.json({error:"NO USER DATA"})); 
               }
-            }
+            } 
             });
-          });
-
+          }); 
+ 
 }
  
 module.exports = PresenterDetails
