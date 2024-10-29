@@ -170,7 +170,7 @@ Page Banner START -->
                                 <% if(personProfilePicture == "avatar.jpg") {%>
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" alt='<%= personProfilePicture %> '>
                                     <%} else { %>
-                                        <img class="avatar-img rounded-circle border border-white border-3 shadow" src="/userUploads/profileImages/<%= personProfilePicture %>" alt='<%= personProfilePicture %> '>
+                                        <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%= personProfilePicture %>" alt='<%= personProfilePicture %> '>
                         
                                         <% }%>
 							</div>
