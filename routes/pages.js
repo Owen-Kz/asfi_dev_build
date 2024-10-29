@@ -181,6 +181,7 @@ const LoggedInExternal = require("../controllers/loggedInExternal");
 const ValidateLogin = require("../controllers/external/validateLogin");
 const LoggedInONPosters = require("../controllers/loggedInOnPosters");
 const PresenterDetails = require("../controllers/external/presenterDetails");
+const find_info_for_SEO = require("../controllers/find_info_forSEO");
 
 // ADMINISTRATOR 
 
@@ -372,8 +373,12 @@ router.get("/directorydiscoverAccounts", LoggedIn, getDiscover)
 
 //GET THE PROFILE PAGE
 router.get("/@:username",LoggedIn, profile_page, find_info);
+
 // GET THE PROFILE PAGE BY THE ID 
-router.get("/v/:username", profile_page, find_info);
+router.get("/v/:username",LoggedIn, profile_page, find_info);
+
+// GET THE PROFILE PAGE FOR SEO 
+router.get("/s/:username", find_info_for_SEO);
 // GET THE TUTORIALS PAGE 
 router.get("/tutorials", LoggedIn, renderTutorialsPage)
 router.get("/feedTutorials", LoggedIn, displayTutorials)
