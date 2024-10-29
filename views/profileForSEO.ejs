@@ -4,63 +4,65 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="Weperch Technologies Ltd">
-	    <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <meta name="author" content="Weperch Technologies Ltd">
+        <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+    
+        <!-- Stylesheets -->
         <link rel="stylesheet" href="/css/dashboard.css">
         <link rel="stylesheet" href="/css/scholarDashboard.css">
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/profile.css">
-       
-        <meta property="og:title" content="<%= searchName %>'s Profile" />
-       
-        <meta property="og:description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>." />
-        
-        <% if(personProfilePicture == "avatar.jpg") {%>
-        
-            <meta property="og:image" content="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff"  />
-            <%} else { %>
-
-                <meta property="og:image" content="<%= personProfilePicture %>"  />
-
-                <% }%>
-        <!-- Favicon -->
-	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
     
+        <!-- Open Graph Metadata -->
+        <meta property="og:title" content="<%= searchName %>'s Profile" />
+        <meta property="og:description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>." />
+    
+        <% if (personProfilePicture === "avatar.jpg") { %>
+            <meta property="og:image" content="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff" />
+        <% } else { %>
+            <meta property="og:image" content="<%= personProfilePicture %>" />
+        <% } %>
+    
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+    
+        <!-- Font Awesome and Other Styles -->
         <link rel="stylesheet" href="/css/css/fontawesome.css">
         <link rel="stylesheet" href="/css/css/fontawesome-all.css">
-    
         <link rel="stylesheet" href="/css/material-design-iconic-font.css">
-        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
         <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
     
-    
+        <!-- Title -->
         <title><%= searchName %> - <%= personTitle %> | ASFI Scholar</title>
-		<meta name="description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>.">
-
-		<!-- Canonical URL for Google -->
-		<link rel="canonical" href="https://asfischolar.org/s/<%= username_visitor %>">
-		
-        <!-- Dark mode -->
+        <meta name="description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>.">
+    
+        <!-- Canonical URL for Google -->
+        <link rel="canonical" href="https://asfischolar.org/s/<%= username_visitor %>">
+    
+        <!-- Dark mode script -->
         <script src="/js/colorTheme.js"></script>
-		<script type="application/ld+json">
-			{
-			  "@context": "http://schema.org",
-			  "@type": "Person",
-			  "name": "<%= searchName %>",
-			  "jobTitle": "<%= personTitle %>",
-			  "url": "https://asfischolar.org/s/<%=  searchUSERNAME %>",
-			  "worksFor": {
-				"@type": "Organization",
-				"name": "<%= Country %>"
-			  },
-			  "sameAs": [
-				"<%= JSON.parse(SocialLinks)[0].LinkedIn %>",
-				"<%= JSON.parse(SocialLinks)[0].Facebook %>",
-				"<%= JSON.parse(SocialLinks)[0].Twitter %>"
-			  ]
-			}
-			</script>
+    
+        <!-- JSON-LD for structured data -->
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Person",
+                "name": "<%= searchName %>",
+                "jobTitle": "<%= personTitle %>",
+                "url": "https://asfischolar.org/s/<%= searchUSERNAME %>",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "<%= Country %>"
+                },
+                "sameAs": [
+                    "<%= JSON.parse(SocialLinks)[0].LinkedIn %>",
+                    "<%= JSON.parse(SocialLinks)[0].Facebook %>",
+                    "<%= JSON.parse(SocialLinks)[0].Twitter %>"
+                ]
+            }
+        </script>
     </head>
+    
 <body>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
