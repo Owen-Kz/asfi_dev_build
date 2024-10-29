@@ -22,9 +22,33 @@
         <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
         <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
     
-        <title><%= searchName %> - ASFI Scholar</title>
+    
+        <title><%= searchName %> - <%= personTitle %> | ASFI Scholar</title>
+		<meta name="description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>.">
+
+		<!-- Canonical URL for Google -->
+		<link rel="canonical" href="https://asfischolar.org/v/<%= username_visitor %>">
+		
         <!-- Dark mode -->
         <script src="/js/colorTheme.js"></script>
+		<script type="application/ld+json">
+			{
+			  "@context": "http://schema.org",
+			  "@type": "Person",
+			  "name": "<%= searchName %>",
+			  "jobTitle": "<%= personTitle %>",
+			  "url": "https://asfischolar.org/v/<%=  searchUSERNAME %>",
+			  "worksFor": {
+				"@type": "Organization",
+				"name": "<%= Country %>"
+			  },
+			  "sameAs": [
+				"<%= JSON.parse(SocialLinks)[0].LinkedIn %>",
+				"<%= JSON.parse(SocialLinks)[0].Facebook %>",
+				"<%= JSON.parse(SocialLinks)[0].Twitter %>"
+			  ]
+			}
+			</script>
     </head>
 <body>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
