@@ -539,7 +539,7 @@ router.get("/public", LoggedIn, (req, res) => {
     if(req.user){
         res.sendFile("public", {root : "./login"})
     }
-})
+}) 
 
 router.get("/login", async (req, res) => {
     // await RestartConnection()
