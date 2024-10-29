@@ -11,7 +11,18 @@
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/profile.css">
        
+        <meta property="og:title" content="<%= searchName %>'s Profile" />
+       
+        <meta property="og:description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>." />
         
+        <% if(personProfilePicture == "avatar.jpg") {%>
+        
+            <meta property="og:image" content="https://eu.ui-avatars.com/api/?background=random&name=<%= searchName %>&font-size=0.7&rounded=true&size=128&background=333333&color=ffffff"  />
+            <%} else { %>
+
+                <meta property="og:image" content="<%= personProfilePicture %>"  />
+
+                <% }%>
         <!-- Favicon -->
 	<link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
     
