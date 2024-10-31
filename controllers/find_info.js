@@ -162,7 +162,21 @@ const find_info = async (req,res) => {
                         })
                     
                     })
-                } 
+                }else{
+                    socialLinksArray.push({
+                        LinkedIn: "",
+                        Facebook: "",
+                        Twitter: "",
+                        Instagram: "",
+                        YouTube: "",
+                        GoogleScholar: "",
+                        ResearchGate: "",
+                        Web_of_science: "",
+                        Scopius: "",
+                        Academia: "",
+                        Orchid: ""
+                    })
+                }
             resolve()
         if(person_user_name == req.user.username){
             res.redirect("/settings") 

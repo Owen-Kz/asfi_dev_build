@@ -30,6 +30,15 @@
     
      <!-- Dark mode -->
      <script src="/js/colorTheme.js"></script>
+	 <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32YRZWEG3P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+ 
+  gtag('config', 'G-32YRZWEG3P');
+</script>
 </head>
 <body>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
@@ -164,6 +173,10 @@ Page content START -->
                                 </ul>
 							</div> 
 		<div class="row">
+			<button id="enable-notifications">Enable Notifications</button>
+			<button id="disable-notifications">Disable Notifications</button>
+
+
 			<!-- Main content START -->
 			<div class="col-xl-9">
              
@@ -341,7 +354,7 @@ Footer END -->
 <script src="/js/quill.min.js"></script>
 <script src="/js/bs-stepper.min.js"></script>
 
-
+<script type="module" src="/js/services/main.js"></script>
 </body>
 
 </body>

@@ -182,6 +182,11 @@ const ValidateLogin = require("../controllers/external/validateLogin");
 const LoggedInONPosters = require("../controllers/loggedInOnPosters");
 const PresenterDetails = require("../controllers/external/presenterDetails");
 const find_info_for_SEO = require("../controllers/find_info_forSEO");
+const {pushNotification, sendNotification, NotificationReceived}= require("../controllers/services/pushNotification");
+const path = require("path");
+const envConfig = require("../controllers/services/envVonfig");
+const unsubscribeNOtification = require("../controllers/services/unregisterService");
+const NotificationLoggedIN = require("../controllers/notificationLoggedIn");
 
 // ADMINISTRATOR 
 
@@ -213,7 +218,7 @@ router.get("/", LoggedIn, (req,res)=>{
 
     if(req.user){
         const username_new = req.user.username
-        res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
+        res.render("start.ejs", {status :"logged", logger:"logged", user : username_new })
        }
        else{
         // res.redirect("/home")
@@ -242,12 +247,12 @@ router.get("/embedMega", (req,res)=>{
 //         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
 //     })
 // })
-router.get("/app", (req, res) => {
+router.get("/app", NotificationLoggedIN, (req, res) => {
     if(req.cookies.userRegistered){
-    const username_new = " "
-    res.render("index.ejs", {status :"logged", logger:"logged", user : username_new })
+    const username_new = req.user.username
+    res.render("start.ejs", {status :"logged", logger:"logged", user : username_new })
     }else{
-    res.render("index.ejs", {status :"no", logger:"Not logged in", user :""})
+    res.render("start.ejs", {status :"no", logger:"Not logged in", user :""})
     
     }
   
@@ -540,11 +545,6 @@ router.get("/api/userFollowers", LoggedIn, userFollowers)
 router.get("/check/validate/follower/:username", LoggedIn, ValidateFollower)
 
 // GET THE LOGIN PAGE 
-router.get("/public", LoggedIn, (req, res) => {
-    if(req.user){
-        res.sendFile("public", {root : "./login"})
-    }
-}) 
 
 router.get("/login", async (req, res) => {
     // await RestartConnection()
@@ -999,9 +999,18 @@ router.post("/external/api/createSpace", createSpaces)
 router.get("/share", LoggedInExternal,  shareFrom)
 router.get("/chat/:spaceid/v/:token", LoggedInONPosters, SpacesChat)
 
+// push notifications 
+router.post("/subscribe", NotificationLoggedIN, pushNotification)
+router.post("/send-notification", sendNotification)
+router.post('/api/notification-received', NotificationReceived)
+router.post("/getConfig", envConfig)
+router.post("/unsubscribe", unsubscribeNOtification)
+
 // GEt PROFILE DETAILS FRO EXERNAL 
-router.get("/p/s/v/details/:email", PresenterDetails)
+router.get("/p/s/v/detail,s/:email", PresenterDetails)
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
+
+
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
 })

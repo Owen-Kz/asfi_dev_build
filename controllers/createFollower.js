@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const profile = require("./profile");
 const sendEmail = require("./utils/sendEmail");
+const sendNewFollowerNotification = require("./notifications/newFollowerNotification");
 
 const newFollower = async (req, res) => {
     const { followed, follower } = req.body;
@@ -28,6 +29,7 @@ const newFollower = async (req, res) => {
           const searchNameUser = scholar_user[0]['username'];
           var accountStatus = scholar_user[0]['account_status'];
           var title = scholar_user[0]['title'];
+          const token = scholar_user[0].notification_token
 
           const displayName = firstName + "  " + LastName;
 
@@ -112,10 +114,13 @@ const newFollower = async (req, res) => {
             </a>
         </div>
               `;
-    
+     
     
             await sendEmail(useremail, subject, message)
-    
+            const followerFullname = `${req.user.first_name} ${req.user.last_name}`
+  
+            await sendNewFollowerNotification(followerFullname, token)
+  
 
               // res.redirect(`/@${followed}`)
               console.log("success")

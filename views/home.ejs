@@ -42,7 +42,25 @@
 
   gtag('config', 'G-32YRZWEG3P');
 </script>
-
+ <!-- JSON-LD for structured data -->
+ <script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "Person",
+		"name": "ASFI Scholar",
+		"jobTitle": "African Science Frontiers Initiative",
+		"url": "https://asfischolar.org/",
+		"worksFor": {
+			"@type": "Organization",
+			"name": "ASFI Scholar"
+		},
+		"sameAs": [
+			"https://asfischolar.org",
+			"asfischolar.com",
+			"African Science Frontiers initiative"
+		]
+	}
+</script>
 </head>
 
 <body>
@@ -69,6 +87,7 @@
 				</span>
 			</button>
 	
+			
 			<!-- Main navbar START -->
 			<div class="navbar-collapse collapse" id="navbarCollapse">
 				<!-- Nav Search START -->
@@ -686,7 +705,12 @@ Footer END -->
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 
 <!-- Template Functions -->
+  <!-- Include Firebase App (required for Firebase services) -->
+
+  <!-- Your main JavaScript file, included after Firebase SDK -->
+  <!-- <script type="module" src="/js/services/main.js"></script> -->
 <script src="/js/functions.js"></script>
+
 
 </body>
 </html>

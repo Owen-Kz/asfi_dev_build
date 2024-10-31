@@ -11,8 +11,22 @@ const shortid = require("shortid");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 const LoggedIn = require("./controllers/loggedin");
-
 const MySQLStore = require('express-mysql-session')(session);
+
+const webpush = require('web-push');
+const path = require("path");
+const findUserByName = require("./controllers/services/findUser");
+const sendNewMessageNotification = require("./controllers/notifications/newMessageNotification");
+
+// Generate VAPID keys
+// const vapidKeys = webpush.generateVAPIDKeys();
+
+// console.log(vapidKeys) 
+// webpush.setVapidDetails(
+//   'mailto:owen@weperch.live',
+//   process.env.VAPID_PUBLIC_KEY,
+//   process.env.VAPID_PRIVATE_KEY
+// );
 
 
 const io = require("socket.io")(server, {
@@ -51,6 +65,7 @@ app.set("views", ["./views", "./views/admin", "./public/directory/profile", "./p
 app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))
 
 app.use("/api/directoryQuery", require("./controllers/directory"))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/css", express.static(__dirname + "/public/css", { type: 'text/css' }))
 app.use("/js", express.static(__dirname + "/public/js", { type: 'text/javascript' }))
@@ -114,13 +129,20 @@ function onConnected(socket) {
   
     const buffer_id = data.inbox
 
+
+
+
     const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer) VALUES (?, ?, ?, ?, ?)";
-    db.query(query, [senderId, recipientId, content, timestamp, buffer_id], (err, results) => {
+    db.query(query, [senderId, recipientId, content, timestamp, buffer_id], async (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
       } else {
         // Emit the message only to the users in the same room
         io.to(roomId).emit("chat-message", data);
+        const userData = await findUserByName(recipientId)
+        const notificationToken = userData.notification_token
+      
+        await sendNewMessageNotification(senderId, notificationToken)
       }
     });
   });

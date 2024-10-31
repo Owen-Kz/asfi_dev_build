@@ -24,6 +24,15 @@
     <title><%= UserName %> | Dashboard</title>
     <!-- Dark mode -->
 	<script src="/js/colorTheme.js"></script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32YRZWEG3P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+ 
+  gtag('config', 'G-32YRZWEG3P');
+</script>
 </head>
 <body>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
@@ -174,7 +183,10 @@ Page content START -->
 		<div class="row">
 			<!-- Main content START -->
 			<div class="col-xl-9">
-             
+				<button id="enable-notifications">Enable Notifications</button>
+				<button id="disable-notifications">Disable Notifications</button>
+	
+	
 				<!-- Counter boxes START -->
 				<div class="row g-4">
 
@@ -387,7 +399,7 @@ Footer END -->
 <script src="/js/functions.js"></script>
 <script src="/js/fetchFiles.js"></script>
 
-
+<script type="module" src="/js/services/main.js"></script>
 </body>
 
 </body>
