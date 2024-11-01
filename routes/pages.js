@@ -187,6 +187,7 @@ const path = require("path");
 const envConfig = require("../controllers/services/envVonfig");
 const unsubscribeNOtification = require("../controllers/services/unregisterService");
 const NotificationLoggedIN = require("../controllers/notificationLoggedIn");
+const getGoogleProfile = require("../controllers/services/getGoogleScholarProfile");
 
 // ADMINISTRATOR 
 
@@ -1010,6 +1011,8 @@ router.post("/unsubscribe", unsubscribeNOtification)
 router.get("/p/s/v/detail,s/:email", PresenterDetails)
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 
+// GEt SCholar Profile 
+router.get("/findGoogleScholar", getGoogleProfile)
 
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
