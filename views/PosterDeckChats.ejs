@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+  integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+  crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="/files/images/ASFIScholar_Logo.png">
+<link rel="stylesheet" href="/css/spacesChat.css" />
+<title><%= SpaceName %> | Poster Chat Room
+</title>
+
+
+<input type="text" id="chatHistory" value="[]" readonly hidden>
+<input type="text" id="chatID" value="<%=spaceId%>" readonly hidden>
+<input type="hidden" id="senderImage_" value="<%=user_profile_picture%>" readonly>
+<input type="hidden" id="senderFulname" value="<%= user_first_name %> <%= user_last_name %>" readonly>
+
+<input type="hidden" id="SpaceID" value="<%=spaceId%>" readonly>
+
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="app-container">
+    
+    <div class="app-left">
+      <div class="app-left-header">
+
+      </div>
+      <div class="app-profile-box">
+
+        <% if(user_profile_picture =="avatar.jpg" ){ %>
+          <a href="/@<%=username%>">
+            <img src="https://eu.ui-avatars.com/api/?background=random&name=<%=user_first_name%>+<%=user_last_name%>font-size=0.5&rounded=true&size=128&background=333333&color=ffffff"
+            alt='ProfileImage '>
+            </a>
+          <% } else { %>
+          <a href="/@<%=username%>">
+            <img src="" alt="Loading" id="SenderimageContainerMain">
+
+            </a>
+            <% }%>
+
+
+              <div class="app-profile-box-name"
+                style="display: flex; flex-direction: column;justify-content: flex-start;">
+                <span>
+                  <%= user_first_name %>
+                    <%= user_last_name %>
+                </span>
+                <br>
+                <!-- <span>@<%= sender %></span> -->
+                <input type="text" id="name-input" class="name-input" value="DemoRecipient" maxlength="20" readonly
+                  hidden />
+
+                <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input"
+                  value="<%=username%>" maxlength="20" hidden readonly />
+              </div>
+      </div>
+
+      <div class="chat-list-wrapper">
+        <div class="chat-list-header" id="space_participants_header">Chat Room Participants
+         
+          <span class="c-number" id="c-number"></span>
+    
+          <svg class="list-header-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+            class="feather feather-chevron-up" viewBox="0 0 24 24">
+            <defs />
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </div>
+        <div class="chat-list-container">
+          <ul class="chat-list active" id="active_conversations">
+            
+  
+          </ul>
+        </div>
+      </div>
+    <%- include ("chatThemeControls") %>
+    </div>
+    <div class="app-main">
+      <div class="chat-wrapper" id="message-container">
+
+      
+
+      </div>
+     
+     
+        <form class="chat-input-wrapper" id="message-form">
+          <input type="hidden" id="newImage" value="<%=user_profile_picture%>" readonly>
+          <input type="hidden" id="newSender" value="<%=user_first_name%> <%=user_last_name%>" readonly>
+
+
+          <div class="input-wrapper">
+            <input type="text" class="chat-input" name="message" id="message-input"
+              placeholder="Enter your message here">
+      
+          </div>
+          <button class="chat-send-btn" type="submit">Send</button>
+        </form>
+      
+    </div>
+    <div class="app-right">
+      <div class="app-profile-box">
+       <span class="bar" id="bar-btn"><svg
+      width="20"
+      height="80"
+      viewBox="0 0 20 80"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- First circle -->
+      <circle cx="10" cy="16" r="6" />
+      <!-- Second circle -->
+      <circle cx="10" cy="32" r="6" />
+      <!-- Third circle -->
+      <circle cx="10" cy="48" r="6" />
+    </svg></span>
+        <% if(SpaceCover == "cover.jpg" ){ %>
+      
+          <img
+            src="https://eu.ui-avatars.com/api/?background=random&name=<%= SpaceName %>&font-size=0.5&size=128&background=333333&color=ffffff"
+            alt='<%=SpaceName%>'>
+         
+          <% } else { %>
+     
+
+            <img src="" alt="Loading" id="SpaceCoverContainerMain">
+
+           
+            <% }%>
+             <div class="info">
+              <p>
+              <b><%= SpaceName %></b>
+              </p>
+              <p><%=SpaceDescription%></p>
+             </div>
+              <!-- <button class="archive-btn" id="ExistSpace">Exit Space</button>
+             -->
+
+      </div>
+    </div>
+
+    
+
+      <!-- partial -->
+      <script src="/js/jquery-3.4.2.min.js"></script>
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
+        integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
+        crossorigin="anonymous"></script>
+    <script src="/js/fetchFiles.js"></script>
+
+      <script src="/js/chatUI.js"></script>
+    <script src="/js/searchQueries/getSpaceChatHistory.js"></script>
+    <script src="/js/searchQueries/getSpaceParticipants.js"></script>
+
+
+    <script src="/js/spacesChat.js"></script>
+
+
+
+      <!-- <script src="/js/privateChatMain.js"></script> -->
+</body>
+
+</html>
+
+
+</body>
+
+</html>
