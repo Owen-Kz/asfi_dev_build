@@ -1008,7 +1008,7 @@ router.post("/getConfig", envConfig)
 router.post("/unsubscribe", unsubscribeNOtification)
 
 // GEt PROFILE DETAILS FRO EXERNAL 
-router.get("/p/s/v/detail,s/:email", PresenterDetails)
+router.get("/p/s/v/details/:email", PresenterDetails)
 // SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND
 
 // GEt SCholar Profile 
