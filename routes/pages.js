@@ -188,6 +188,7 @@ const envConfig = require("../controllers/services/envVonfig");
 const unsubscribeNOtification = require("../controllers/services/unregisterService");
 const NotificationLoggedIN = require("../controllers/notificationLoggedIn");
 const getGoogleProfile = require("../controllers/services/getGoogleScholarProfile");
+const PosterDeckChat = require("../controllers/external/posterDeckChat");
 
 // ADMINISTRATOR 
 
@@ -998,7 +999,7 @@ router.post("/external/api/createSpace", createSpaces)
 
 // Share From ASFIRJ
 router.get("/share", LoggedInExternal,  shareFrom)
-router.get("/chat/:spaceid/v/:token", LoggedInONPosters, SpacesChat)
+router.get("/chat/:spaceid/v/:token", LoggedInONPosters, PosterDeckChat)
 
 // push notifications 
 router.post("/subscribe", NotificationLoggedIN, pushNotification)
