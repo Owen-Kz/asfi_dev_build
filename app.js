@@ -17,6 +17,7 @@ const webpush = require('web-push');
 const path = require("path");
 const findUserByName = require("./controllers/services/findUser");
 const sendNewMessageNotification = require("./controllers/notifications/newMessageNotification");
+const generateID = require("./controllers/admin/generateId");
 
 // Generate VAPID keys
 // const vapidKeys = webpush.generateVAPIDKeys();
@@ -128,12 +129,13 @@ function onConnected(socket) {
     const timestamp = data.dateTime;
   
     const buffer_id = data.inbox
+    const messageId = await generateID()
 
 
 
 
-    const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer) VALUES (?, ?, ?, ?, ?)";
-    db.query(query, [senderId, recipientId, content, timestamp, buffer_id], async (err, results) => {
+    const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?, ?)";
+    db.query(query, [senderId, recipientId, content, timestamp, buffer_id, messageId], async (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
       } else {
@@ -167,9 +169,10 @@ function onConnected(socket) {
 
     // Save the message to the database with the group chat room ID
     const buffer_id = data.inbox
+    const messageId = await generateID()
 
-    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer) VALUES (?, ?, ?, ?)";
-    db.query(query, [senderId, content, timestamp, buffer_id], (err, results) => {
+    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer) VALUES (?, ?, ?, ?, ?)";
+    db.query(query, [senderId, content, timestamp, buffer_id, messageId], (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
       } else {

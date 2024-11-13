@@ -189,6 +189,11 @@ const unsubscribeNOtification = require("../controllers/services/unregisterServi
 const NotificationLoggedIN = require("../controllers/notificationLoggedIn");
 const getGoogleProfile = require("../controllers/services/getGoogleScholarProfile");
 const PosterDeckChat = require("../controllers/external/posterDeckChat");
+const privateChatFile = require("../controllers/chatFileTransfers/privateChatFiles");
+const AllChatFiles = require("../controllers/chatFileTransfers/getAllChatFiles");
+const SpaceChatFile = require("../controllers/chatFileTransfers/spaceChatFileUpload");
+const getSingleFileForMessage = require("../controllers/chatFileTransfers/getSingleFileForMessage");
+const getASFIRJPublications = require("../controllers/SearchResults/getUserASFIRJPublications");
 
 // ADMINISTRATOR 
 
@@ -730,6 +735,7 @@ router.get("/admin/dashboard/instructors/registeredCount",AdminLoggedIn, TotalIN
 router.get("/admin/dashboard/scholars/registeredCount",AdminLoggedIn, TotalScholars)
 router.get("/admin/dashboard/count/pending/resources",AdminLoggedIn, pendingResources)
 router.get("/admin/dashboard/count/uploaded/resources",AdminLoggedIn, uploadedResources)
+
 // END DASHBOARD 
 
 router.get("/admin/courses",AdminLoggedIn, (req,res) =>{
@@ -1010,11 +1016,16 @@ router.post("/unsubscribe", unsubscribeNOtification)
 
 // GEt PROFILE DETAILS FRO EXERNAL 
 router.get("/p/s/v/details/:email", PresenterDetails)
-// SEND AN ERROR PAGE IF THE PAGE WASN'T FOUND 
 
+// UPLOAD Files In Chat 
+router.post("/uploadPrivateChatFIles", LoggedIn, privateChatFile)
+router.post("/getAllChatFiles", AllChatFiles)
+router.post("/uploadSpaceChatFIles", LoggedIn, SpaceChatFile)
+router.post("/getSingleChatFile", getSingleFileForMessage)
+router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
 
 // GEt SCholar Profile 
-router.get("/findGoogleScholar", getGoogleProfile)
+router.get("/findGoogleScholar", getGoogleProfile) 
 
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})

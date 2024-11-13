@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
 const sgMail = require('@sendgrid/mail');
 const sendEmail = require("./utils/sendEmail");
+const generateResetToken = require("./admin/generateResetToken");
  
 
 
@@ -15,7 +16,9 @@ const forgotPassword = async (req, res) => {
       else{
 
       // Generate a random 6-digit ID 
-      const resetToken = randomstring.generate(6);
+      // const resetToken = randomstring.generate(6);
+      const resetToken = await generateResetToken();
+
     //   console.log(req.body)
       // Save the reset token in the database 
       db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email],async (err) => {
