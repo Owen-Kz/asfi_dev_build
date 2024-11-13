@@ -1,9 +1,11 @@
 node_modules
 Afroscholar EDTECH PLATFORM/JS/jquery-3.4.1.min.js
 public/userUpload/
+public/userUpload/chatFiles
 *.pdf
 # .env
 .env
 secretKeys.js
 recorderTest.ejs
 uploads/
+controllers/services/serviceConfig.json
