@@ -81,6 +81,7 @@ if(PArticipants.length > 0){
 // Exit a space
 const ExistSpace = document.getElementById("ExistSpace")
 
+if(ExistsSpace){
 ExistSpace.addEventListener("click", function(){
     fetch(`/exitSpace/${SpaceId}`, ()=>{
         methof:"GET"
@@ -95,8 +96,5 @@ ExistSpace.addEventListener("click", function(){
         // socket.emit("exited-group", UpdateSpaceParticipants())
     })
 })
-
-
-
-
+}
 
