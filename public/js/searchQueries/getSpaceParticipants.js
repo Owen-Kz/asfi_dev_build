@@ -57,10 +57,10 @@ if(PArticipants.length > 0){
 
 
     participantsContainer.innerHTML += `<li class="chat-list-item active">
-    <a href="/@${user_name}"> 
+    <a href="/@${user_name}" > 
       <img src=${ProfileImageSrc} alt="ProfileImage"/>
       </a>
-          <a href="/@${user_name}/chat"><div class='recent_chat_content'>
+          <a href="/@${user_name}/chat" ><div class='recent_chat_content'>
           <span class="chat-list-name">${Fullname} </span>${AccountIcon}
           <br>
           <span class="new_message_content"> 
@@ -81,7 +81,7 @@ if(PArticipants.length > 0){
 // Exit a space
 const ExistSpace = document.getElementById("ExistSpace")
 
-if(ExistsSpace){
+if(ExistSpace){
 ExistSpace.addEventListener("click", function(){
     fetch(`/exitSpace/${SpaceId}`, ()=>{
         methof:"GET"

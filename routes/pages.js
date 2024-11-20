@@ -287,7 +287,12 @@ router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
     const query = `SELECT * FROM user_info WHERE username =? OR email = ?`
     db.query(query, [username, username], async(err, data)=>{
         if(err) throw err
+        console.log(data)
+        if(data[0]){
         res.json({profile_image: data[0].profile_picture, first_name: data[0].first_name, last_name:data[0].last_name})
+        }else{
+            res.json({profile_image: "", first_name: "", last_name:""})
+        }
     })
 })
 

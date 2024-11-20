@@ -171,7 +171,7 @@ function onConnected(socket) {
     const buffer_id = data.inbox
     const messageId = await generateID()
 
-    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer) VALUES (?, ?, ?, ?, ?)";
+    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?)";
     db.query(query, [senderId, content, timestamp, buffer_id, messageId], (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
