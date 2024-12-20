@@ -158,7 +158,7 @@ fetch(`/getPeopleFeed`, {
                     // Append links with metadata
                     async function appendLinks(links) {
                         for (const link of links) {
-                            const linkHref = link.href; // Replace with the actual link property
+                            const linkHref = link.link_href; // Replace with the actual link property
                             let style = "";
                             const time = formatTime(link.timestamp);
 
