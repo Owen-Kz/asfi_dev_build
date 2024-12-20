@@ -1,6 +1,7 @@
 const db = require("../../routes/db.config");
 const sendNewFollowerNotification = require("../notifications/newFollowerNotification");
 const sendEmail = require("../utils/sendEmail");
+const saveNotification = require("./saveNotification");
 
 
 
@@ -36,6 +37,8 @@ const FollowFromDirectory = async (req, res) => {
           const displayName = firstName + "  " + LastName;
 
           const useremail = scholar_user[0].email
+          const userID = scholar_user[0].id
+
           let userPhoto = ""
           if(req.user.profile_picture && req.user.profile_picture != "avatar.jpg" && req.user.profile_picture != null ){
             userPhoto = req.user.profile_picture
@@ -111,10 +114,15 @@ border-radius: 25px;">View Profile</button>
 </div>
 `;
 
+const followerFullname = `${req.user.first_name} ${req.user.last_name}`
           
+const Endpoint = `/@${userID}`
+await saveNotification(req.user.username, userID, `${followerFullname} started following you`, userPhoto, Endpoint)
+
+
           const sendEmailNotification = await sendEmail(useremail, subject, message)
 
-          const followerFullname = `${req.user.first_name} ${req.user.last_name}`
+      
           await sendNewFollowerNotification(followerFullname, token)
 
       

@@ -4,7 +4,7 @@ const PresenterDetails = async (req,res) =>{
         const userEMail = req.params.email
        
         return new Promise((resolve, reject) => {
-            db.query("SELECT profile_picture, username, email, first_name, last_name FROM user_info WHERE email = ?", [userEMail], (err, data) => {
+            db.query("SELECT profile_picture, username, email, first_name, last_name FROM user_info WHERE email = ? OR username = ?", [userEMail, userEMail], (err, data) => {
               if (err) { 
                 console.log(err);
                 reject(err); // Reject the promise with the error

@@ -18,6 +18,7 @@ const path = require("path");
 const findUserByName = require("./controllers/services/findUser");
 const sendNewMessageNotification = require("./controllers/notifications/newMessageNotification");
 const generateID = require("./controllers/admin/generateId");
+const saveNotification = require("./controllers/scholarContols/saveNotification");
 
 // Generate VAPID keys
 // const vapidKeys = webpush.generateVAPIDKeys();
@@ -143,7 +144,14 @@ function onConnected(socket) {
         io.to(roomId).emit("chat-message", data);
         const userData = await findUserByName(recipientId)
         const notificationToken = userData.notification_token
-      
+        let userPhoto = ""
+        // if(req.user.profile_picture && req.user.profile_picture != "avatar.jpg" && req.user.profile_picture != null ){
+        //   userPhoto = req.user.profile_picture
+        // }else{
+          userPhoto = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
+        // }
+        const Endpoint = `/@${senderId}/chat`
+        await saveNotification(senderId, recipientId, `New Message from ${senderId}. ${content}`, userPhoto, Endpoint)
         await sendNewMessageNotification(senderId, notificationToken)
       }
     });
@@ -187,7 +195,7 @@ function onConnected(socket) {
   // SOCKET IO CODE FOR THE VIDEO CONFERENCING
   socket.on('join-vc', (roomId_vc, userId_vc) => {
     socket.join(roomId_vc);
-    console.log(roomId_vc)
+
     socket.to(roomId_vc).broadcast.emit('user-connected-vc', userId_vc);
 
     socket.on('disconnect_vc', () => {
