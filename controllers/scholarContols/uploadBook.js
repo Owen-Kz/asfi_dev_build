@@ -51,6 +51,7 @@ const booksUpload = multer({ storage: booksStorage }).single("file_pdf");
 
 
 const uploadBook = (req, res) => {
+  try{
   booksUpload(req, res, function (err) {
     if (err) {
       return res.status(500).send(err);
@@ -191,6 +192,11 @@ const uploadBook = (req, res) => {
       }
     // });
   });
+}catch(error){
+
+    return res.status(500).send(error.message);
+  
+}
 };
 
 module.exports = uploadBook;

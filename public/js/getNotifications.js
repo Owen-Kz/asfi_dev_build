@@ -1,28 +1,62 @@
 // console.log("Notifications")
+const formatTime = (timestamp) => {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const diffMs = now - time; // Difference in milliseconds
+    const diffSeconds = Math.floor(diffMs / 1000);
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffSeconds < 60) {
+        return "just now";
+    } else if (diffMinutes < 60) {
+        return `${diffMinutes} min${diffMinutes > 1 ? "s" : ""} ago`;
+    } else if (diffHours < 24) {
+        return `${diffHours} hr${diffHours > 1 ? "s" : ""} ago`;
+    } else if (diffDays < 7) {
+        return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+    } else {
+        // When it's more than 7 days, return the formatted date
+        const options = { year: "numeric", month: "short", day: "numeric" };
+        return time.toLocaleDateString(undefined, options); // Adjusts to local timezone and format
+    }
+};
+
+
 
 const  Notification_id_container = document.getElementById("Notification_id_container")
 const usernameContainer = document.getElementById("usernameContainer").value
-fetch("/getNewChatNotifications", ()=>{
+fetch("/getAllNotifications", ()=>{
     method:"GET"
 })
 .then(res => res.json())
 .then(data =>{
-    if(JSON.parse(data.NotificationData).length > 0){
-        const NotificationArray = JSON.parse(data.NotificationData)
+    if(data.NotificationData.length > 0){
+        const NotificationArray = data.NotificationData
 
-        NotificationArray.forEach(Notification => {
-            let Sender
+        for(let i=0; i<NotificationArray.length; i++){
+            const Notification = NotificationArray[i]
+    
+            Notification_id_container.innerHTML +=`<!-- Single notification item  -->
+      <div class="notification">
+        <div class="icon">
+            <img src="${Notification.sender_image}" alt="notification_image">
+        </div>
 
-            const User_one= Notification.user_one
-            const UserTwo = Notification.user_two
-
-            if(User_one == usernameContainer){
-                Sender = UserTwo
-            }else{
-                Sender = User_one
-            }
-            Notification_id_container.innerHTML +=`<li><a href="/@${Sender}/chat">Chat with ${Sender}</a></li>`;
-        });
+        <!-- Start notification Main body to the right  -->
+         
+         <div class="notification_body">
+           <a href="${Notification.end_point}"> <div class="title">
+            ${Notification.content}:</div>
+            </a>
+            <div class="timestamp">${formatTime(Notification.date_sent)}</div>
+         </div>
+    
+       
+    </div>
+    <!-- End single notification item  -->`;
+        }
     }else{
         Notification_id_container.innerHTML +=`<li class='no-notification'>No new Messages to display</li>`;
 

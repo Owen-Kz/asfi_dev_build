@@ -135,6 +135,7 @@ const book = async (req, res) => {
             });
           } catch (error) {
             console.error('Error:', error);
+            return res.json({error:error.message})
           }
         })();
           }else{

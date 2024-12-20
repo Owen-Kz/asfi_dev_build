@@ -194,6 +194,9 @@ const AllChatFiles = require("../controllers/chatFileTransfers/getAllChatFiles")
 const SpaceChatFile = require("../controllers/chatFileTransfers/spaceChatFileUpload");
 const getSingleFileForMessage = require("../controllers/chatFileTransfers/getSingleFileForMessage");
 const getASFIRJPublications = require("../controllers/SearchResults/getUserASFIRJPublications");
+const AllNotifications = require("../controllers/SearchResults/getAllNotifications");
+const feedsPage = require("../controllers/scholarContols/feedsPage");
+const getPeopleFollowed = require("../controllers/feed/getPeopleFollowed");
 
 // ADMINISTRATOR 
 
@@ -276,6 +279,7 @@ router.get("/getTotalScholarPublications", LoggedIn, TotalPublications)
 
 // GET NOTIFICATIONS 
 router.get("/getNewChatNotifications", LoggedIn, NewNotifications)
+router.get("/getAllNotifications", LoggedIn, AllNotifications)
 // GET TOTAL COURSES 
 router.get("/:username/totalcourses", totalCourses)
 router.get("/:username/totalfollowing", totalFollowing)
@@ -287,7 +291,7 @@ router.get("/userprofile/image/profileImage/:username", async (req,res)=>{
     const query = `SELECT * FROM user_info WHERE username =? OR email = ?`
     db.query(query, [username, username], async(err, data)=>{
         if(err) throw err
-        console.log(data)
+
         if(data[0]){
         res.json({profile_image: data[0].profile_picture, first_name: data[0].first_name, last_name:data[0].last_name})
         }else{
@@ -1028,6 +1032,13 @@ router.post("/getAllChatFiles", AllChatFiles)
 router.post("/uploadSpaceChatFIles", LoggedIn, SpaceChatFile)
 router.post("/getSingleChatFile", getSingleFileForMessage)
 router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
+
+
+// Feeds page 
+router.get("/feed", LoggedIn, feedsPage)
+// Get the feed of people user follows
+router.get("/getPeopleFeed", LoggedIn, getPeopleFollowed)
+
 
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 

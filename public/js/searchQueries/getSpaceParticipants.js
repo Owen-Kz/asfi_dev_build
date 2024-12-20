@@ -68,7 +68,7 @@ if(PArticipants.length > 0){
           </span>
           </div>
           </a>
-          </li>`;
+          </li>`; 
         
     });
     

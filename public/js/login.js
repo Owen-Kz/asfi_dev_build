@@ -30,7 +30,7 @@ form.addEventListener("submit", () =>{
             success.style.marginTop = "0px";
             error.style.marginTop = "-20px";
             success.innerText = data.success;
-            window.location.href = "/dashboard";
+            window.location.href = "/feed";
 
         }
         })
