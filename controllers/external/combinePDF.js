@@ -17,7 +17,7 @@ const upload = multer({ dest: 'uploads/' }).fields([
   { name: 'manuscript_file', maxCount: 1 },
   { name: 'tracked_manuscript', maxCount: 1 },
   { name: 'figures', maxCount: 10 },
-  { name: 'supplementary_material', maxCount: 1 },
+  { name: 'supplementary_material', maxCount: 1 }, 
   { name: 'graphic_abstract', maxCount: 1 },
   { name: 'tables', maxCount: 10 }
 ]);

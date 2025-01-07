@@ -1010,7 +1010,7 @@ router.get("/logout", logout)
 // #xternal ENdpoints for Other applications 
 router.post("/external/api/combinePDF", CombinePDF)
 router.post("/external/api/validateLogin", ValidateLogin)
-router.post("/external/api/createSpace", createSpaces)
+router.post("/external/api/createSpace", createSpaces) 
 
 // Share From ASFIRJ
 router.get("/share", LoggedInExternal,  shareFrom)
