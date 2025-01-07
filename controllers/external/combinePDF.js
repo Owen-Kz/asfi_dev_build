@@ -37,7 +37,10 @@ const convertDocxToPdf = async (docxPath, outputPdfPath) => {
   const docxBuffer = fs.readFileSync(docxPath);
   const { value: html } = await mammoth.convertToHtml({ buffer: docxBuffer });
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
   const page = await browser.newPage();
   await page.setContent(html);
   await page.pdf({ path: outputPdfPath, format: 'A4' });
