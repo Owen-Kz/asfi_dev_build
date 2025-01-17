@@ -30,11 +30,12 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 //   process.env.VAPID_PRIVATE_KEY
 // );
 
-const socketIo = require('socket.io');
-
-const io = socketIo(server, {
+const {Server} = require('socket.io');
+// socketIo.Server
+const io = new Server(server, {
   cors: {
     origin: '*',
+    methods: ["GET", "POST"],
   },
 });
 require('debug')('socket.io');

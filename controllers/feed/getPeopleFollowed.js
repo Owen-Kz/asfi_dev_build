@@ -37,7 +37,7 @@ const getPeopleFollowed = async (req, res) => {
 
                     if (!AllBooks.length && !AllPodcasts.length && !AllLinks.length && !ASFIRJ_Publications.length) {
                         console.log(`No data found for ${person}`);
-                        return null;
+                        return [];
                     }
 
                     return {
