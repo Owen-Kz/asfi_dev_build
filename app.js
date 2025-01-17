@@ -30,19 +30,23 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 //   process.env.VAPID_PRIVATE_KEY
 // );
 
-const {Server} = require('socket.io');
-// socketIo.Server
-const io = new Server(server, {
-  cors: {
-    origin: "https://asfischolar.org", // Update with your actual origin
-    methods: ["GET", "POST"],
-},
-transports: ["websocket"],
-});
+// const {Server} = require('socket.io');
 require('debug')('socket.io');
+
+// socketIo.Server
+// const io = new Server(server, {
+//   cors: {
+//     origin: "https://asfischolar.org", // Update with your actual origin
+//     methods: ["GET", "POST"],
+// },
+// transports: ["websocket"],
+// });
 // const io = require("socket.io")(server, {
 //     port: 5000 // Change this to your desired port number
 //   })
+const io = require("socket.io")(server, {
+  transports: ["websocket"], // WebSocket-only
+});
  
   app.use(bodyParser.json());
 //   app.use(bodyParser.urlencoded({ extended: true }));
