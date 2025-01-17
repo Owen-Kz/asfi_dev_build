@@ -30,23 +30,23 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 //   process.env.VAPID_PRIVATE_KEY
 // );
 
-// const {Server} = require('socket.io');
+const {Server} = require('socket.io');
 require('debug')('socket.io');
 
 // socketIo.Server
 // const io = new Server(server, {
 //   cors: {
-//     origin: "https://asfischolar.org", // Update with your actual origin
+//     origin: '*', // Update with your actual origin
 //     methods: ["GET", "POST"],
 // },
 // transports: ["websocket"],
 // });
-// const io = require("socket.io")(server, {
-//     port: 5000 // Change this to your desired port number
-//   })
 const io = require("socket.io")(server, {
-  transports: ["websocket"], // WebSocket-only
-});
+    port: 37400 // Change this to your desired port number
+  })
+// const io = require("socket.io")(server, {
+//   transports: ["websocket"], // WebSocket-only
+// });
  
   app.use(bodyParser.json());
 //   app.use(bodyParser.urlencoded({ extended: true }));
@@ -80,7 +80,9 @@ app.set("views", ["./views", "./views/admin", "./public/directory/profile", "./p
 app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))
 
 app.use("/api/directoryQuery", require("./controllers/directory"))
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use("/public", express.static(path.join(__dirname, "public")));
+
 
 app.use("/css", express.static(__dirname + "/public/css", { type: 'text/css' }))
 app.use("/js", express.static(__dirname + "/public/js", { type: 'text/javascript' }))
