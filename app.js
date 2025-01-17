@@ -32,8 +32,12 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 
 const socketIo = require('socket.io');
 
-const io = socketIo(server);
-
+const io = socketIo(server, {
+  cors: {
+    origin: '*',
+  },
+});
+require('debug')('socket.io');
 // const io = require("socket.io")(server, {
 //     port: 5000 // Change this to your desired port number
 //   })
@@ -110,7 +114,7 @@ let socketsConnected = new Set();
 io.on('connection', onConnected);
 
 function onConnected(socket) {
-  // console.log('Socket connected', socket.id);
+  console.log('Socket connected', socket.id);
   socketsConnected.add(socket.id);
   io.emit('clients-total', socketsConnected.size);
 
