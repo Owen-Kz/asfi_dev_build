@@ -1049,7 +1049,7 @@ router.get("/getPeopleFeed", LoggedIn, getPeopleFollowed)
 router.get("/getUserPublicData/:username", getUserInfo)
 // get recent chats  
 router.post("/recentChatList", LoggedIn, fetchRecentMessages)
-router.post("/getChatHistory/:chat_id", LoggedIn, fetchChatHistory)
+router.post("/getChatHistory", LoggedIn, fetchChatHistory)
 
 router.get("/appChat", async (req,res) =>{
     res.render("app-chat", {UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"UserFirstname", UserLastName:"UserLastname", Course:"Course", CourseYear:"CourseYer", username:"username_new", Username:"username_new", UserName:"username_new"})

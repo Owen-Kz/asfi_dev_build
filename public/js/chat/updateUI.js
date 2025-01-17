@@ -2,8 +2,12 @@
 const socket = io();
 
 async function GetChatHistory(id){
-    return fetch(`/getChatHistory/${id}`, {
-   method:"POST"
+    return fetch(`/getChatHistory`, {
+   method:"POST",
+   headers:{
+    "Content-type":"application/JSON",
+   },
+   body:JSON.stringify({ChatId:id})
     }).then(res =>res.json())
     .then(data =>{
         if(data.success){
