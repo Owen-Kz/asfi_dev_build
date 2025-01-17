@@ -30,11 +30,14 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 //   process.env.VAPID_PRIVATE_KEY
 // );
 
+const socketIo = require('socket.io');
 
-const io = require("socket.io")(server, {
-    port: 5000 // Change this to your desired port number
-  })
+const io = socketIo(server);
 
+// const io = require("socket.io")(server, {
+//     port: 5000 // Change this to your desired port number
+//   })
+ 
   app.use(bodyParser.json());
 //   app.use(bodyParser.urlencoded({ extended: true }));
 
