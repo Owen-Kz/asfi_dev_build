@@ -45,11 +45,10 @@ require('debug')('socket.io');
 //     port: 37400 // Change this to your desired port number
 //   })
 const io = require("socket.io")(server, {
-  cors: {
-      origin: "https://asfischolar.org", // Replace with your domain
-      methods: ["GET", "POST"],
-  },
+  pingTimeout: 60000, // Wait 60 seconds before assuming the connection is lost
+  pingInterval: 25000, // Send a ping every 25 seconds
 });
+
 
 // const io = require("socket.io")(server, {
 //   transports: ["websocket"], // WebSocket-only
