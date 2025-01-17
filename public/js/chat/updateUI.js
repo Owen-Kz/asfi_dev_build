@@ -320,9 +320,9 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
           }
           fileElement += `</div>`
           element = `
+         
           
-          
-          <div class="hstack message gap-3 align-items-start mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}" data-message-id="${messageId}">
+          <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
           <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
           ${fileElement}
            <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
@@ -346,7 +346,7 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
         `;
         }else{
        element = `
-          <div class="hstack message gap-3 align-items-start mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}" data-message-id="${messageId}">
+          <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
            
             <div class="${isOwnMessage ? 'text-end' : ''}">
               <h6 class="fs-2 text-muted">${timestamp_}</h6>

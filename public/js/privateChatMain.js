@@ -114,7 +114,7 @@ async function addMessageToUI(isOwnMessage, data) {
   const filesUI = await renderFilesUI(data.files) || "";
 
   const element = `
-    <div class="hstack message gap-3 align-items-start mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
+    <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}">
        <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
       <div class="sentFiles">
         ${filesUI}
