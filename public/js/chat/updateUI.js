@@ -1,5 +1,8 @@
 // Initialize socket connection
-const socket = io();
+const socket = io("https://asfischolar.org", {
+  transports: ["websocket"],
+});
+
 
 async function GetChatHistory(id){
     return fetch(`/getChatHistory`, {

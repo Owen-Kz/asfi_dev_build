@@ -41,9 +41,16 @@ require('debug')('socket.io');
 // },
 // transports: ["websocket"],
 // });
+// const io = require("socket.io")(server, {
+//     port: 37400 // Change this to your desired port number
+//   })
 const io = require("socket.io")(server, {
-    port: 37400 // Change this to your desired port number
-  })
+  cors: {
+      origin: "https://asfischolar.org", // Replace with your domain
+      methods: ["GET", "POST"],
+  },
+});
+
 // const io = require("socket.io")(server, {
 //   transports: ["websocket"], // WebSocket-only
 // });
