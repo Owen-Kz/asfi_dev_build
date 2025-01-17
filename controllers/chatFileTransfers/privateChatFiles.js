@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 });
 
 // Allow up to 10 files
-const uploads = multer({ storage }).array("files", 10);
+const uploads = multer({ storage }).array("files[]", 10);
 
 const privateChatFile = async (req, res) => {
   try {
@@ -42,14 +42,14 @@ const privateChatFile = async (req, res) => {
       }
 
       const { chatId, text, receiver, timestamp } = req.body;
-
+  
       if (!chatId || !receiver) {
         return res.status(400).json({ error: "Missing required data" });
       }
 
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({ error: "No files uploaded" });
-      }
+      }else{
 
       // Generate a single message ID for this message
       const messageId = await generateID();
@@ -68,18 +68,20 @@ const privateChatFile = async (req, res) => {
             message_id: messageId,
           },
         ],
-        (err) => {
+       async (err) => {
           if (err) {
             console.error(err);
             return res.status(500).json({ error: "Database error when saving the message" });
-          }
-        }
-      );
-
+          }else{
+            
+       
       // Process each file individually
       for (const uploadedFile of req.files) {
+      
         const encryptedFileName = uploadedFile.filename;
         const FileType = uploadedFile.mimetype;
+        const fileSize = ` ${(uploadedFile.size / 1024).toFixed(2)} KB`
+
 
         try {
           const result = await cloudinary.uploader.upload(uploadedFile.path);
@@ -92,6 +94,8 @@ const privateChatFile = async (req, res) => {
               {
                 file_url: cloudinaryUrl,
                 file_type: FileType,
+                file_name: encryptedFileName,
+                file_size: fileSize,
                 chat_id: chatId,
                 message_id: messageId,
               },
@@ -113,8 +117,13 @@ const privateChatFile = async (req, res) => {
           console.error("Error during Cloudinary upload:", error);
         }
       }
-
+  
       return res.json({ success: "Message and files uploaded successfully" });
+    }
+  });
+
+
+    }
     });
   } catch (error) {
     console.error(error);

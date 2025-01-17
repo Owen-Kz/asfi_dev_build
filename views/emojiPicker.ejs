@@ -1,0 +1,41 @@
+<!-- Emoji Picker Dropdown -->
+ <style>
+.hide{
+    display: none;
+}
+.emojiPicker{
+ position: absolute;
+ z-index: 1000;
+
+}
+
+
+#message-input{
+    display: flex;
+    height: auto;
+    resize: none;
+}
+ </style>
+<!-- Emoji Button and Input -->
+<a href="javascript:void(0)" id="emoji-button">
+    <i class="ti ti-mood-smile text-dark bg-hover-primary fs-7"></i>
+  </a>
+  <form id="message-form" class="form-control message-type-box text-muted border-0 p-0 ms-2" fdprocessedid="0p3op" enctype="multipart/form-data">
+    <input type="hidden" value="" name="chatId" id="chatIdContaner">
+    <div class="form-group">
+        <input type="file" id="files" name="files[]" multiple hidden>
+        <div id="image-preview"></div>
+    </div>
+
+    <textarea
+      type="text"
+      name="text"
+      id="message-input"
+      class="form-control message-type-box text-muted border-0 p-0 ms-2" placeholder="Type a Message"
+      ></textarea>
+    <input type="submit" id="submit" hidden>
+  </form>
+  
+  <script type="module" src="/js/chat/emojiReactions.js"></script>
+
+  <script src="/js/chat/imagePreview.js"></script>

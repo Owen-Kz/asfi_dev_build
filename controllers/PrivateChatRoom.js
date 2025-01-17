@@ -89,32 +89,7 @@ const fetchProfileInfo = async (senderUsername, recipientUsername) => {
   });
 };
 
-const fetchRecentMessages = async (senderUsername, recipientUsername) => {
-  return new Promise((resolve, reject) => {
-    console.log("FETCH RECENT")
-      const query = `
-          SELECT m.*
-          FROM messages m
-          JOIN (
-              SELECT buffer, MAX(timestamp) AS max_timestamp
-              FROM messages
-              WHERE recipient_id = ? OR sender_id = ?
-              GROUP BY buffer
-          ) recent ON m.buffer = recent.buffer AND m.timestamp = recent.max_timestamp
-      `;
-      db.query(query, [senderUsername, senderUsername], async (err, recentMessages) => {
-          if (err) return reject(err);
 
-          const recentMessagesArray = recentMessages.map(message => ({
-              Receiver: message.recipient_id,
-              SentBy: message.sender_id,
-              LastMessage: message.content,
-              TimeStamp: message.timestamp
-          }));
-          resolve(recentMessagesArray);
-      });
-  });
-};
 
 const PrivateChatRoom = async (req, res) => {
 
@@ -163,17 +138,17 @@ const PrivateChatRoom = async (req, res) => {
         });
       }
    
-      var RECENT_MESSAGES
-      const recentMessages = await fetchRecentMessages(senderUsername, recipientUsername)  .then(recentMessagesArray => {
-         RECENT_MESSAGES = recentMessagesArray
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
+      var RECENT_MESSAGES = []
+    //   const recentMessages = await fetchRecentMessages(senderUsername, recipientUsername)  .then(recentMessagesArray => {
+    //      RECENT_MESSAGES = recentMessagesArray
+    // })
+    // .catch(error => {
+    //     console.error("Error:", error);
+    // });
       
       const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
       if(receiverPoints.length >0){
-      res.render("chats.ejs", {
+      res.render("app-chat.ejs", {
         status: "loggedIn",
         recipient: recipientUsername,
         sender: senderUsername,
@@ -186,6 +161,7 @@ const PrivateChatRoom = async (req, res) => {
         recent_message_recipient: JSON.stringify(RECENT_MESSAGES),
         chatHistory: JSON.stringify(messageHistory),
         ChatBufferID: JSON.stringify(ChatBufferID),
+        UserName:req.user.username, accountType:req.user.acct_Type, FirstName:req.user.first_name, LastName: req.user.last_name, ProfileImage: req.user.profile_picture, Email:req.user.email, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYer", username:req.user.username, Username:req.user.username, UserName:req.user.username
       });
       }else{
 

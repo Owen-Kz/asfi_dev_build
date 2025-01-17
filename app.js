@@ -75,6 +75,8 @@ app.use("/vendor", express.static(__dirname + "/public/vendor", {type: 'text/jav
 app.use("/js/bootstrap", express.static(__dirname + "/public/js/bootstrap/dist/js", {type:"text/javascript"}))
 app.use("/assets", express.static(__dirname + "/public/assets/", { type: 'text/folder' }))
 
+app.use("/chatAssets", express.static(__dirname + "/public/chatAssets", { type: 'text/folder' }))
+
 app.use("/assets/images", express.static(__dirname + "/public//assets/images", {type: 'text/folder'}))
 // app.use("/css/icons/font-awesome/css/", express.static(__dirname + "/public/css/icons/font-awesome/css/", {type : 'text/css'}))
 app.use("/files", express.static(__dirname + "/public/files", {type: 'text/folder'}))
@@ -120,7 +122,7 @@ function onConnected(socket) {
   
   socket.on("join-room", async (roomId, userId) =>{
     socket.join(roomId); // Join the room
-  // console.log(roomId) 
+  // console.log("join",roomId) 
   })
  
   socket.on("message", async (data, roomId, userId) => {
@@ -132,16 +134,25 @@ function onConnected(socket) {
     const buffer_id = data.inbox
     const messageId = await generateID()
 
+    const files = data.files
+    console.log(data.dateTime)
+    console.log(timestamp)
+    
 
-
-
+    // chatId, text, receiver, timestamp
+    if(files[0]){
+    
+    }else{
     const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?, ?)";
     db.query(query, [senderId, recipientId, content, timestamp, buffer_id, messageId], async (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
-      } else {
+      } 
+    });
+    }
         // Emit the message only to the users in the same room
-        io.to(roomId).emit("chat-message", data);
+        io.to(data.inbox).emit("chat-message", data);
+     
         const userData = await findUserByName(recipientId)
         const notificationToken = userData.notification_token
         let userPhoto = ""
@@ -153,8 +164,7 @@ function onConnected(socket) {
         const Endpoint = `/@${senderId}/chat`
         await saveNotification(senderId, recipientId, `New Message from ${senderId}. ${content}`, userPhoto, Endpoint)
         await sendNewMessageNotification(senderId, notificationToken)
-      }
-    });
+  
   });
 
   socket.on("feedback", (data) => {

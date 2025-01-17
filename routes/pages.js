@@ -197,6 +197,11 @@ const getASFIRJPublications = require("../controllers/SearchResults/getUserASFIR
 const AllNotifications = require("../controllers/SearchResults/getAllNotifications");
 const feedsPage = require("../controllers/scholarContols/feedsPage");
 const getPeopleFollowed = require("../controllers/feed/getPeopleFollowed");
+const getUserInfo = require("../controllers/SearchResults/UserInfo");
+const fetchRecentMessages = require("../controllers/chatFileTransfers/getRecentChats");
+const fetchChatHistory = require("../controllers/chatFileTransfers/getChatHistory");
+const openFile = require("../controllers/external/openFile");
+const getChatUsers = require("../controllers/chatFileTransfers/getChatUserInfo");
 
 // ADMINISTRATOR 
 
@@ -1030,14 +1035,25 @@ router.get("/p/s/v/details/:email", PresenterDetails)
 router.post("/uploadPrivateChatFIles", LoggedIn, privateChatFile)
 router.post("/getAllChatFiles", AllChatFiles)
 router.post("/uploadSpaceChatFIles", LoggedIn, SpaceChatFile)
+router.post("/chatUsers", LoggedIn, getChatUsers)
 router.post("/getSingleChatFile", getSingleFileForMessage)
 router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
-
+router.get("/item", openFile)
 
 // Feeds page 
 router.get("/feed", LoggedIn, feedsPage)
 // Get the feed of people user follows
 router.get("/getPeopleFeed", LoggedIn, getPeopleFollowed)
+
+// Get user public data  
+router.get("/getUserPublicData/:username", getUserInfo)
+// get recent chats  
+router.post("/recentChatList", LoggedIn, fetchRecentMessages)
+router.post("/getChatHistory/:chat_id", LoggedIn, fetchChatHistory)
+
+router.get("/appChat", async (req,res) =>{
+    res.render("app-chat", {UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"UserFirstname", UserLastName:"UserLastname", Course:"Course", CourseYear:"CourseYer", username:"username_new", Username:"username_new", UserName:"username_new"})
+})
 
 
 // GEt SCholar Profile 

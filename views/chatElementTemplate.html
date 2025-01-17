@@ -1,0 +1,24 @@
+element = `
+          
+          
+<div class="hstack message gap-3 align-items-start mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}" data-message-id="${messageId}">
+<div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
+${fileElement}
+ <div class="hstack message gap-3 align-items-start mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
+  <img 
+    src="${isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main}" 
+    alt="user-profile" 
+    width="40" 
+    height="40" 
+    class="rounded-circle" 
+  />
+  <div class="${isOwnMessage ? 'text-end' : ''}">
+    <h6 class="fs-2 text-muted">${timestamp_}</h6>
+    <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
+      ${message}
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+`;

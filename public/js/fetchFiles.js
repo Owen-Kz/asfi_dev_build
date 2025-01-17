@@ -103,7 +103,7 @@ async function fetchProfileImage(Image) {
     }else{
         imageToFind = Image
     }
-    if (Image !== "cover.jpg") {
+    if (Image !== "cover.jpg" || Image !== "avatar.jpg") {
         try {
             // const response = await fetch(`/files/uploaded/images/${imageToFind}`);
             // if (!response.ok) {
