@@ -33,7 +33,7 @@ const SpacesChat = async (req,res) =>{
                     const SpaceMembersCount = space[0].members_count
                     const SpaceCover = space[0].space_cover
 
-                    res.render("spacesChats", {SpaceName: SpaceName,
+                    res.render("app-chat-spaces", {SpaceName: SpaceName,
                         SpaceDescription: SpaceDescription,
                         SpaceMembersCount: SpaceMembersCount,
                         user_first_name:first_name,
@@ -42,7 +42,8 @@ const SpacesChat = async (req,res) =>{
                         SpaceCover:SpaceCover,
                         user_profile_picture: profile_picture,
                         sender: username,
-                        spaceId: SpaceId
+                        spaceId: SpaceId,
+                        Email:req.user.email
                     })
                 }else{
                     res.render("error", {status:"Not Found / Link Broken"})

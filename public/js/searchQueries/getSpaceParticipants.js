@@ -1,4 +1,5 @@
 const participantsContainer = document.getElementById("active_conversations")
+const mobileParticipantsContainer = document.getElementById("active_conversation")
 const space_participants_header = document.getElementById("space_participants_header")
 
 // get the space participatns only when the container is clicked 
@@ -56,20 +57,42 @@ if(PArticipants.length > 0){
         }
 
 
-    participantsContainer.innerHTML += `<li class="chat-list-item active">
-    <a href="/@${user_name}" > 
-      <img src=${ProfileImageSrc} alt="ProfileImage"/>
-      </a>
-          <a href="/@${user_name}/chat" ><div class='recent_chat_content'>
-          <span class="chat-list-name">${Fullname} </span>${AccountIcon}
-          <br>
-          <span class="new_message_content"> 
-          ${TitleMain}
-          </span>
-          </div>
+    participantsContainer.innerHTML += `
+     <li>
+          <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
+            <div class="d-flex align-items-center">
+              <span class="position-relative rounded-circle">
+                <img src="${ProfileImageSrc}" alt="user-profile" width="48" height="48" />
+              </span>
+              <div class="ms-3 d-inline-block w-75">
+                <h6 class="mb-1 fw-semibold chat-title" data-username="${Fullname}">
+                 ${Fullname}
+                </h6>
+                <span class="fs-3 text-truncate text-dark d-block">${TitleMain}</span>
+              </div>
+            </div>
+            <p class="fs-2 mb-0 text-muted"></p>
           </a>
-          </li>`; 
-        
+        </li>
+`; 
+        if(mobileParticipantsContainer){
+            mobileParticipantsContainer.innerHTML += `<li>
+          <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
+            <div class="d-flex align-items-center">
+              <span class="position-relative rounded-circle">
+                <img src="${ProfileImageSrc}" alt="user-profile" width="48" height="48" />
+              </span>
+              <div class="ms-3 d-inline-block w-75">
+                <h6 class="mb-1 fw-semibold chat-title" data-username="${Fullname}">
+                 ${Fullname}
+                </h6>
+                <span class="fs-3 text-truncate text-dark d-block">${TitleMain}</span>
+              </div>
+            </div>
+            <p class="fs-2 mb-0 text-muted"></p>
+          </a>
+        </li>`
+        }
     });
     
 }else{

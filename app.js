@@ -36,7 +36,7 @@ require('debug')('socket.io');
 // socketIo.Server
 // const io = new Server(server, {
 //   cors: {
-//     origin: '*', // Update with your actual origin
+//     origin: 'https?//asfischolar.org', // Update with your actual origin
 //     methods: ["GET", "POST"],
 // },
 // transports: ["websocket"],
@@ -156,10 +156,12 @@ function onConnected(socket) {
     const messageId = await generateID()
 
     const files = data.files
-    console.log(data.dateTime)
-    console.log(timestamp)
-    
 
+    console.log(data)
+
+    // Emit the message only to the users in the same room
+    io.to(data.inbox).emit("chat-message", data);
+     
     // chatId, text, receiver, timestamp
     if(files[0]){
     
@@ -171,9 +173,7 @@ function onConnected(socket) {
       } 
     });
     }
-        // Emit the message only to the users in the same room
-        io.to(data.inbox).emit("chat-message", data);
-     
+        
         const userData = await findUserByName(recipientId)
         const notificationToken = userData.notification_token
         let userPhoto = ""
@@ -206,19 +206,27 @@ function onConnected(socket) {
     const senderId = data.name;
     const timestamp = data.dateTime;
 
+    const files = data.files
+
     // Save the message to the database with the group chat room ID
     const buffer_id = data.inbox
     const messageId = await generateID()
 
+    if(files[0]){
+    
+    }else{
     const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?)";
     db.query(query, [senderId, content, timestamp, buffer_id, messageId], (err, results) => {
       if (err) {
         console.error("Error saving message to the database:", err);
       } else {
     // Emit the message to all users in the group chat
-    io.to(roomId).emit('group-chat-message', data);
       }
     });
+  }
+
+  io.to(roomId).emit('group-chat-message', data);
+
 
   });
 

@@ -1,10 +1,12 @@
 const db = require("../../routes/db.config");
 
 const SpaceChatHistory = (req, res) => {
+    
     let ChatHistoryArray = [];
     let queryCount = 0;
 
     const SpaceId = req.params.spaceid;
+    console.log("HIST, space ", SpaceId)
     db.query("SELECT * FROM spaces_messages WHERE ? ORDER BY timestamp ASC", [{ buffer: SpaceId }], (err, history) => {
         if (err) {
             console.error("Error retrieving chat history:", err);
@@ -16,6 +18,8 @@ const SpaceChatHistory = (req, res) => {
                 const sender_username = chatContent.sender_id;
                 const message_content = chatContent.content;
                 const timeStamp = chatContent.timestamp;
+                const message_type = chatContent.message_type
+                const message_id = chatContent.message_id
 
                 db.query("SELECT * FROM user_info WHERE username = ?", [sender_username], (err, userData) => {
                     if (err) throw err;
@@ -28,7 +32,9 @@ const SpaceChatHistory = (req, res) => {
                             senderProfilePicture: Profile_picture,
                             senderFullname: Fullname,
                             content: message_content,
-                            timestamp: timeStamp
+                            timestamp: timeStamp,
+                            message_id,
+                            message_type
                         });
 
                         queryCount++;

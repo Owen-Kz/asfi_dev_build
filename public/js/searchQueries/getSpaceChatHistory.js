@@ -1,8 +1,10 @@
 const SpaceId = document.getElementById("SpaceID").value
 const ChatArray = document.getElementById("chatHistory")
 
-getChatHistory()
+// getChatHistory(SpaceId)
 function getChatHistory(spaceId) {
+    AllChatFiles(spaceId)
+    
     return fetch(`/getSpaceChatHistory/${spaceId}`, {
         method: "GET"
     })
@@ -15,4 +17,5 @@ function getChatHistory(spaceId) {
             return null;
         }
     });
+
 }

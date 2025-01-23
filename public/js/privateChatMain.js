@@ -71,10 +71,11 @@ async function sendMessage() {
     files: chatFiles.files,
   };
 
-  socket.emit('message', data, roomId);
   if(chatFiles.files[0]){
     submitTextFiles()
   }
+  socket.emit('message', data, roomId);
+
   // await renderFiles(chatFiles.files, true);
   
   messageInput.value = '';
@@ -122,10 +123,11 @@ async function addMessageToUI(isOwnMessage, data) {
         </div>
       <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
       <div class="${isOwnMessage ? 'text-end' : ''}">
-        <h6 class="fs-2 text-muted">${timestamp}</h6>
+        
         <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
           ${data.message}
         </div>
+        <h6 class="fs-2 text-muted">${timestamp}</h6>
       </div>
        <img src="${profilePicture}" alt="user-profile" 
               width="20px" 
@@ -185,8 +187,6 @@ function getFileType(arrayBuffer) {
   return "unknown";
 }
 
-// Example usage:
-
 
 async function renderFilesUI(files) {
 
@@ -213,7 +213,9 @@ async function renderFilesUI(files) {
     if (blob.type.startsWith("image")) {
       fileContainer = `
         <div class="sentImageContainer">
+          <a href="javascript:void(0)" onclick=previewImage("${url}")>
           <img src="${url}" alt="Image ${i + 1}" />
+          </a>
         </div>
       `;
     } else {

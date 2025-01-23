@@ -219,3 +219,16 @@ header{
     display: none !important;
     visibility: hidden !important;
 }
+
+.chatImageContainerFile{
+    height: 88px !important;
+    width: 88px !important;
+    object-fit: cover;
+}
+
+.chatImageContainerFile img{
+    object-fit: cover;
+    align-self: center;
+    width: 100%;
+    margin: auto;
+}

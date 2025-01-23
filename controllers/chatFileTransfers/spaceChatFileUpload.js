@@ -31,12 +31,12 @@ const storage = multer.diskStorage({
 });
 
 // Allow up to 10 files
-const uploads = multer({ storage }).array("files", 10);
+const uploads = multer({ storage }).array("files[]", 10);
 
 const SpaceChatFile = async (req, res) => {
-  try {
+  try { 
     uploads(req, res, async function (err) {
-      if (err) {
+      if (err) { 
         return res.status(500).send(err);
       }
 
@@ -78,6 +78,7 @@ const SpaceChatFile = async (req, res) => {
       for (const uploadedFile of req.files) {
         const encryptedFileName = uploadedFile.filename;
         const FileType = uploadedFile.mimetype;
+        const fileSize = ` ${(uploadedFile.size / 1024).toFixed(2)} KB`
 
         try {
           const result = await cloudinary.uploader.upload(uploadedFile.path);
@@ -90,6 +91,8 @@ const SpaceChatFile = async (req, res) => {
               {
                 file_url: cloudinaryUrl,
                 file_type: FileType,
+                file_name: encryptedFileName,
+                file_size: fileSize,
                 chat_id: spaceId,
                 message_id: messageId,
               },

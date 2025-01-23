@@ -45,14 +45,16 @@ const imageFileCount = document.getElementById("imageFileCount")
                 for(let i=0; i<ChatFiles.length; i++){
                     const file = ChatFiles[i]
                     if(file.file_type.slice(0,5) === 'image'){
-                        chatImageFiles.innerHTML += ` <div class="col-4 px-1 mb-2">
-                                <img src="${file.file_url}" width="88" height="65" alt="ample-img" class="rounded" />
+                        chatImageFiles.innerHTML += ` <div class="col-4 px-1 mb-2 chatImageContainerFile">
+                               <a href="javascript:void(0)" onclick=previewImage("${file.file_url}")>
+                        <img src="${file.file_url}" alt="-img" class="rounded" />
+                        </a>
                               </div>`
                     }else{
                         otherFiles.innerHTML += `   <a href="/item?url=${file.file_url}" class="hstack gap-3 file-chat-hover justify-content-between text-nowrap" target=_blank>
                                 <div class="d-flex align-items-center gap-3">
                                   <div class="rounded-1 text-bg-light p-6">
-                                    <img src="/chatAssets/assets/images/chat/icon-javascript.svg" alt="${file.file_name}" width="24" height="24" />
+                                    <img src="/css/attachment.png" alt="${file.file_name}" width="24" height="24" />
                                   </div>
                                   <div>
                                     <h6 class="fw-semibold">${file.file_name}</h6>

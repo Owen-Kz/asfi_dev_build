@@ -1,5 +1,5 @@
 // Initialize socket connection
-const socket = io("https://asfischolar.org", {
+const socket = io("*", {
   transports: ["websocket"],
 });
 
@@ -307,7 +307,11 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
               const mainFile = Files[i]
 
               if(mainFile.file_type.slice(0,5) === "image"){
-                fileElement += `<div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');"><img src="${mainFile.file_url}"/></div>`
+                fileElement += `<div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');">
+                 <a href="javascript:void(0)" onclick=previewImage("${mainFile.file_url}")>
+                <img src="${mainFile.file_url}"/>
+                </a>
+                </div>`
               }else{
                 fileElement +=`
        
@@ -331,10 +335,11 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
            <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
         
             <div class="${isOwnMessage ? 'text-end' : ''}">
-              <h6 class="fs-2 text-muted">${timestamp_}</h6>
+              
               <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
                 ${message}
               </div>
+              <h6 class="fs-2 text-muted">${timestamp_}</h6>
               </div>
                   <img 
               src="${isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main}" 
@@ -352,10 +357,11 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
            
             <div class="${isOwnMessage ? 'text-end' : ''}">
-              <h6 class="fs-2 text-muted">${timestamp_}</h6>
+              
               <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
                 ${message}
               </div>
+              <h6 class="fs-2 text-muted">${timestamp_}</h6>
             </div>
              <img 
               src="${isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main}" 

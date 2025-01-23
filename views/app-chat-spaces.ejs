@@ -25,26 +25,30 @@
   <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
   <!-- Core Css -->
   <link rel="stylesheet" href="/chatAssets/assets/css/styles.css" />
-  <title><%= receiverFirstName%> <%= receiverLastname%> | Chat
+  <title><%= SpaceName %> | Space
   </title>
-
-  <input type="text" id="senderImage_" value="<%= senderImage %>" readonly hidden>
-  <input type="text" id="receiverImage_" value="<%=receiverImage%>" readonly hidden>
-  <input type="text" value="<%= receiverFirstName%> <%= receiverLastname%>" id="recipientFullname" hidden>
-  <input type="text" value="<%= senderFirstname %> <%= senderLastname %>" id="senderFulname" hidden>
-
-  <input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
   
-  <input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
+  
+  <input type="text" id="chatHistory" value="[]" readonly hidden>
+  <input type="text" id="chatID" value="<%=spaceId%>" readonly hidden>
+  <input type="hidden" id="senderImage_" value="<%=user_profile_picture%>" readonly>
+  <input type="hidden" id="senderFulname" value="<%= user_first_name %> <%= user_last_name %>" readonly>
+  
+  <input type="hidden" id="SpaceID" value="<%=spaceId%>" readonly>
+  <input type="hidden" id="newImage" value="<%=user_profile_picture%>" readonly>
+  <input type="hidden" id="newSender" value="<%=user_first_name%> <%=user_last_name%>" readonly>
+
+  
+  
   <script src="/socket.io/socket.io.js"></script>
 
   <script src="/js/chat/previewImage.js"></script>
+
   <script src="/js/chat/chatFiles.js"></script>
-  <script src="/js/chat/updateUI.js"></script>
+  <!-- <script src="/js/chat/updateUI.js"></script> -->
 </head>
 
 <body>
-  <input type="text" id="chatID" value="<%=ChatBufferID%>" hidden>
   <!-- NAVIGATION BAR  -->
   <sidebar class="left-navigation-bar bg-shadow ">
 
@@ -65,15 +69,15 @@
         <div class="dropdown ms-1 ms-lg-0">
 
           <personal_info>
-            <account_name><%=UserFirstname %> <%= UserLastName %></account_name>
+            <account_name><%=user_first_name %> <%= user_last_name %></account_name>
           </personal_info>
 
           <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if(ProfileImage == "avatar.jpg"){ %>
-            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+            <% if(user_profile_picture == "avatar.jpg"){ %>
+            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
             <% } else { %>
 
-            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=ProfileImage%>" alt="profile_img">
+            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
             <% }%>
 
           </a>
@@ -85,15 +89,15 @@
               <div class="d-flex align-items-center">
                 <!-- Avatar -->
                 <div class="avatar me-3">
-                  <% if(ProfileImage == "avatar.jpg"){ %>
-                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+                  <% if(user_profile_picture == "avatar.jpg"){ %>
+                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
                   <% } else { %>
 
-                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=ProfileImage%>" alt="profile_img">
+                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
                   <% }%>
                 </div>
                 <div>
-                  <a class="h6" href="#">@<%= UserName %></a>
+                  <a class="h6" href="#">@<%= username %></a>
                   <p class="small m-0"><%= Email %></p>
                 </div>
               </div>
@@ -169,18 +173,17 @@
                     <div class="d-flex align-items-center">
                       <div class="position-relative">
                         <div class="avatar-img rounded-circle border border-white border-3 shadow">
-                          <img src="<%= senderImage %>" alt="user1" width="54" height="54" />
+                          <img src="<%= user_profile_picture %>" alt="user1" width="54" height="54" />
                         </div>
                         <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
                           <span class="visually-hidden">New alerts</span>
                         </span>
                       </div>
                       <div class="ms-3">
-                        <h6 class="fw-semibold mb-2"><%= senderFirstname %> <%= senderLastname %></h6>
-                        <p class="mb-0 fs-2"><%= UserName%></p>
+                        <h6 class="fw-semibold mb-2"><%= user_first_name %> <%= user_last_name %></h6>
+                        <p class="mb-0 fs-2"><%= username%></p>
                       </div>
                     </div>
-                    <input type="text" id="name-input" class="name-input" value="<%=recipient %>" maxlength="20" readonly hidden />
 
                     <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input" value="<%=sender %>" maxlength="20" hidden readonly />
                   </div>
@@ -190,7 +193,7 @@
                   </form>
                   <div class="dropdown">
                     <a class="text-muted fw-semibold d-flex align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Recent Chats
+                     Space Participants
 
 
                       <span class="c-number" id="c-number"></span>
@@ -259,9 +262,9 @@
                           <!-- 2 -->
 
                         </div>
-                        <div class="px-9 py-6 border-top chat-send-message-footer hide" id="messageForm">
+                        <div class="px-9 py-6 border-top chat-send-message-footer">
                           <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-end gap-2 w-85" >
+                            <div class="d-flex align-items-end gap-2 w-85 " id="messageForm">
                               <%- include("emojiPicker.ejs") %>
                        
                             </div>
@@ -290,7 +293,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="app-chat-offcanvas border-start hide" id="mediaCanvas">
+                      <div class="app-chat-offcanvas border-start " id="mediaCanvas">
                         <div class="custom-app-scroll mh-n100" >
                           <div class="p-3 d-flex align-items-center justify-content-between">
                             <h6 class="fw-semibold mb-0 text-nowrap">
@@ -336,12 +339,12 @@
                     <div class="d-flex align-items-center">
                       <div class="position-relative">
 
-                        <div class="prod"> <img src="<%= senderImage %>" alt="user1" width="54" height="54" class="rounded-circle" />
+                        <div class="prod"> <img src="<%= user_profile_picture %>" alt="user1" width="54" height="54" class="rounded-circle" />
                         </div>
                       </div>
                       <div class="ms-3">
-                        <h6 class="fw-semibold mb-2"><%= senderFirstname %> <%= senderLastname %></h6>
-                        <p class="mb-0 fs-2"><%= UserName%></p>
+                        <h6 class="fw-semibold mb-2"><%= user_first_name %> <%= user_last_name %></h6>
+                        <p class="mb-0 fs-2"><%= username%></p>
                       </div>
                     </div>
 
@@ -352,7 +355,8 @@
                   </form>
                   <div class="dropdown">
                     <a class="text-muted fw-semibold d-flex align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Recent Chats<i class="ti ti-chevron-down ms-1 fs-5"></i>
+                     Space Participants
+                     <i class="ti ti-chevron-down ms-1 fs-5"></i>
                     </a>
 
                   </div>
@@ -411,12 +415,19 @@
 
   <script src="/js/fetchFiles.js"></script>
   <!-- <script type="module" src="/js/searchQueries/getUserInfo.js"></script> -->
-  <script src="/js/privateChatMain.js" type="module"></script>
+  <!-- <script src="/js/privateChatMain.js" type="module"></script> -->
    
-  <script type="module" src="/js/privateRecentChats.js"></script>
-  <script src="/js/chat/submitMessage.js"></script>
+  <!-- <script type="module" src="/js/privateRecentChats.js"></script> -->
 
-  <%- include("chatImagePreview") %>
+  <script src="/js/searchQueries/getSpaceChatHistory.js"></script>
+  <script src="/js/searchQueries/getSpaceParticipants.js"></script>
+  
+
+  <script src="/js/spacesChat.js"></script>
+  <script src="/js/chat/spaces/submitSpaceFiles.js"></script>
+
+<%- include("chatImagePreview") %>
+
 </body>
 
 </html>
