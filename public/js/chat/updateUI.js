@@ -1,6 +1,29 @@
 // Initialize socket connection
 const socket = io("https://asfischolar.org", {
   transports: ["websocket"],
+  reconnection: true, // Enable reconnections
+  reconnectionAttempts: 5, // Retry up to 5 times
+  reconnectionDelay: 1000, // Start with a delay of 1 second
+});
+
+socket.on("connect", () => {
+  console.log("WebSocket connected:", socket.id);
+});
+
+socket.on("disconnect", (reason) => {
+  console.log("Disconnected:", reason);
+});
+
+socket.on("reconnect_attempt", () => {
+  console.log("Attempting to reconnect...");
+});
+
+socket.on("reconnect", (attempt) => {
+  console.log(`Reconnected after ${attempt} attempts`);
+});
+
+socket.on("reconnect_failed", () => {
+  console.error("Reconnection failed");
 });
 
 // const socket = io();
@@ -191,7 +214,6 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
     }
     
     
-    scrollToBottom();
     // FORMAT the TIMESTAMP 
     function formatTimestamp(timestamp) {
       const date = new Date(timestamp);
@@ -437,4 +459,6 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
     }
     
     AllChatFiles(id)
+    scrollToBottom();
+
 }

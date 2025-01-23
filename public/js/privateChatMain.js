@@ -74,7 +74,7 @@ async function sendMessage() {
   if(chatFiles.files[0]){
     submitTextFiles()
   }
-  socket.emit('message', data, roomId);
+  socket.emit('chat-message', data, roomId);
 
   // await renderFiles(chatFiles.files, true);
   

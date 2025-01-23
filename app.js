@@ -142,13 +142,14 @@ io.on('connection', onConnected);
 
 function onConnected(socket) {
   console.log('Socket connected', socket.id);
-  socketsConnected.add(socket.id);
-  io.emit('clients-total', socketsConnected.size);
+  // socketsConnected.add(socket.id);
+  // io.emit('clients-total', socketsConnected.size);
 
-  socket.on('disconnect', () => {
-    // console.log('Socket disconnected', socket.id); 
-    socketsConnected.delete(socket.id); 
-    io.emit('clients-total', socketsConnected.size);
+  socket.on('disconnect', (reason) => {
+    console.log(reason)
+    console.log('Socket disconnected', socket.id); 
+    // socketsConnected.delete(socket.id); 
+    // io.emit('clients-total', socketsConnected.size);
   });
 
   // Generate a unique room ID for this pair of users
@@ -156,10 +157,10 @@ function onConnected(socket) {
   
   socket.on("join-room", async (roomId, userId) =>{
     socket.join(roomId); // Join the room
-  // console.log("join",roomId) 
+  console.log("join",roomId) 
   })
  
-  socket.on("message", async (data, roomId, userId) => {
+  socket.on("chat-message", async (data, roomId, userId) => {
     const recipientId = data.receiver;
     const content = data.message; 
     const senderId = data.name;
@@ -199,7 +200,9 @@ function onConnected(socket) {
         await sendNewMessageNotification(senderId, notificationToken)
 
    // Emit the message only to the users in the same room
+  //  io.to(data.inbox).emit("chat-message", data);
    io.to(data.inbox).emit("chat-message", data);
+
   });
 
   socket.on("feedback", (data) => {
