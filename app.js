@@ -49,6 +49,8 @@ const io = require('socket.io')(server, {
       methods: ["GET", "POST"]
   },
 transports: ["websocket"], 
+  pingTimeout: 60000, // Wait 60 seconds before assuming the connection is lost
+  pingInterval: 25000, // Send a ping every 25 seconds
 });
 
 
