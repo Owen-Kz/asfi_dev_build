@@ -388,6 +388,7 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
       // Append child elements to construct the message structure
       innerMessageDiv.appendChild(messageContentDiv);
       innerMessageDiv.appendChild(timestampDiv);
+      messageDiv.innerHTML+= fileElement;
       messageDiv.appendChild(innerMessageDiv);
       messageDiv.appendChild(profileImage);
   
