@@ -2,6 +2,8 @@
 const socket = io("https://asfischolar.org", {
   transports: ["websocket"],
 });
+
+// const socket = io();
  
 
 async function GetChatHistory(id){
@@ -50,7 +52,8 @@ const messagesPerLoad = 10; // Number of messages to load per scroll
 const newMessages = []; // Array to store new message elements
 
 async function GetChatUserData(id){
-  return fetch(`/chatUsers`, {
+
+  return fetch(`/chatUsers?chat_id=${id}`, {
     method:"POST",
     headers:{
       "Content-type":"application/JSON"
@@ -58,6 +61,7 @@ async function GetChatUserData(id){
     body:JSON.stringify({chat_id:id})
   }).then(res =>res.json())
   .then(data =>{
+    console.log(data)
     if(data){
     if(data.success){
       return data.recipient[0]
@@ -65,19 +69,18 @@ async function GetChatUserData(id){
       alert(data.error)
       return []
     }
-  }else{
-    console.log(data)
   }
   })
 }
 
 async function UpdateChatUI(id){
-  const messageForm = document.getElementById("messageForm")
-  const mediaCanvas = document.getElementById("mediaCanvas")
+
+  // const messageForm = document.getElementById("messageForm")
+  // const mediaCanvas = document.getElementById("mediaCanvas")
 
   // if(messageForm.classList.has("hide")){
-  messageForm.classList.remove("hide")
-  mediaCanvas.classList.remove("hide")
+  // messageForm.classList.remove("hide")
+  // mediaCanvas.classList.remove("hide")
   // }
 
   const chatID = document.getElementById("chatID")
@@ -92,6 +95,7 @@ socket.emit('join-room', id, userId);
   chatIdContaner.value = `${id}`
 
   const user = await GetChatUserData(id)
+
 
   
   const chatHistoryContainer = document.getElementById("chatHistory")
@@ -302,7 +306,7 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
         // Clear any feedback elements
         clearFeedback();
       let element = "<i></i>"
-      let fileElement = `<div class="sentFiles">`
+      let fileElement = `<div class="sentFiles  ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">`
         // Construct the message element
         if(message_type === "file"){
           const Files = await GetMessageFiles(messageID)
@@ -335,11 +339,11 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
          
           
           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
-          <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
+          <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-end'}">
           ${fileElement}
-           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
+           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start '}">
         
-            <div class="${isOwnMessage ? 'text-end' : ''}">
+            <div class="${isOwnMessage ? 'text-end' : 'text-start'}">
               
               <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
                 ${message}
@@ -435,4 +439,3 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
     
     AllChatFiles(id)
 }
-

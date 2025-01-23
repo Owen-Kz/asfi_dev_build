@@ -3,11 +3,11 @@ const db = require("../../routes/db.config")
 async function findRecipient(username){
  return new Promise((resolve, reject) =>{
   db.query("SELECT username, profile_picture, first_name, last_name, email FROM user_info WHERE username = ?", [username], async (err, user) =>{
-      
         if(err){
             console.log(err)
             reject(err)
         }else if(user){
+            
           resolve(user)
         }else{
             resolve([])
@@ -19,10 +19,12 @@ async function findRecipient(username){
 const getChatUsers = async (req,res) =>{
     try{
     const username = req.user.username
-    const {chat_id} = req.body 
+    const {chat_id} = req.body
+ 
     db.query("SELECT * FROM chat_buffer WHERE buffer_generated = ?", [chat_id], async(err, data) =>{
+
         if(err){
-   
+            console.log(err)
             throw err
         }else if(data[0]){
           

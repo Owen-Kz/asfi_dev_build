@@ -35,7 +35,7 @@ if(sendAttachment){
 // Upload the files to the database 
 const recipient = document.getElementById("name-input")
 const chat_inbox_ID_CONTAINER = document.getElementById("chatID").value
-const chat_inbox = JSON.parse(chat_inbox_ID_CONTAINER)
+const chat_inbox = chat_inbox_ID_CONTAINER
 
 
 function submitTextFiles(){

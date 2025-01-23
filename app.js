@@ -34,20 +34,24 @@ const {Server} = require('socket.io');
 require('debug')('socket.io');
 
 // socketIo.Server
-// const io = new Server(server, {
-//   cors: {
-//     origin: '*', // Update with your actual origin
-//     methods: ["GET", "POST"],
-// },
-// transports: ["websocket"],
-// });
-const io = require('socket.io')(server, {
+const io = new Server(server, {
   cors: {
-      origin: "https://asfischolar.org",
-      methods: ["GET", "POST"]
-  },
-transports: ["websocket"], 
+    origin: '*', // Update with your actual origin
+    methods: ["GET", "POST"],
+},
+transports: ["websocket"],
 });
+
+
+// const io = require('socket.io')(server, {
+//   cors: {
+//       origin: "https://asfischolar.org",
+//       methods: ["GET", "POST"]
+//   },
+// transports: ["websocket"], 
+// });
+
+
 // const io = require("socket.io")(server, {
 //     port: 37400 // Change this to your desired port number
 //   })

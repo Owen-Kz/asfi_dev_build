@@ -42,7 +42,7 @@ const privateChatFile = async (req, res) => {
       }
 
       const { chatId, text, receiver, timestamp } = req.body;
-  
+
       if (!chatId || !receiver) {
         return res.status(400).json({ error: "Missing required data" });
       }

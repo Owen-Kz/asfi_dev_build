@@ -21,7 +21,7 @@
     <i class="ti ti-mood-smile text-dark bg-hover-primary fs-7"></i>
   </a>
   <form id="message-form" class="form-control message-type-box text-muted border-0 p-0 ms-2" fdprocessedid="0p3op" enctype="multipart/form-data">
-    <input type="hidden" value="" name="chatId" id="chatIdContaner">
+    <input type="hidden" value="<%= chat_id %>" name="chatId" id="chatIdContaner">
     <div class="form-group">
         <input type="file" id="files" name="files[]" multiple hidden>
         <div id="image-preview"></div>
@@ -39,3 +39,12 @@
   <script type="module" src="/js/chat/emojiReactions.js"></script>
 
   <script src="/js/chat/imagePreview.js"></script>
+
+
+  <script>
+const chatId = document.getElementById("chatID").value;
+const chatIdContaner = document.getElementById("chatIdContaner")
+
+UpdateChatUI(chatId)
+
+  </script>

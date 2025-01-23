@@ -36,6 +36,12 @@
   <input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
   
   <input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
+  <input type="text" id="name-input" class="name-input" value="<%=recipient %>" maxlength="20" readonly hidden />
+
+  <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input" value="<%=sender %>" maxlength="20" hidden readonly />
+  <input type="text" id="chatID" value="<%=chat_id%>" hidden>
+
+
   <script src="/socket.io/socket.io.js"></script>
 
   <script src="/js/chat/previewImage.js"></script>
@@ -44,7 +50,6 @@
 </head>
 
 <body>
-  <input type="text" id="chatID" value="<%=ChatBufferID%>" hidden>
   <!-- NAVIGATION BAR  -->
   <sidebar class="left-navigation-bar bg-shadow ">
 
@@ -180,9 +185,7 @@
                         <p class="mb-0 fs-2"><%= UserName%></p>
                       </div>
                     </div>
-                    <input type="text" id="name-input" class="name-input" value="<%=recipient %>" maxlength="20" readonly hidden />
-
-                    <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input" value="<%=sender %>" maxlength="20" hidden readonly />
+                 
                   </div>
                   <form class="position-relative mb-4">
                     <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Contact" />
@@ -259,7 +262,7 @@
                           <!-- 2 -->
 
                         </div>
-                        <div class="px-9 py-6 border-top chat-send-message-footer hide" id="messageForm">
+                        <div class="px-9 py-6 border-top chat-send-message-footer " id="messageForm">
                           <div class="d-flex align-items-end justify-content-between">
                             <div class="d-flex align-items-end gap-2 w-85" >
                               <%- include("emojiPicker.ejs") %>
@@ -290,7 +293,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="app-chat-offcanvas border-start hide" id="mediaCanvas">
+                      <div class="app-chat-offcanvas border-start" id="mediaCanvas">
                         <div class="custom-app-scroll mh-n100" >
                           <div class="p-3 d-flex align-items-center justify-content-between">
                             <h6 class="fw-semibold mb-0 text-nowrap">

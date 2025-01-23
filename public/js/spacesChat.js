@@ -179,7 +179,7 @@ async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, message
     clearFeedback();
 
     let element = "<i></i>"
-    let fileElement = `<div class="sentFiles">`
+    let fileElement = `<div class="sentFiles  ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}" >`
       // Construct the message element
       if(message_type === "file"){
         const Files = await GetMessageFiles(messageID)
@@ -464,7 +464,7 @@ async function addMessageToUI(isOwnMessage, data) {
     const element = `
       <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}">
          <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
-        <div class="sentFiles">
+        <div class="sentFiles  ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}" >
           ${filesUI}
   
           </div>

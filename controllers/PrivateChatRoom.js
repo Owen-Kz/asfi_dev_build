@@ -2,6 +2,7 @@ const db = require("../routes/db.config");
 const bcrypt = require("bcryptjs");
 const AdminLoggedIn = require("./admin/loggedin");
 const ChatBufferID = [];
+let bufferGeneratedMain = "";
 const recentMessagesArray = [];
 
 console.log("SERVER SIDE CHAT WORKING")
@@ -25,7 +26,8 @@ console.log("BUFFER EXISTS")
           (err, bufferResult) => {
             if (err) return reject(err);            
             // Push the buffer ID into the ChatBufferID array
-            ChatBufferID.push({ id: bufferResult[0]["buffer_generated"] });
+            // ChatBufferID.push({ id: bufferResult[0]["buffer_generated"] });
+            bufferGeneratedMain = bufferResult[0]["buffer_generated"]
             resolve(true);
           }
         );
@@ -34,7 +36,8 @@ console.log("BUFFER CREATED")
 
         createChatBuffer(senderUsername, recipientUsername, bufferGenerated)
           .then(() => {
-            ChatBufferID.push({ id: bufferGenerated });
+            // ChatBufferID.push({ id: bufferGenerated });
+            bufferGeneratedMain = bufferGenerated
             resolve(true); // Resolve the promise after creating the chat buffer
           })
           .catch((err) => {
@@ -115,12 +118,12 @@ const PrivateChatRoom = async (req, res) => {
     startNewChatSession();
     const recipientUsername = req.params["username"];
     const messageHistory = [];
-    const bufferGenerated = await bcrypt.hash(senderUsername + recipientUsername, 8);
+    bufferGeneratedMain = await bcrypt.hash(senderUsername + recipientUsername, 8);
     const recentMessages = [];
     const receiverPoints = [];
 
     try {
-      const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGenerated);
+      const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGeneratedMain);
       console.log("CHAT WORKS")
       const profiles = await fetchProfileInfo(senderUsername, recipientUsername);
 
@@ -147,6 +150,7 @@ const PrivateChatRoom = async (req, res) => {
     // });
       
       const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
+      console.log(bufferGeneratedMain)
       if(receiverPoints.length >0){
       res.render("app-chat.ejs", {
         status: "loggedIn",
@@ -161,6 +165,7 @@ const PrivateChatRoom = async (req, res) => {
         recent_message_recipient: JSON.stringify(RECENT_MESSAGES),
         chatHistory: JSON.stringify(messageHistory),
         ChatBufferID: JSON.stringify(ChatBufferID),
+        chat_id:bufferGeneratedMain,
         UserName:req.user.username, accountType:req.user.acct_Type, FirstName:req.user.first_name, LastName: req.user.last_name, ProfileImage: req.user.profile_picture, Email:req.user.email, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYer", username:req.user.username, Username:req.user.username, UserName:req.user.username
       });
       }else{

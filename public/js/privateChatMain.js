@@ -9,7 +9,7 @@ const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const recipient = document.getElementById('name-input');
 const chatInboxIDContainer = document.getElementById('chatID').value;
-const chatInbox = JSON.parse(chatInboxIDContainer);
+const chatInbox = chatInboxIDContainer;
 
 const senderProfilePicture = document.getElementById('senderImage_').value;
 const recipientProfilePicture = document.getElementById('receiverImage_').value;
@@ -117,7 +117,7 @@ async function addMessageToUI(isOwnMessage, data) {
   const element = `
     <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}">
        <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
-      <div class="sentFiles">
+      <div class="sentFiles ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
         ${filesUI}
 
         </div>

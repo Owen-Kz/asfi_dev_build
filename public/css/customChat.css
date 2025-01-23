@@ -137,7 +137,7 @@ header{
     gap: 10px; /* Adds spacing between elements */
     /* padding: 10px; Adds padding inside the container */
     border-radius: 8px; /* Optional: Adds rounded corners */
-    justify-content: flex-end; /* Centers child elements */
+    /* justify-content: flex-end; Centers child elements */
 }
 
 .sentFiles .sentImageContainer {
