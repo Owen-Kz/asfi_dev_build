@@ -9,7 +9,7 @@ const fetchChatHistory = async (req,res) =>{
           if (err) { 
             console.log(err)
             throw err
-          }else if(results[0]){
+          }else if(results){
             return res.json({success:"Chat History", history:results})
           }
         })

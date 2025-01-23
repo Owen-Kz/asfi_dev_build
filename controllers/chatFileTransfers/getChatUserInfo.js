@@ -37,6 +37,8 @@ const getChatUsers = async (req,res) =>{
                 return res.json({success:"recipieint", recipient})
             }
             
+        }else{
+            return res.json({error:"User not found"})
         }
     })
     }catch(error){

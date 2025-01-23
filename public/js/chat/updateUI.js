@@ -61,7 +61,6 @@ async function GetChatUserData(id){
     body:JSON.stringify({chat_id:id})
   }).then(res =>res.json())
   .then(data =>{
-    console.log(data)
     if(data){
     if(data.success){
       return data.recipient[0]
