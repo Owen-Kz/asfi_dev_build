@@ -157,10 +157,9 @@ function onConnected(socket) {
 
     const files = data.files
 
-    console.log(data)
 
-    // Emit the message only to the users in the same room
-    io.to(data.inbox).emit("chat-message", data);
+
+   
      
     // chatId, text, receiver, timestamp
     if(files[0]){
@@ -185,7 +184,9 @@ function onConnected(socket) {
         const Endpoint = `/@${senderId}/chat`
         await saveNotification(senderId, recipientId, `New Message from ${senderId}. ${content}`, userPhoto, Endpoint)
         await sendNewMessageNotification(senderId, notificationToken)
-  
+        
+   // Emit the message only to the users in the same room
+   io.to(data.inbox).emit("chat-message", data);
   });
 
   socket.on("feedback", (data) => {
