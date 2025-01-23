@@ -1,5 +1,5 @@
 // Initialize socket connection
-const socket = io("http://asfischolar.org", {
+const socket = io("https://asfischolar.org", {
   transports: ["websocket"],
 });
  
@@ -58,11 +58,16 @@ async function GetChatUserData(id){
     body:JSON.stringify({chat_id:id})
   }).then(res =>res.json())
   .then(data =>{
+    if(data){
     if(data.success){
       return data.recipient[0]
     }else{
       alert(data.error)
+      return []
     }
+  }else{
+    console.log(data)
+  }
   })
 }
 
