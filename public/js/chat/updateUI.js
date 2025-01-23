@@ -70,6 +70,7 @@ async function GetMessageFiles(id){
   })
 }
 
+
 let recipientProfilePicture_main
 let senderProfilePicture_main
 
@@ -306,112 +307,94 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
     //END PAGINATION CODE
     
     async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, messageId, message_type, messageID, ChatId) {
-        // Determine recipient's profile picture
-        if (recipientProfilrPicture === "avatar.jpg") {
+      // Determine recipient's profile picture
+      if (recipientProfilrPicture === "avatar.jpg") {
           recipientProfilePicture_main = `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`;
-        } else {
+      } else {
           recipientProfilePicture_main = await fetchProfileImage(recipientProfilrPicture)
-            .then((ReceiverImage) => ReceiverImage || `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`);
-        }
-      
-        // Determine sender's profile picture
-        if (senderProfilePicture === "avatar.jpg") {
-          senderProfilePicture_main = `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`;
-        } else {
-          senderProfilePicture_main = await fetchProfileImage(senderProfilePicture)
-            .then((SenderImage) => SenderImage || `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`);
-        }
-      
-        // Set recipient profile in the UI
-        const recipientProfileImage = document.getElementById("user_image");
-        const recipientName = document.getElementById("recipientName");
-        recipientProfileImage.removeAttribute("style")
-        recipientName.innerText = recipientFullname;
-        recipientProfileImage.src = recipientProfilePicture_main;
-      
-        // Clear any feedback elements
-        clearFeedback();
-      let element = "<i></i>"
-      let fileElement = `<div class="sentFiles  ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">`
-        // Construct the message element
-        if(message_type === "file"){
-          const Files = await GetMessageFiles(messageID)
-       
-          if(Files.length > 0 ){
-            for(let i=0; i<Files.length; i++){
-              const mainFile = Files[i]
-
-              if(mainFile.file_type.slice(0,5) === "image"){
-                fileElement += `<div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');">
-                 <a href="javascript:void(0)" onclick=previewImage("${mainFile.file_url}")>
-                <img src="${mainFile.file_url}"/>
-                </a>
-                </div>`
-              }else{
-                fileElement +=`
-       
-                   <div class="file-item">
-          <a href="${mainFile.file_url}" class="text-info" download="File_${i + 1}">
-            📄 ${mainFile.file_name} (${mainFile.file_size})
-          </a>
-        </div>
-                `
-              }
-              
-            }
-          }
-          fileElement += `</div>`
-          element = `
-         
-          
-          <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
-          <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-end'}">
-          ${fileElement}
-           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse '}">
-        
-            <div class="${isOwnMessage ? 'text-end' : 'text-start'}">
-              
-              <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
-                ${message}
-              </div>
-              <h6 class="fs-2 text-muted">${timestamp_}</h6>
-              </div>
-                  <img 
-              src="${isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main}" 
-              alt="user-profile" 
-              width="20px" 
-              height="20px" 
-              class="roundedMessageImage" 
-            />
-            </div>
-            </div>
-          </div>
-        `;
-        }else{
-       element = `
-          <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
-           
-            <div class="${isOwnMessage ? 'text-end' : ''}">
-              
-              <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">
-                ${message}
-              </div>
-              <h6 class="fs-2 text-muted">${timestamp_}</h6>
-            </div>
-             <img 
-              src="${isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main}" 
-              alt="user-profile" 
-              width="40" 
-              height="40" 
-              class="roundedMessageImage" 
-            />
-          </div>
-        `;
-        }
-      
-        // Add the element to the new messages array
-        newMessages.push(element);
+              .then((ReceiverImage) => ReceiverImage || `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`);
       }
+  
+      // Determine sender's profile picture
+      if (senderProfilePicture === "avatar.jpg") {
+          senderProfilePicture_main = `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`;
+      } else {
+          senderProfilePicture_main = await fetchProfileImage(senderProfilePicture)
+              .then((SenderImage) => SenderImage || `https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg`);
+      }
+  
+      // Set recipient profile in the UI
+      const recipientProfileImage = document.getElementById("user_image");
+      const recipientName = document.getElementById("recipientName");
+      recipientProfileImage.removeAttribute("style");
+      recipientName.textContent = recipientFullname; // Use textContent to safely set text
+      recipientProfileImage.src = recipientProfilePicture_main;
+  
+      // Clear any feedback elements
+      clearFeedback();
+  
+      let fileElement = `<div class="sentFiles ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">`;
+  
+      if (message_type === "file") {
+          const Files = await GetMessageFiles(messageID);
+  
+          if (Files.length > 0) {
+              for (let i = 0; i < Files.length; i++) {
+                  const mainFile = Files[i];
+  
+                  if (mainFile.file_type.slice(0, 5) === "image") {
+                      fileElement += `
+                          <div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');">
+                              <a href="javascript:void(0)" onclick=previewImage("${mainFile.file_url}")>
+                                  <img src="${mainFile.file_url}" />
+                              </a>
+                          </div>`;
+                  } else {
+                      fileElement += `
+                          <div class="file-item">
+                              <a href="${mainFile.file_url}" class="text-info" download="File_${i + 1}">
+                                  📄 ${mainFile.file_name} (${mainFile.file_size})
+                              </a>
+                          </div>`;
+                  }
+              }
+          }
+          fileElement += `</div>`;
+      }
+  
+      // Create the main message element using document.createElement
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}`;
+      messageDiv.dataset.messageId = messageId;
+  
+      const innerMessageDiv = document.createElement("div");
+      innerMessageDiv.className = `${isOwnMessage ? 'text-end' : 'text-start'}`;
+  
+      const messageContentDiv = document.createElement("div");
+      messageContentDiv.className = "p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3";
+      messageContentDiv.textContent = message; // Use textContent for safe rendering
+  
+      const timestampDiv = document.createElement("h6");
+      timestampDiv.className = "fs-2 text-muted";
+      timestampDiv.textContent = timestamp_; // Use textContent for timestamp
+  
+      const profileImage = document.createElement("img");
+      profileImage.src = isOwnMessage ? senderProfilePicture_main : recipientProfilePicture_main;
+      profileImage.alt = "user-profile";
+      profileImage.width = 40;
+      profileImage.height = 40;
+      profileImage.className = "roundedMessageImage";
+  
+      // Append child elements to construct the message structure
+      innerMessageDiv.appendChild(messageContentDiv);
+      innerMessageDiv.appendChild(timestampDiv);
+      messageDiv.appendChild(innerMessageDiv);
+      messageDiv.appendChild(profileImage);
+  
+      // Add the constructed message to the newMessages array
+      newMessages.push(messageDiv.outerHTML);
+  }
+  
       
     
 
