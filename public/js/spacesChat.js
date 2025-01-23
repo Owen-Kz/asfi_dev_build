@@ -11,7 +11,7 @@ const sender_Image = document.getElementById("senderImage_").value
 
 const chatFiles = document.getElementById('files');
 const newSender = document.getElementById("newSender") 
-const newImage = document.getElementById("newImage")
+const newImage = document.getElementById("newImage") 
 
 const RoomIDContainer = document.getElementById("SpaceID")
 

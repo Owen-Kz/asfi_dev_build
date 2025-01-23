@@ -46,7 +46,7 @@ const io = require('socket.io')(server, {
       origin: "https://asfischolar.org",
       methods: ["GET", "POST"]
   },
-transports: ["websocket"],
+transports: ["websocket"], 
 });
 // const io = require("socket.io")(server, {
 //     port: 37400 // Change this to your desired port number
