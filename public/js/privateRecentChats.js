@@ -44,12 +44,12 @@ const RecentCountContainer = document.getElementById("c-number");
         ActualSender = `${sender.first_name} ${sender.last_name}`;
         ActualSenderText = `@${sender.username}`;
         ActualReceiver = "You";
-        ActualSenderProfile = recipient.profile_picture
+        ActualSenderProfile = sender.profile_picture
       } else {
         ActualSender = `${recipient.first_name} ${recipient.last_name}`;
         ActualSenderText = `@${recipient.username}`;
         ActualReceiver = `${recipient.first_name} ${recipient.last_name}`;
-        ActualSenderProfile = sender.profile_picture
+        ActualSenderProfile = recipient.profile_picture
       }
 
       if (SentBy === mainUser && Receiver === mainUser) {
