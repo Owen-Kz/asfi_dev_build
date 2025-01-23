@@ -1,9 +1,11 @@
 // Initialize socket connection
 const socket = io("https://asfischolar.org", {
   transports: ["websocket"],
-  reconnection: true, // Enable reconnections
-  reconnectionAttempts: 5, // Retry up to 5 times
-  reconnectionDelay: 1000, // Start with a delay of 1 second
+  reconnection: true,            // Enable reconnection
+  reconnectionAttempts: 10,      // Number of reconnection attempts
+  reconnectionDelay: 1000,       // Delay between reconnection attempts (ms)
+  reconnectionDelayMax: 5000,    // Max delay between attempts (ms)
+  timeout: 20000,                // Connection timeout (ms)
 });
 
 socket.on("connect", () => {
@@ -26,8 +28,11 @@ socket.on("reconnect_failed", () => {
   console.error("Reconnection failed");
 });
 
-// const socket = io();
- 
+setInterval(() => {
+  if (socket.connected) {
+    socket.emit("heartbeat", { timestamp: Date.now() });
+  }
+}, 30000);
 
 async function GetChatHistory(id){
     return fetch(`/getChatHistory`, {
