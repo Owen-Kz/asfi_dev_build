@@ -211,7 +211,7 @@ async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, message
         <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
         <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">
         ${fileElement}
-         <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
+         <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}">
       
           <div class="${isOwnMessage ? 'text-end' : ''}">
            

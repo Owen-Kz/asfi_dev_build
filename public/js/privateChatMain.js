@@ -121,7 +121,7 @@ async function addMessageToUI(isOwnMessage, data) {
         ${filesUI}
 
         </div>
-      <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start reverse'}">
+      <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}">
       <div class="${isOwnMessage ? 'text-end' : ''}">
         
         <div class="p-2 bg-info-subtle text-dark rounded-1 d-inline-block fs-3">

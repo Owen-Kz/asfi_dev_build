@@ -341,7 +341,7 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse'}" data-message-id="${messageId}">
           <div class="innerMesssageContent ${isOwnMessage ? 'justify-content-end' : 'justify-content-end'}">
           ${fileElement}
-           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-start '}">
+           <div class="hstack message gap-3 align-items-end mb-7 ${isOwnMessage ? 'justify-content-end' : 'justify-content-end reverse '}">
         
             <div class="${isOwnMessage ? 'text-end' : 'text-start'}">
               
