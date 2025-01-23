@@ -333,8 +333,10 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
       // Clear any feedback elements
       clearFeedback();
   
-      let fileElement = `<div class="sentFiles ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">`;
-  
+      // let fileElement = `<div class="sentFiles ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}">`;
+      const fileElement = document.createElement("div");
+      fileElement.className = `sentFiles ${isOwnMessage ? 'justify-content-end' : 'justify-content-start'}`;
+
       if (message_type === "file") {
           const Files = await GetMessageFiles(messageID);
   
@@ -343,23 +345,43 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
                   const mainFile = Files[i];
   
                   if (mainFile.file_type.slice(0, 5) === "image") {
-                      fileElement += `
-                          <div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');">
-                              <a href="javascript:void(0)" onclick=previewImage("${mainFile.file_url}")>
-                                  <img src="${mainFile.file_url}" />
-                              </a>
-                          </div>`;
+                    const fileContainer = document.createElement("div");
+                    fileContainer.setAttribute("class", "sentImageContainer");
+                    fileContainer.setAttribute("style", `background-image:url('${mainFile.file_url}');`);
+                    const fileURl = document.createElement("a");
+                    fileURl.setAttribute("href", "javascript:void(0)");
+                    fileURl.setAttribute("onclick", `previewImage("${mainFile.file_url}")`);
+                    const fileImage = document.createElement("img");
+                    fileImage.setAttribute("src", mainFile.file_url);
+                    fileURl.appendChild(fileImage);
+                    fileContainer.appendChild(fileURl);
+                    fileElement.appendChild(fileContainer);
+                      // fileElement += `
+                      //     <div class="sentImageContainer" style="background-image:url('${mainFile.file_url}');">
+                      //         <a href="javascript:void(0)" onclick=previewImage("${mainFile.file_url}")>
+                      //             <img src="${mainFile.file_url}" />
+                      //         </a>
+                      //     </div>`;
                   } else {
-                      fileElement += `
-                          <div class="file-item">
-                              <a href="${mainFile.file_url}" class="text-info" download="File_${i + 1}">
-                                  📄 ${mainFile.file_name} (${mainFile.file_size})
-                              </a>
-                          </div>`;
+                    const fileItem = document.createElement("div")
+                    fileItem.setAttribute("class", "file-item");
+                    const fileLink = document.createElement("a");
+                    fileLink.setAttribute("href", mainFile.file_url);
+                    fileLink.setAttribute("class", "text-info");
+                    fileLink.setAttribute("download", `File_${i + 1}`);
+                    fileLink.textContent = `📄 ${mainFile.file_name} (${mainFile.file_size})`;
+                    fileItem.appendChild(fileLink);
+                    // fileElement.appendChild(fileItem);
+                    //   fileElement += `
+                    //       <div class="file-item">
+                    //           <a href="${mainFile.file_url}" class="text-info" download="File_${i + 1}">
+                    //               📄 ${mainFile.file_name} (${mainFile.file_size})
+                    //           </a>
+                    //       </div>`;
                   }
               }
           }
-          fileElement += `</div>`;
+          // fileElement += `</div>`;
       }
   
       // Create the main message element using document.createElement
@@ -386,11 +408,14 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
       profileImage.className = "roundedMessageImage";
   
       // Append child elements to construct the message structure
+      innerMessageDiv.appendChild(fileElement);
       innerMessageDiv.appendChild(messageContentDiv);
       innerMessageDiv.appendChild(timestampDiv);
-      messageDiv.innerHTML+= fileElement;
+
+      innerMessageDiv.appendChild(profileImage);
+
+
       messageDiv.appendChild(innerMessageDiv);
-      messageDiv.appendChild(profileImage);
   
       // Add the constructed message to the newMessages array
       newMessages.push(messageDiv.outerHTML);
