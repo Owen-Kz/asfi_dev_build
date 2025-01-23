@@ -45,7 +45,7 @@ require('debug')('socket.io');
 
 const io = require('socket.io')(server, {
   cors: {
-      origin: "http://asfischolar.org",
+      origin: "https://asfischolar.org",
       methods: ["GET", "POST"]
   },
 transports: ["websocket"], 

@@ -1,5 +1,5 @@
 // Initialize socket connection
-const socket = io("http://asfischolar.org", {
+const socket = io("https://asfischolar.org", {
   transports: ["websocket"],
   reconnection: true, // Enable reconnections
   reconnectionAttempts: 5, // Retry up to 5 times
