@@ -34,20 +34,20 @@ const {Server} = require('socket.io');
 require('debug')('socket.io');
 
 // socketIo.Server
-// const io = new Server(server, {
-//   cors: {
-//     origin: 'https?//asfischolar.org', // Update with your actual origin
-//     methods: ["GET", "POST"],
-// },
-// transports: ["websocket"],
-// });
+const io = new Server(server, {
+  cors: {
+    origin: '*', // Update with your actual origin
+    methods: ["GET", "POST"],
+},
+transports: ["websocket"],
+});
 // const io = require("socket.io")(server, {
 //     port: 37400 // Change this to your desired port number
 //   })
-const io = require("socket.io")(server, {
-  pingTimeout: 60000, // Wait 60 seconds before assuming the connection is lost
-  pingInterval: 25000, // Send a ping every 25 seconds
-});
+// const io = require("socket.io")(server, {
+//   pingTimeout: 60000, // Wait 60 seconds before assuming the connection is lost
+//   pingInterval: 25000, // Send a ping every 25 seconds
+// });
 
 
 // const io = require("socket.io")(server, {
@@ -184,7 +184,7 @@ function onConnected(socket) {
         const Endpoint = `/@${senderId}/chat`
         await saveNotification(senderId, recipientId, `New Message from ${senderId}. ${content}`, userPhoto, Endpoint)
         await sendNewMessageNotification(senderId, notificationToken)
-        
+
    // Emit the message only to the users in the same room
    io.to(data.inbox).emit("chat-message", data);
   });
