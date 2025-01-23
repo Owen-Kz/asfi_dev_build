@@ -50,7 +50,7 @@ const chatIdContaner = document.getElementById("chatIdContaner")
 // Join the chat room
 const roomId = chatIdContaner.value;
 const userId = nameInput.value;
-// socket.emit('join-room', roomId, userId);
+socket.emit('join-room', roomId, userId);
 
 // Submit message
 messageForm.addEventListener('submit', (e) => {
