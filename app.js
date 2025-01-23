@@ -43,7 +43,7 @@ require('debug')('socket.io');
 // });
 const io = require('socket.io')(server, {
   cors: {
-      origin: "http://asfischolar.org:92",
+      origin: "https://asfischolar.org",
       methods: ["GET", "POST"]
   },
 transports: ["websocket"],

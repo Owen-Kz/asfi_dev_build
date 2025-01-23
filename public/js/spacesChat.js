@@ -1,4 +1,6 @@
-const socket = io();
+const socket = io("https://asfischolar.org", {
+  transports: ["websocket"],
+});
 
 const messageContainer = document.getElementById('message-container');
 const nameInput = document.getElementById('name-input-sender');
