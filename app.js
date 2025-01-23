@@ -34,11 +34,18 @@ const {Server} = require('socket.io');
 require('debug')('socket.io');
 
 // socketIo.Server
-const io = new Server(server, {
+// const io = new Server(server, {
+//   cors: {
+//     origin: '*', // Update with your actual origin
+//     methods: ["GET", "POST"],
+// },
+// transports: ["websocket"],
+// });
+const io = require('socket.io')(server, {
   cors: {
-    origin: '*', // Update with your actual origin
-    methods: ["GET", "POST"],
-},
+      origin: "http://asfischolar.org:92",
+      methods: ["GET", "POST"]
+  },
 transports: ["websocket"],
 });
 // const io = require("socket.io")(server, {

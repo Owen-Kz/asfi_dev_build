@@ -1,5 +1,5 @@
 // Initialize socket connection
-const socket = io("*", {
+const socket = io("http://asfischolar.org:92", {
   transports: ["websocket"],
 });
 
