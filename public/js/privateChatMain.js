@@ -51,12 +51,12 @@ const chatIdContaner = document.getElementById("chatIdContaner")
 const roomId = chatIdContaner.value;
 const userId = nameInput.value;
 
-function JoinRoom(){
-  socket.emit('join-room', roomId, userId);
-}
+// function JoinRoom(){
+//   socket.emit('join-room', roomId, userId);
+// }
 
 
-JoinRoom()
+// JoinRoom()
 
 // Submit message
 messageForm.addEventListener('submit', (e) => {

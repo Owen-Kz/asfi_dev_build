@@ -40,9 +40,9 @@ const SpaceChatFile = async (req, res) => {
         return res.status(500).send(err);
       }
 
-      const { spaceId, text, timestamp } = req.body;
+      const { chatId, text, timestamp } = req.body;
 
-      if (!spaceId || !timestamp) {
+      if (!chatId || !timestamp) {
         return res.status(400).json({ error: "Missing required data" });
       }
 
@@ -60,7 +60,7 @@ const SpaceChatFile = async (req, res) => {
           {
             sender_id: req.user.username,
             content: text || "",
-            buffer: spaceId,
+            buffer: chatId,
             message_type: "file",
             timestamp: timestamp,
             message_id: messageId,
@@ -93,7 +93,7 @@ const SpaceChatFile = async (req, res) => {
                 file_type: FileType,
                 file_name: encryptedFileName,
                 file_size: fileSize,
-                chat_id: spaceId,
+                chat_id: chatId,
                 message_id: messageId,
               },
             ],

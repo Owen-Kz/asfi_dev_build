@@ -15,6 +15,12 @@ const socket = io("https://process.asfirj.org", {
                // Connection timeout (ms)
 });
 
+// const socket = io("https://process.asfirj.org", {
+//   withCredentials: true, 
+//   transports: ["websocket"],
+//                // Connection timeout (ms)
+// });
+
 socket.on("connect", () => {
   console.log("WebSocket connected:", socket.id);
 });

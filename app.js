@@ -141,76 +141,7 @@ let socketsConnected = new Set();
 io.on('connection', onConnected);
 
 function onConnected(socket) {
-  console.log('Socket connected', socket.id);
-  // socketsConnected.add(socket.id);
-  // io.emit('clients-total', socketsConnected.size);
-
-  socket.on('disconnect', (reason) => {
-    console.log(reason)
-    console.log('Socket disconnected', socket.id); 
-    // socketsConnected.delete(socket.id); 
-    // io.emit('clients-total', socketsConnected.size);
-  });
-
-  // Generate a unique room ID for this pair of users
-  // const roomId_ = shortid.generate();
   
-  socket.on("join-room", async (roomId, userId) =>{
-    socket.join(roomId); // Join the room
-  console.log("join",roomId) 
-  })
- 
-  socket.on("chat-message", async (data, roomId, userId) => {
-
-
-   // Emit the message only to the users in the same room
-  //  io.to(data.inbox).emit("chat-message", data);
-   io.to(data.inbox).emit("chat-message", data);
-
-  });
-
-  socket.on("feedback", (data) => {
-    socket.broadcast.emit("feedback", data);
-  });
-
-  // THE SOCKET IO CHAT SYSTEM FOR SPACES GOES HERE
-  socket.on('join-group-chat', async (roomId) => {
-    socket.join(roomId); // Join the group chat room
-  });
-
-  socket.on('leave-group-chat', async (roomId) => {
-    socket.leave(roomId); // Leave the group chat room
-  });
-
-  socket.on('group-chat-message', async (data, roomId) => {
-    const content = data.message;
-    const senderId = data.name;
-    const timestamp = data.dateTime;
-
-    const files = data.files
-
-    // Save the message to the database with the group chat room ID
-    const buffer_id = data.inbox
-    const messageId = await generateID()
-
-    if(files[0]){
-    
-    }else{
-    const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?)";
-    db.query(query, [senderId, content, timestamp, buffer_id, messageId], (err, results) => {
-      if (err) {
-        console.error("Error saving message to the database:", err);
-      } else {
-    // Emit the message to all users in the group chat
-      }
-    });
-  }
-
-  io.to(roomId).emit('group-chat-message', data);
-
-
-  });
-
  
   // SOCKET IO CODE FOR THE VIDEO CONFERENCING
   socket.on('join-vc', (roomId_vc, userId_vc) => {

@@ -203,6 +203,7 @@ const fetchChatHistory = require("../controllers/chatFileTransfers/getChatHistor
 const openFile = require("../controllers/external/openFile");
 const getChatUsers = require("../controllers/chatFileTransfers/getChatUserInfo");
 const saveMessage = require("../controllers/chatFileTransfers/saveMessage");
+const saveSpaceMessage = require("../controllers/chatFileTransfers/saveSPaceMessage");
 
 // ADMINISTRATOR 
 
@@ -1041,6 +1042,7 @@ router.post("/getSingleChatFile", getSingleFileForMessage)
 router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
 router.get("/item", openFile)
 router.post("/y/saveMessage", saveMessage)
+router.post("/y/saveSpaceMessage", saveSpaceMessage)
 // Feeds page 
 router.get("/feed", LoggedIn, feedsPage)
 // Get the feed of people user follows

@@ -420,6 +420,14 @@
   <script src="/js/chat/submitMessage.js"></script>
 
   <%- include("chatImagePreview") %>
+
+  <script>
+    const chatId = document.getElementById("chatID").value;
+    const chatIdContaner = document.getElementById("chatIdContaner")
+    
+    UpdateChatUI(chatId)
+    
+      </script>
 </body>
 
 </html>

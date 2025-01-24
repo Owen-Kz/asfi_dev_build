@@ -35,11 +35,11 @@ if(sendAttachment){
 // Upload the files to the database 
 
 
-const chatId = document.getElementById("chatID").value 
+// const chatId = document.getElementById("chatID").value 
 
 function submitSpaceFiles(){
     const FormDataMain = new FormData(MessageMain)
-    FormDataMain.append("spaceId", chatId)
+    // FormDataMain.append("spaceId", chatId)
     // FormDataMain.append("text", messageInput.value)
     // FormDataMain.append("inbox", chat_inbox)
     FormDataMain.append("timestamp", new Date())

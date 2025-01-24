@@ -6,8 +6,8 @@ const SpaceChatHistory = (req, res) => {
     let queryCount = 0;
 
     const SpaceId = req.params.spaceid;
-    console.log("HIST, space ", SpaceId)
-    db.query("SELECT * FROM spaces_messages WHERE ? ORDER BY timestamp ASC", [{ buffer: SpaceId }], (err, history) => {
+
+    db.query("SELECT * FROM spaces_messages WHERE ? ORDER BY id ASC", [{ buffer: SpaceId }], (err, history) => {
         if (err) {
             console.error("Error retrieving chat history:", err);
             res.status(500).json({ error: "Could not retrieve chat History" });

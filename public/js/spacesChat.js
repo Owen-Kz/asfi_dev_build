@@ -1,7 +1,10 @@
-const socket = io("https://asfischolar.org", {
+// const socket = io("https://asfischolar.org", {
+//   transports: ["websocket"],
+// });
+const socket = io("https://process.asfirj.org", {
+  withCredentials: true, 
   transports: ["websocket"],
 });
-
 const messageContainer = document.getElementById('message-container');
 const nameInput = document.getElementById('name-input-sender');
 const messageForm = document.getElementById('message-form');

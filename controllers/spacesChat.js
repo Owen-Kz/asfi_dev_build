@@ -43,6 +43,7 @@ const SpacesChat = async (req,res) =>{
                         user_profile_picture: profile_picture,
                         sender: username,
                         spaceId: SpaceId,
+                        chat_id: SpaceId,
                         Email:req.user.email
                     })
                 }else{
