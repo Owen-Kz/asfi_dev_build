@@ -4,6 +4,7 @@
 const socket = io("https://process.asfirj.org", {
   withCredentials: true, 
   transports: ["websocket"],
+               // Connection timeout (ms)
 });
 const messageContainer = document.getElementById('message-container');
 const nameInput = document.getElementById('name-input-sender');
@@ -426,6 +427,8 @@ function sendMessage() {
 
     if(chatFiles.files[0]){
       submitSpaceFiles()
+    }else{
+      saveSpaceMessage(data)
     }
     socket.emit('group-chat-message', data, roomId);
 

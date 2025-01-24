@@ -79,6 +79,8 @@ async function sendMessage() {
 
   if(chatFiles.files[0]){
     submitTextFiles()
+  }else{
+    SaveMessage(data)
   }
   socket.emit('message', data, roomId);
 
