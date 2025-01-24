@@ -10,7 +10,7 @@
 // });
 
 const socket = io("https://process.asfirj.org", {
-  withCredentials: true,
+  withCredentials: true, 
   transports: ["websocket"],
                // Connection timeout (ms)
 });
