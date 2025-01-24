@@ -161,43 +161,7 @@ function onConnected(socket) {
   })
  
   socket.on("chat-message", async (data, roomId, userId) => {
-    const recipientId = data.receiver;
-    const content = data.message; 
-    const senderId = data.name;
-    const timestamp = data.dateTime;
-  
-    const buffer_id = data.inbox
-    const messageId = await generateID()
 
-    const files = data.files
-
-
-
-   
-     
-    // chatId, text, receiver, timestamp
-    if(files[0]){
-    
-    }else{
-    const query = "INSERT INTO messages (sender_id, recipient_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?, ?)";
-    db.query(query, [senderId, recipientId, content, timestamp, buffer_id, messageId], async (err, results) => {
-      if (err) {
-        console.error("Error saving message to the database:", err);
-      } 
-    });
-    }
-        
-        const userData = await findUserByName(recipientId)
-        const notificationToken = userData.notification_token
-        let userPhoto = ""
-        // if(req.user.profile_picture && req.user.profile_picture != "avatar.jpg" && req.user.profile_picture != null ){
-        //   userPhoto = req.user.profile_picture
-        // }else{
-          userPhoto = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
-        // }
-        const Endpoint = `/@${senderId}/chat`
-        await saveNotification(senderId, recipientId, `New Message from ${senderId}. ${content}`, userPhoto, Endpoint)
-        await sendNewMessageNotification(senderId, notificationToken)
 
    // Emit the message only to the users in the same room
   //  io.to(data.inbox).emit("chat-message", data);

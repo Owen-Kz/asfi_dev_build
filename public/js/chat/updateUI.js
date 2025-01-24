@@ -1,11 +1,18 @@
 // Initialize socket connection
-const socket = io("https://asfischolar.org", {
+// const socket = io("http://localhost:31000", {
+//   transports: ["websocket"],
+//   reconnection: true,            // Enable reconnection
+//   reconnectionAttempts: 10,      // Number of reconnection attempts
+//   reconnectionDelay: 1000,       // Delay between reconnection attempts (ms)
+//   reconnectionDelayMax: 5000,    // Max delay between attempts (ms)
+//   timeout: 20000,                // Connection timeout (ms)
+//   withCredentials: true
+// });
+
+const socket = io("http://localhost:31000", {
+  withCredentials: true,
   transports: ["websocket"],
-  reconnection: true,            // Enable reconnection
-  reconnectionAttempts: 10,      // Number of reconnection attempts
-  reconnectionDelay: 1000,       // Delay between reconnection attempts (ms)
-  reconnectionDelayMax: 5000,    // Max delay between attempts (ms)
-  timeout: 20000,                // Connection timeout (ms)
+               // Connection timeout (ms)
 });
 
 socket.on("connect", () => {

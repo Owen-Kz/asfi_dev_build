@@ -50,7 +50,13 @@ const chatIdContaner = document.getElementById("chatIdContaner")
 // Join the chat room
 const roomId = chatIdContaner.value;
 const userId = nameInput.value;
-socket.emit('join-room', roomId, userId);
+
+function JoinRoom(){
+  socket.emit('join-room', roomId, userId);
+}
+
+
+JoinRoom()
 
 // Submit message
 messageForm.addEventListener('submit', (e) => {
@@ -74,7 +80,7 @@ async function sendMessage() {
   if(chatFiles.files[0]){
     submitTextFiles()
   }
-  socket.emit('chat-message', data, roomId);
+  socket.emit('message', data, roomId);
 
   // await renderFiles(chatFiles.files, true);
   

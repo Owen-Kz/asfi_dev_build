@@ -30,7 +30,9 @@ const saveNotification = async (sender, receiver, message, sender_image, endpoin
                         console.log(err)
                         throw err
                     }
-                    else {return "notification sent";}
+                    else {
+                        console.log("notification sent")
+                        return "notification sent";}
                 }
             );
         }
