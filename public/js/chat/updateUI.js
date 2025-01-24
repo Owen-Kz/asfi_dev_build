@@ -9,7 +9,7 @@
 //   withCredentials: true
 // });
 
-const socket = io("http://localhost:31000", {
+const socket = io("https://process.asfirj.org", {
   withCredentials: true,
   transports: ["websocket"],
                // Connection timeout (ms)
