@@ -486,6 +486,6 @@ recipientProfilePicture.setAttribute("value", user.profile_picture)
     }
     
     AllChatFiles(id)
-    scrollToBottom();
+    scrollToBottom(messageContainer);
 
 }

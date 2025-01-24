@@ -37,7 +37,13 @@ if (senderImageContainerMain) {
 let recipientProfilePictureMain;
 let senderProfilePictureMain;
 
-scrollToBottom();
+
+function scrollToBottom(messageContainer) {
+  if (messageContainer) {
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+  }
+}
+scrollToBottom(messageContainer);
 
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
@@ -82,7 +88,10 @@ async function sendMessage() {
   }else{
     SaveMessage(data)
   }
+scrollToBottom(messageContainer);
   socket.emit('message', data, roomId);
+  scrollToBottom(messageContainer);
+
 
   // await renderFiles(chatFiles.files, true);
   
@@ -147,7 +156,8 @@ async function addMessageToUI(isOwnMessage, data) {
   `;
 
   messageContainer.innerHTML += element;
-  scrollToBottom();
+  scrollToBottom(messageContainer);
+
 }
 
 async function renderFiles(files, isOwnMessage) {
@@ -244,9 +254,7 @@ async function renderFilesUI(files) {
 }
 
 
-function scrollToBottom() {
-  messageContainer.scrollTo(0, messageContainer.scrollHeight);
-}
+
 
 messageInput.addEventListener('focus', () => {
   socket.emit('feedback', { feedback: `✍️ @${nameInput.value} is typing a message` });

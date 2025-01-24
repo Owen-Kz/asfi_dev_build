@@ -22,9 +22,13 @@ const RoomIDContainer = document.getElementById("SpaceID")
 const senderFullname = document.getElementById("senderFulname").value;
 
 const SenderimageContainerMain = document.getElementById("SenderimageContainerMain")
-function scrollToBottom() {
-    messageContainer.scrollTo(0, messageContainer.scrollHeight)
+function scrollToBottom(messageContainer) {
+  if (messageContainer) {
+    messageContainer.scrollTop = messageContainer.scrollHeight;
   }
+}
+
+
 // Get teh senders image 
 if (SenderimageContainerMain) {
   fetchProfileImage(sender_Image)
@@ -149,7 +153,7 @@ displayedMessages_.forEach(msg => {
 });
 const displayedMessageIds_Array = []
 
-scrollToBottom();
+scrollToBottom(messageContainer);
 // FORMAT the TIMESTAMP 
 function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
@@ -265,7 +269,7 @@ async function addMessageToUI_HIstory(isOwnMessage, message, timestamp_, message
  
 
     newMessages.push(element); // Add the element to the array
-    scrollToBottom();
+    scrollToBottom(messageContainer);
 }
 
 
@@ -392,6 +396,32 @@ const debouncedHandleScroll = debounce(handleScroll, 300);
 messageContainer.addEventListener('scroll', debouncedHandleScroll);
 })
 .catch(error => console.error("Error getting chat history:", error));
+
+// let inactivityTimeout; // Timeout for detecting inactivity
+// let intervalId;        // Interval for periodic execution
+// const inactivityThreshold = 5000; // Time in ms to consider as inactivity
+
+// Function to handle user activity
+// function resetInactivityTimer() {
+//   // Clear the interval and timeout if user is active
+//   clearInterval(intervalId);
+//   clearTimeout(inactivityTimeout);
+
+//   // Set a new timeout for detecting inactivity
+//   inactivityTimeout = setTimeout(() => {
+//     console.log("User is inactive. Starting periodic chat history fetch...");
+//     intervalId = setInterval(() => getChatHistory(SpaceId), 5000);
+//   }, inactivityThreshold);
+// }
+
+// // Add event listeners for user activity
+// ["mousemove", "keydown", "mousedown", "scroll", "touchstart"].forEach((event) => {
+//   window.addEventListener(event, resetInactivityTimer);
+// });
+
+// // Initialize the inactivity timer on page load
+// resetInactivityTimer();
+
 }else{
     console.log("No Space id provided")
 }
@@ -430,7 +460,10 @@ function sendMessage() {
     }else{
       saveSpaceMessage(data)
     }
+scrollToBottom(messageContainer);
+    
     socket.emit('group-chat-message', data, roomId);
+    scrollToBottom(messageContainer);
 
     // await renderFiles(chatFiles.files, true);
     
@@ -492,7 +525,8 @@ async function addMessageToUI(isOwnMessage, data) {
     `;
  
     messageContainer.innerHTML += element;
-    scrollToBottom();
+    scrollToBottom(messageContainer);
+
 }
 
 function clearFeedback() {
