@@ -152,7 +152,7 @@ const CombinePDF = async (req, res) => {
       });
     } catch (error) {
       console.error('Error processing files', error);
-      res.status(500).json({ success: false, message: 'Error processing files' });
+      res.status(500).json({ success: false, message: 'Error processing files', more: error.message});
     }
   });
 };
