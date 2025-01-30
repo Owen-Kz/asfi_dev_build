@@ -23,14 +23,17 @@ const upload = multer({ dest: 'uploads/' }).fields([
 ]);
 
 const uploadToCloudinary = async (filePath, folder, publicId, fileExtension) => {
+  const resourceType = (fileExtension === '.pdf' || fileExtension === '.docx') ? 'raw' : 'auto';
+
   const result = await cloudinary.uploader.upload(filePath, {
-    resource_type: 'auto', // Ensures non-image files are uploaded correctly
+    resource_type: resourceType,
     folder: folder,
-    public_id: publicId,
-    format: fileExtension.replace('.', '') // Ensures the correct file extension is preserved
+    public_id: publicId
   });
+
   return result.secure_url;
 };
+
 
 
 const convertDocxToPdf = async (docxPath, outputPdfPath) => {
