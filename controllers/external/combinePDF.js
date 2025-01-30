@@ -80,7 +80,8 @@ const CombinePDF = async (req, res) => {
 
     try {
       const { manuscript_file, tracked_manuscript, figures, supplementary_material, graphic_abstract, tables } = req.files;
-
+    
+      console.log(req.files)
       const allFiles = [
         ...(manuscript_file || []),
         ...(tracked_manuscript || []),
