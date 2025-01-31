@@ -11,19 +11,7 @@ const SpacesChat = async (req,res) =>{
             const first_name = data[0].first_name
             const last_name = data[0].last_name
             const profile_picture = data[0].profile_picture
-            db.query("SELECT * FROM space_participants WHERE username =? AND space_id =?", [username, SpaceId], async (err, DataInSpace)=>{
-                if(err) throw err
-                if(DataInSpace[0]){
-                    console.log("Data Exists")
-                }else{
-                    db.query("INSERT INTO space_participants SET ?", [{username:username, space_id:SpaceId}], async(err, insert)=>{
-                        if(err) throw err
-                        if(insert){
-                            console.log("Joined Space")
-                        }
-                    })
-                }
-            })
+       
       
             db.query("SELECT * FROM spaces WHERE space_id =?",[SpaceId], async(err, space)=>{
                 if(err) throw err

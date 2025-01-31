@@ -27,6 +27,14 @@ const path = require("path");
 
 // const thumbnailUpload = multer({ storage: thumbnailStorage }).single("thumbnail");
 
+function generateSpaceKey(){
+    let part1 = Math.floor(100 + Math.random() * 900);  // Generates a 4-digit number
+    let part2 = Math.floor(100 + Math.random() * 900);  // Generates another 4-digit number
+    const uniqueCode = `${part1}-${part2}`;
+
+    return uniqueCode
+}
+
 const createSpaces = async (req, res) =>{
   // Use the thumbnailUpload middleware first
 //   thumbnailUpload(req, res, function (err) {
@@ -34,7 +42,7 @@ const createSpaces = async (req, res) =>{
     //   return res.status(500).send(err);
     // }
     
-    const {spaceTitle, shortDescription, Buffer} = req.body
+    const {spaceTitle, shortDescription, Buffer, isPrivate} = req.body
     const FromPosters = req.query.fromPosters
     try{
 
@@ -51,10 +59,16 @@ if(Buffer){
         if(spaceData[0]){
             res.json({message:"This space already Exists"})
         }else{
-            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster}], (err, newSpace)=>{
+            let privateKey = ""
+
+            if(isPrivate === "true"){
+                privateKey = generateSpaceKey()
+            }
+
+            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster, space_passkey:privateKey, is_private:isPrivate}], (err, newSpace)=>{
                 if(err) throw err
                 if(newSpace){
-                    res.json({ message: "Space Data received" });
+                    res.json({success:"space_created", message: `Space Created Succesfully, Your space Key is ${privateKey}`, space_key:privateKey });
                 }
             })
         }

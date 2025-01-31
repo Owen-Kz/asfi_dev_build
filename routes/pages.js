@@ -204,6 +204,13 @@ const openFile = require("../controllers/external/openFile");
 const getChatUsers = require("../controllers/chatFileTransfers/getChatUserInfo");
 const saveMessage = require("../controllers/chatFileTransfers/saveMessage");
 const saveSpaceMessage = require("../controllers/chatFileTransfers/saveSPaceMessage");
+const validateSpaceKey = require("../controllers/spaces/validateSpaceKey");
+const acceptSpaceInvitation = require("../controllers/spaces/acceptSpaceinvitation");
+const inviteUserToSpace = require("../controllers/spaces/inviteUsersToSpace");
+const approveJoinRequest = require("../controllers/spaces/approveJoinRequest");
+const joinSpaceWaitingRoom = require("../controllers/spaces/joinWaitingRoom");
+const JoinSpace = require("../controllers/spaces/joinSpace");
+const getWaitingList = require("../controllers/spaces/getWaitingList");
 
 // ADMINISTRATOR 
 
@@ -1056,10 +1063,15 @@ router.get("/getUserPublicData/:username", getUserInfo)
 router.post("/recentChatList", LoggedIn, fetchRecentMessages)
 router.post("/getChatHistory", LoggedIn, fetchChatHistory)
 
-router.get("/appChat", async (req,res) =>{
-    res.render("app-chat", {UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com", UserFirstname:"UserFirstname", UserLastName:"UserLastname", Course:"Course", CourseYear:"CourseYer", username:"username_new", Username:"username_new", UserName:"username_new"})
-})
 
+// Space functions 
+router.post("/validateSpaceKey", LoggedIn, validateSpaceKey)
+router.post("/acceptSpaceInvitations", LoggedIn, acceptSpaceInvitation)
+router.post("/inviteToSpace", LoggedIn, inviteUserToSpace)
+router.post("/approveSpaceRequest", LoggedIn, approveJoinRequest)
+router.post("/joinSpaceRoom", LoggedIn, joinSpaceWaitingRoom)
+router.post("/joinSpace", LoggedIn, JoinSpace)
+router.post("/getWaitingList", LoggedIn, getWaitingList)
 
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 
