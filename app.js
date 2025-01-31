@@ -72,8 +72,8 @@ transports: ["websocket"],
 
 // app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
-app.use(express.json({ limit: '200mb' }));
-app.use(express.urlencoded({ limit: '200mb', extended: true }));
+app.use(express.json({ limit: '500mb' }));
+app.use(express.urlencoded({ limit: '500mb', extended: true }));
 
 
 // Configure the session store
