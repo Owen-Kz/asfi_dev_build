@@ -23,7 +23,7 @@ const upload = multer({ dest: 'uploads/' }).fields([
 ]);
 
 const uploadToCloudinary = async (filePath, folder, publicId, fileExtension) => {
-  const resourceType = (fileExtension === '.pdf' || fileExtension === '.docx') ? 'raw' : 'auto';
+  const resourceType = (fileExtension === '.pdf') ? 'raw' : 'auto';
   const result = await cloudinary.uploader.upload(filePath, {
     resource_type: resourceType,
     folder: folder,
@@ -81,13 +81,16 @@ const cleanUpFiles = (files) => {
 
 const CombinePDF = async (req, res) => {
   upload(req, res, async (err) => {
+    console.log("STARTING PDF FUNCTION")
     if (err) {
+    console.error('Error uploading files', err);
       return res.status(500).json({ success: false, message: 'Error uploading files' });
     }
     const { revisionId } = req.body;
     try {
       const files = Object.values(req.files || {}).flat();
       if (!files.length) {
+      console.log('No files uploaded');
         return res.status(400).json({ success: false, message: 'No files uploaded' });
       }
       
@@ -122,6 +125,7 @@ const CombinePDF = async (req, res) => {
       }
       
       if (!pdfFiles.length) {
+      console.log('No valid PDF files to combine');
         return res.status(400).json({ success: false, message: 'No valid PDF files to combine' });
       }
       

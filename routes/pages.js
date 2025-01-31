@@ -210,8 +210,10 @@ const saveSpaceMessage = require("../controllers/chatFileTransfers/saveSPaceMess
 
 
 const router = express.Router();
-router.use(express.json())
-router.use(express.urlencoded({ extended: true }));
+router.use(express.json({ limit: '200mb' }));
+router.use(express.urlencoded({ limit: '200mb', extended: true }));
+// router.use(express.json())
+// router.use(express.urlencoded({ extended: true }));
 // Example: Proxy all requests to /api to a different service
 // router.use('/home', createProxyMiddleware({
 //     target: 'https://asfischolar.org', // Change to your target service
