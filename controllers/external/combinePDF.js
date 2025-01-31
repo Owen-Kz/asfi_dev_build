@@ -22,10 +22,10 @@ const upload = multer({ dest: 'uploads/' }).fields([
   { name: 'tables', maxCount: 10 }
 ]);
 
-const uploadToCloudinary = async (filePath, folder, publicId) => {
-  const fileExtension = path.extname(filePath).toLowerCase();
+const uploadToCloudinary = async (filePath, folder, publicId, fileExtension) => {
+  const resourceType = (fileExtension === '.pdf') ? 'raw' : 'auto';
   const result = await cloudinary.uploader.upload(filePath, {
-    resource_type: 'auto', // Auto-detects file type
+    resource_type: resourceType,
     folder: folder,
     public_id: publicId
   });
@@ -45,6 +45,11 @@ const convertDocxToPdf = async (docxPath, outputPdfPath) => {
     console.error(`Error converting DOCX to PDF: ${docxPath}`, error);
     throw new Error('Failed to convert DOCX to PDF');
   }
+};
+
+const isValidPDF = (filePath) => {
+  const buffer = fs.readFileSync(filePath);
+  return buffer.toString('utf-8', 0, 5) === '%PDF-';
 };
 
 const mergePDFs = async (filePaths, outputFilePath) => {
@@ -95,22 +100,25 @@ const CombinePDF = async (req, res) => {
         const fileExtension = path.extname(file.originalname).toLowerCase();
         const publicId = `${revisionId}-${file.fieldname}-${path.basename(file.originalname, fileExtension)}`;
         
-        // Upload original file (keeping its format)
-        const originalUrl = await uploadToCloudinary(file.path, 'asfirj/original', publicId);
+        // Upload original file
+        const originalUrl = await uploadToCloudinary(file.path, 'asfirj/original', publicId, fileExtension);
         cloudinaryOriginalUrls.push(originalUrl);
-
+        
+        let filePath = file.path;
         if (fileExtension === '.docx') {
-          // Convert DOCX to PDF for merging but do NOT replace original DOCX file
           const pdfPath = `${file.path}.pdf`;
           await convertDocxToPdf(file.path, pdfPath);
-          pdfFiles.push(pdfPath);
-
-          // Upload converted PDF separately
-          const pdfUrl = await uploadToCloudinary(pdfPath, 'asfirj/pdf', `${publicId}-pdf`);
-          cloudinaryPdfUrls.push(pdfUrl);
-        } else if (fileExtension === '.pdf') {
-          pdfFiles.push(file.path);
+          filePath = pdfPath;
         }
+        
+        if (fileExtension === '.pdf' && !isValidPDF(filePath)) {
+          console.error(`Skipping invalid PDF file: ${filePath}`);
+          continue;
+        }
+        
+        const pdfUrl = await uploadToCloudinary(filePath, 'asfirj/pdf', `${publicId}-pdf`, '.pdf');
+        cloudinaryPdfUrls.push(pdfUrl);
+        pdfFiles.push(filePath);
       }
       
       if (!pdfFiles.length) {
@@ -120,7 +128,7 @@ const CombinePDF = async (req, res) => {
       const outputFilePath = path.join('uploads', `${revisionId}_combined.pdf`);
       await mergePDFs(pdfFiles, outputFilePath);
       
-      const combinedUploadUrl = await uploadToCloudinary(outputFilePath, 'asfirj/combined', `${revisionId}_combined`);
+      const combinedUploadUrl = await uploadToCloudinary(outputFilePath, 'asfirj/combined', `${revisionId}_combined`, '.pdf');
       cleanUpFiles(files);
       fs.unlink(outputFilePath, (err) => {
         if (err) console.error(`Error cleaning up combined file: ${outputFilePath}`, err);
