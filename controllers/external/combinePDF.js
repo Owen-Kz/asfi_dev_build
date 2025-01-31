@@ -25,7 +25,7 @@ const upload = multer({ dest: 'uploads/' }).fields([
 const uploadToCloudinary = async (filePath, folder, publicId, fileExtension) => {
   const resourceType = (fileExtension === '.pdf') ? 'raw' : 'auto';
   const result = await cloudinary.uploader.upload(filePath, {
-    resource_type: resourceType,
+    resource_type: 'auto',
     folder: folder,
     public_id: publicId
   });
