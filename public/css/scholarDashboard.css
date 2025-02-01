@@ -22294,7 +22294,7 @@ html[dir=rtl] .choices__input {
  }
  header{
   width:65% !important;
-  margin-left:100px;
+  margin: auto;
   position: sticky !important;
   top:0;
  }
