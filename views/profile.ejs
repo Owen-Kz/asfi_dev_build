@@ -310,6 +310,11 @@ Page content START -->
 					<div class="col-md-12 col-lg-12">
 						<div class="card card-body shadow">
 
+							
+							<input type="text" value="<%= searchName %>" id="name" name="name" hidden>
+						<%- include ("googleScholar.ejs") %>
+						<hr>
+
 							<!-- Education START -->
 							<!-- Title -->
 							<h4 class="header">Educational History</h4>
@@ -345,6 +350,8 @@ Page content START -->
 						<hr>
 
 						<%- include ("awards.ejs") %>
+
+						
 
 
 
