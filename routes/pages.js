@@ -211,6 +211,8 @@ const approveJoinRequest = require("../controllers/spaces/approveJoinRequest");
 const joinSpaceWaitingRoom = require("../controllers/spaces/joinWaitingRoom");
 const JoinSpace = require("../controllers/spaces/joinSpace");
 const getWaitingList = require("../controllers/spaces/getWaitingList");
+const updateSpaceData = require("../controllers/spaces/updateSpaceData");
+const SpaceSettings = require("../controllers/spaces/spaceSettings");
 
 // ADMINISTRATOR 
 
@@ -1062,6 +1064,7 @@ router.get("/getUserPublicData/:username", getUserInfo)
 // get recent chats  
 router.post("/recentChatList", LoggedIn, fetchRecentMessages)
 router.post("/getChatHistory", LoggedIn, fetchChatHistory)
+router.get("/s/m/p/:spaceid/settings", LoggedIn, SpaceSettings)
 
 
 // Space functions 
@@ -1070,8 +1073,10 @@ router.post("/acceptSpaceInvitations", LoggedIn, acceptSpaceInvitation)
 router.post("/inviteToSpace", LoggedIn, inviteUserToSpace)
 router.post("/approveSpaceRequest", LoggedIn, approveJoinRequest)
 router.post("/joinSpaceRoom", LoggedIn, joinSpaceWaitingRoom)
-router.post("/joinSpace", LoggedIn, JoinSpace)
+// router.post("/joinSpace", LoggedIn, JoinSpace)
 router.post("/getWaitingList", LoggedIn, getWaitingList)
+router.post("/updateSpaceSettings", LoggedIn, updateSpaceData)
+
 
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 

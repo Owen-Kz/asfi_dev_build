@@ -184,6 +184,11 @@
                         <h6 class="fw-semibold mb-2"><%= user_first_name %> <%= user_last_name %></h6>
                         <p class="mb-0 fs-2"><%= username%></p>
                       </div>
+                      <div class="ms-3">
+                        <% if(isAdmin === "yes") { %>
+                        <a href="/s/m/p/<%=spaceId%>/settings" class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5"><i class="ti ti-settings"></i></a>
+                        <% } %>
+                      </div>
                     </div>
 
                     <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input" value="<%=sender %>" maxlength="20" hidden readonly />
@@ -225,15 +230,16 @@
                   <div class="chatting-box d-block">
                     <div class="p-9 border-bottom chat-meta-user d-flex align-items-center justify-content-between">
                       <div class="hstack gap-3 current-chat-user-name">
-                        <div class="position-relative rounded-circle">
-                          <img src="" alt="user1" width="48" height="48" id="user_image" style="visibility: hidden;" />
+                        <!-- <div class="position-relative rounded-circle"> -->
+                          <!-- <img src="" alt="user1" width="48" height="48" id="user_image" style="visibility: hidden;" /> -->
+
                           <!-- <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
                             <span class="visually-hidden">New alerts</span>
                           </span> -->
-                        </div>
+                        <!-- </div> -->
                         <div>
-                          <h6 class="mb-1 name fw-semibold" id="recipientName"></h6>
-                          <!-- <p class="mb-0">Away</p> -->
+                          <h6 class="mb-1 name fw-semibold" id="recipientName"><%= SpaceName %></h6>
+                          <p class="mb-0"><%= SpaceDescription %></p>
                         </div>
                       </div>
                       <ul class="list-unstyled mb-0 d-flex align-items-center">

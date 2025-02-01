@@ -1,4 +1,5 @@
 const db = require("../routes/db.config");
+const JoinSpace = require("./spaces/joinSpace");
 const SpacesChat = async (req,res) =>{
     const SpaceId = req.params.spaceid
     try{
@@ -20,20 +21,58 @@ const SpacesChat = async (req,res) =>{
                     const SpaceDescription = space[0].space_description
                     const SpaceMembersCount = space[0].members_count
                     const SpaceCover = space[0].space_cover
-
-                    res.render("app-chat-spaces", {SpaceName: SpaceName,
-                        SpaceDescription: SpaceDescription,
-                        SpaceMembersCount: SpaceMembersCount,
-                        user_first_name:first_name,
-                        user_last_name:last_name,
-                        username: username,
-                        SpaceCover:SpaceCover,
-                        user_profile_picture: profile_picture,
-                        sender: username,
-                        spaceId: SpaceId,
-                        chat_id: SpaceId,
-                        Email:req.user.email
+                    let isAdmin = "no"
+                    if(space[0].space_admin == req.user.id){
+                        isAdmin = "yes"
+                    }
+                    // check if the user is already part of the space 
+                    function renderSpace(){
+                        res.render("app-chat-spaces", {SpaceName: SpaceName,
+                            SpaceDescription: SpaceDescription,
+                            SpaceMembersCount: SpaceMembersCount,
+                            user_first_name:first_name,
+                            user_last_name:last_name,
+                            username: username,
+                            SpaceCover:SpaceCover,
+                            user_profile_picture: profile_picture,
+                            sender: username,
+                            spaceId: SpaceId,
+                            chat_id: SpaceId,
+                            Email:req.user.email,
+                            isAdmin:  isAdmin
+                        })
+                    }
+                    function renderVerify(){
+                        res.render("spaceVerification", {SpaceName: SpaceName,
+                            SpaceDescription: SpaceDescription,
+                            SpaceMembersCount: SpaceMembersCount,
+                            user_first_name:first_name,
+                            user_last_name:last_name,
+                            username: username,
+                            SpaceCover:SpaceCover,
+                            user_profile_picture: profile_picture,
+                            sender: username,
+                            spaceId: SpaceId,
+                            chat_id: SpaceId,
+                            Email:req.user.email
+                        })
+                    }
+               
+                    db.query("SELECT * FROM space_participants WHERE username = ? AND space_id =?", [req.user.username, SpaceId],async (err, data) =>{
+                        if(err){
+                            return res.json({error:err})
+                        }
+                        if(data[0]){
+                            renderSpace()
+                        }else if(space[0].is_private === "yes" && space[0].space_admin != req.user.id){
+                            renderVerify()
+                                }else{
+                                await JoinSpace(SpaceId, req.user.username)
+                               renderSpace()
+                            }
                     })
+
+                   
                 }else{
                     res.render("error", {status:"Not Found / Link Broken"})
                 }

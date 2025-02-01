@@ -22666,3 +22666,31 @@ html[dir=rtl] .choices__input {
     width: 110%;
 }
 }
+
+.notification-button-enable{
+  border-radius: 15px;
+      display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    z-index: 99999;
+}
+
+.notification-button-disable{
+  border-radius: 15px;
+      display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    z-index: 99999;
+}

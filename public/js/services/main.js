@@ -45,6 +45,7 @@ document.getElementById('enable-notifications').addEventListener('click', () => 
         if (permission === 'granted') {
             console.log('Notification permission granted.');
             subscribeUser();
+            document.getElementById('enable-notifications').style.display = "none";
         } else {
             console.log('Notification permission denied.');
         }
