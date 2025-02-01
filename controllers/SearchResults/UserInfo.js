@@ -3,7 +3,7 @@ const db = require("../../routes/db.config")
 const getUserInfo = async (req,res) =>{
     try{
         const userName = req.params.username 
-        db.query("SELECT username, first_name, last_name, acct_type, profile_picture FROM user_info WHERE username = ?", [userName], async(err, data) =>{
+        db.query("SELECT prefix, username, first_name, last_name, acct_type, profile_picture FROM user_info WHERE username = ?", [userName], async(err, data) =>{
             if(err){
                 throw err
             }else if(data[0]){

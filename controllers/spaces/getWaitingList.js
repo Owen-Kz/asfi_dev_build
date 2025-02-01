@@ -12,7 +12,7 @@ const getWaitingList = async (req, res) => {
               if(err){
                   return res.json({error:err})
               }else if(spaceData[0]){
-                  db.query("SELECT * FROM space_invitations WHERE space_id = ?", [space_id], async(err, waitingList)=>{
+                  db.query("SELECT * FROM space_invitations WHERE space_id = ? AND status = 'requested'", [space_id], async(err, waitingList)=>{
                       if(err){
                           return res.json({error:err})
                       }else if(waitingList[0]){

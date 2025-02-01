@@ -51,7 +51,7 @@ const createSpaces = async (req, res) =>{
         isFromPoster = "true"
     }
 
-    console.log("REQUESTBODY: ", req.body)
+    // console.log("REQUESTBODY: ", req.body)
 
 if(Buffer){
     db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
@@ -59,16 +59,16 @@ if(Buffer){
         if(spaceData[0]){
             res.json({message:"This space already Exists"})
         }else{
-            let privateKey = ""
+            let privateKey = "no"
 
-            if(isPrivate === "true"){
+            if(isPrivate === "yes"){
                 privateKey = generateSpaceKey()
             }
 
-            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster, space_passkey:privateKey, is_private:isPrivate}], (err, newSpace)=>{
+            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster, space_passkey:privateKey, is_private:isPrivate, space_admin:req.user.id}], (err, newSpace)=>{
                 if(err) throw err
                 if(newSpace){
-                    res.json({success:"space_created", message: `Space Created Succesfully, Your space Key is ${privateKey}`, space_key:privateKey });
+                    res.json({success:"space_created", message: `Space Created Succesfully`, space_key:privateKey });
                 }
             })
         }
