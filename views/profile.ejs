@@ -50,12 +50,54 @@
 			</script>
 
 			<style>
-				.halloffame{
+				.halloffame,.googlescholar,.educationhistory,.workhistory,.techexpertise,.awards{
 					margin-right: 30px;
 				}
 				.con-wrapper{
 					display: flex;
 				}
+				.nav-container {
+			margin-top: 20px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tabs {
+            display: flex;
+			flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .tab {
+            margin-right: 15px;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .tab.active {
+            font-weight: bold;
+            border-bottom: 2px solid blue;
+        }
+        .content {
+            margin-top: 20px;
+        }
+		.googlescholar{
+			display: none;
+		}
+		.educationhistory{
+			display: none;
+		}
+		.workhistory{
+			display: none;
+		}
+		.techexpertise{
+			display: none;
+		}
+		.awards{
+			display: none;
+		}
 				@media screen and (max-width:995px) {
 					.con-wrapper{
 						display: flex;
@@ -292,13 +334,23 @@ Page Banner START -->
 			</div>
 		</div>
 	</div>
+	<div class="nav-container">
+		<div class="tabs">
+			<div class="tab active" onclick="showContent('ASFI')">ASFI Publications</div>
+			<div class="tab" onclick="showContent('Google Scholar')">Google Scholar Publications</div>
+			<div class="tab" onclick="showContent('Edu History')">Educational History</div>
+			<div class="tab" onclick="showContent('Work History')">Work History</div>
+			<div class="tab" onclick="showContent('Tech Expertise')">Technical Expertise</div>
+			<div class="tab" onclick="showContent('Awards')">Awards</div>
+		</div>
+	</div>
 </section>
 <!-- =======================
 Page Banner END -->
 
 <!-- =======================
 Page content START -->
-<section class="pt-5 pb-0" style="margin-top: 20px;">
+<section class="pt-5 pb-0" style="margin-top: -40px;">
 	<div class="container">
 		<div class="con-wrapper">
 
@@ -309,50 +361,53 @@ Page content START -->
 
 					<div class="col-md-12 col-lg-12">
 						<div class="card card-body shadow">
-
 							
-							<input type="text" value="<%= searchName %>" id="name" name="name" hidden>
-						<%- include ("googleScholar.ejs") %>
-						<hr>
+							
+							<!-- ACtivities START -->
+				<div class="row g-4 mt-4">
+					<!-- Title -->
+					<h2 class="header">Recent Activities</h2>
 
-							<!-- Education START -->
-							<!-- Title -->
-							<h4 class="header">Educational History</h4>
-                            
-                            <% var HonorsH = Honors ;
-                            for(var i=0; i <  HonorsH ; i++) { 
-                            const HONOR = honoraryTitle[i][honorary_type]; 
-							const AdditionalInfo = honoraryTitle[i][sub_text]
-                            %>
-
-							<!-- Education item -->
-							<div class="d-flex align-items-center mb-4">
-								<span class="icon-md mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
-								<div class="ms-3">
-									<h6 class="mb-0"><%= HONOR %></h6>
-									<p class="mb-0 small"><%= AdditionalInfo %></p>
+                    <!-- Counter START -->
+				<div class="row mt-4 g-3">
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-4">
+						<div class="d-flex align-items-center">
+							<span class="icon-lg text-success mb-0 bg-success bg-opacity-10 rounded-3"><i class="fas fa-graduation-cap"></i></span>
+							<div class="ms-3">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10"	data-purecounter-delay="200">0</h5>
+									<span class="mb-0 h5"></span>
 								</div>
+								<p class="mb-0 h6 fw-light">Total Courses</p>
 							</div>
-                            <% } %>
-							
-							<hr>
-							<!-- GET WORK HISTORY  -->
-					<%- include("workHistory.ejs") %>
+						</div>
+					</div>
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-4">
+						<div class="d-flex align-items-center">
+							<span class="icon-lg text-purple bg-purple bg-opacity-10 rounded-3 mb-0"><i class="fas fa-paperclip"></i></span>
+							<div class="ms-3">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="36"	data-purecounter-delay="200"></h5>
+									<span class="mb-0 h5"><%= BooksSum %></span>
+								</div>
+								<p class="mb-0 h6 fw-light">Total Publications</p>
+							</div>
+						</div>
+					</div>
+					<!-- Counter item -->
+					
+				</div>
+				<!-- Counter END -->
 
-					<!-- WORK HISTORY END  -->
+				<%- include ("assetsListForProfile") %>
 
-							<hr>
-
-
-							<!-- Skills START -->
-						<%- include ("technicalExpertise.ejs") %>
-
-						<hr>
-
-						<%- include ("awards.ejs") %>
-
+             
+					
+				</div>
+				<!-- Activities END -->
 						
-
 
 
 						</div>
@@ -360,6 +415,145 @@ Page content START -->
 				</div> <!-- Row End -->
 			</div>
 			<!-- Left sidebar END -->
+
+			<!-- Left sidebar START -->
+<div class="col-lg-8 googlescholar">
+	<div class="row">
+
+
+		<div class="col-md-12 col-lg-12">
+			<div class="card card-body shadow">
+				
+				
+				
+			<%- include ("googleScholar.ejs") %>
+			<hr>
+
+				
+
+
+
+			</div>
+		</div>
+	</div> <!-- Row End -->
+</div>
+<!-- Left sidebar END -->
+ <!-- Left sidebar START -->
+<div class="col-lg-8 educationhistory">
+	<div class="row">
+
+
+		<div class="col-md-12 col-lg-12">
+			<div class="card card-body shadow">
+				
+				
+				
+			
+				<!-- Education START -->
+				<!-- Title -->
+				<h4 class="header">Educational History</h4>
+				
+				<% var HonorsH = Honors ;
+				for(var i=0; i <  HonorsH ; i++) { 
+				const HONOR = honoraryTitle[i][honorary_type]; 
+				const AdditionalInfo = honoraryTitle[i][sub_text]
+				%>
+
+				<!-- Education item -->
+				<div class="d-flex align-items-center mb-4">
+					<span class="icon-md mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
+					<div class="ms-3">
+						<h6 class="mb-0"><%= HONOR %></h6>
+						<p class="mb-0 small"><%= AdditionalInfo %></p>
+					</div>
+				</div>
+				<% } %>
+				
+				<hr>
+
+
+
+			</div>
+		</div>
+	</div> <!-- Row End -->
+</div>
+<!-- Left sidebar END -->
+ <!-- Left sidebar START -->
+<div class="col-lg-8 workhistory">
+	<div class="row">
+
+
+		<div class="col-md-12 col-lg-12">
+			<div class="card card-body shadow">
+				
+				
+				
+		
+				<!-- GET WORK HISTORY  -->
+		<%- include("workHistory.ejs") %>
+
+		<!-- WORK HISTORY END  -->
+
+				<hr>
+
+
+			
+
+
+
+			</div>
+		</div>
+	</div> <!-- Row End -->
+</div>
+<!-- Left sidebar END -->
+ <!-- Left sidebar START -->
+<div class="col-lg-8 techexpertise">
+	<div class="row">
+
+
+		<div class="col-md-12 col-lg-12">
+			<div class="card card-body shadow">
+				
+				
+
+
+				<!-- Skills START -->
+			<%- include ("technicalExpertise.ejs") %>
+
+			<hr>
+
+		
+
+			
+
+
+
+			</div>
+		</div>
+	</div> <!-- Row End -->
+</div>
+<!-- Left sidebar END -->
+ <!-- Left sidebar START -->
+<div class="col-lg-8 awards">
+	<div class="row">
+
+
+		<div class="col-md-12 col-lg-12">
+			<div class="card card-body shadow">
+				
+				
+		
+			<%- include ("awards.ejs") %>
+<hr>
+			
+
+
+
+			</div>
+		</div>
+	</div> <!-- Row End -->
+</div>
+<!-- Left sidebar END -->
 				
 			<!-- Main content START -->
 			<div class="col-lg-4 about-me">
@@ -417,67 +611,14 @@ Page content START -->
 
 				
 
-				<!-- ACtivities START -->
-				<div class="row g-4 mt-4">
-					<!-- Title -->
-					<h2 class="header">Recent Activities</h2>
-
-                    <!-- Counter START -->
-				<div class="row mt-4 g-3">
-					<!-- Counter item -->
-					<div class="col-sm-6 col-lg-4">
-						<div class="d-flex align-items-center">
-							<span class="icon-lg text-success mb-0 bg-success bg-opacity-10 rounded-3"><i class="fas fa-graduation-cap"></i></span>
-							<div class="ms-3">
-								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10"	data-purecounter-delay="200">0</h5>
-									<span class="mb-0 h5"></span>
-								</div>
-								<p class="mb-0 h6 fw-light">Total Courses</p>
-							</div>
-						</div>
-					</div>
-					<!-- Counter item -->
-					<div class="col-sm-6 col-lg-4">
-						<div class="d-flex align-items-center">
-							<span class="icon-lg text-purple bg-purple bg-opacity-10 rounded-3 mb-0"><i class="fas fa-paperclip"></i></span>
-							<div class="ms-3">
-								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="36"	data-purecounter-delay="200"></h5>
-									<span class="mb-0 h5"><%= BooksSum %></span>
-								</div>
-								<p class="mb-0 h6 fw-light">Total Publications</p>
-							</div>
-						</div>
-					</div>
-					<!-- Counter item -->
-					<!--<div class="col-sm-6 col-lg-4">
-						<div class="d-flex align-items-center">
-							<span class="icon-lg text-orange bg-orange bg-opacity-10 rounded-3 mb-0"><i class="fas fa-trophy"></i></span>
-							<div class="ms-3">
-								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="11" data-purecounter-delay="200">0</h5>
-									<span class="mb-0 h5"></span>
-								</div>
-								<p class="mb-0 h6 fw-light">Years in Experience</p>
-							</div>
-						</div>
-					</div>  -->
-				</div>
-				<!-- Counter END -->
-
-				<%- include ("assetsListForProfile") %>
-
-             
-					
-				</div>
-				<!-- Activities END -->
+				
       </div>
 			<!-- Main content END -->
 
 		</div><!-- Row END -->
 	</div>
 </section>
+
 <br><br>
 <!-- =======================
 Page content END -->
@@ -522,6 +663,64 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
+<script>
+	function showContent(tabName) {
+		document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+		event.target.classList.add('active');
 
+		switch (tabName) {
+			case "ASFI":
+			document.querySelector(".halloffame").style.display = 'block';
+			document.querySelector(".googlescholar").style.display = 'none';
+			document.querySelector(".educationhistory").style.display = 'none';
+			document.querySelector(".workhistory").style.display = 'none';
+			document.querySelector(".techexpertise").style.display = 'none';
+			document.querySelector(".awards").style.display = 'none';
+				break;
+		    case "Google Scholar":
+			document.querySelector(".halloffame").style.display = 'none';
+			document.querySelector(".googlescholar").style.display = 'block';
+			document.querySelector(".educationhistory").style.display = 'none';
+			document.querySelector(".workhistory").style.display = 'none';
+			document.querySelector(".techexpertise").style.display = 'none';
+			document.querySelector(".awards").style.display = 'none';
+				break;
+			case "Edu History":
+			document.querySelector(".halloffame").style.display = 'none';
+			document.querySelector(".googlescholar").style.display = 'none';
+			document.querySelector(".educationhistory").style.display = 'block';
+			document.querySelector(".workhistory").style.display = 'none';
+			document.querySelector(".techexpertise").style.display = 'none';
+			document.querySelector(".awards").style.display = 'none';
+				break;
+			case "Work History":
+			document.querySelector(".halloffame").style.display = 'none';
+			document.querySelector(".googlescholar").style.display = 'none';
+			document.querySelector(".educationhistory").style.display = 'none';
+			document.querySelector(".workhistory").style.display = 'block';
+			document.querySelector(".techexpertise").style.display = 'none';
+			document.querySelector(".awards").style.display = 'none';
+				break;
+			case "Tech Expertise":
+			document.querySelector(".halloffame").style.display = 'none';
+			document.querySelector(".googlescholar").style.display = 'none';
+			document.querySelector(".educationhistory").style.display = 'none';
+			document.querySelector(".workhistory").style.display = 'none';
+			document.querySelector(".techexpertise").style.display = 'block';
+			document.querySelector(".awards").style.display = 'none';
+				break;
+			case "Awards":
+			document.querySelector(".halloffame").style.display = 'none';
+			document.querySelector(".googlescholar").style.display = 'none';
+			document.querySelector(".educationhistory").style.display = 'none';
+			document.querySelector(".workhistory").style.display = 'none';
+			document.querySelector(".techexpertise").style.display = 'none';
+			document.querySelector(".awards").style.display = 'block';
+				break;
+			default:
+				break;
+		}
+	}
+</script>
 </body>
 </html>

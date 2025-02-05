@@ -1,8 +1,8 @@
 
 const googleScholar_container = document.getElementById("googleScholar_container")
 
-const name = document.getElementById("name").value;
-fetch(`/findGoogleScholar?name=${encodeURIComponent(name)}`, ()=>{
+const personName = document.getElementById("name").value;
+fetch(`/findGoogleScholar?name=${encodeURIComponent(personName)}`, ()=>{
     method:"GET"
 }).then(res => res.json())
 .then(data =>{
