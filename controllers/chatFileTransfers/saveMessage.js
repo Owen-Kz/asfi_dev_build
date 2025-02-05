@@ -1,7 +1,8 @@
 const db = require("../../routes/db.config");
 const generateID = require("../admin/generateId");
 const sendNewMessageNotification = require("../notifications/newMessageNotification");
-const saveNotification = require("../scholarContols/saveNotification");
+const saveMessageNotification = require("../scholarContols/saveMessageNotification");
+// const saveNotification = require("../scholarContols/saveNotification");
 const findUserByName = require("../services/findUser");
 
 const saveMessage = async (req, res) => {
@@ -51,7 +52,7 @@ const saveMessage = async (req, res) => {
             limitedText = limitedText.substring(0, maxLength) + "...";
         }
         const Endpoint = `/@${senderId}/chat`
-        await saveNotification(senderId, recipientId, `New Message from ${senderData.first_name} ${senderData.last_name}. ${limitedText}`, userPhoto, Endpoint)
+        await saveMessageNotification(senderId, recipientId, `New Message from ${senderData.first_name} ${senderData.last_name}. ${limitedText}`, userPhoto, Endpoint)
         await sendNewMessageNotification(senderId, notificationToken)
 }catch(error){
     console.log(error)

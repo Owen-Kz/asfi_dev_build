@@ -215,6 +215,7 @@ const updateSpaceData = require("../controllers/spaces/updateSpaceData");
 const SpaceSettings = require("../controllers/spaces/spaceSettings");
 const GetUsersToInvite = require("../controllers/spaces/usersList");
 const acceptInvitationPage = require("../controllers/spaces/acceptInvitationPage");
+const getMessageNotifications = require("../controllers/chatFileTransfers/getMessageNotifications");
 
 // ADMINISTRATOR 
 
@@ -1056,6 +1057,9 @@ router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
 router.get("/item", openFile)
 router.post("/y/saveMessage", saveMessage)
 router.post("/y/saveSpaceMessage", saveSpaceMessage)
+
+// GEt messag enotifications 
+router.post("/getMessageNotifications", LoggedIn, getMessageNotifications)
 // Feeds page 
 router.get("/feed", LoggedIn, feedsPage)
 // Get the feed of people user follows
