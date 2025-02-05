@@ -27,29 +27,84 @@
   <link rel="stylesheet" href="/chatAssets/assets/css/styles.css" />
   <title>Space
   </title>
-
+  
   <style>
-    
     .main-container{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 60px;
-    }
-    .settings-container{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 80%;
-        justify-content: space-between;
-        justify-content: center;
-        align-items: center;
+        margin-top: 5%;
     }
 
     .columnster{
-        width: 400px;
-        height: 560px;
+        width: 60%;
+        height: 360px;
+        min-height: max-content;
+        max-height: 100vh;
+        border-radius: 25px;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        border: 2px solid blueviolet;
+    }
+    .columnster .spaceDetails{
+      display: flex;
+      flex-direction: column;
+    }
+    .spaceDetails p{
+      text-align: center;
+    }
+    .columnster form{
+      margin-top: 20px;
+      text-align: center;
+    }
+    #spaceKey{
+      background-color: rgba(137, 43, 226, 0.301);
+      color: rgb(91, 11, 165);
+      border: 1px solid blueviolet;
+      height: 60px;
+      width: 70%;
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .columnster .request button {
+      height: 40px;
+        width: 150px;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        background-color: blueviolet;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .columnster .request{
+      display: flex;
+      flex-direction: column;
+      margin-top: 90px;
+      justify-content: center;
+      align-items: center;
+    }
+    .errorMessage{
+      color: red;
+    }
+    .successMessage{
+      color: rgb(32, 172, 32);
+      font-size: 30px;
+      margin: auto;
+    }
+    
+    @media screen and (max-width:700px) {
+      .columnster{
+        width: 90%;
+        height: 460px;
         max-height: 100vh;
         border-radius: 25px;
         margin: 20px;
@@ -59,123 +114,8 @@
         padding: 10px;
         border: 2px solid blueviolet;
     }
-
-    .waitinglist-container{
-        background-color: white;
     }
-    .waitinglist-child{
-        overflow-y: scroll;
-        width: 100%;
-        height: 100%;
-    }
-    .waitinglist-child ul{
-        list-style-type: none;
-        width: 100%;
-    }
-    .waitinglist-child ul li{
-        display: flex;
-        height: 80px;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        padding: 6px;
-    }
-    .waitinglist-child ul li button{
-        height: 30px;
-        border: none;
-        padding: 2px 10px 2px 10px;
-        border-radius: 30px;
-        outline: none;
-        background-color: blueviolet;
-        color: rgb(230, 226, 226);
-    }
-    .waitinglist-child ul li .waiting-img{
-        object-fit: cover;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        overflow: hidden;
-        background-color: rgb(112, 112, 112);
-    }
-    .waiting-img img{
-        object-fit: cover;
-        width: 100%;
-    }
-    .waitinglist-child .profile-container{
-        display: flex;
-        align-items: center;
-    }
-
-    .waitinglist-child .profile-container .username{
-        font-weight: bold;
-        color: black;
-        margin-left: 7px;
-    }
-    .line {
-        height: 1px;
-        width: 60%;
-        display: flex;
-        background-color: rgba(0, 0, 0, 0.26);
-        margin: auto;
-    }
-
-    .inviteusers-container{
-        background-color: white;
-        /* display: flex;
-        justify-content: space-between; */
-
-    }
-    .inviteusers-container input{
-        width: 90%;
-        border: none;
-        background-color: transparent;
-        outline: none;
-    }
-    .inviteusers-container .searchtoinvite{
-        background-color: rgb(241, 241, 241);
-        padding: 2px 8px;
-        display: flex;
-        align-items: center;
-        margin: auto;
-        border-radius: 25px;
-        justify-content: space-between;
-        width: 80%;
-    }
-
-    .othersettings-container{
-        background-color: white;
-    }
-    .othersettings-container .other-header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 40px;
-    }
-    .othersettings-container .other-header button{
-        height: 30px;
-        width: 80px;
-        border: none;
-        /* padding: 2px 10px 2px 10px; */
-        border-radius: 20px;
-        outline: none;
-        background-color: blueviolet;
-        color: rgb(230, 226, 226);
-    }
-
-    .othersettings-container form{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .othersettings-container form .cta{
-        margin-top: 20px;
-    }
-
   </style>
-  
-  
   
 
 
@@ -208,12 +148,12 @@
           </personal_info>
 
           <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if(user_profile_picture == "avatar.jpg"){ %>
-            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
-            <% } else { %>
+            <!-- <% if(user_profile_picture == "avatar.jpg"){ %> -->
+            <!-- <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '> -->
+            <!-- <% } else { %>
 
             <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
-            <% }%>
+            <% }%> -->
 
           </a>
 
@@ -224,16 +164,16 @@
               <div class="d-flex align-items-center">
                 <!-- Avatar -->
                 <div class="avatar me-3">
-                  <% if(user_profile_picture == "avatar.jpg"){ %>
-                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
-                  <% } else { %>
+                  <!-- <% if(user_profile_picture == "avatar.jpg"){ %> -->
+                  <!-- <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '> -->
+                  <!-- <% } else { %>
 
                   <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
-                  <% }%>
+                  <% }%> -->
                 </div>
                 <div>
-                  <a class="h6" href="#">@<%= username %></a>
-                  <p class="small m-0"><%= Email %></p>
+                  <!-- <a class="h6" href="#">@<%= username %></a>
+                  <p class="small m-0"><%= Email %></p> -->
                 </div>
               </div>
             </li>
@@ -286,75 +226,28 @@
   <div id="main-wrapper" class="mainWrapper">
 
     <!--  Sidebar End -->
-    <input type="hidden" name="space_id" id="space_id"  value="<%= spaceId %>" readonly required>
-    <div class="main-container">
-      <a href="/spaces/<%= spaceId %>" style="color: blueviolet; font-weight: bold;"> <<-- Go back to Space</a>
-        <h3>Space Settings</h3>
-        <div class="settings-container">
-           <div class="columnster waitinglist-container">
-              <h4>Waiting List</h4>
-              <div class="waitinglist-child">
-                <ul id="waitinglist">
-                    
-                    
-                </ul>
-              </div>
-             
-           </div>
-           <div class="columnster inviteusers-container">
-             <h4>Invite Users</h4>
-             <div class="searchtoinvite">
-              <input type="text" class="search-chat" name="" id="" placeholder="Search..."><i class="ti ti-search"></i>
-          </div>
-             <div class="waitinglist-child">
-                
-                <ul id="inviteusers" class="invite-users">
-                  <li>...fetching users</li>
-                  
-                    
-                </ul>
-              </div>
-             
-           </div>
-           <div class="columnster othersettings-container">
-              <div class="other-header"><h4>Other Settings</h4> <button type="button" id="space_edit">Edit</button></div>
-              <form id="settingsForm">
-    <!-- <input type="hidden" name="space_id"  value="<%= spaceId %>" readonly required> -->
-
-                <div class="form-control cta">
-                    <label for="space_title">Title:</label>
-                    <input class="form-control" type="text" value="<%= SpaceName%>" name="space_title" id="space_title" readonly>
-                </div>
-
-                <div class="form-control cta">
-                    <label for="space_description">Title Description:</label>
-                    <textarea name="space_description" value="<%= SpaceDescription %>" id="space_description" class="form-control" disabled><%= SpaceDescription %></textarea>
-                </div>
-               
-                <div class="form-control cta">
-                    <p>Make Private?</p>
-                    <label for="makeprivate">Yes</label>
-                    <% if(isPrivate === "yes") { %>
-                    <input type="radio" name="makeprivate" value="yes" id="yes" checked readonly>
-                    <% } else { %>
-                      <input type="radio" name="makeprivate" value="yes" id="yes" readonly>
-                      <%}%>
-                    <label for="makeprivate">No</label>
-                    
-                    <% if(isPrivate === "no") { %>
-                      <input type="radio" name="makeprivate" value="no" id="no" checked readonly>
-                      <% } else { %>
-                        <input type="radio" name="makeprivate" value="no" id="no" readonly>
-                        <%}%>
-                </div>
-
-                <button class="btn cta" style="border-radius: 25px; background-color: blueviolet; color: white;" id="submitForm" disabled>Submit</button>
-
-              </form>
-
-           </div>
-        </div>
+<div class="main-container">
+  <div class="columnster">
+    <div class="spaceDetails">
+     <h2><%= SpaceName %></h2>
+     <p><%= SpaceDescription %></p>
     </div>
+    <form action="" id="space_verification" onsubmit="return false">
+      <label for="spaceKey">Invitation Accepted Succesfully</label> <br>
+
+    <div class="errorMessage"></div>
+
+
+    </form>
+    <div class="request">
+      <span>You will be redirected to the space shortly or click on the button below to enter the space</span>
+        
+      <a href="/spaces/<%= spaceId %>" id="spaceButton"><button type="button" id="join_request">Proceed to Space</button></a>
+        
+    </div>
+</div>
+</div>
+    
   
 
 
@@ -377,9 +270,26 @@
   <script src="/js/jquery-3.4.2.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
-<script src="/js/spaces/editSpace.js"></script>
-<script src="/js/spaces/acceptInvitations.js"></script>
-<script src="/js/spaces/inviteUsers.js" type="module"></script>
+  <!-- <script src="/js/chatUI.js"></script> -->
+
+  <!-- <script src="/js/spaces/joinWaitingRoom.js"></script> -->
+
+  <!-- <script src="/js/spaces/spaceVerification.js"></script> -->
+
+
+  <!-- <script type="module" src="/js/searchQueries/getUserInfo.js"></script> -->
+  <!-- <script src="/js/privateChatMain.js" type="module"></script> -->
+   
+  <!-- <script type="module" src="/js/privateRecentChats.js"></script> -->
+  
+<script>
+    function redirectTOSpace(){
+        const spaceButton = document.getElementById("spaceButton")
+        spaceButton.click()
+    }
+
+    setTimeout(redirectTOSpace, 2000)
+</script>
 </body>
 
 </html>

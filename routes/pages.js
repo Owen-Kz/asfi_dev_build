@@ -213,6 +213,8 @@ const JoinSpace = require("../controllers/spaces/joinSpace");
 const getWaitingList = require("../controllers/spaces/getWaitingList");
 const updateSpaceData = require("../controllers/spaces/updateSpaceData");
 const SpaceSettings = require("../controllers/spaces/spaceSettings");
+const GetUsersToInvite = require("../controllers/spaces/usersList");
+const acceptInvitationPage = require("../controllers/spaces/acceptInvitationPage");
 
 // ADMINISTRATOR 
 
@@ -1069,7 +1071,7 @@ router.get("/s/m/p/:spaceid/settings", LoggedIn, SpaceSettings)
 
 // Space functions 
 router.post("/validateSpaceKey", LoggedIn, validateSpaceKey)
-router.post("/acceptSpaceInvitations", LoggedIn, acceptSpaceInvitation)
+router.post("/acceptSpaceInvitations", LoggedInExternal, acceptSpaceInvitation)
 router.post("/inviteToSpace", LoggedIn, inviteUserToSpace)
 router.post("/approveSpaceRequest", LoggedIn, approveJoinRequest)
 router.post("/joinSpaceRoom", LoggedIn, joinSpaceWaitingRoom)
@@ -1077,7 +1079,8 @@ router.post("/joinSpaceRoom", LoggedIn, joinSpaceWaitingRoom)
 router.post("/getWaitingList", LoggedIn, getWaitingList)
 router.post("/updateSpaceSettings", LoggedIn, updateSpaceData)
 
-
+router.get("/directory/users/spaces/:space_id", LoggedIn, GetUsersToInvite)
+router.get("/s/m/spaces/accept/:space_id", LoggedInExternal, acceptInvitationPage)
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 
 

@@ -4,7 +4,7 @@ const acceptSpaceInvitation = async (req, res) => {
 
     try {
         const { space_id, user } = req.body
-        const username = req.user.username
+        const username = user
         if (!username) {
             return res.json({ error: "Username is required" })
         }
