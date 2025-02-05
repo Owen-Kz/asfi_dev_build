@@ -92,7 +92,7 @@ const inviteUserToSpace = async (req,res) =>{
                       </div>
                       </p>
                       <br>
-                      <p><a href="https://asfischolar.org/s/m/spaces/accept/${spaceData[0].buffer}">
+                      <p><a href="https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}">
                       <button style=" display: flex;
                       padding:10px;
                       background:purple;

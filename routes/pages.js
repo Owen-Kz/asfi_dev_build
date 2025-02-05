@@ -1058,7 +1058,7 @@ router.get("/item", openFile)
 router.post("/y/saveMessage", saveMessage)
 router.post("/y/saveSpaceMessage", saveSpaceMessage)
 
-// GEt messag enotifications 
+// GEt messag enotifications  
 router.post("/getMessageNotifications", LoggedIn, getMessageNotifications)
 // Feeds page 
 router.get("/feed", LoggedIn, feedsPage)
