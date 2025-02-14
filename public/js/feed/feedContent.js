@@ -52,156 +52,97 @@ async function fetchLinkPreview(url) {
     }
 }
 const feedContainer = document.getElementById("feedContainer");
-for (let i = 0; i < 10; i++) {
-    feedContainer.innerHTML += `<div class="dummy-card-container">
-  <!-- Single card item -->
-  <div class="dummy-card">
-    <div class="dummy-card_image"></div>
-    <div class="dummy-card_body">
-      <div class="dummy-title"></div>
-      <!-- Start Author -->
-      <div class="dummy-author">
-        <div class="dummy-authorImage"></div>
-        <div class="dummy-authorName"></div>
-      </div>
-      <!-- End author -->
+const paginationContainer = document.getElementById("paginationContainer"); // A div to hold pagination buttons
+let currentPage = new URLSearchParams(window.location.search).get("page") || 1;
 
-      <!-- Card footer -->
-      <div class="dummy-cardFooter">
-        <div class="dummy-date"></div>
-        <div class="dummy-itemType"></div>
-      </div>
-      <!-- End card footer -->
-    </div>
-  </div>
-  <!-- End single card item -->
-  <div class="dummy-divider"></div>
-</div>
-`
-}
-fetch(`/getPeopleFeed`, {
-    method: "GET",
-})
-    .then((res) => res.json())
-    .then((data) => {
-        if (data.success) {
-            const feedItems = data.data; // Assuming data.data contains the feed array
-            if (feedItems.length > 0) {
+async function loadFeed(page = 1) {
+    feedContainer.innerHTML = `<p>Loading...</p>`;
 
+    fetch(`/getPeopleFeed?page=${page}`, { method: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.success) {
+                const feedItems = data.data;
+                feedContainer.innerHTML = ''; // Clear previous content
 
-                // Clear any existing content in the feed container
-                feedContainer.innerHTML = '';
+                if (feedItems.length > 0) {
+                    feedItems.forEach(async (item) => {
+                        const { person, books, podcasts, links, publications } = item;
+                        const profileDetails = await personProfieDetails(person);
+                        const firstName = profileDetails.first_name || "N/A";
+                        const lastName = profileDetails.last_name || "N/A";
+                        const profilePicture = profileDetails.profile_picture || "default.jpg";
 
-                // Loop through each feed item
-                feedItems.forEach(async (item) => {
-                    const { person, books, podcasts, links, publications } = item;
-
-                    const profileDetails = await personProfieDetails(person)
-                    const email = profileDetails.email ? profileDetails.email : "N/A"
-                    const firstName = profileDetails.first_name ? profileDetails.first_name : "N/A"
-                    const lastname = profileDetails.last_name ? profileDetails.last_name : "N/A"
-                    const profilePicture = profileDetails.profilePicture ? profileDetails.profile_picture : "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
-
-                    let profilePhoto = profilePicture
-                    if (profilePicture === "avater.jpg") {
-                        profilePhoto = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
-                    }
-
-
-                    // Helper function to create a card
-                    const createCard = (title, itemType, link, style, image, time) => `
-                    <div class="card">
-                        <div class="card_image" ${style}>
-                            <a href="${link}"> <img src="${image}" alt="${itemType}_image">
-                            </a>
-                        </div>
-                        <div class="card_body">
-                            <div class="title">
-                            <a href="${link}">${title}</a></div>
-                            <!-- Author Section -->
-                            <div class="author">
-                                <div class="authorImage">
-                                    <img src="${profilePicture}" alt="${person}_image">
+                        const createCard = (title, itemType, link, style, image, time) => `
+                            <div class="card">
+                                <div class="card_image" ${style}>
+                                    <a href="${link}"> <img src="${image}" alt="${itemType}_image"> </a>
                                 </div>
-                                <div class="authorName">${firstName} ${lastname} (${person})</div>
+                                <div class="card_body">
+                                    <div class="title"><a href="${link}">${title}</a></div>
+                                    <div class="author">
+                                        <div class="authorImage">
+                                            <img src="${profilePicture}" alt="${person}_image">
+                                        </div>
+                                        <div class="authorName">${firstName} ${lastName} (${person})</div>
+                                    </div>
+                                    <div class="cardFooter">
+                                        <div class="date">${time}</div>
+                                        <div class="itemType">${itemType}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Card Footer -->
-                            <div class="cardFooter">
-                                <div class="date">${time}</div>
-                                <div class="itemType">${itemType}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>`;
+                            <div class="divider"></div>`;
 
-                    // Append books
-                    books.forEach((book) => {
-                        const link = `/library/b/${book.book_id}`
-                        const style = "style=display:none;"
-                        const image = ""
-                        const time = book.datePublished
-                        feedContainer.innerHTML += createCard(book.book_title || "Untitled Book", "Book", link, style, image, time);
-                    });
+                        books.forEach((book) => {
+                            feedContainer.innerHTML += createCard(book.book_title || "Untitled Book", "Book", `/library/b/${book.book_id}`, "style=display:none;", "", book.datePublished);
+                        });
 
-                    // Append podcasts
-                    podcasts.forEach((podcast) => {
-                        const style = "style=display:none;"
-                        const image = ""
+                        podcasts.forEach((podcast) => {
+                            feedContainer.innerHTML += createCard(podcast.podcast_title || "Untitled Podcast", "Podcast", `/podcasts/${podcast.buffer}/${podcast.file_owner}`, "style=display:none;", "", formatTime(podcast.timestamp));
+                        });
 
-                        const time = formatTime(podcast.timestamp)
-                        const link = `/podcasts/${podcast.buffer}/${podcast.file_owner}`
-                        feedContainer.innerHTML += createCard(podcast.podcast_title || "Untitled Podcast", "Podcast", link, style, image, time);
-                    });
-
-
-
-                    // Append links with metadata
-                    async function appendLinks(links) {
-                        for (const link of links) {
-                            const linkHref = link.link_href; // Replace with the actual link property
-                            let style = "";
-                            const time = formatTime(link.timestamp);
-
-                            // Fetch the preview image
-                            const image = await fetchLinkPreview(linkHref);
-                            if(image === "<empty string>" || image === "" || !image){
-                                style = "style=display:none;"
+                        async function appendLinks(links) {
+                            for (const link of links) {
+                                const image = await fetchLinkPreview(link.link_href);
+                                feedContainer.innerHTML += createCard(link.link_title || "Untitled Link", "Publication Link", link.link_href, image ? "" : "style=display:none;", image, formatTime(link.timestamp));
                             }
-                            
-                            feedContainer.innerHTML += createCard(
-                                link.link_title || "Untitled Link", // Title
-                                "Publication Link",                            // Type
-                                linkHref,                          // Link
-                                style,                             // Additional Style
-                                image,                             // Preview Image
-                                time                               // Timestamp
-                            );
                         }
-                    }
+                        appendLinks(links);
 
-                    appendLinks(links)
-
-                    // Append publications
-                    publications.forEach((publication) => {
-                        const link = `https://asfirj.org/content/?sid=${publication.buffer}`
-                        const style = ""
-                        const time = formatTime(publication.date_uploaded)
-                        const image = "https://asfirj.org/assets/images/logoIcon/logo.png"
-                        feedContainer.innerHTML += createCard(publication.manuscript_full_title || "Untitled Publication", "ASFIRJ Publication", link, style, image, time);
+                        publications.forEach((publication) => {
+                            feedContainer.innerHTML += createCard(publication.manuscript_full_title || "Untitled Publication", "ASFIRJ Publication", `https://asfirj.org/content/?sid=${publication.buffer}`, "", "https://asfirj.org/assets/images/logoIcon/logo.png", formatTime(publication.date_uploaded));
+                        });
                     });
-                });
+                } else {
+                    feedContainer.innerHTML = "Follow Scholars to see content";
+                }
+
+                // Update pagination controls
+                updatePagination(page, data.hasMore);
             } else {
-                feedContainer.innerHTML = "Follow Scholars to see content"
+                console.error(data.error);
+                feedContainer.innerHTML = `<p class="error">Failed to load feed: ${data.error}</p>`;
             }
-        } else {
-            console.error(data.error);
-            feedContainer.innerHTML = `<p class="error">Failed to load feed: ${data.error}</p>`;
-        }
-    })
-    .catch((err) => {
-        console.error(err);
-        feedContainer.innerHTML = `<p class="error">An error occurred while fetching the feed.</p>`;
-    });
+        })
+        .catch((err) => {
+            console.error(err);
+            feedContainer.innerHTML = `<p class="error">An error occurred while fetching the feed.</p>`;
+        });
+}
 
+// Function to update pagination buttons
+function updatePagination(currentPage, hasMore) {
+    paginationContainer.innerHTML = `
+        ${currentPage > 1 ? `<button onclick="changePage(${currentPage - 1})">Previous</button>` : ""}
+        ${hasMore ? `<button onclick="changePage(${Number(currentPage) + 1})">Next</button>` : ""}
+    `;
+}
 
-// 
+// Function to change page
+function changePage(page) {
+    window.location.search = `?page=${page}`;
+}
+
+// Load initial feed
+loadFeed(currentPage);

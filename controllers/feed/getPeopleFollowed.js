@@ -8,9 +8,11 @@ const findPodcasts = require("./findPodcasts");
 const getPeopleFollowed = async (req, res) => {
     try {
         const username = req.user.username;
+        const page = req.query.page ? parseInt(req.query.page) : 1;
+        const limit = 10;
+        const offset = (page - 1) * limit;
 
-
-        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC LIMIT 10", [String(username)], async (err, followers) => {
+        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC LIMIT ? OFFSET ?", [String(username), limit, offset], async (err, followers) => {
             if (err) {
                 console.error(err);
                 return res.json({ error: err.message });
@@ -32,12 +34,13 @@ const getPeopleFollowed = async (req, res) => {
                     ]);
 
                     let ASFIRJ_Publications = [];
-                   
+
+                    console.log(personEmail)
                     if (personEmail !== "NoData") {
                         const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`
-                    
+
                         ASFIRJ_Publications = await findPublications(fullname);
-                   
+                        console.log(ASFIRJ_Publications)
                     }
 
                     if (!AllBooks.length && !AllPodcasts.length && !AllLinks.length && !ASFIRJ_Publications.length) {
@@ -57,7 +60,7 @@ const getPeopleFollowed = async (req, res) => {
                 const compiledData = (await Promise.all(dataPromises)).filter(entry => entry !== null);
 
                 // console.log("COMPILEDDATA", JSON.stringify(compiledData, null, 2));
-                return res.json({ success: "Feed", data: compiledData });
+                return res.json({ success: "Feed", data: compiledData, hasMore: compiledData.length === limit  });
             } catch (fetchError) {
                 console.error(fetchError);
                 return res.json({ error: fetchError.message });
