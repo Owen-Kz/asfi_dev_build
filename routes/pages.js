@@ -218,6 +218,7 @@ const acceptInvitationPage = require("../controllers/spaces/acceptInvitationPage
 const getMessageNotifications = require("../controllers/chatFileTransfers/getMessageNotifications");
 const mergeAPI = require("../controllers/external/mergeAPI");
 const deleteFile = require("../controllers/external/deleteFile");
+const getProfilePublications = require("../controllers/profile/getASFIPublicationsFrProfile");
 
 // ADMINISTRATOR 
 
@@ -1056,6 +1057,7 @@ router.post("/uploadSpaceChatFIles", LoggedIn, SpaceChatFile)
 router.post("/chatUsers", LoggedIn, getChatUsers)
 router.post("/getSingleChatFile", getSingleFileForMessage)
 router.get("/getAuthorASFIRJPublication", LoggedIn, getASFIRJPublications)
+router.get("/getUserPublications", LoggedIn, getProfilePublications)
 router.get("/item", openFile)
 router.post("/y/saveMessage", saveMessage)
 router.post("/y/saveSpaceMessage", saveSpaceMessage)

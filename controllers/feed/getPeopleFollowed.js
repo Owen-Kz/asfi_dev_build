@@ -9,7 +9,8 @@ const getPeopleFollowed = async (req, res) => {
     try {
         const username = req.user.username;
 
-        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC LIMIT 10", [username], async (err, followers) => {
+
+        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC LIMIT 10", [String(username)], async (err, followers) => {
             if (err) {
                 console.error(err);
                 return res.json({ error: err.message });
@@ -31,8 +32,12 @@ const getPeopleFollowed = async (req, res) => {
                     ]);
 
                     let ASFIRJ_Publications = [];
+                   
                     if (personEmail !== "NoData") {
-                        ASFIRJ_Publications = await findPublications(personEmail[0].email);
+                        const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`
+                    
+                        ASFIRJ_Publications = await findPublications(fullname);
+                   
                     }
 
                     if (!AllBooks.length && !AllPodcasts.length && !AllLinks.length && !ASFIRJ_Publications.length) {

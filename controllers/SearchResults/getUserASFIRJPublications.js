@@ -4,7 +4,8 @@ const getASFIRJPublications = async (req,res) =>{
     
     try{
         if(req.user){
-            const response = await fetch(`${process.env.ASFIRJ_DOMAIN}/external/findAuthorPublications.php?author=${req.user.email}`, {
+            const fullname = `${req.user.first_name} ${req.user.last_name}`
+            const response = await fetch(`${process.env.ASFIRJ_DOMAIN}/external/findAuthorPublications.php?author=${fullname}`, {
                 method: "GET"
             })
             const responseData = await response.json()
