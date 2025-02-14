@@ -132,6 +132,7 @@ app.use("/js/instructorControls", express.static(__dirname + "/public/js/instruc
 
 
 app.use("/directory", express.static(__dirname + "/public/Directory"))
+app.use("/manuscripts", express.static(__dirname + "/controllers/temp"));
 
 db.connect((err) => {
     if(err) throw err;

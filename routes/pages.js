@@ -216,6 +216,8 @@ const SpaceSettings = require("../controllers/spaces/spaceSettings");
 const GetUsersToInvite = require("../controllers/spaces/usersList");
 const acceptInvitationPage = require("../controllers/spaces/acceptInvitationPage");
 const getMessageNotifications = require("../controllers/chatFileTransfers/getMessageNotifications");
+const mergeAPI = require("../controllers/external/mergeAPI");
+const deleteFile = require("../controllers/external/deleteFile");
 
 // ADMINISTRATOR 
 
@@ -1088,6 +1090,11 @@ router.get("/s/m/spaces/accept/:space_id", LoggedInExternal, acceptInvitationPag
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 
 
+
+
+// For ASFIRJ FILE PROCESSING 
+router.post("/mergeFilesAPI", mergeAPI)
+router.post("/deleteFileAPI", deleteFile)
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
 })
