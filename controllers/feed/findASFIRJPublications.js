@@ -9,6 +9,7 @@ const findPublications = async (userEmail) =>{
             })
             const responseData = await response.json()
             const ArticleList = responseData.articlesList
+            console.log(responseData)
          
           
             if(ArticleList.length > 0){
