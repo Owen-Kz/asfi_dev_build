@@ -1,16 +1,30 @@
+
+body{
+  /* background-color: pink; */
+  overflow-y: hidden !important;
+
+}
+
 .main_page img{
     width: 100%;
     object-fit: cover;
 }
+.loading-indicator {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #666;
+  display: none; /* Initially hidden */
+}
 .main_page{
     display: flex;
     flex-direction: row;
-    margin: auto;
-    padding: 20px;
+    /* margin: auto; */
+    padding: 0px;
     width:80%;
-    min-height: 100%;
-    height: max-content;
-    overflow: scroll;
+    height: 100% !important;
+    margin: 0px auto !important;
+    overflow-y: hidden !important;
     /* background-color: rgb(13, 172, 74); */
 }
 .panelTitle{
@@ -22,17 +36,42 @@
     overflow:scroll;
     flex-direction: column;
 }
-.leftSide{
-    /* background-color: red; */
-    padding: 10px;
-    align-items: center;
-    width: 60%;
-    justify-content: space-around;
+.leftSideMain{
+  padding: 100px 10px;
+  width: 60%;
+  /* background: red; */
+  min-height: 100vh;
+  height: 110vh; /* Ensures full height of viewport */
+  overflow-y: hidden; /* Enables vertical scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+.leftSide {
+  /* padding: 100px 10px; */
+  width: 100%;
+  /* background: red; */
+  min-height: 100%;
+  height: 100%; /* Ensures full height of viewport */
+  overflow-y: auto; /* Enables vertical scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Ensure feedContainer expands properly */
+#feedContainer {
+  flex-grow: 1; /* Allows it to take up remaining space */
+  overflow-y: auto; /* Enables scrolling inside it */
+}
+
 .leftSide .card{
     display: flex;
     margin: auto;
-    min-height: 240px;
+    min-height: 400px;
+    border-radius: 25px;
+    overflow: hidden;
+    height: max-content;
     /* max-height: max-content; */
     width: 100%;
     max-height: max-content;
@@ -40,14 +79,18 @@
     /* overflow: scroll; */
     margin-top: 10px;
     position: relative;
+    /* border: 1px solid #80078b;  */
 }
 .card_image{
     display: flex;
     object-fit: cover;
-    overflow: hidden;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    height: 150px;
+    /* overflow: hidden; */
+    /* border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px; */
+    min-height: 200px;
+    height: 200px;
+    /* background-color: pink; */
+
     /* background-color: green; */
 }
 .card_image a{
@@ -93,16 +136,18 @@
     width:max-content;
     height: max-content;
     padding: 5px 10px 5px 10px;
-    background-color: rgba(255, 102, 204, 0.938);
+    background-color: #80078b;
     cursor: pointer;
     border-radius: 8px;
-    border: 1px solid rgb(133, 22, 133);
-    color: rgb(133, 22, 133);
+    /* border: 1px solid rgb(133, 22, 133); */
+    color: rgb(255, 233, 255);
 }
 .rightSide{
     /* background:blue; */
     width: 40%;
+    height: 100vh;
     display:flex;
+    overflow-y: auto;
     flex-direction: column;
     align-items: flex-end;
 }

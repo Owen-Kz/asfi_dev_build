@@ -9,10 +9,11 @@ const getPeopleFollowed = async (req, res) => {
     try {
         const username = req.user.username;
         const page = req.query.page ? parseInt(req.query.page) : 1;
-        const limit = 10;
+        const limit = 3; // Number of items per page
         const offset = (page - 1) * limit;
 
-        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC LIMIT ? OFFSET ?", [String(username), limit, offset], async (err, followers) => {
+        // Fetch all followed users
+        db.query("SELECT * FROM followers WHERE followerUsername = ? ORDER BY id DESC", [String(username)], async (err, followers) => {
             if (err) {
                 console.error(err);
                 return res.json({ error: err.message });
@@ -34,33 +35,54 @@ const getPeopleFollowed = async (req, res) => {
                     ]);
 
                     let ASFIRJ_Publications = [];
-
-                    console.log(person)
                     if (personEmail !== "NoData") {
-                        const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`
-
+                        const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`;
                         ASFIRJ_Publications = await findPublications(fullname);
-                        console.log(ASFIRJ_Publications)
                     }
 
-                    if (!AllBooks.length && !AllPodcasts.length && !AllLinks.length && !ASFIRJ_Publications.length) {
-                        console.log(`No data found for ${person}`);
-                        return [];
-                    }
+                    // Combine all items into one array
+                    const combinedItems = [
+                        ...AllBooks.map(book => ({
+                            type: "Book",
+                            title: book.book_title || "Untitled Book",
+                            link: `/library/b/${book.book_id}`,
+                            timestamp: book.datePublished,
+                            person
+                        })),
+                        ...AllPodcasts.map(podcast => ({
+                            type: "Podcast",
+                            title: podcast.podcast_title || "Untitled Podcast",
+                            link: `/podcasts/${podcast.buffer}/${podcast.file_owner}`,
+                            timestamp: podcast.timestamp,
+                            person
+                        })),
+                        ...AllLinks.map(link => ({
+                            type: "Publication Link",
+                            title: link.link_title || "Untitled Link",
+                            link: link.link_href,
+                            timestamp: link.timestamp,
+                            person
+                        })),
+                        ...ASFIRJ_Publications.map(publication => ({
+                            type: "ASFIRJ Publication",
+                            title: publication.manuscript_full_title || "Untitled Publication",
+                            link: `https://asfirj.org/content/?sid=${publication.buffer}`,
+                            timestamp: publication.date_uploaded,
+                            person
+                        }))
+                    ];
 
-                    return {
-                        person,
-                        books: AllBooks || [],
-                        podcasts: AllPodcasts || [],
-                        links: AllLinks || [],
-                        publications: ASFIRJ_Publications || [],
-                    };
+                    return combinedItems;
                 });
 
-                const compiledData = (await Promise.all(dataPromises)).filter(entry => entry !== null);
+                // Wait for all users' data to be retrieved and flatten the array
+                const compiledData = (await Promise.all(dataPromises)).flat();
 
-                // console.log("COMPILEDDATA", JSON.stringify(compiledData, null, 2));
-                return res.json({ success: "Feed", data: compiledData, hasMore: compiledData.length === limit  });
+                // Apply pagination on the combined data
+                const paginatedData = compiledData.slice(offset, offset + limit);
+                const hasMore = offset + limit < compiledData.length; // Check if there are more items
+
+                return res.json({ success: "Feed", data: paginatedData, hasMore });
             } catch (fetchError) {
                 console.error(fetchError);
                 return res.json({ error: fetchError.message });

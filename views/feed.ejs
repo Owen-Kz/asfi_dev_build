@@ -34,6 +34,7 @@
  
   gtag('config', 'G-32YRZWEG3P');
 </script>
+
 </head>
 
 <input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
@@ -141,12 +142,16 @@
         <!-- Divide into two -->
 
         <!-- Start left Side  -->
-        <div class="section leftSide" id="feedContainer">
+         <div class="section leftSideMain">
             <h4 class="panelTitle">Feed</h4>
+        <div class="section leftSide" id="feedContainer">
+           
             <!-- Single card item  -->
     
         </div>
-        <div id="paginationContainer"></div>
+        </div>
+ 
+
 
         <!-- end left side  -->
 
@@ -166,6 +171,6 @@
 
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script type="module" src="/js/feed/feedContent.js"></script>
+<script src="/js/feed/feedContent.js"></script>
 </body>
 </html>
