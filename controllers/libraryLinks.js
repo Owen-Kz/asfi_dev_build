@@ -4,7 +4,7 @@ const ITEMS_PER_PAGE_LINKS = 5; // Number of links per page
 
 const getLinksForLibrary = async (req,res) =>{
     let pageLinks = req.query.pageLink || 1; // Get the current link page from the query parameter
-  
+  console.log(pageLinks)
     // Calculate the offset for both books and links
     const offsetLinks = (pageLinks - 1) * ITEMS_PER_PAGE_LINKS;
   

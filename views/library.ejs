@@ -39,7 +39,32 @@
         <% } %>
      </sidebar> 
      <!-- END NAVIGATION BAR  -->
+<style>
+	.card-title{
+		font-size: 12px !important;
+	}
+	.limited-text {
+    display: inline-block;
+	width: 100%;
+	text-wrap: wrap;
+    max-width: 50ch; 
+    white-space: wrap; /* Prevents text from wrapping */
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+#linksContainer {
+    max-height: 80vh; 
+    overflow-y: auto;
+}
 
+.loading {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+
+</style>
 <!-- Header START -->
 <header class="navbar-light navbar-sticky">
 	<!-- Logo Nav START -->
@@ -106,16 +131,17 @@ Page content START -->
 						<ul class="col-sm-6 col-lg-4 col-xl-3 book_list" id="external_links">
 
 						</ul>
-                    </div>
-								<!-- Pagination START -->
-								<div class="col-12">
+									<!-- Pagination START -->
+									<div class="col-12">
 									
-									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation" id="LinksPaginationContainer" style="display: flex; width:100%; height:40px;">
-
-
-									</nav>
-								</div>
-								<!-- Pagination END -->
+										<nav class="mt-4 d-flex justify-content-center" aria-label="navigation" id="LinksPaginationContainer" style="display: flex; width:100%; height:40px;">
+	
+	
+										</nav>
+									</div>
+									<!-- Pagination END -->
+                    </div>
+					
 				</div>
 			
             </div>  

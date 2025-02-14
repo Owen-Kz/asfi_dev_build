@@ -161,72 +161,87 @@ for(i =0; i < 10; i++){
 // GET LINKS 
 const LINkS_body = document.getElementById("external_links")
 
-for(let i=0; i<5; i++){
-  LINkS_body.innerHTML += `<li class="card shadow h-50">
+// for(let i=0; i<5; i++){
+//   LINkS_body.innerHTML += `<li class="card shadow h-50">
         
-  <div class="card-body pb-0">
+//   <div class="card-body pb-0">
+  
+//     <h5 class="card-title" style="background-color:grey;"><a href="#" target=_blank class="limited-text"></a></h5>
+//     <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
+  
+//   </li>`
+// } 
+
+// const LINkS_body = document.getElementById("linksContainer");
+// let currentPageLinks = 1;
+let isFetching = false;
+let hasMoreLinks = true;
+  // Show loading indicator
+  for(let i=0; i<4; i++){
+    const loadingIndicator = document.createElement("li");
+    loadingIndicator.className = "card shadow h-50";
+    loadingIndicator.innerHTML = `  <div class="card-body pb-0">
   
     <h5 class="card-title" style="background-color:grey;"><a href="#" target=_blank class="limited-text"></a></h5>
-    <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
-  
-  </li>`
-} 
-
-fetch("/getAllLinksOnLibrary", {
-  method:"GET",
-}).then(res => res.json())
-.then(async data =>{
-  if(data.status === "success"){
-const LINKS_ARRAY_container = data.externalLinks
-const currentLinkPage = data.currentPageLinks
-const totalLinksPage = data.totalPagesLinks
-const totalLinks = data.totalLinks
-currentPageLinks = currentLinkPage
-
-
-await LinksPagination(totalLinksPage, currentLinkPage)
-    const LinksArray = JSON.parse(LINKS_ARRAY_container)
-    // updateLinkPaginationButtons();
-    // updateLinkList(currentPageLinks);
-
-    if(LinksArray.length > 0){
-      LINkS_body.innerHTML = ""
-      LinksArray.forEach(async link => {
-        const LINK_TITLE = link.LINK_TITLE
-        const LINK_DESCRIPTION = link.LINK_DESCRIPTION
-        const LINK_IMAGE = link.LINK_IMAGE
-        const LINK_URL = link.LINK_URL
-       
-    
-    
-    LINkS_body.innerHTML += `<li class="card shadow h-50">
-        <img src="${LINK_IMAGE}" alt='${LINK_TITLE}'>
-        <div class="card-body pb-0">
-    
-          <h5 class="card-title"><a href="${LINK_URL}" target=_blank class="limited-text">${LINK_TITLE}</a></h5>
-          <a href="${LINK_URL}" class="badge bg-purple bg-opacity-10 text-purple limited-text">${LINK_URL}</a>
-      
-     
-      </li>`
-      })
-    }else{
-      for(i =0; i < 10; i++){
-        LINkS_body.innerHTML += `<li class="card shadow h-50">
-        
-        <div class="card-body pb-0">
-    
-          <h5 class="card-title" style="background-color:grey;"><a href="#" target=_blank class="limited-text"></a></h5>
-          <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
-      
-     
-      </li>`
-      }
+   <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
+  `;
+    LINkS_body.appendChild(loadingIndicator);
     }
-    
-  }else{
-    console.log(data.messsage)
-  }
-})
+async function fetchLinks(page) {
+    if (isFetching || !hasMoreLinks) return;
+    isFetching = true;
+
+  
+
+    try {
+        const response = await fetch(`/getAllLinksOnLibrary?pageLink=${page}`);
+        const data = await response.json();
+
+        if (data.status !== "success") {
+            console.log(data.message);
+            return;
+        }
+
+        const LinksArray = JSON.parse(data.externalLinks);
+        if (LinksArray.length === 0) {
+            hasMoreLinks = false;
+            return;
+        }
+
+        LinksArray.forEach(link => {
+            const { LINK_TITLE, LINK_IMAGE, LINK_URL } = link;
+            const linkItem = document.createElement("li");
+            linkItem.className = "card shadow h-50";
+            linkItem.innerHTML = `
+                <img src="${LINK_IMAGE}" alt='${LINK_TITLE}'>
+                <div class="card-body pb-0">
+                    <h5 class="card-title"><a href="${LINK_URL}" target=_blank class="limited-text">${LINK_TITLE}</a></h5>
+                    <a href="${LINK_URL}" class="badge bg-purple bg-opacity-10 text-purple limited-text">${LINK_URL}</a>
+                </div>
+            `;
+            LINkS_body.prepend(linkItem);
+        });
+
+        currentPageLinks++;
+    } catch (error) {
+        console.error("Error fetching links:", error);
+    } finally {
+        isFetching = false;
+        for(let i=0; i<4; i++){
+        loadingIndicator.remove();
+        }
+    }
+}
+
+// Infinite scrolling inside LINkS_body
+LINkS_body.addEventListener("scroll", () => {
+    if (LINkS_body.scrollTop + LINkS_body.clientHeight >= LINkS_body.scrollHeight - 50) {
+        fetchLinks(currentPageLinks);
+    }
+});
+
+// Initial Load
+fetchLinks(currentPageLinks);
 
 
 
