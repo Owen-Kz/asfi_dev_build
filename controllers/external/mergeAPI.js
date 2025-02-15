@@ -77,7 +77,7 @@ const mergeAPI = async (req, res) => {
         console.log(fileName)
 
           return res.json({
-            url: `/combineFiles?status=success&message=${encodeURIComponent("Single file found")}&tag=File Ready&file=${encodeURIComponent(fileName)}`
+            url: `/combineFiles?status=success&message=${encodeURIComponent("Single file found")}&tag=File Ready&file=${encodeURIComponent(fileName)}&a=${a}`
           });
         }
 
@@ -98,7 +98,7 @@ const mergeAPI = async (req, res) => {
         });
         const fileName = mergedFilePath.substring(mergedFilePath.lastIndexOf("/") + 1);
         return res.json({
-          url: `/combineFiles?status=success&message=${encodeURIComponent("Your files have been combined")}&tag=Files Combined Successfully&file=${encodeURIComponent(fileName)}`
+          url: `/combineFiles?status=success&message=${encodeURIComponent("Your files have been combined")}&tag=Files Combined Successfully&file=${encodeURIComponent(fileName)}&a=${a}`
         });
     
   } catch (error) {
