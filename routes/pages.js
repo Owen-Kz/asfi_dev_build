@@ -420,10 +420,10 @@ router.get("/directorydiscoverAccounts", LoggedIn, getDiscover)
 router.get("/@:username",LoggedIn, profile_page, find_info);
 
 // GET THE PROFILE PAGE BY THE ID 
-router.get("/v/:username",LoggedIn, profile_page, find_info);
+router.get("/s/:username",LoggedIn, profile_page, find_info);
 
 // GET THE PROFILE PAGE FOR SEO 
-router.get("/s/:username", find_info_for_SEO);
+router.get("/v/:username", find_info_for_SEO);
 // GET THE TUTORIALS PAGE 
 router.get("/tutorials", LoggedIn, renderTutorialsPage)
 router.get("/feedTutorials", LoggedIn, displayTutorials)

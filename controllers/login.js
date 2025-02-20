@@ -22,7 +22,7 @@ const login_user = async (req, res) => {
 
             else{
                 const createUniqueCode = await generateCode(result[0].email)
-                console.log(createUniqueCode)
+                
                 // create cookie token
                 const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES

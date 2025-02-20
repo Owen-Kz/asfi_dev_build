@@ -1,3 +1,4 @@
+const db = require("../routes/db.config");
 const dbPromise = require("../routes/dbPromise.config");
 
 const summation_FX = 5;
@@ -5,7 +6,20 @@ const summation_FX = 5;
 const find_info_for_SEO = async (req, res) => {
   try {
     if (req.params.username) {
-      const username_visitor = req.params.username;
+      // const username_visitor = req.params.username;
+      const username_visitorQuery = () =>{
+        return new Promise((resolve, reject) =>{
+          db.query("SELECT username FROM user_info WHERE unique_code = ?",[req.params.username], (err, data) =>{
+            if(err){
+              console.log(err)
+              reject("invalidParameters")
+            }else{
+              resolve(data.username)
+            }
+          })
+        })
+      }
+      const username_visitor = await username_visitorQuery()
       const visitor = req.user ? req.user.username : "VALAK_SEO";
       const followStats = "Following";
       let socialLinksArray = [];
@@ -31,7 +45,7 @@ const find_info_for_SEO = async (req, res) => {
         dbPromise.query("SELECT COUNT(*) AS honorariesCount FROM honoraries WHERE scholar_username = ?", [username_visitor]),
         dbPromise.query("SELECT * FROM honoraries WHERE scholar_username = ?", [username_visitor]),
         dbPromise.query("SELECT * FROM tutorials WHERE tutorial_owner = ?", [username_visitor]),
-        dbPromise.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ?", [username_visitor, username_visitor]),
+        dbPromise.query("SELECT * FROM user_info WHERE username = ?", [username_visitor, username_visitor]),
         // dbPromise.query("SELECT * FROM social_links WHERE link_owner = ?", [username_visitor])
       ]);
       async function getSocialLinks() {
@@ -116,9 +130,13 @@ const find_info_for_SEO = async (req, res) => {
         TutorialOwnerFullName: displayName,
         TutorialOwnerProfilePicture: user.profile_picture
       }));
+      let personTitleTemp = "Dr."
+      if(title && title !== null && title !== ""){
+        personTitleTemp = title
+      }
       // Render the profile with all collected data
       res.render("profileForSEO", {
-        searchName: displayName, personTitle: "DR", personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo:cover_photo,accountType: "scholar_account", ProfileImage:"avatar.jpg", UserFirstname:"FirstName_visitor", UserLastname:"LastName_visitor", Email:"Email_visitor", UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor, prefix:Prefix
+        searchName: displayName, personTitle: personTitleTemp, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser, summation_FX :summation_FX, followStatus: followStats, followersCount:followsCount, BooksSum:BooksCount, podcastSum:PodcastCount,  Honors:HonoraryCount, honoraryTitle:honorayTitle, honorary_type:honorary_type, HonoraryCount:HonoraryCount, cover_photo:cover_photo,accountType: "scholar_account", ProfileImage:"avatar.jpg", UserFirstname:"FirstName_visitor", UserLastname:"LastName_visitor", Email:"Email_visitor", UserName:visitor, EmailVisited:EmailVisited, Bio:Bio, Country:Country, area_of_interest:area_of_interest, sub_text:HonoraryText, TutorialsArray:JSON.stringify(TutorialFinal), tutorialSum:TutorialCount,  SocialLinks:JSON.stringify(socialLinksArray), TutorialSum:TutorialCount,username_visitor:username_visitor, prefix:Prefix
       });
     } else {
       res.render("error.ejs", { status: "User Not Found" });
