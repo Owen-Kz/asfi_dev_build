@@ -14,15 +14,17 @@ const find_info_for_SEO = async (req, res) => {
               console.log(err)
               reject("invalidParameters")
             }else{
-              resolve(data.username)
+              resolve(data[0].username)
             }
           })
         })
       }
       const username_visitor = await username_visitorQuery()
+   
       const visitor = req.user ? req.user.username : "VALAK_SEO";
       const followStats = "Following";
       let socialLinksArray = [];
+
       
       // Run all queries in parallel using Promise.all
       const [
@@ -107,6 +109,20 @@ const find_info_for_SEO = async (req, res) => {
           Academia: linkItem.academia,
           Orchid: linkItem.orchid
         }));
+      }else{
+        socialLinksArray.push({
+          LinkedIn: "",
+          Facebook: "",
+          Twitter: "",
+          Instagram: "",
+          YouTube: "",
+          GoogleScholar: "",
+          ResearchGate: "",
+          Web_of_science: "",
+          Scopius: "",
+          Academia: "",
+          Orchid: ""
+        })
       }
 
       // Prepare tutorials
