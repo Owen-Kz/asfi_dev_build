@@ -22293,7 +22293,7 @@ html[dir=rtl] .choices__input {
  width:100%;
  }
  header{
-  width:65% !important;
+  width:65%;
   margin: auto;
   position: sticky !important;
   top:0;
@@ -22314,16 +22314,49 @@ html[dir=rtl] .choices__input {
 }
 
 .scholar_main .left_side{
-  width:70%;
+  width:100%;
+}
+.notify-count{
+  color: white;
+  font-weight: bold;
+  font-size: smaller;
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  margin-left: 26px;
+  margin-bottom: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .MainRight_side{
+  display:none;
   position:fixed;
   overflow:scroll;
   max-height:100vh;
   z-index:9999;
-  top:0;
+  /* top:0; */
   right:0;
 }
+.MainRight_side.visible {
+  display: block;
+}
+
+.ChatRight_side{
+  display:none;
+  position:fixed;
+  overflow:scroll;
+  max-height:100vh;
+  z-index:9999;
+  /* top:0; */
+  right:0;
+}
+.ChatRight_side.visible{
+  display: block;
+}
+
 .p-4 {
   display:flex;
   /* background:black !important; */
@@ -22665,6 +22698,12 @@ html[dir=rtl] .choices__input {
 .card {
     width: 110%;
 }
+header{
+  width:100%;
+  margin: auto;
+  position: sticky !important;
+  top:0;
+ }
 }
 
 .notification-button-enable{

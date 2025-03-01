@@ -58,7 +58,7 @@ fetch("/getAllNotifications", ()=>{
     <!-- End single notification item  -->`;
         }
     }else{
-        Notification_id_container.innerHTML +=`<li class='no-notification'>No new Messages to display</li>`;
+        Notification_id_container.innerHTML +=`<li class='no-notification'>No new Notifications to display</li>`;
 
     }
 

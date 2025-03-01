@@ -41,8 +41,8 @@ function feedData(){
     usersArray.forEach((user) => {
       
         inviteUsers.innerHTML += `<li><div class="profile-container">
-                        <div class="waiting-img"><img src="${user.profile_picture}" alt=""></div>
-                        <span class="username">${user.first_name} ${user.last_name}</span> 
+                        <div class="waiting-img"><img src="${user[0].profile_picture}" alt=""></div>
+                        <span class="username">${user[0].first_name} ${user[0].last_name}</span> 
                         </div>
                         
                         <form class="inviteForm">

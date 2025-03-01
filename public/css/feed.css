@@ -38,7 +38,7 @@ body{
 }
 .leftSideMain{
   padding: 100px 10px;
-  width: 60%;
+  width: 100%;
   /* background: red; */
   min-height: 100vh;
   height: 110vh; /* Ensures full height of viewport */
