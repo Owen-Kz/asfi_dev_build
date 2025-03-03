@@ -59,6 +59,8 @@ async function loadFeed() {
 
             let image = "";
             let fileType = "";
+            let is_asfirj = "";
+            let smallHeight = ""
 
             switch (type) {
                 case "Book":
@@ -74,7 +76,9 @@ async function loadFeed() {
                     fileType = "Publication Link";
                     break;
                 case "ASFIRJ Publication":
-                    image = "https://asfirj.org/assets/images/logoIcon/logo.png";
+                    image = "";
+                    is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "ASFIRJ Publication";
                     break;
                 default:
@@ -84,9 +88,9 @@ async function loadFeed() {
             }
 
             const card = document.createElement("div");
-            card.className = "card";
+            card.className = `card ${smallHeight}`;
             card.innerHTML = `
-                <div class="card_image">
+                <div class="card_image ${is_asfirj}">
                     <a href="${link}">
                         <img src="${image}" alt="${type}_image">
                     </a>
