@@ -262,3 +262,8 @@ header{
     }
   }
   
+  @media (max-width: 785px) {
+    .leftSideMain{
+      width: 100%;
+    }
+  }
