@@ -13,8 +13,8 @@ fetch("/getMessageNotifications", {
     // Clear previous notifications before adding new ones
     Chat_id_container.innerHTML = "";
 
-    if (data.NotificationData.length > 0) {
-        const NotificationArray = data.NotificationData;
+    if (data.Notifications.length > 0) {
+        const NotificationArray = data.Notifications;
 
         NotificationArray.forEach(Notification => {
             const notificationElement = document.createElement("div");

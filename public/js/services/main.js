@@ -40,16 +40,44 @@ if ('serviceWorker' in navigator) {
 
 }
 
-document.getElementById('enable-notifications').addEventListener('click', () => {
-    Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-            console.log('Notification permission granted.');
-            subscribeUser();
-            document.getElementById('enable-notifications').style.display = "none";
-        } else {
-            console.log('Notification permission denied.');
-        }
-    });
+// document.getElementById('enable-notifications').addEventListener('click', () => {
+//     Notification.requestPermission().then(permission => {
+//         if (permission === 'granted') {
+//             console.log('Notification permission granted.');
+//             subscribeUser();
+//             document.getElementById('enable-notifications').style.display = "none";
+//         } else {
+//             console.log('Notification permission denied.');
+//         }
+//     });
+// });
+document.addEventListener("DOMContentLoaded", function() {
+    if (Notification.permission === "granted") {
+        document.getElementById("notification-toggle").checked = true;
+        document.getElementById("notification-status").textContent = "Enabled";
+    } else {
+        document.getElementById("notification-status").textContent = "Disabled";
+    }
+});
+
+document.getElementById("notification-toggle").addEventListener("change", function() {
+    const statusText = document.getElementById("notification-status");
+    if (this.checked) {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                console.log("Notification permission granted.");
+                subscribeUser();
+                statusText.textContent = "Enabled";
+            } else {
+                console.log("Notification permission denied.");
+                this.checked = false; // Reset toggle if denied
+            }
+        });
+    } else {
+        console.log("Notifications Disabled");
+        unsubscribeUser();
+        statusText.textContent = "Disabled";
+    }
 });
 
 async function subscribeUser() {
