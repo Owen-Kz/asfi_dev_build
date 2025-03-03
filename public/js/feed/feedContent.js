@@ -60,6 +60,7 @@ async function loadFeed() {
             let image = "";
             let fileType = "";
             let is_asfirj = "";
+            let smallHeight = ""
 
             switch (type) {
                 case "Book":
@@ -77,6 +78,7 @@ async function loadFeed() {
                 case "ASFIRJ Publication":
                     image = "";
                     is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "ASFIRJ Publication";
                     break;
                 default:
@@ -86,7 +88,7 @@ async function loadFeed() {
             }
 
             const card = document.createElement("div");
-            card.className = "card";
+            card.className = `card ${smallHeight}`;
             card.innerHTML = `
                 <div class="card_image ${is_asfirj}">
                     <a href="${link}">
