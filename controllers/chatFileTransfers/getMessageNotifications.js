@@ -2,7 +2,7 @@ const db = require("../../routes/db.config")
 
 const getMessageNotifications = async (req,res) =>{
 try{
-    db.query("SELECT from message_notifications WHERE recipient = ?", [req.user.username], (err, data)=>{
+    db.query("SELECT * FROM message_notifications WHERE recipient = ?", [req.user.username], (err, data)=>{
         if(err){
             return res.json({error:err})
         }else{
