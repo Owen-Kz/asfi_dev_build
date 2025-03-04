@@ -51,9 +51,9 @@
     .chat-send-message-footers {
   position: fixed; /* Keeps the element fixed relative to the viewport */
   bottom: 0;       /* Anchors the footer to the bottom */
-  left: 0;
-  right: 0;
-  /* width: 50%; */
+  left: 25%;
+  /* right: 0; */
+  width: 60%;
   background-color: #fff; /* Adjust background as needed */
   z-index: 9999999;   /* Ensures it stays on top of other content */
   padding: 1rem 2rem;
@@ -74,6 +74,8 @@
 }
 @media screen and (max-width: 991px) {
   .chat-send-message-footers {
+    left: 0;
+    right: 0;
   width: 100%;
   margin-bottom: 20px;
   }
