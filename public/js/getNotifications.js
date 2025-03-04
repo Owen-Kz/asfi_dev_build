@@ -63,7 +63,7 @@ fetch("/getAllNotifications", ()=>{
         }
     }else{
         // No new notifications, reset the counter and display a message
-        chatsCounter.textContent = "0";
+        notifyCounter.textContent = "0";
         Notification_id_container.innerHTML +=`<li class='no-notification'>No new Notifications to display</li>`;
 
     }
