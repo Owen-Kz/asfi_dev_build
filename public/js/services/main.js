@@ -128,7 +128,7 @@ async function unsubscribeUser() {
 }
 
 // Attach a button or call unsubscribeUser() when needed
-document.getElementById('disable-notifications').addEventListener('click', unsubscribeUser);
+// document.getElementById('disable-notifications').addEventListener('click', unsubscribeUser);
 
 // navigator.serviceWorker.getRegistration().then((registration) => {
 //     if (registration) {

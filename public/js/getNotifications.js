@@ -25,8 +25,9 @@ const formatTime = (timestamp) => {
 
 
 
-const  Notification_id_container = document.getElementById("Notification_id_container")
-const usernameContainer = document.getElementById("usernameContainer").value
+const  Notification_id_container = document.getElementById("Notification_id_container");
+const usernameContainer = document.getElementById("usernameContainer").value;
+const notifyCounter = document.getElementById("notify-counter");
 fetch("/getAllNotifications", ()=>{
     method:"GET"
 })
@@ -34,6 +35,9 @@ fetch("/getAllNotifications", ()=>{
 .then(data =>{
     if(data.NotificationData.length > 0){
         const NotificationArray = data.NotificationData
+          // Update the counter to show the number of new notifications
+          notifyCounter.textContent = data.NotificationData.length;
+
 
         for(let i=0; i<NotificationArray.length; i++){
             const Notification = NotificationArray[i]
@@ -58,6 +62,8 @@ fetch("/getAllNotifications", ()=>{
     <!-- End single notification item  -->`;
         }
     }else{
+        // No new notifications, reset the counter and display a message
+        chatsCounter.textContent = "0";
         Notification_id_container.innerHTML +=`<li class='no-notification'>No new Notifications to display</li>`;
 
     }

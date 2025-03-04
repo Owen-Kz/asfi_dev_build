@@ -1,4 +1,5 @@
 const Chat_id_container = document.getElementById("Chat_id_container");
+const chatsCounter = document.getElementById("chats-counter");
 
 fetch("/getMessageNotifications", {
     method: "POST",
@@ -13,10 +14,13 @@ fetch("/getMessageNotifications", {
     // Clear previous notifications before adding new ones
     Chat_id_container.innerHTML = "";
 
-    if (data.Notifications.length > 0) {
-        const NotificationArray = data.Notifications;
+    if (data.notifications.length > 0) {
+        // Update the counter to show the number of new notifications
+        chatsCounter.textContent = data.notifications.length;
 
-        NotificationArray.forEach(Notification => {
+        const notificationArray = data.notifications;
+
+        notificationArray.forEach(Notification => {
             const notificationElement = document.createElement("div");
             notificationElement.classList.add("notification");
 
@@ -35,6 +39,8 @@ fetch("/getMessageNotifications", {
             Chat_id_container.appendChild(notificationElement);
         });
     } else {
+        // No new notifications, reset the counter and display a message
+        chatsCounter.textContent = "0";
         Chat_id_container.innerHTML = `<li class='no-notification'>No new Messages to display</li>`;
     }
 })

@@ -166,13 +166,15 @@
 <!-- Spaces Start -->
 
     <div class="spaces_container closed_spaces_container" >
-        <div class="spaces_header">
-            <h4>Spaces</h4>
+        <div style="text-align: center;">
+            
+                <h4>Spaces</h4>
+            <% if(accountType != "user_account") { %>
+                <button class="btn btn-orange next-btn mb-0 fw-bold" id="CreateSpaceBtn">Create Space</button>
+                <%}%>
+            <br>
         </div>
-        <% if(accountType != "user_account") { %>
-            <button class="btn btn-orange next-btn mb-0 fw-bold" id="CreateSpaceBtn">Create Space</button>
-            <%}%>
-        <br><br>
+       <br>
         <div class="spaces_main" id="spaces_container">
         </div>
     </div>

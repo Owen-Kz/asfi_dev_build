@@ -165,9 +165,9 @@ account .details div:last-child{
 }
 
 .spaces_container{
-    height: 600px;
-    display: flex;
-    flex-direction: column;
+    height: 90vh;
+    /* display: flex;
+    flex-direction: column; */
     width:60%;
     align-items: center;
     padding-top: 10px;
@@ -187,7 +187,7 @@ account .details div:last-child{
     font-weight: bold;
 }
 
-.spaces_main{
+/* .spaces_main{
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -195,13 +195,25 @@ account .details div:last-child{
     overflow-y: scroll;
     justify-content: space-between;
     margin: auto;
-}
+} */
+
+.spaces_main {
+    display: grid;
+    /* Create columns that are at least 250px wide, but expand to fill available space */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;           /* Space between grid items */
+    padding: 1rem;       /* Optional padding around the grid */
+    margin: auto;        /* Center the grid container */
+    overflow-y: auto;    /* Scroll vertically if needed */
+    height: 70vh;
+  }
+
 .space{
     margin: 10px;
 }
 .space .image_container{ 
         /* background-color: rgb(255, 72, 0); */
-        border-radius: 20px 20px 0px 0px;
+        border-radius: 9px;
         width: 100%;
         height: 145px;
         margin: 0px;
@@ -233,9 +245,9 @@ account .details div:last-child{
     border: 1px solid grey;
     border-radius: 9px;
     /* width: fit-content; */
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 0px;
-    width: 300px;
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -860,7 +872,7 @@ padding: 6px;
     .spaces_container {
         position: absolute;
         width: 500px;
-        height: 100vh;
+        height: 90vh;
         margin-left: -12%;
         background-color: white;
     }
@@ -877,9 +889,9 @@ padding: 6px;
         align-items: center;
     }
     .spaces_container{
-        height: 600px;
-        display: flex;
-        flex-direction: column;
+        height: 90vh;
+        /* display: flex;
+        flex-direction: column; */
         align-items: center;
         padding-top: 10px;
         padding-bottom: 10px;
