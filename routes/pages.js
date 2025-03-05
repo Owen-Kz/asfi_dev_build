@@ -220,6 +220,7 @@ const mergeAPI = require("../controllers/external/mergeAPI");
 const deleteFile = require("../controllers/external/deleteFile");
 const getProfilePublications = require("../controllers/profile/getASFIPublicationsFrProfile");
 const siteMap = require("../controllers/services/siteMap");
+const deleteSpace = require("../controllers/spaces/deleteSpace");
 
 // ADMINISTRATOR 
 
@@ -1095,6 +1096,7 @@ router.get('/sitemap.xml', siteMap)
  
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 
+router.post("/deleteSpace/:space_id", LoggedIn, deleteSpace)
 
 
 
