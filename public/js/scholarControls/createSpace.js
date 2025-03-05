@@ -116,8 +116,9 @@ window.addEventListener = function(event) {
             }
 
             // Trigger form submission
-            document.getElementById("create_SPACE").click();
         }
+        document.getElementById("create_SPACE").click();
+
     });
 
     const space = document.getElementById("space");

@@ -54,7 +54,7 @@ const createSpaces = async (req, res) => {
           res.json({ message: "This space already exists" });
         } else {
           let privateKey = privateSpace === "yes" ? generateSpaceKey() : "no";
-          let thumbnailUrl = req.file ? req.file.path : null; // Cloudinary URL
+          let thumbnailUrl = req.file ? req.file.path : "cover.jpg"; // Cloudinary URL
 
           db.query(
             "INSERT INTO spaces SET ?",
