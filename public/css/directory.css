@@ -911,7 +911,7 @@ padding: 6px;
   }
   @media (max-width: 640px) {
     .space{
-        width: 45%;
+        width: 100%;
     }
   }
 

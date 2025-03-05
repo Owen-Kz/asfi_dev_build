@@ -22,6 +22,7 @@ const SpaceSettings = async (req,res) =>{
                     const SpaceDescription = space[0].space_description
                     const SpaceMembersCount = space[0].members_count
                     const SpaceCover = space[0].space_cover
+                    const PassKey = space[0].space_passkey
                   
                     if(space[0].space_admin != req.user.id){
                         res.redirect(`/spaces/${SpaceId}`)
@@ -38,7 +39,8 @@ const SpaceSettings = async (req,res) =>{
                         spaceId: SpaceId,
                         chat_id: SpaceId,
                         Email:req.user.email,
-                        isPrivate:space[0].is_private
+                        isPrivate:space[0].is_private,
+                        PassKey:PassKey
                     })
                 }
                 }else{

@@ -51,7 +51,7 @@ if(invitedUsers.length > 0){
             
         }
        }else{
-        waitingList.innerHTML = `<li>No waitin room requests available</li>`
+        waitingList.innerHTML = `<li>No waiting room requests available</li>`
        }
     }
 )

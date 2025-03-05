@@ -654,12 +654,12 @@ transition: ease-in-out 300ms;
   content-visibility: hidden;
 }
 
-.main_directory .spaces_main{
+/* .main_directory .spaces_main{
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-}
+} */
 
 .main_directory .spaces_main .space{
   margin-top: 10px;

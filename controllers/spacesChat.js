@@ -21,6 +21,7 @@ const SpacesChat = async (req,res) =>{
                     const SpaceDescription = space[0].space_description
                     const SpaceMembersCount = space[0].members_count
                     const SpaceCover = space[0].space_cover
+                    const PassKey = space[0].space_passkey
                     let isAdmin = "no"
                     if(space[0].space_admin == req.user.id){
                         isAdmin = "yes"
@@ -39,7 +40,8 @@ const SpacesChat = async (req,res) =>{
                             spaceId: SpaceId,
                             chat_id: SpaceId,
                             Email:req.user.email,
-                            isAdmin:  isAdmin
+                            isAdmin:  isAdmin,
+                            PassKey: PassKey
                         })
                     }
                     function renderVerify(){
