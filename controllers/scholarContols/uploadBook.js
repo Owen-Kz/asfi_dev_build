@@ -6,7 +6,7 @@ const path = require("path");
 const upload = multer();
 
 const booksFolderPath = path.join(__dirname, "../../public/userUpload/books");
-const thumbnailsFolderPath = path.join(__dirname, "../../public/userUpload/bookThumbnails");
+const thumbnailsFolderPath = path.join(__dirname, "../../public/userUpload/thumbnails");
 
 fs.access(booksFolderPath, fs.constants.W_OK, (err) => {
   if (err) {

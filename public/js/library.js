@@ -96,7 +96,7 @@ Books_Data.forEach(book => {
   if(bookCover === "cover.jpg"){
     var imgSrc = `https://eu.ui-avatars.com/api/?background=random&name=${bookTitle}&font-size=0.5&size=125&background=333333&color=ffffff`
   }else{
-    var imgSrc = `/userUploads/bookThumbnails/${bookCover}`
+    var imgSrc = `/userUploads/thumbnails/${bookCover}`
   }
 
   book_list.innerHTML += `<li class="card shadow h-50">

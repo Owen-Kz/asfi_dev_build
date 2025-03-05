@@ -22,8 +22,14 @@ const siteMap = async (req, res) => {
         smStream.write({ url: '/Podcasts', changefreq: 'daily', priority: 1.0 });
 
 
-        smStream.write({ url: '/about', changefreq: 'weekly', priority: 0.8 });
+        smStream.write({ url: '/aboutUS', changefreq: 'weekly', priority: 0.8 });
         smStream.write({ url: '/contact', changefreq: 'monthly', priority: 0.5 });
+        smStream.write({ url: '/register', changefreq: 'monthly', priority: 0.5 });
+        smStream.write({ url: '/login', changefreq: 'monthly', priority: 0.5 });
+        smStream.write({ url: '/home', changefreq: 'monthly', priority: 0.5 });
+
+
+
 
         // get user profiles from the database
         const pages = await getProfileForSiteMap();
