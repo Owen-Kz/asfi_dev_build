@@ -1,89 +1,95 @@
 const db = require("../routes/db.config");
 const multer = require("multer");
-const fs = require("fs");
 const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { config } = require("dotenv");
 
-// const upload = multer();
-// const thumbnailsFolderPath = path.join(__dirname, "../../public/userUpload/spaceCovers");
 
-// fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
-//   if (err) {
-//     console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
-//   } else {
-//     console.log(`The folder '${thumbnailsFolderPath}' is writable`);
-//   }
-// });
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-// const thumbnailStorage = multer.diskStorage({
-//   destination: thumbnailsFolderPath,
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1E9);
-//     const fileName = file.originalname.split(".")[0];
-//     const fileExtension = path.extname(file.originalname);
-//     const thumbnailFile = uniqueSuffix + fileExtension;
-//     cb(null, thumbnailFile);
-//   },
-// });
+// Configure Multer for Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "thumbs", // Uploads to this folder in Cloudinary
+    allowed_formats: ["jpg", "png", "jpeg", "gif"],
+    public_id: (req, file) => `thumbnail_${Date.now()}_${Math.round(Math.random() * 1E9)}`,
+  },
+});
 
-// const thumbnailUpload = multer({ storage: thumbnailStorage }).single("thumbnail");
+const upload = multer({ storage }).single("thumbnail");
 
-function generateSpaceKey(){
-    let part1 = Math.floor(100 + Math.random() * 900);  // Generates a 4-digit number
-    let part2 = Math.floor(100 + Math.random() * 900);  // Generates another 4-digit number
-    const uniqueCode = `${part1}-${part2}`;
-
-    return uniqueCode
+function generateSpaceKey() {
+  let part1 = Math.floor(100 + Math.random() * 900);
+  let part2 = Math.floor(100 + Math.random() * 900);
+  return `${part1}-${part2}`;
 }
 
-const createSpaces = async (req, res) =>{
-  // Use the thumbnailUpload middleware first
-//   thumbnailUpload(req, res, function (err) {
-    // if (err) {
-    //   return res.status(500).send(err);
-    // }
+const createSpaces = async (req, res) => {
+  upload(req, res, async (err) => {
+
+    if (err) {
+        console.log(err)
+      return res.status(500).json({ message: "File upload failed", error: err.message });
+    }
+
+    const { spaceTitle, shortDescription, bufferSpace, privateSpace } = req.body;
+    const FromPosters = req.query.fromPosters;
     
-    const {spaceTitle, shortDescription, Buffer, isPrivate} = req.body
-    const FromPosters = req.query.fromPosters
-    try{
-
-    let isFromPoster = "false"
-    if(FromPosters && FromPosters === "true"){
-        isFromPoster = "true"
+    if (!bufferSpace) {
+      return res.json({ message: "An Error Occurred: Buffer is missing" });
     }
 
-    // console.log("REQUESTBODY: ", req.body)
+    try {
+      db.query("SELECT * FROM spaces WHERE space_id = ?", [bufferSpace], (err, spaceData) => {
+        if (err) throw err;
 
-if(Buffer){
-    db.query("SELECT * FROM spaces WHERE space_id =?",[Buffer], (err, spaceData)=>{
-        if(err) throw err
-        if(spaceData[0]){
-            res.json({message:"This space already Exists"})
-        }else{
-            let privateKey = "no"
+        if (spaceData[0]) {
+          res.json({ message: "This space already exists" });
+        } else {
+          let privateKey = privateSpace === "yes" ? generateSpaceKey() : "no";
+          let thumbnailUrl = req.file ? req.file.path : null; // Cloudinary URL
 
-            if(isPrivate === "yes"){
-                privateKey = generateSpaceKey()
+          db.query(
+            "INSERT INTO spaces SET ?",
+            [
+              {
+                space_id: bufferSpace,
+                space_focus: spaceTitle,
+                space_description: shortDescription,
+                isFromPoster: FromPosters === "true" ? "true" : "false",
+                space_passkey: privateKey,
+                is_private: privateSpace,
+                space_admin: req.user.id,
+                space_cover: thumbnailUrl, // Store thumbnail URL in DB
+              },
+            ],
+            (err, newSpace) => {
+              if (err) throw err;
+
+              if (newSpace) {
+                res.json({
+                  success: "space_created",
+                  message: "Space Created Successfully",
+                  space_key: privateKey,
+                  thumbnail_url: thumbnailUrl, // Return the Cloudinary URL
+                });
+              }
             }
-
-            db.query("INSERT INTO spaces SET ?", [{space_id:Buffer, space_focus:spaceTitle, space_description:shortDescription, isFromPoster:isFromPoster, space_passkey:privateKey, is_private:isPrivate, space_admin:req.user.id}], (err, newSpace)=>{
-                if(err) throw err
-                if(newSpace){
-                    res.json({success:"space_created", message: `Space Created Succesfully`, space_key:privateKey });
-                }
-            })
+          );
         }
-    })
-
-//   });
-}else{
-    res.json({ message: "An Error Occured" });
-
-}
-    }catch(error){
-        console.log(error)
-        return res.json({message:error.message})
+      });
+    } catch (error) {
+      console.error(error);
+      return res.json({ message: error.message });
     }
-}; 
-
+  });
+};
 
 module.exports = createSpaces;

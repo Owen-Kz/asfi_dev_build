@@ -132,12 +132,14 @@ window.addEventListener = function(event) {
         const formData = new FormData(space); // Automatically collects all form data
 
         // Append additional necessary fields
-        formData.append("thumbnail", thumbnail.files[0]);
-        formData.append("bufferSpace", document.getElementById("bufferSpace").value);
-        formData.append("spaceTitle", spaceTitle.value);
-        formData.append("shortDescription", shortDescription.value);
-        formData.append("isPrivate", isPrivate);
-        console.log(formData)
+
+        
+        // formData.append("bufferSpace", document.getElementById("bufferSpace").value);
+        // formData.append("spaceTitle", spaceTitle.value);
+        // formData.append("shortDescription", shortDescription.value);
+        // formData.append("isPrivate", isPrivate);
+        // formData.append("thumbnail", thumbnail.files[0]);
+
 
         // Send the FormData via fetch
         fetch("/createSpaces", {
