@@ -104,7 +104,7 @@ app.use("/api/directoryQuery", require("./controllers/directory"))
 
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-
+app.use(express.static('public'));
 app.use("/css", express.static(__dirname + "/public/css", { type: 'text/css' }))
 app.use("/js", express.static(__dirname + "/public/js", { type: 'text/javascript' }))
 app.use("/vendor", express.static(__dirname + "/public/vendor", {type: 'text/javacript'}))

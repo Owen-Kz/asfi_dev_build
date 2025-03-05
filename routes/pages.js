@@ -219,6 +219,7 @@ const getMessageNotifications = require("../controllers/chatFileTransfers/getMes
 const mergeAPI = require("../controllers/external/mergeAPI");
 const deleteFile = require("../controllers/external/deleteFile");
 const getProfilePublications = require("../controllers/profile/getASFIPublicationsFrProfile");
+const siteMap = require("../controllers/services/siteMap");
 
 // ADMINISTRATOR 
 
@@ -1089,6 +1090,9 @@ router.post("/updateSpaceSettings", LoggedIn, updateSpaceData)
 
 router.get("/directory/users/spaces/:space_id", LoggedIn, GetUsersToInvite)
 router.get("/s/m/spaces/accept/:space_id", LoggedInExternal, acceptInvitationPage)
+
+router.get('/sitemap.xml', siteMap)
+ 
 // GEt SCholar Profile 
 router.get("/findGoogleScholar", getGoogleProfile) 
 

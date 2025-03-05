@@ -9,7 +9,7 @@ const find_info_for_SEO = async (req, res) => {
       // const username_visitor = req.params.username;
       const username_visitorQuery = () =>{
         return new Promise((resolve, reject) =>{
-          db.query("SELECT username FROM user_info WHERE unique_code = ?",[req.params.username], (err, data) =>{
+          db.query("SELECT username FROM user_info WHERE unique_code = ? OR username = ?",[req.params.username, req.params.username], (err, data) =>{
             if(err){
               console.log(err)
               reject("invalidParameters")

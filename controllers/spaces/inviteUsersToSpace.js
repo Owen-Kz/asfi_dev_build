@@ -1,5 +1,6 @@
 const db = require("../../routes/db.config")
 const spaceInvitationNotification = require("../notifications/spaceInvitation")
+const saveNotification = require("../scholarContols/saveNotification")
 const sendEmail = require("../utils/sendEmail")
 
 const inviteUserToSpace = async (req,res) =>{
@@ -40,6 +41,7 @@ const inviteUserToSpace = async (req,res) =>{
                                 }
                                 const subject = "Invitation to Join Spaace on ASFIScholar"
                                 const useremail = userData[0].email
+                                const username = userData[0].username
                                 const message = `
                                 <style>
                       body{
@@ -109,6 +111,7 @@ const inviteUserToSpace = async (req,res) =>{
                       res.json({success:"Invitation sent"})
                       
                                 await sendEmail(useremail, subject, message)
+                               await saveNotification(req.user.username,userData[0].username,`Invitation to Join ${spaceData[0].space_focus}`, req.user.profile_picture, `https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}`)
 
                             }
                         })
