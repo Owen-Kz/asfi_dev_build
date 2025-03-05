@@ -146,16 +146,16 @@
           <personal_info>
             <account_name><%=user_first_name %> <%= user_last_name %></account_name>
           </personal_info>
+<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+    <% if(user_profile_picture == "avatar.jpg"){ %>
+    <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
+    <% } else { %>
 
-          <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if(user_profile_picture == "avatar.jpg"){ %>
-            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= user_first_name %>+<%= user_last_name %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= user_profile_picture %> '>
-            <% } else { %>
+    <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
+    <% }%>
 
-            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=user_profile_picture%>" alt="profile_img">
-            <% }%>
-
-          </a>
+  </a>
+         
 
 
           <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">

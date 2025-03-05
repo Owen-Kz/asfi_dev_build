@@ -1,9 +1,26 @@
 <h4 class="header">Google Scholar</h4>
 <input type="text" value="<%= searchName %>" id="name" name="name" hidden>
 <!-- Progress item -->
-<div id="googleScholar_container">     
-</div>
 
+<div class="google-container" id="googleScholar_container">
+
+        <!-- Scholar Profile Header -->
+        <div class="profile-header">
+          <h1 id="scholar-name"></h1>
+          <p id="scholar-affiliation"></p>
+          <p id="scholar-email"></p>
+          <p id="scholar-cited-by"></p>
+        </div>
+    
+        <!-- Publications List -->
+        <div id="publications-container">
+          <!-- Publications will be dynamically injected here -->
+        </div>
+    
+        <!-- Pagination Controls -->
+        <div class="pagination" id="pagination-controls"></div>
+  
+  </div>
 
 
 <script src="/js/searchQueries/getGoogleScholar.js"></script>

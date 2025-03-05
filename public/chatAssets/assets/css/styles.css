@@ -26908,7 +26908,9 @@ fieldset:disabled .btn {
     }
 
     .ms-lg-0 {
-        margin-left: 0 !important
+        margin-left: 0 !important;
+        display: flex;
+        align-items: center;
     }
 
     .ms-lg-1 {

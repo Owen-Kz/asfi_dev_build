@@ -20,7 +20,7 @@ header{
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
-    height: 54px !important;
+    /* height: 54px !important; */
     width: 54px !important;
 }
 
