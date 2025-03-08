@@ -39,7 +39,9 @@ const siteMap = async (req, res) => {
 
         streamToPromise(pipeline).then(sm => {
            // Define the correct path to the public directory in the parent folder
-        const sitemapPath = path.resolve(__dirname, '../public/sitemap.xml.gz');
+        // const sitemapPath = path.resolve(__dirname, '../public/sitemap.xml.gz');
+        const sitemapPath = path.resolve(process.cwd(), 'public/sitemap.xml.gz');
+
 
         fs.writeFileSync(sitemapPath, sm);
         });
