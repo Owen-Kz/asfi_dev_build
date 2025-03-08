@@ -127,7 +127,6 @@
     .google-container {
       max-width: 800px;
       margin: 0 auto;
-      background: #fff;
       padding: 20px;
       border-radius: 5px;
     }
@@ -144,7 +143,6 @@ p{
     }
     .profile-header p {
       margin: 4px 0;
-      color: #555;
       font-size: 14px;
     }
     .publication {
@@ -158,14 +156,12 @@ p{
     }
     .publication h3 a {
       text-decoration: none;
-      color: #1a0dab;
 	  font-family: "Heebo", sans-serif;
     }
     .publication .authors,
     .publication .publication-info,
     .publication .cited-by {
       font-size: 14px;
-      color: #555;
       margin-bottom: 3px;
 	  font-family: "Heebo", sans-serif;
     }
@@ -176,7 +172,6 @@ p{
     .pagination button {
       background-color: #f2f2f2;
       border: 1px solid #ccc;
-      color: #333;
       padding: 5px 10px;
       margin: 2px;
       cursor: pointer;
@@ -378,9 +373,9 @@ Page Banner START -->
                                         <a href="#">
 											<!-- <button class="buttons">										</button> -->
                                         <i class="fas fa-book text-purple me-1"></i><% if(BooksSum > 1 || BooksSum == 0) { %>
-                                            <span><%= BooksSum %> Books</span> 
+                                            <span><%= BooksSum %> Publications</span> 
                                             <% } else { %>
-                                                <span><%= BooksSum %> Book</span>  
+                                                <span><%= BooksSum %> Publication</span>  
                                             <% } %>
 										</a>										
                                     </li>
