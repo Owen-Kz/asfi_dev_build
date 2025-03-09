@@ -252,7 +252,7 @@ font-family: "Heebo", sans-serif;
 			
                 <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
 					<% if(ProfileImage == "avatar.jpg"){ %>
-						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastname %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg" alt='<%= ProfileImage %> '>
 						<% } else { %>
 
 							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
@@ -310,7 +310,7 @@ font-family: "Heebo", sans-serif;
 <main class="profile_main">
  <!-- =======================
 Page Banner START -->
-<section class="pt-0 profile_section" style="width: 70%;">
+<section class="pt-0 profile_section" style="width: 80%;">
 	<!-- Main banner background image -->
 	<div class="container-fluid px-0">
 		<div class="bg-blue h-100px h-md-100px rounded-0 cover_image_container" style="background:url(/userUploads/profileCovers/<%=cover_photo%>) no-repeat center center; background-size:cover;">
@@ -342,8 +342,8 @@ Page Banner START -->
 
 								<ul class="list-inline mb-0">
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
-                                        <a href="/@<%= searchUSERNAME %>/chat"><button class="buttons">Message</button></a>
-                                        <i class="fas fa-comments text-info"></i>
+                                        <a href="/@<%= searchUSERNAME %>/chat"><button class="buttons"><i class="fas fa-comments text-info"></i>  Message</button></a>
+                                        
                                     </li>
 									
 								</ul>
@@ -356,14 +356,17 @@ Page Banner START -->
 			</div>
 		</div>
 	</div>
-	<div class="tabs">
-		<div class="tab active" onclick="showContent('ASFI')">ASFI Publications</div>
-		<div class="tab" onclick="showContent('Google Scholar')">Google Scholar Publications</div>
-		<div class="tab" onclick="showContent('Edu History')">Educational History</div>
-		<div class="tab" onclick="showContent('Work History')">Work History</div>
-		<div class="tab" onclick="showContent('Tech Expertise')">Technical Expertise</div>
-		<div class="tab" onclick="showContent('Awards')">Awards</div>
+	<div class="nav-container">
+		<div class="tabs">
+			<div class="tab active" onclick="showContent('ASFI')">ASFI Publications</div>
+			<div class="tab" onclick="showContent('Google Scholar')">Google Scholar Publications</div>
+			<div class="tab" onclick="showContent('Edu History')">Educational History</div>
+			<div class="tab" onclick="showContent('Work History')">Work History</div>
+			<div class="tab" onclick="showContent('Tech Expertise')">Technical Expertise</div>
+			<div class="tab" onclick="showContent('Awards')">Awards</div>
+		</div>
 	</div>
+	
 </div>
 </section>
 <!-- =======================
