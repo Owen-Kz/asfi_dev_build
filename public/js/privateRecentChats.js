@@ -67,7 +67,7 @@ const RecentCountContainer = document.getElementById("c-number");
       const content = `  <li>
           <a href="javascript:void(0)" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user" onclick=UpdateChatUI("${recentChat.buffer}")>
             <div class="d-flex align-items-center">
-              <span class="position-relative rounded-circle">
+              <span class="position-relative rounded-circle" style="height: 45px;">
                 <img src="${senderImage}" alt="user-profile" width="48" height="48" />
               </span>
               <div class="ms-3 d-inline-block w-75">

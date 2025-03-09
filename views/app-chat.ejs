@@ -100,6 +100,11 @@
 		margin-right: 20px;
 	}
 
+  .app-chat {
+    overflow-y: auto;
+    height: 50%;
+  }
+
 	@media (min-width: 1084px) {
 		.notify-container{
 		display: flex;
@@ -251,7 +256,7 @@
                   <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center">
                       <div class="position-relative">
-                        <div class="avatar-img rounded-circle border border-white border-3 shadow">
+                        <div class="avatar-img rounded-circle border border-white border-3 shadow" style="height: 54px;">
                           <img src="<%= senderImage %>" alt="user1" width="54" height="54" />
                         </div>
                         <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
@@ -302,7 +307,7 @@
                   <div class="chatting-box d-block">
                     <div class="p-9 border-bottom chat-meta-user d-flex align-items-center justify-content-between">
                       <div class="hstack gap-3 current-chat-user-name">
-                        <div class="position-relative rounded-circle">
+                        <div class="position-relative rounded-circle" style="height: 54px;">
                           <img src="" alt="user1" width="48" height="48" id="user_image" style="visibility: hidden;" />
                           <!-- <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
                             <span class="visually-hidden">New alerts</span>
