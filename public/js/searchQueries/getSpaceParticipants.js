@@ -61,7 +61,7 @@ if(PArticipants.length > 0){
      <li>
           <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
-              <span class="position-relative rounded-circle">
+              <span class="position-relative rounded-circle" style="height: 45px;">
                 <img src="${ProfileImageSrc}" alt="user-profile" width="48" height="48" />
               </span>
               <div class="ms-3 d-inline-block w-75">
