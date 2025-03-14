@@ -9,7 +9,7 @@ fetch("/getMessageNotifications", {
 })
 .then(res => res.json())
 .then(data => {
-    console.log(data);
+
 
     // Clear previous notifications before adding new ones
     Chat_id_container.innerHTML = "";

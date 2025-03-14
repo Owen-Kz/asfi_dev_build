@@ -35,6 +35,7 @@ const getPeopleFollowed = async (req, res) => {
                     ]);
 
                     let ASFIRJ_Publications = [];
+                    console.log(personEmail)
                     if (personEmail !== "NoData") {
                         const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`;
                         ASFIRJ_Publications = await findPublications(fullname);
