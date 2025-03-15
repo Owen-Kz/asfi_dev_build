@@ -7,11 +7,12 @@ const findPersonEmail = async (username) =>{
         if(err){
             console.log(err)
             reject(err)
-        }else if(data){
+        }else if(data[0]){
+            console.log(data)
     
             resolve(data)
         }else{
-            reject("NoData")
+            resolve("NoData")
         }
     })
 })
