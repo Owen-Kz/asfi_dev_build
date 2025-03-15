@@ -12,8 +12,8 @@ var FILE_URL = "/userUploads/Audio/<%= Podcast_File %>";
 
 var wavesurfer = WaveSurfer.create({
   container: OwnerID,
-  waveColor: 'rgb(205, 205, 205)',
-  progressColor: 'rgb(255, 150, 0)',
+  waveColor: 'rgb(244, 199, 255)',
+  progressColor: 'rgb(97, 7, 133)',
   barWidth: 4,
   responsive:true,
   height: 30,

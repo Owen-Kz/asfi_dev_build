@@ -26,11 +26,12 @@ const PlayPodcast = async (req,res) =>{
         const PodcastDuration = readingFile[0].podcast_duration
         const PodcastDate = readingFile[0].podcast_date_uploaded 
         const Podcast_File = readingFile[0].fileID
+        const podcastURL = readingFile[0].fileURL
         var BufferString = readingFile[0].buffer
 
     
 
-    res.render("playing.ejs", { PodcastTitle:PodcastTitle, PodcastDuration:PodcastDuration, PodcastOwner:PodcastOwner, PodcastOwnerFullname:PodcastOwnerFullname, PodcastDate:PodcastDate,  Podcast_File:Podcast_File, BufferString:BufferString})
+    res.render("playing.ejs", { PodcastTitle:PodcastTitle, PodcastDuration:PodcastDuration, PodcastOwner:PodcastOwner, PodcastOwnerFullname:PodcastOwnerFullname, PodcastDate:PodcastDate,  Podcast_File:Podcast_File, BufferString:BufferString, podcastURL})
     })
     }
 }

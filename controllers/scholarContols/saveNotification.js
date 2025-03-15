@@ -3,7 +3,7 @@ const db = require("../../routes/db.config");
 const saveNotification = async (sender, receiver, message, sender_image, endpoint) => {
     try{
     console.log("SAVE NOTIFICATION")
-    console.log(sender)
+
     // Check if notification exists within the last 5 minutes
     const query = `
         SELECT * 

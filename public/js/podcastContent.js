@@ -9,7 +9,7 @@ function updateUIWithData(PODCAST_ARRAY){
         podcastOwner_fullname = podcastData.podcast_owner_fullname
         PodcastDuration = podcastData.podcast_duration
         PodcastDate = podcastData.date_uploaded
-        Podcast_File = podcastData.fileID
+        Podcast_File = podcastData.fileURL
         BufferString = podcastData.buffer
         
 
@@ -59,12 +59,12 @@ function updateUIWithData(PODCAST_ARRAY){
     var DownloadBTN = document.getElementById(`${BufferString}_dload`)
     var FILE_NAME = `${BufferString}`
     var DurationSpan = document.getElementById(`${PodcastOwner}_duration`)
-    var FILE_URL = `/userUploads/Audio/${Podcast_File}`;
+    var FILE_URL = `${Podcast_File}`;
 
   var wavesurfer = WaveSurfer.create({
       container: podcastIdentifier,
-      waveColor: 'rgb(205, 205, 205)',
-      progressColor: 'rgb(255, 150, 0)',
+      waveColor: 'rgb(244, 199, 255)',
+      progressColor: 'rgb(97, 7, 133)',
       barWidth: 4,
       responsive:true,
       height: 30,

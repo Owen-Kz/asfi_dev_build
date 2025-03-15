@@ -101,8 +101,8 @@
 
       var wavesurfer = WaveSurfer.create({
       container: OwnerID,
-      waveColor: 'rgb(205, 205, 205)',
-      progressColor: 'rgb(255, 150, 0)',
+      waveColor: 'rgb(244, 199, 255)',
+      progressColor: 'rgb(97, 7, 133)',
       barWidth: 4,
       responsive:true,
       height: 30,
@@ -123,11 +123,11 @@
     var DurationSpan = document.getElementById("<%= PodcastOwner %>_duration")
 
  
-    // var FILE_URL = "/userUploads/Audio/<%= Podcast_File %>";
+
     const Buffer = "<%= BufferString %>"
     const FILE_URL = await fetchPodcast(Buffer)
 
-    const FIlePath = "/userUploads/Audio/<%= Podcast_File %>";
+    const FIlePath = "<%= podcastURL %>";
  
 
     if(FILE_URL){

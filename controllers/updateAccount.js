@@ -4,8 +4,8 @@ const updateAccount = async (req, res) => {
     if(req.user){
         const  usernameValidator_main = req.user.username
         const AccountType = req.user.acct_type
-    const { firstname, lastname, username, phonenumber, title, prefix, bio, user, gender, NewLocation } = req.body;
-
+    const { firstname, lastname, phonenumber, title, prefix, bio, user, gender, NewLocation } = req.body;
+    const username = String(req.body.username || "").replace(/\s+/g, "");
     try {
         const success = [];
         if (usernameValidator_main) {

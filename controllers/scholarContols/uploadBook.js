@@ -1,71 +1,53 @@
 const db = require("../../routes/db.config");
 const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const newPostNotification = require("../notifications/newPostNotifications");
 
-const upload = multer();
-
-const booksFolderPath = path.join(__dirname, "../../public/userUpload/books");
-const thumbnailsFolderPath = path.join(__dirname, "../../public/userUpload/thumbnails");
-
-fs.access(booksFolderPath, fs.constants.W_OK, (err) => {
-  if (err) {
-    console.error(`The folder '${booksFolderPath}' is not writable:`, err);
-  } else {
-    console.log(`The folder '${booksFolderPath}' is writable`);
-  }
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  timeout: 120000, // Increase timeout to 2 minutes
 });
 
-fs.access(thumbnailsFolderPath, fs.constants.W_OK, (err) => {
-  if (err) {
-    console.error(`The folder '${thumbnailsFolderPath}' is not writable:`, err);
-  } else {
-    console.log(`The folder '${thumbnailsFolderPath}' is writable`);
-  }
-});
+// Set up multer (store files in memory)
+const upload = multer({ storage: multer.memoryStorage() });
 
-const booksStorage = multer.diskStorage({
-  destination: booksFolderPath,
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1E9);
-    const fileName = file.originalname.split(".")[0];
-    const fileExtension = path.extname(file.originalname);
-    const booksFile = uniqueSuffix + fileExtension;
-    cb(null, booksFile);
-  },
-});
+// Cloudinary upload function with retry mechanism
+const uploadToCloudinary = (buffer, fileName, retries = 3) => {
+  return new Promise((resolve, reject) => {
+    let attempt = 0;
+    const uploadStream = () => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "asfischolar/books", resource_type: "raw", public_id: fileName },
+        (error, result) => {
+          if (error) {
+            if (error.http_code === 499 && attempt < retries) {
+              console.log(`Retrying upload (attempt ${attempt + 1})...`);
+              attempt++;
+              return setTimeout(uploadStream, 3000); // Wait 3s before retrying
+            }
+            return reject(error);
+          }
+          resolve(result.secure_url);
+        }
+      );
+      stream.end(buffer);
+    };
+    uploadStream();
+  });
+};
 
-// const thumbnailsStorage = multer.diskStorage({
-//   destination: thumbnailsFolderPath,
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1E9);
-//     const fileName = file.originalname.split(".")[0];
-//     const fileExtension = path.extname(file.originalname);
-//     const thumbnailFile = uniqueSuffix + fileExtension;
-//     cb(null, thumbnailFile);
-//   },
-// });
+const uploadBook = async (req, res) => {
+  try {
+    upload.single("file_pdf")(req, res, async function (err) {
+      if (err) {
+        console.error("Multer error:", err);
+        return res.status(500).send("File upload failed.");
+      }
 
-const booksUpload = multer({ storage: booksStorage }).single("file_pdf");
-// const thumbnailsUpload = multer({ storage: thumbnailsStorage }).single("image_upload");
-
-
-const uploadBook = (req, res) => {
-  try{
-  booksUpload(req, res, function (err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    // thumbnailsUpload(req, res, function (err) {
-    //   if (err) {
-    //     return res.status(500).send(err);
-    //   }
-
-      // Extract the relevant data from req.body
-      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link, url_title} = req.body;
-      // console.log(req.body)
-      // console.log(req.file)
+      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link, url_title } = req.body;
 
       if (booksTitle && BookOwner && yearPublished) {
         const currentDate = new Date();
@@ -73,130 +55,90 @@ const uploadBook = (req, res) => {
         const currentMonth = currentDate.toLocaleString("en-US", options).slice(0, 3);
         const currentDay = currentDate.getDate().toString().padStart(2, "0");
         const dateString = `${currentMonth}, ${currentDay}`;
-  
-        // Check if the data already exists in the database
-        db.query(
+
+        // Check if the book already exists
+        const [existingBook] = await db.promise().query(
           "SELECT * FROM books WHERE book_title = ? AND book_author = ? AND datePublished = ?",
-          [booksTitle, BookOwner, dateString],
-          (err, exists) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).render("error.ejs",{ status: `A Book already exists with provided Credentials` });
-            }
-            if (exists[0]) {
-              // Data already exists in the database
-              return res.render("error.ejs",{
-                status: `A books titled ${booksTitle} was uploaded today by @${BookOwner}`,
-              });
-            }
-            else{
-        // Access the uploaded files using req.file and req.thumbnail
+          [booksTitle, BookOwner, dateString]
+        );
+
+        if (existingBook.length > 0) {
+          return res.render("error.ejs", {
+            status: `A book titled ${booksTitle} was uploaded today by @${BookOwner}`,
+          });
+        }
+
+        if (!req.file) {
+          return res.status(400).render("error.ejs", { status: "No file uploaded" });
+        }
+
         const uploadedFile = req.file;
-        // const thumbnailFile = req.thumbnail;
-
-        // ... (rest of your code)
-
-        // INSERT THE UPLOADED FILES WITH DATA INTO THE DATABASE
-        const encryptedFileName = uploadedFile.filename;
-        // const thumbnailFileName = thumbnailFile.filename;
         const fileType = uploadedFile.mimetype;
+        const uniqueFilename = `${Date.now()}-${uploadedFile.originalname}`;
 
-        db.query(
-          "INSERT INTO books SET ?",
-          [
-            {
+        try {
+          // Upload file to Cloudinary
+          const fileUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);
+
+          // Insert book details into database
+          await db.promise().query(
+            "INSERT INTO books SET ?",
+            [{
               book_title: booksTitle,
               book_id: bufferBook,
               book_author: BookOwner,
               book_year: yearPublished,
-              file: encryptedFileName,
+              file: fileUrl,
               book_cover: "cover.jpg",
               fileEXT: fileType,
               datePublished: dateString,
               book_owner_username: BookOwner_fullname,
-            },
-          ],
-          (err, booksUploaded) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).render("error.ejs", { status: "Network Error" });
-            }
+            }]
+          );
 
-          const buffer = fs.readFileSync(uploadedFile.path);
+          // Insert Cloudinary file URL into `files` table
+          await db.promise().query(
+            "INSERT INTO files (filename, filedata) VALUES (?, ?)",
+            [uniqueFilename, fileUrl]
+          );
 
-            // Copy the uploaded files to the destination folders
-            const sourcePath = uploadedFile.path;
-            // const thumbnailPath = thumbnailFile.path;
-            const destinationPath = path.join(booksFolderPath, encryptedFileName);
-            // const thumbnailDestinationPath = path.join(thumbnailsFolderPath, thumbnailFileName);
+          console.log("Book uploaded successfully to Cloudinary");
 
-              
-            const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
-            const values = [uploadedFile.filename, buffer];
- 
-                        fs.copyFile(sourcePath, destinationPath, (err) => {
-                          if (err) {
-                            console.error("Error copying file:", err);
-                            return res.status(500).render("error.ejs",{status: "Error copying file" });
-                          }
-                         // File copied successfully
-                    db.query(query, values, async(err,image)=>{
-                      if(err) throw err
-                      console.log("Book Inserted Successfully")
-          
-                      fs.unlink(sourcePath, (unlinkErr) => {
-                      if (unlinkErr) {
-                        console.error('Error deleting local PDF file:', unlinkErr);
-                      } else {
-                        console.log('Local PDF file deleted successfully.');
-                      }
-                      });
-    
-          
-                    })
+          // Send notification and respond
+          const message = `Just uploaded a book`;
+          await newPostNotification(req, res, message, `https://asfischolar.org/library/b/${bufferBook}`);
+          res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });
 
-    
-
-                // Files copied successfully
-                res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });
-              // });
-            });
-          });
+        } catch (cloudinaryError) {
+          console.error("Cloudinary upload error:", cloudinaryError);
+          res.status(500).render("error.ejs", { status: "Error uploading to Cloudinary" });
         }
-      })
-      } if(url_Link){
-        const owner = req.body.BookOwner
-        const OwnerFullname = req.body.BookOwner_fullname
-        const mainLink = req.body.url_Link
-        const bufferLink = req.body.bufferBook
-  
-        db.query("SELECT * FROM external_links WHERE link_href =? AND link_owner =?", [mainLink, owner] ,async(err,linkExists)=>{
-          if(err) throw err
-          if(linkExists[0]){
-          const linkExists_href = linkExists[0]["link_href"]
-          res.render("error", {status:"Link Already Exists"})
-          }else{
-            db.query("INSERT INTO external_links SET ?", [{link_href:mainLink, link_owner:owner, link_buffer: bufferLink, link_owner_fullname: OwnerFullname, link_title:url_title}], async (err,Lnk) => {
-  
-              if(err) throw err
-              res.render("successful", {status:"Link Added Succesfully", page:"/library"})
-  
-            })
-          }
-        })
-        
-      }if(!url_Link && !booksTitle){
-        
-          res.status(400).render("error.ejs", { status: "Missing required data" });
-        
-      }
-    // });
-  });
-}catch(error){
 
-    return res.status(500).send(error.message);
-  
-}
+      } else if (url_Link) {
+        // Handle URL-based book upload
+        const [existingLink] = await db.promise().query(
+          "SELECT * FROM external_links WHERE link_href = ? AND link_owner = ?",
+          [url_Link, BookOwner]
+        );
+
+        if (existingLink.length > 0) {
+          return res.render("error.ejs", { status: "Link Already Exists" });
+        }
+
+        await db.promise().query(
+          "INSERT INTO external_links SET ?",
+          [{ link_href: url_Link, link_owner: BookOwner, link_buffer: bufferBook, link_owner_fullname: BookOwner_fullname, link_title: url_title }]
+        );
+
+        res.render("successful.ejs", { status: "Link Added Successfully", page: "/library" });
+      } else {
+        res.status(400).render("error.ejs", { status: "Missing required data" });
+      }
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).send("Internal server error.");
+  }
 };
 
 module.exports = uploadBook;

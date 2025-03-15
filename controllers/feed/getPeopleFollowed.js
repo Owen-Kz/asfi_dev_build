@@ -25,7 +25,8 @@ const getPeopleFollowed = async (req, res) => {
 
             try {
                 const dataPromises = followers.map(async (user) => {
-                    const person = user.followingUsername;
+                    const person = String(user.followingUsername || "").trim();
+
 
                     const [AllBooks, AllPodcasts, AllLinks, personEmail] = await Promise.all([
                         findBooks(person),
@@ -35,7 +36,7 @@ const getPeopleFollowed = async (req, res) => {
                     ]);
 
                     let ASFIRJ_Publications = [];
-                    console.log(personEmail)
+                   
                     if (personEmail !== "NoData") {
                         const fullname = `${personEmail[0].first_name} ${personEmail[0].last_name}`;
                         ASFIRJ_Publications = await findPublications(fullname);

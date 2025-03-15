@@ -2,135 +2,118 @@ const db = require("../../routes/db.config");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const newPostNotification = require("../notifications/newPostNotifications");
 
-const folderPath = path.join(__dirname, "../../public/userUpload/audio");
-
-fs.access(folderPath, fs.constants.W_OK, (err) => {
-  if (err) {
-    // console.error(`The folder '${folderPath}' is not writable:`, err);
-  } else {
-    // console.log(`The folder '${folderPath}' is writable`);
-  }
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  timeout: 120000, // Increased timeout to 2 minutes
 });
 
+// Set up multer (temporary local storage before Cloudinary upload)
 const storage = multer.diskStorage({
-  destination: folderPath,
+  destination: path.join(__dirname, "../../temp"), // Temporary folder
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1E9);
-    const fileName = file.originalname.split(".")[0];
+    const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1e9);
     const fileExtension = path.extname(file.originalname);
-    const podcastFile = uniqueSuffix + fileExtension;
-    cb(null, podcastFile);
+    cb(null, uniqueSuffix + fileExtension);
   },
 });
 
 const uploads = multer({ storage }).single("file_audio");
 
+// Cloudinary upload with retry mechanism
+async function uploadToCloudinary(filePath, retries = 3) {
+  let attempt = 0;
+  while (attempt < retries) {
+    try {
+      return await cloudinary.uploader.upload(filePath, {
+        resource_type: "auto", // Automatically detects file type
+        folder: "/asfischolar/podcasts",
+        chunk_size: 6000000, // Upload in 6MB chunks
+      });
+    } catch (error) {
+      if (error.http_code === 499 && attempt < retries - 1) {
+        console.log(`Retrying upload (attempt ${attempt + 1})...`);
+        attempt++;
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait 3s before retrying
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+
 const createPodcast = (req, res) => {
-  uploads(req, res, function (err) {
+  uploads(req, res, async function (err) {
     if (err) {
-      // An error occurred during file upload
-      return res.status(500).send(err);
+      console.error("Error during file upload:", err);
+      return res.status(500).render("error.ejs", { status: "File upload failed" });
     }
 
-    // Extract the relevant data from req.body
     const { podcastTitle, podcastOwner, buffer, podcastOwner_fullname } = req.body;
+    if (!podcastTitle || !podcastOwner) {
+      return res.status(400).render("error.ejs", { status: "Missing required data" });
+    }
 
-    if (podcastTitle && podcastOwner) {
-      // GET THE DATE
-      const currentDate = new Date();
-      const options = { month: "short" };
-      const currentMonth = currentDate.toLocaleString("en-US", options).slice(0, 3);
-      const currentDay = currentDate.getDate().toString().padStart(2, "0");
-      const dateString = `${currentMonth}, ${currentDay}`;
+    const currentDate = new Date();
+    const options = { month: "short" };
+    const dateString = `${currentDate.toLocaleString("en-US", options).slice(0, 3)}, ${currentDate.getDate().toString().padStart(2, "0")}`;
 
-      // Check if the data already exists in the database
-      db.query(
+    try {
+      // Check if the podcast already exists
+      const [exists] = await db.promise().query(
         "SELECT * FROM podcasts WHERE podcast_title = ? AND podcast_owner = ? AND date_uploaded = ?",
-        [podcastTitle, podcastOwner, dateString],
-        (err, exists) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).render("error.ejs",{ status: "Network Error / Server Error" });
-          }
-          if (exists[0]) {
-            // Data already exists in the database
-            return res.render("error.ejs",{
-              status: `A podcast titled ${podcastTitle} was uploaded today by @${podcastOwner}`,
-            });
-          }
-          else{
-          // Access the uploaded file using req.file
-          const uploadedFile = req.file;
+        [podcastTitle, podcastOwner, dateString]
+      ); 
 
-          // INSERT THE UPLOADED FILE WITH DATA INTO THE DATABASE
-          const encryptedFileName = uploadedFile.filename;
-          const FileType = uploadedFile.mimetype;
-
-    
-          db.query(
-            "INSERT INTO podcasts SET ?",
-            [
-              {
-                podcast_title: podcastTitle,
-                podcast_owner: podcastOwner,
-                podcast_owner_fullname: podcastOwner_fullname,
-                date_uploaded: dateString,
-                fileID: encryptedFileName,
-                buffer: buffer,
-                fileEXT: FileType
-              },
-            ],
-            (err, podcastUploaded) => {
-              if (err) {
-                console.error(err);
-                return res.status(500).render("error.ejs",{ status: "Network Error" });
-              }
-
-              // Copy the uploaded file to the destination folder
-              const sourcePath = uploadedFile.path;
-              const destinationPath = path.join(folderPath, encryptedFileName);
-
-      // console.log(FileType)
-      const buffer = fs.readFileSync(uploadedFile.path);
-              
-            const query = `INSERT INTO files (filename, filedata) VALUES (?, ?)`;
-            const values = [uploadedFile.filename, buffer];
-
-                  fs.copyFile(sourcePath, destinationPath, (err) => {
-                    if (err) {
-                      console.error("Error copying file:", err);
-                      return res.status(500).render("error.ejs",{status: "Error copying file" });
-                    }
-                  // File copied successfully
-              db.query(query, values, async(err,image)=>{
-                if(err) throw err
-                console.log("Pocast Inserted Successfully")
-
-                fs.unlink(sourcePath, (unlinkErr) => {
-                if (unlinkErr) {
-                  console.error('Error deleting local Audio file:', unlinkErr);
-                } else {
-                  console.log('Local Audio file deleted successfully.');
-                }
-                });
-
-
-              })
-
-
-
-          // Files copied successfully
-          res.render("successful.ejs", { status: "Podcast has been uploaded", page: "/podcasts" });
-        // });
+      if (exists.length > 0) {
+        return res.render("error.ejs", {
+          status: `A podcast titled ${podcastTitle} was uploaded today by @${podcastOwner}`,
         });
-            }
-          );
-          }
-        }
+      }
+
+      const uploadedFile = req.file;
+      if (!uploadedFile) {
+        return res.status(400).render("error.ejs", { status: "No file uploaded" });
+      }
+
+      const sourcePath = uploadedFile.path;
+      const fileType = uploadedFile.mimetype;
+
+      // Upload to Cloudinary with retry
+      const cloudinaryUpload = await uploadToCloudinary(sourcePath);
+      const cloudinaryUrl = cloudinaryUpload.secure_url;
+
+      // Insert podcast into the database
+      await db.promise().query(
+        "INSERT INTO podcasts (podcast_title, podcast_owner, podcast_owner_fullname, date_uploaded, fileID, buffer, fileEXT, fileURL) VALUES (?, ?, ?, ?, ?, ?, ?,?)",
+        [podcastTitle, podcastOwner, podcastOwner_fullname, dateString, uploadedFile.filename, buffer, fileType, cloudinaryUrl]
       );
-    } else {
-      res.status(400).render("error.ejs",{ status: "Missing required data" });
+
+      // Insert into the files table
+      await db.promise().query(
+        "INSERT INTO files (filename, filedata) VALUES (?, ?)",
+        [uploadedFile.filename, cloudinaryUrl]
+      );
+
+      // Delete the locally stored file after successful upload
+      fs.unlink(sourcePath, (unlinkErr) => {
+        if (unlinkErr) console.error("Error deleting temp file:", unlinkErr);
+      });
+
+      // Send a notification
+      const message = `Just uploaded a podcast`;
+      await newPostNotification(req, res, message, cloudinaryUrl);
+
+      res.render("successful.ejs", { status: "Podcast has been uploaded", page: "/podcasts" });
+
+    } catch (error) {
+      console.error("Error processing podcast:", error);
+      res.status(500).render("error.ejs", { status: "Server error" });
     }
   });
 };

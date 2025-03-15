@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/css/scholarDashboard.css">
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/library.css">
-       
+        
         
         <!-- Favicon -->
 	<link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
@@ -25,6 +25,8 @@
         <title>Library - Books</title>
         <!-- Dark mode -->
 	 <script src="/js/colorTheme.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"></script>
+
     </head>
 <body id="body">
 
@@ -32,13 +34,15 @@
         <div class="modalMain bg-shadow">
             <div class="modal_header">
             <div class="book_title"><%= bookTitle %></div>
-            <div class="page_count"><%= pageNumber[0] %>/<%= pageCount %> <a href="../">
+            <div class="page_count"> <a href="../">
                 <span class="close_button" id="close_modal">&times;</span></a>
             </div>
             </div>
 
-            <div class="modal_body">
-                <%= pagesData %>
+            <div class="modal_body" style="height: 100vh !important; max-height: 100vh;">
+             
+
+<canvas id="pdf-viewer" style="width:100%; height: 100vh;"></canvas>
             </div>
 
             <div class="modal_footer">
@@ -46,28 +50,7 @@
                     <a href="/library/books/<%= book_ID %>"> <i class="fa fa-download"></i></a>
                 </div>
 
-                <div class="pagination">
-                  <%  if(prevPAGE  > 0){ %>
-                        <div class="prev">
-                            <a href="?page=<%=prevPAGE%>"><i class="fa fa-caret-left"></i></a>
-                        </div>
-                  <% } %>
-
-                  <% if(nextPAGE <= pageCount) { %>
-                    <div class="next">
-                        <a href="?page=<%=nextPAGE %>"><i class="fa fa-caret-right"></i></a>
-                    </div>
-                    <% } %>
-                </div>
-
-                <div class="search_panel">
-                    <input type="hidden" value="<%=pageCount%>" id="currenPageCount" readonly>
-
-                    <form method="get" id="pageSearch" onsubmit=return false>
-                        <input type="number" name="page" placeholder="Find a page" id="findPage" class="Search find_page"/>
-                    </form>
-                    <i class="fa search show_search_Icon"></i>
-                </div>
+      
                 <!-- <div id="warning"></div> -->
             </div>
 
@@ -103,7 +86,7 @@
     dashboard.classList += "active_item";
 </script>
 <script src="/js/jquery-3.4.1.min.js"></script>
-<script src="/js/library.js"></script>
+<script src="/js/library.js" type="module"></script>
 <script src="/js/mainjs.js"></script>
 
 <!-- Back to top -->
@@ -115,6 +98,29 @@
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
+
+
+<script>
+  const urlPage = "<%= cloudinaryPDFUrl %>";
+
+  pdfjsLib.getDocument(urlPage).promise.then(pdf => {
+    pdf.getPage(1).then(page => {
+      const scale = 1.5;
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.getElementById('pdf-viewer');
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport
+      };
+      page.render(renderContext);
+    });
+  });
+</script>
 
 </body>
 </html>

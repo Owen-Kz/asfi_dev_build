@@ -1,106 +1,60 @@
 const os = require("os");
 const db = require("../routes/db.config");
-// const { download } = require("./utils/downloadPodcasts");
-const fs = require('fs');
-const util = require('util');
+const fs = require("fs");
 const path = require("path");
-const writeFile = util.promisify(fs.writeFile);
-const unlinkFile = util.promisify(fs.unlink);
+const cloudinary = require("cloudinary").v2;
+const axios = require("axios");
 
-var hostname = os.hostname();
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const BookDownload = async (req, res) => {
-  const protocol = req.protocol;
-  const hostname = req.hostname;
-  const fullHostname = `${protocol}://${hostname}`;
-  if (req.params['downloadFile']) {
-    db.query("SELECT * FROM `books` WHERE book_id = ?", [req.params["downloadFile"]], async (er, File) =>{
-      if(er) throw er
-      if(File){
-      FILE_OWNER = File[0]["book_author"]
-      FILE_TITLE = File[0]["book_title"]
-      FILE_MAIN  = File[0]["file"];
-      FILE_EXT = File[0]["fileExt"]
+  if (!req.params["downloadFile"]) {
+    return res.render("error.ejs", { status: "File Not Found" });
+  }
 
+  try {
+    // Fetch the book details from the database
+    const [rows] = await db.promise().query("SELECT * FROM books WHERE book_id = ?", [req.params["downloadFile"]]);
 
-      if(FILE_EXT = "application/pdf"){
-       FILE_MAIN_EXT = ".pdf"
-      }
-    
-    var FileToDownload = FILE_MAIN;
-    async function getFile(BOOK_FILE) {
-      if (
-        BOOK_FILE != "avatar.jpg" &&
-        BOOK_FILE != "avatar.jpeg" &&
-        BOOK_FILE != "" &&
-        BOOK_FILE != "cover.jpg"
-      ) {
-        return new Promise((resolve, reject) => {
-          db.query("SELECT * FROM files WHERE filename = ?", [BOOK_FILE], async (err, data) => {
-            if (err) reject(err);
-    
-            if (data[0]) {
-              const query = 'SELECT * FROM files WHERE filename = ?';
-              const values = [BOOK_FILE];
-    
-              try {
-                db.query(query, values, async(err, data) =>{
-                  if(err) throw err
-                  const fileData = data[0].filedata;
-                  resolve(fileData);
-                });
-            // Resolve with the file data
-              } catch (error) {
-                console.error('Error retrieving file:', error);
-                reject(null); // Reject with null in case of an error
-              }
-            } else {
-              console.log("File Not Found");
-              resolve(null); // Resolve with null if file not found
-            }
-          });
-        });
-      } else {
-        console.log(BOOK_FILE);
-        return null;
-      }
+    if (rows.length === 0) {
+      return res.render("error.ejs", { status: "File Not Found" });
     }
 
-    (async () => {
-      try {
+    const book = rows[0];
+    const FILE_OWNER = book.book_author;
+    const FILE_TITLE = book.book_title;
+    const FILE_MAIN = book.file;
 
-    // Read the PDF file and extract the page data
-    const fileBuffer = await getFile(FILE_MAIN ); 
+    // Fetch the Cloudinary file URL
+    const [fileRows] = await db.promise().query("SELECT * FROM files WHERE filename = ?", [FILE_MAIN]);
 
-  // Set the file name for download
-  const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${hostname}${FILE_MAIN_EXT}`;
-
-  // Write the buffer to a temporary file
-  const tempFilePath = path.join(__dirname, `../public/userUpload/books/${downloadFileName}`); // Set your temporary file path
-  await writeFile(tempFilePath, fileBuffer, 'binary');
-
-  // Send the file for download 
-  res.download(tempFilePath, downloadFileName, async (err) => {
-    if (err) {
-      console.error('Error sending file:', err);
-  res.render("error.ejs", {status: "Error downloading the file"})
-
-    } else {
-      // Unlink (delete) the temporary file after download is complete
-      await unlinkFile(tempFilePath);
-      console.log('Temporary file deleted successfully');
+    if (fileRows.length === 0) {
+      return res.render("error.ejs", { status: "File Not Found" });
     }
-  });
-} catch (error) {
-  console.error('Error getting file:', error);
-  res.render("error.ejs", {status: "Error retrieving the file"})
-}
-})();
-      }
-    })
-  }else{
-    res.render("error.ejs", {status: "File Not Found"})
+
+    const fileUrl = fileRows[0].filedata;
+    const fileExtension = path.extname(FILE_MAIN);
+    const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${os.hostname()}${fileExtension}`;
+
+    // Stream the file from Cloudinary and pipe it to the response
+    const response = await axios({
+      url: fileUrl,
+      method: "GET",
+      responseType: "stream",
+    });
+
+    res.setHeader("Content-Disposition", `attachment; filename=\"${downloadFileName}\"`);
+    res.setHeader("Content-Type", response.headers["content-type"]);
+    response.data.pipe(res);
+  } catch (error) {
+    console.error("Error downloading file:", error);
+    res.render("error.ejs", { status: "Error retrieving the file" });
   }
 };
 
-module.exports =  BookDownload ;
+module.exports = BookDownload;

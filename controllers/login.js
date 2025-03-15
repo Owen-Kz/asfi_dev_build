@@ -11,6 +11,7 @@ const login_user = async (req, res) => {
     // await RestartConnection()
 
     const { user, pass } = req.body;
+    
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
     else{ 

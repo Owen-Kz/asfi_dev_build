@@ -2,7 +2,6 @@ const { config } = require("dotenv")
 
 const sendBody = async (body) =>{
     try{
-        console.log(body)
     return fetch(`${process.env.CURRENT_SCHOLAR_DOMAIN}/send-notification`, {
         method:"POST",
         body:JSON.stringify(body),
@@ -12,7 +11,7 @@ const sendBody = async (body) =>{
     }).then(res => res.json())
     .then(data =>{
         if(data){
-            console.log(data)
+            // console.log(data)
             return {success:"data available", data:data}
         }
     })

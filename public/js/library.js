@@ -79,84 +79,6 @@ const book_list = document.getElementById("book_list")
     </div>
   </li>` 
   }
-function updateUIWithData(Books_Data){
-  book_list.innerHTML = ""
-if(Books_Data.length  > 0){
-Books_Data.forEach(book => {
-  const bookTitle =  book.book_title
-  const bookAuthor =  book.book_author
-  const bookYear =  book.book_year
-  const bookId =  book.book_id
-  const book_owner_username = book.book_owner_username
-  
-  const bookCover =  book.book_cover
-  const bookFile =  book.file
-  const book_Qsf =  book.book_Qsf
-  var imgSrc
-  if(bookCover === "cover.jpg"){
-    var imgSrc = `https://eu.ui-avatars.com/api/?background=random&name=${bookTitle}&font-size=0.5&size=125&background=333333&color=ffffff`
-  }else{
-    var imgSrc = `/userUploads/thumbnails/${bookCover}`
-  }
-
-  book_list.innerHTML += `<li class="card shadow h-50">
-  <img src="${imgSrc}" alt='${bookCover}'>
-  <div class="card-body pb-0">
-    <!-- Badge and favorite -->
-    <div class="d-flex justify-content-between mb-2">
-          <div class="book_year">
-              ${bookYear}
-          </div>
-    </div>
-    <!-- Title -->
-    <h5 class="card-title"><a href="/library/b/${bookId}">${bookTitle}</a></h5>
-                    <a href="#" class="badge bg-purple bg-opacity-10 text-purple">${book_owner_username}</a>
-   
-  </div> 
-  <!-- Card footer -->
-  <div class="card-footer pt-0 pb-3">
-    <hr>
-    <div class="d-flex justify-content-around">
-                        <a href="/library/b/${bookId}"><div class="h6 fw-light mb-0 button refad"><i class="fa fa-book"></i></div></a>
-                 <a href="/library/books/${bookId}"> <div class="h6 fw-light mb-0 button download"><i class="fa fa-download"></i></div></a>
-    </div>
-  </div>
-</li>
-           
-`
-
-});
-
-}else{
-  
-for(i =0; i < 10; i++){
-  book_list.innerHTML+= `
-  <li class="card shadow h-50">
- 
-  <div class="card-body pb-0">
-    <!-- Badge and favorite -->
-    <div class="d-flex justify-content-between mb-2">
-          <div class="book_year" style="background-color:grey;">
-              
-          </div>
-    </div>
-    <!-- Title -->
-    <h5 class="card-title" style="background-color:grey;"><a href="#" ></a></h5>
-      <a href="#" class="badge bg-purple bg-opacity-10 text-purple" style="background-color:grey;"></a>
-   
-  </div> 
-  <!-- Card footer -->
-  <div class="card-footer pt-0 pb-3">
-    <hr>
-    <div class="d-flex justify-content-around">
-                        <a href="#" style="background-color:ash;"><div class="h6 fw-light mb-0 button refad"></div></a>
-                 <a href="#" style="background-color:ash;"> <div class="h6 fw-light mb-0 button download"></div></a>
-    </div>
-  </div>
-</li>` 
-}
-}
-}
 
 // GET LINKS 
 const LINkS_body = document.getElementById("external_links")
@@ -228,9 +150,9 @@ async function fetchLinks(page) {
     } finally {
         isFetching = false;
         for(let i=0; i<4; i++){
-        loadingIndicator.remove();
+        // loadingIndicator.remove();
         }
-    }
+    } 
 }
 
 // Infinite scrolling inside LINkS_body
@@ -250,24 +172,93 @@ fetchLinks(currentPageLinks);
 
 
  
+// Load PDF.js 
+async function renderPDFPreview(bookFile, canvas) {
+    const loadingTask = pdfjsLib.getDocument(bookFile);
+    loadingTask.promise.then(pdf => {
+        return pdf.getPage(1); // Load only page 1
+    }).then(page => {
+        const context = canvas.getContext("2d");
+        const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale as needed
 
-  // FEtch the books and update ui 
-  fetch(`/getAllBooksOnLibrary`, {
-    method:"GET",
-  }).then(res =>res.json())
-  .then(data =>{
-    if(data.status === "success"){
+        // Resize canvas to match the page size
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
 
-      const currentPage =data.currentPageBooks
-      const totalPages = data.totalPagesBooks
+        const renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
 
-      const booksList = JSON.parse(data.books)
-    updateUIWithData(booksList)
-    booksNavigation(totalPages, currentPage)
-    }else{ 
-      console.log(data.messsage)
-    } 
-  })
+        return page.render(renderContext);
+    }).catch(error => {
+        console.error("Error rendering PDF:", error);
+    });
+}
+
+function updateUIWithData(Books_Data) {
+    book_list.innerHTML = "";
+
+    if (Books_Data.length > 0) {
+        Books_Data.forEach(book => {
+            const bookTitle = book.book_title;
+            const bookAuthor = book.book_author;
+            const bookYear = book.book_year;
+            const bookId = book.book_id;
+            const bookOwnerUsername = book.book_owner_username;
+            const bookFile = book.file; // Cloudinary PDF URL
+
+            const listItem = document.createElement("li");
+            listItem.className = "card shadow h-50";
+
+            // Create a canvas for PDF preview
+            const canvas = document.createElement("canvas");
+            canvas.className = "book-thumbnail";
+
+            // Load the PDF into the canvas
+            renderPDFPreview(bookFile, canvas);
+
+            listItem.innerHTML = `
+                <div class="card-body pb-0">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="book_year">${bookYear}</div>
+                    </div>
+                    <h5 class="card-title"><a href="/library/b/${bookId}">${bookTitle}</a></h5>
+                    <a href="#" class="badge bg-purple bg-opacity-10 text-purple">${bookOwnerUsername}</a>
+                </div> 
+                <div class="card-footer pt-0 pb-3">
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <a href="/library/b/${bookId}" class="button refad"><i class="fa fa-book"></i></a>
+                        <a href="/library/books/${bookId}" class="button download"><i class="fa fa-download"></i></a>
+                    </div>
+                </div>
+            `;
+
+            // Append the canvas to the list item before the content
+            listItem.insertBefore(canvas, listItem.firstChild);
+
+            // Append to book list
+            book_list.appendChild(listItem);
+        });
+    }
+}
+
+// Fetch and update the UI
+fetch(`/getAllBooksOnLibrary`, { method: "GET" })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            const currentPage = data.currentPageBooks;
+            const totalPages = data.totalPagesBooks;
+            const booksList = JSON.parse(data.books);
+            
+            updateUIWithData(booksList);
+            booksNavigation(totalPages, currentPage);
+        } else {
+            console.log(data.message);
+        }
+    });
 
 
 export {

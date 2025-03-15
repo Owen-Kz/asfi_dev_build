@@ -5,7 +5,8 @@ const sgMail = require('@sendgrid/mail')
 
 
 const registerant = async (req, res) => {
-    const { firstname, lastname, username, email, password: Npassword } = req.body
+    const { firstname, lastname, email, password: Npassword } = req.body
+    const username = String(req.body.username || "").replace(/\s+/g, "");
     if(!firstname || !lastname || !username || !email || !Npassword) return res.json({ status: "error", error: "Please fill all fields"});
 
     if (!validator.isEmail(email)) return res.json({ status: "error", error: "Please provide a valid email" });

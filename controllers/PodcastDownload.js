@@ -1,123 +1,113 @@
 const os = require("os");
 const db = require("../routes/db.config");
-const fs = require("fs")
-const util = require('util');
+const fs = require("fs");
+const util = require("util");
 const path = require("path");
+const axios = require("axios");
+
 const writeFile = util.promisify(fs.writeFile);
 const unlinkFile = util.promisify(fs.unlink);
+const mkdir = util.promisify(fs.mkdir);
 
-var hostname = os.hostname();
-// var NET = os.networkInterfaces();
-// var TOTAL_MEM = os.totalmem();
-// var TMP_DIR = os.tmpdir()
-// var osType = os.type()
+const PodcastDownload = async (req, res) => {
+  const DataID = req.params.downloadFile;
 
-// console.log(NET)
-// console.log(hostname)
-// console.log(TOTAL_MEM)
-// console.log(osType)
-// console.log(TMP_DIR)
+  if (!DataID) {
+    return res.render("error.ejs", { status: "File Not Found" });
+  }
 
+  try {
+    // Step 1: Fetch podcast details (fileID) from the podcasts table
+    db.query(
+      "SELECT * FROM `podcasts` WHERE buffer = ?",
+      [DataID],
+      async (err, PodcastData) => {
+        if (err) {
+          console.error("Database query error:", err);
+          return res.render("error.ejs", { status: "Database error" });
+        }
 
-const PodcastDownload = async (req, res) => { 
-  const protocol = req.protocol;
-  const hostname = req.hostname;
-  const fullHostname = `${protocol}://${hostname}`;
+        if (!PodcastData || PodcastData.length === 0) {
+          return res.render("error.ejs", { status: "File Not Found" });
+        }
 
+        const FILE_OWNER = PodcastData[0]["podcast_owner"];
+        const FILE_TITLE = PodcastData[0]["podcast_title"];
+        const FILE_ID = PodcastData[0]["fileID"];
+        const FILE_EXT = PodcastData[0]["fileExt"];
 
-  const DataID = req.params.downloadFile 
+        if (!FILE_ID) {
+          return res.render("error.ejs", { status: "File ID not found" });
+        }
 
-  if (DataID) {
-    db.query("SELECT * FROM `podcasts` WHERE buffer = ?", [req.params["downloadFile"]], async (er, File) =>{
-      if(er) throw er
-      if(File){
-      FILE_OWNER = File[0]["podcast_owner"]
-      FILE_TITLE = File[0]["podcast_title"]
-      FILE_MAIN  = File[0]["fileID"];
-      FILE_EXT = File[0]["fileExt"]
-
-      if(FILE_EXT = "audio/wav"){
-       FILE_MAIN_EXT = ".wav"
-      }else{
-       FILE_MAIN_EXT = ".mp3"
-      }
-    
-
-    var FileToDownload = FILE_MAIN;
-    async function getFile(BOOK_FILE) {
-      if (
-        BOOK_FILE != "avatar.jpg" &&
-        BOOK_FILE != "avatar.jpeg" &&
-        BOOK_FILE != "" &&
-        BOOK_FILE != "cover.jpg"
-      ) {
-        return new Promise((resolve, reject) => {
-          db.query("SELECT * FROM files WHERE filename = ?", [BOOK_FILE], async (err, data) => {
-            if (err) reject(err);
-    
-            if (data[0]) {
-              const query = 'SELECT * FROM files WHERE filename = ?';
-              const values = [BOOK_FILE];
-    
-              try {
-                db.query(query, values, async(err, data) =>{
-                  if(err) throw err
-                  const fileData = data[0].filedata;
-                  resolve(fileData);
-                });
-            // Resolve with the file data
-              } catch (error) {
-                console.error('Error retrieving file:', error);
-                reject(null); // Reject with null in case of an error
-              }
-            } else {
-              console.log("File Not Found");
-              resolve(null); // Resolve with null if file not found
+        // Step 2: Fetch the file URL from the files table
+        db.query(
+          "SELECT filedata FROM `files` WHERE filename = ?",
+          [FILE_ID],
+          async (err, FileData) => {
+            if (err) {
+              console.error("Error fetching file URL:", err);
+              return res.render("error.ejs", { status: "Error retrieving file URL" });
             }
-          });
-        });
-      } else {
-        console.log(BOOK_FILE);
-        return null;
+
+            if (!FileData || FileData.length === 0) {
+              return res.render("error.ejs", { status: "File Not Found in Files Table" });
+            }
+
+            const FILE_URL = FileData[0].filedata;
+            const FILE_MAIN_EXT = FILE_EXT === "audio/wav" ? ".wav" : ".mp3";
+
+            if (!FILE_URL) {
+              return res.render("error.ejs", { status: "Invalid File URL" });
+            }
+
+            try {
+              // Step 3: Download the file from the URL
+              const response = await axios({
+                url: FILE_URL,
+                method: "GET",
+                responseType: "arraybuffer", // Get the file as binary data
+              });
+
+              const fileBuffer = response.data;
+
+              // Step 4: Ensure the directory exists
+              const podcastDir = path.join(__dirname, "../public/userUpload/podcasts/");
+              if (!fs.existsSync(podcastDir)) {
+                await mkdir(podcastDir, { recursive: true }); // Create directory if missing
+              }
+
+              // Step 5: Define the temporary file path
+              const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${os.hostname()}${FILE_MAIN_EXT}`;
+              const tempFilePath = path.join(podcastDir, downloadFileName);
+
+              // Step 6: Write the buffer to a temporary file
+              await writeFile(tempFilePath, fileBuffer, "binary");
+
+              // Step 7: Send the file for download
+              res.download(tempFilePath, downloadFileName, async (err) => {
+                if (err) {
+                  console.error("Error sending file:", err);
+                  return res.render("error.ejs", { status: "Error downloading the file" });
+                }
+
+                // Step 8: Delete the temporary file after successful download
+                await unlinkFile(tempFilePath);
+                console.log("Temporary file deleted successfully");
+              });
+
+            } catch (error) {
+              console.error("Error downloading the file:", error);
+              res.render("error.ejs", { status: "Error retrieving the file from the URL" });
+            }
+          }
+        );
       }
-    }
-
-    (async () => {
-      try {
-
-    // Read the PDF file and extract the page data
-    const fileBuffer = await getFile(FILE_MAIN); 
-
-  // Set the file name for download
-  const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${hostname}${FILE_MAIN_EXT}`;
-
-  // Write the buffer to a temporary file
-  const tempFilePath = path.join(__dirname, `../public/userUpload/books/${downloadFileName}`); // Set your temporary file path
-  await writeFile(tempFilePath, fileBuffer, 'binary');
-
-  // Send the file for download
-  res.download(tempFilePath, downloadFileName, async (err) => {
-    if (err) {
-      console.error('Error sending file:', err);
-  res.render("error.ejs", {status: "Error downloading the file"})
-
-    } else {
-      // Unlink (delete) the temporary file after download is complete
-      await unlinkFile(tempFilePath);
-      console.log('Temporary file deleted successfully');
-    }
-  });
-} catch (error) {
-  console.error('Error getting file:', error);
-  res.render("error.ejs", {status: "Error retrieving the file"})
-}
-})();
-      }
-    })
-  }else{
-    res.render("error.ejs", {status: "File Not Found"})
+    );
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    res.render("error.ejs", { status: "Server Error" });
   }
 };
 
-module.exports =  PodcastDownload ;
- 
+module.exports = PodcastDownload;
