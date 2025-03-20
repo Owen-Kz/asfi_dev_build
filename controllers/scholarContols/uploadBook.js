@@ -88,7 +88,7 @@ const uploadBook = async (req, res) => {
               book_id: bufferBook,
               book_author: BookOwner,
               book_year: yearPublished,
-              file: fileUrl,
+              file: uniqueFilename,
               book_cover: "cover.jpg",
               fileEXT: fileType,
               datePublished: dateString,
