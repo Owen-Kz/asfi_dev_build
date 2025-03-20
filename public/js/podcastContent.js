@@ -1,5 +1,7 @@
 
 function updateUIWithData(PODCAST_ARRAY){
+    
+const PodcastContainer = document.getElementById("podcast_container");
     PodcastContainer.innerHTML = ""
     if(PODCAST_ARRAY.length > 0) { 
 

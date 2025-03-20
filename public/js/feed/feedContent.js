@@ -65,14 +65,21 @@ async function loadFeed() {
             switch (type) {
                 case "Book":
                     image = "/assets/images/book-cover.png";
+                    is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "Book";
                     break;
                 case "Podcast":
                     image = "/assets/images/podcast-icon.png";
+                    is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "Podcast";
                     break;
                 case "Publication Link":
-                    image = await fetchLinkPreview(link);
+                    // image = await fetchLinkPreview(link);
+                    image = "";
+                    is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "Publication Link";
                     break;
                 case "ASFIRJ Publication":
@@ -83,6 +90,8 @@ async function loadFeed() {
                     break;
                 default:
                     image = "default.jpg";
+                    is_asfirj = "hidden"
+                    smallHeight = "heightSmall"
                     fileType = "Unknown Type";
                     break;
             }

@@ -221,6 +221,7 @@ const deleteFile = require("../controllers/external/deleteFile");
 const getProfilePublications = require("../controllers/profile/getASFIPublicationsFrProfile");
 const siteMap = require("../controllers/services/siteMap");
 const deleteSpace = require("../controllers/spaces/deleteSpace");
+const getAllPodcasts = require("../controllers/podcasts/getAllPodcasts");
 
 // ADMINISTRATOR 
 
@@ -350,13 +351,14 @@ router.get("/uploadBook", LoggedIn, (req,res) => {
     res.render("bookUpload.ejs")
 })
 
-router.post("/uploadBook", uploadBooks)
+router.post("/uploadBook", LoggedIn, uploadBooks)
 
 // router.post("/uploadBook/u", uploadBooks)
 
 
 // GET Podcast
 router.get("/podcasts",LoggedIn, UserPodcast)
+router.post("/getAllPodcasts", LoggedIn, getAllPodcasts)
 
 //GET PodcastFile
 router.get("/podcasts/download/:downloadFile", LoggedIn, DownloadPodcast)
@@ -373,7 +375,7 @@ router.get("/@:username/podcasts",LoggedIn, UserPodcast)
 //     res.render("podcastUpload.ejs", {root:"./public"})
 // })
 
-router.post("/uploadPodcast/u", createPodcast)
+router.post("/uploadPodcast/u", LoggedIn, createPodcast)
 
 
 // GET THE DIRECTORY

@@ -25,7 +25,7 @@
 	 <script src="/js/colorTheme.js"></script>
     </head>
 <body>
-  <input type="hidden" id="podcast_array_container" value="<%=JSON.stringify(PODCAST_ARRAY)%>">
+  <input type="hidden" id="podcast_array_container" value="[]">
      <!-- NAVIGATION BAR  -->
      <sidebar class="left-navigation-bar bg-shadow ">
         <%if(accountType == "scholar_account") {%>
@@ -145,9 +145,9 @@ Footer START -->
 </footer>
 <!-- =======================
 Footer END -->
-
+<!-- PODCAST_ARRAY -->
 <script src="/js/podcastContent.js"></script>
-<script src="/js/searchQueries/podcastSearch.js"></script>
+<script src="/js/searchQueries/podcastSearch.js" type="module"></script>
 
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>

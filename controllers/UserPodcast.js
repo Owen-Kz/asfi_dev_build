@@ -3,7 +3,7 @@ const db = require("../routes/db.config");
 const ITEMS_PER_PAGE_PODCASTS = 6; // Number of podcasts per page
 let  PODCAST_ARRAY = []
 
-const find_info = async (req,res) => {
+const UserPodcast = async (req,res) => {
     if(req.user){
     const visitor = req.user.username;
     const pagePodcasts = req.query.page || 1; // Get the current podcast page from the query parameter
@@ -72,12 +72,12 @@ else {
 } else{ //   count Podcasts of scholars
     db.query("SELECT * FROM user_info WHERE username =?", [visitor], (err,result) => {
         if(err) throw err
-       const  UserFirstname = result[0]["first_name"]
-        const UserLastname = result[0]["last_name"]
-        const ProfileImage = result[0]["profile_picture"]
-        const Course = result[0]["course_assigned"]
-        const accountType = result[0]["acct_type"]
-        const Email = result[0]["email"]
+       const  UserFirstname = req.user.first_name
+        const UserLastname = req.user.last_name
+        const ProfileImage = req.user.profile_picture
+        const Course = req.user.course_assigned
+        const accountType = req.user.acct_type
+        const Email = req.user.email
 
           db.query("SELECT COUNT(*) AS pdtCount FROM podcasts WHERE 1 ",
           [ITEMS_PER_PAGE_PODCASTS, offsetPodcasts], async (err_PDT, CountPDT) => {
@@ -116,4 +116,4 @@ else {
 }
 
 }
-module.exports = find_info
+module.exports = UserPodcast

@@ -1,6 +1,16 @@
 const formatTime = (timestamp) => {
-    const now = new Date();
+    // Check if the timestamp matches the format 'Mar, 20'
+    const shortDatePattern = /^[A-Za-z]{3}, \d{1,2}$/;
+    if (shortDatePattern.test(timestamp)) {
+        return timestamp; // Return the timestamp as is
+    }
+    
     const time = new Date(timestamp);
+    if (isNaN(time.getTime())) {
+        return timestamp; // Return the original timestamp if it's invalid
+    }
+    
+    const now = new Date();
     const diffMs = now - time; // Difference in milliseconds
     const diffSeconds = Math.floor(diffMs / 1000);
     const diffMinutes = Math.floor(diffSeconds / 60);
@@ -22,6 +32,4 @@ const formatTime = (timestamp) => {
     }
 };
 
-export  {
-    formatTime
-}
+export { formatTime };
