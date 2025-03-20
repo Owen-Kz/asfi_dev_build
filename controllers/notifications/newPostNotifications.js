@@ -40,7 +40,7 @@ const newPostNotification = async (req, res, message, endpoint) => {
                             try {
                                 const { notification_token, id: userID } = data[0];
                                 
-                                if (notification_token) {
+                                if (notification_token && notification_token !=null && notification_token != undefined) {
                                     const notificationData = {
                                         title: `New Post Notification`,
                                         message: `${message}`,
@@ -56,6 +56,7 @@ const newPostNotification = async (req, res, message, endpoint) => {
                                 await saveNotification(req.user.username, userID, subject, userPhoto, endpoint);
                                 // await sendEmail(useremail, subject, emailMessage);
                             } catch (error) {
+                                console.log(error)
                                 logError(error, "Processing notification");
                             }
                         }

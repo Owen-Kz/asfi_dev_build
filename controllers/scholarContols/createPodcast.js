@@ -107,6 +107,7 @@ const createPodcast = (req, res) => {
 
       // Send a notification
       const message = `Just uploaded a podcast`;
+      const userData = { user: { username: podcastOwner } };
       await newPostNotification(req, res, message, cloudinaryUrl);
 
       res.render("successful.ejs", { status: "Podcast has been uploaded", page: "/podcasts" });
