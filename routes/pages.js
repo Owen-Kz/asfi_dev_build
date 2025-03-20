@@ -375,7 +375,7 @@ router.get("/@:username/podcasts",LoggedIn, UserPodcast)
 //     res.render("podcastUpload.ejs", {root:"./public"})
 // })
 
-router.post("/uploadPodcast/u", LoggedIn, createPodcast)
+router.post("/uploadPodcast/u", createPodcast)
 
 
 // GET THE DIRECTORY
