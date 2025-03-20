@@ -15,124 +15,95 @@ cloudinary.config({
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Cloudinary upload function with retry mechanism
-const uploadToCloudinary = (buffer, fileName, retries = 3) => {
-  return new Promise((resolve, reject) => {
-    let attempt = 0;
-    const uploadStream = () => {
-      const stream = cloudinary.uploader.upload_stream(
-        { folder: "asfischolar/books", resource_type: "raw", public_id: fileName },
-        (error, result) => {
-          if (error) {
-            if (error.http_code === 499 && attempt < retries) {
-              console.log(`Retrying upload (attempt ${attempt + 1})...`);
-              attempt++;
-              return setTimeout(uploadStream, 3000); // Wait 3s before retrying
+const uploadToCloudinary = async (buffer, fileName, retries = 3) => {
+  let attempt = 0;
+  while (attempt < retries) {
+    try {
+      console.log(`Uploading file to Cloudinary (Attempt ${attempt + 1})...`);
+      return await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "asfischolar/podcasts", resource_type: "auto", public_id: fileName },
+          (error, result) => {
+            if (error) {
+              console.error(`Cloudinary upload error (Attempt ${attempt + 1}):`, error);
+              return reject(error);
             }
-            return reject(error);
+            resolve(result.secure_url);
           }
-          resolve(result.secure_url);
-        }
-      );
-      stream.end(buffer);
-    };
-    uploadStream();
-  });
+        );
+        stream.end(buffer);
+      });
+    } catch (error) {
+      console.error(`Error during upload (Attempt ${attempt + 1}):`, error);
+      if (attempt < retries - 1) {
+        console.log(`Retrying upload (Attempt ${attempt + 2})...`);
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait 3s before retrying
+      } else {
+        throw error;
+      }
+    }
+    attempt++;
+  }
 };
 
-const uploadBook = async (req, res) => {
+const createPodcast = async (req, res) => {
   try {
-    upload.single("file_pdf")(req, res, async function (err) {
+    upload.single("file_audio")(req, res, async function (err) {
       if (err) {
         console.error("Multer error:", err);
         return res.status(500).send("File upload failed.");
       }
 
-      const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link, url_title } = req.body;
+      const { podcastTitle, podcastOwner, buffer, podcastOwner_fullname } = req.body;
+      if (!podcastTitle || !podcastOwner) {
+        return res.status(400).render("error.ejs", { status: "Missing required data" });
+      }
 
-      if (booksTitle && BookOwner && yearPublished) {
-        const currentDate = new Date();
-        const options = { month: "short" };
-        const currentMonth = currentDate.toLocaleString("en-US", options).slice(0, 3);
-        const currentDay = currentDate.getDate().toString().padStart(2, "0");
-        const dateString = `${currentMonth}, ${currentDay}`;
+      const currentDate = new Date();
+      const options = { month: "short" };
+      const dateString = `${currentDate.toLocaleString("en-US", options).slice(0, 3)}, ${currentDate.getDate().toString().padStart(2, "0")}`;
 
-        // Check if the book already exists
-        const [existingBook] = await db.promise().query(
-          "SELECT * FROM books WHERE book_title = ? AND book_author = ? AND datePublished = ?",
-          [booksTitle, BookOwner, dateString]
-        );
+      // Check if podcast already exists
+      const [exists] = await db.promise().query(
+        "SELECT * FROM podcasts WHERE podcast_title = ? AND podcast_owner = ? AND date_uploaded = ?",
+        [podcastTitle, podcastOwner, dateString]
+      );
 
-        if (existingBook.length > 0) {
-          return res.render("error.ejs", {
-            status: `A book titled ${booksTitle} was uploaded today by @${BookOwner}`,
-          });
-        }
+      if (exists.length > 0) {
+        return res.render("error.ejs", { status: `A podcast titled ${podcastTitle} was uploaded today by @${podcastOwner}` });
+      }
 
-        if (!req.file) {
-          return res.status(400).render("error.ejs", { status: "No file uploaded" });
-        }
+      if (!req.file) {
+        return res.status(400).render("error.ejs", { status: "No file uploaded" });
+      }
 
-        const uploadedFile = req.file;
-        const fileType = uploadedFile.mimetype;
-        const uniqueFilename = `${Date.now()}-${uploadedFile.originalname}`;
+      const uploadedFile = req.file;
+      const fileType = uploadedFile.mimetype;
+      const uniqueFilename = `${Date.now()}-${uploadedFile.originalname}`;
 
-        try {
-          // Upload file to Cloudinary
-          const fileUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);
+      try {
+        // Upload file to Cloudinary with retry mechanism
+        const cloudinaryUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);
 
-          // Insert book details into database
-          await db.promise().query(
-            "INSERT INTO books SET ?",
-            [{
-              book_title: booksTitle,
-              book_id: bufferBook,
-              book_author: BookOwner,
-              book_year: yearPublished,
-              file: uniqueFilename,
-              book_cover: "cover.jpg",
-              fileEXT: fileType,
-              datePublished: dateString,
-              book_owner_username: BookOwner_fullname,
-            }]
-          );
-
-          // Insert Cloudinary file URL into `files` table
-          await db.promise().query(
-            "INSERT INTO files (filename, filedata) VALUES (?, ?)",
-            [uniqueFilename, fileUrl]
-          );
-
-          console.log("Book uploaded successfully to Cloudinary");
-
-          // Send notification and respond
-          const message = `Just uploaded a book`;
-          await newPostNotification(req, res, message, `https://asfischolar.org/library/b/${bufferBook}`);
-          res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });
-
-        } catch (cloudinaryError) {
-          console.error("Cloudinary upload error:", cloudinaryError);
-          res.status(500).render("error.ejs", { status: "Error uploading to Cloudinary" });
-        }
-
-      } else if (url_Link) {
-        // Handle URL-based book upload
-        const [existingLink] = await db.promise().query(
-          "SELECT * FROM external_links WHERE link_href = ? AND link_owner = ?",
-          [url_Link, BookOwner]
-        );
-
-        if (existingLink.length > 0) {
-          return res.render("error.ejs", { status: "Link Already Exists" });
-        }
-
+        // Insert podcast details into database
         await db.promise().query(
-          "INSERT INTO external_links SET ?",
-          [{ link_href: url_Link, link_owner: BookOwner, link_buffer: bufferBook, link_owner_fullname: BookOwner_fullname, link_title: url_title }]
+          "INSERT INTO podcasts (podcast_title, podcast_owner, podcast_owner_fullname, date_uploaded, fileID, buffer, fileEXT, fileURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          [podcastTitle, podcastOwner, podcastOwner_fullname, dateString, uniqueFilename, buffer, fileType, cloudinaryUrl]
         );
 
-        res.render("successful.ejs", { status: "Link Added Successfully", page: "/library" });
-      } else {
-        res.status(400).render("error.ejs", { status: "Missing required data" });
+        // Insert file reference into files table
+        await db.promise().query("INSERT INTO files (filename, filedata) VALUES (?, ?)", [uniqueFilename, cloudinaryUrl]);
+
+        console.log("Podcast uploaded successfully to Cloudinary");
+
+        // Send notification
+        const message = `Just uploaded a podcast`;
+        await newPostNotification(req, res, message, cloudinaryUrl);
+
+        res.render("successful.ejs", { status: "Podcast has been uploaded", page: "/podcasts" });
+      } catch (cloudinaryError) {
+        console.error("Cloudinary upload error:", cloudinaryError);
+        res.status(500).render("error.ejs", { status: "Error uploading to Cloudinary" });
       }
     });
   } catch (error) {
@@ -141,4 +112,4 @@ const uploadBook = async (req, res) => {
   }
 };
 
-module.exports = uploadBook;
+module.exports = createPodcast;
