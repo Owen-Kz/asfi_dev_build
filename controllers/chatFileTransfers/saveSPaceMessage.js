@@ -5,70 +5,76 @@ const saveMessageNotification = require("../scholarContols/saveMessageNotificati
 const findUserByName = require("../services/findUser");
 const fetchSpaceData = require("./fetchSpaceData");
 
-const saveSpaceMessage = async (req,res) =>{
-try{
-    const data = req.body 
-    const content = data.message;
-    const senderId = data.name;
-    const timestamp = data.dateTime;
+const saveSpaceMessage = async (req, res) => {
+  try {
+    const { message: content, name: senderId, dateTime: timestamp, inbox: buffer_id } = req.body;
 
-    // Save the message to the database with the group chat room ID
-    const buffer_id = data.inbox
-    const messageId = await generateID()
+    // Generate message ID
+    const messageId = await generateID();
 
-
-    
+    // Save message to database
     const query = "INSERT INTO spaces_messages (sender_id, content, timestamp, buffer, message_id) VALUES (?, ?, ?, ?, ?)";
-    db.query(query, [senderId, content, timestamp, buffer_id, messageId], async (err, results) => {
-      if (err) {
-        console.error("Error saving message to the database:", err);
-      } else {
-        // fetch space Data 
-        const spaceData = await fetchSpaceData(buffer_id)
-     
-        let spaceTitle = spaceData.space_focus
-        let spaceCover = spaceData.space_cover
-  
-        if(spaceCover == "" || spaceCover == null || spaceCover == "cover.jpg"){
-            spaceCover = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
+    await new Promise((resolve, reject) => {
+      db.query(query, [senderId, content, timestamp, buffer_id, messageId], (err) => {
+        if (err) {
+          console.error("Error saving message to the database:", err);
+          return reject(err);
         }
-        // Fetch all users in the group chat
-        const query = "SELECT * FROM space_participants WHERE space_id = ? AND username != ?";
-        db.query(query, [buffer_id, senderId], async (err, results) => {
+        resolve();
+      });
+    });
+
+    // Fetch space details
+    const spaceData = await fetchSpaceData(buffer_id);
+    let spaceTitle = spaceData?.space_focus || "Unknown Space";
+    let spaceCover = spaceData?.space_cover || "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg";
+
+    // Fetch sender's data once
+    const senderData = await findUserByName(senderId);
+    const senderName = `${senderData.first_name} ${senderData.last_name}`;
+    const senderPhoto = senderData.profile_picture && senderData.profile_picture !== "avatar.jpg"
+      ? senderData.profile_picture
+      : "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg";
+
+    // Fetch all recipients in parallel
+    const recipients = await new Promise((resolve, reject) => {
+      db.query(
+        "SELECT username FROM space_participants WHERE space_id = ? AND username != ?",
+        [buffer_id, senderId],
+        (err, results) => {
           if (err) {
             console.error("Error fetching group chat users:", err);
-          } else {
-            // Save the message notification for each user in the group chat
-            for (const user of results) {
-              const recipientId = user.username;
-              
-              const userData = await findUserByName(recipientId)
-              const notificationToken = userData.notification_token
-              let userPhoto = ""
-              const senderData = await findUserByName(senderId)
-              if(senderData.profile_picture && senderData.profile_picture != "avatar.jpg" && senderData.profile_picture != null ){
-                userPhoto = senderData.profile_picture
-              }else{
-                userPhoto = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
-              }
-              const Endpoint = `/spaces/${buffer_id}`
-             
-              await saveMessageNotification(senderId, recipientId, `New Message from ${senderData.first_name} ${senderData.last_name} in ${spaceTitle}`, spaceCover, Endpoint)
-              await sendNewMessageNotification(senderId, notificationToken)
-            }
-         }
-      })
-          
-        return res.json({success:"Message Saved"})
-    // Emit the message to all users in the group chat
-      }
+            return reject(err);
+          }
+          resolve(results.map(user => user.username));
+        }
+      );
     });
-  
-}catch(error){
-    console.log(error)
-    return res.json({error:error.messsage})
-}
-}
 
+    if (recipients.length === 0) return res.json({ success: "Message Saved (No recipients found)" });
 
-module.exports = saveSpaceMessage
+    // Fetch recipient data in parallel
+    const recipientDataList = await Promise.all(recipients.map(findUserByName));
+
+    // Prepare notifications
+    const notifications = recipientDataList.map(async (userData) => {
+      const notificationToken = userData.notification_token;
+      const recipientId = userData.username;
+      const endpoint = `/spaces/${buffer_id}`;
+      
+      await saveMessageNotification(senderId, recipientId, `New Message from ${senderName} in ${spaceTitle}`, spaceCover, endpoint);
+      await sendNewMessageNotification(senderId, notificationToken);
+    });
+
+    // Execute notifications concurrently
+    await Promise.all(notifications);
+
+    return res.json({ success: "Message and notifications sent successfully" });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = saveSpaceMessage;
