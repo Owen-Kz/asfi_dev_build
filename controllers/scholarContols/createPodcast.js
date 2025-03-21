@@ -58,6 +58,7 @@ async function uploadToCloudinary(filePath, retries = 3) {
         attempt++;
         await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait 3s before retrying
       } else {
+        console.log(error)
         throw error;
       }
     }
@@ -147,7 +148,7 @@ const createPodcast = (req, res) => {
       console.log("🔔 Sending new podcast notification...");
       const message = `Just uploaded a podcast`;
       const userData = { user: { username: podcastOwner } };
-      // await newPostNotification(req, res, message, cloudinaryUrl);
+      await newPostNotification(req, res, message, cloudinaryUrl);
       console.log("✅ Notification sent successfully");
 
       // ✅ Render success page
