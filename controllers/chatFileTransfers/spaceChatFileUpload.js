@@ -13,35 +13,33 @@ cloudinary.config({
 
 const folderPath = path.join(__dirname, "../public/userUpload/chatFiles");
 fs.access(folderPath, fs.constants.W_OK, (err) => {
-  if (err) {
-    console.error(`The folder '${folderPath}' is not writable:`, err);
-  } else {
-    console.log(`The folder '${folderPath}' is writable`);
-  }
+  if (err) console.error(`The folder '${folderPath}' is not writable:`, err);
 });
+
+const allowedFileTypes = [
+  "image/jpeg", "image/png", "image/gif",
+  "video/mp4", "video/mpeg", "video/quicktime",
+  "audio/mpeg", "audio/ogg", "audio/wav",
+  "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+];
 
 const storage = multer.diskStorage({
   destination: folderPath,
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1e9);
     const fileExtension = path.extname(file.originalname);
-    const profileFile = uniqueSuffix + fileExtension;
-    cb(null, profileFile);
+    cb(null, uniqueSuffix + fileExtension);
   },
 });
 
-// Allow up to 10 files
 const uploads = multer({ storage }).array("files[]", 10);
 
 const SpaceChatFile = async (req, res) => {
-  try { 
+  try {
     uploads(req, res, async function (err) {
-      if (err) { 
-        return res.status(500).send(err);
-      }
+      if (err) return res.status(500).send(err);
 
       const { chatId, text, timestamp } = req.body;
-
       if (!chatId || !timestamp) {
         return res.status(400).json({ error: "Missing required data" });
       }
@@ -50,10 +48,20 @@ const SpaceChatFile = async (req, res) => {
         return res.status(400).json({ error: "No files uploaded" });
       }
 
-      // Generate a single message ID for the message
+      // Validate file size and type
+      for (const file of req.files) {
+        if (!allowedFileTypes.includes(file.mimetype)) {
+          return res.status(400).json({ error: `Unsupported file type: ${file.mimetype}` });
+        }
+        if (file.size > 50 * 1024 * 1024) { // 50MB limit
+          return res.status(400).json({ error: `File ${file.originalname} exceeds 50MB limit` });
+        }
+      }
+
+      // Generate message ID
       const messageId = await generateID();
 
-      // Save the message only once
+      // Insert message into database
       db.query(
         "INSERT INTO spaces_messages SET ?",
         [
@@ -69,49 +77,38 @@ const SpaceChatFile = async (req, res) => {
         (err) => {
           if (err) {
             console.error("Error saving message:", err);
-            return res.status(500).json({ error: "Database error when saving the message" });
+            return res.status(500).json({ error: "Database error when saving message" });
           }
         }
       );
 
-      // Process each file
-      for (const uploadedFile of req.files) {
-        const encryptedFileName = uploadedFile.filename;
-        const FileType = uploadedFile.mimetype;
-        const fileSize = ` ${(uploadedFile.size / 1024).toFixed(2)} KB`
-
+      // Upload files to Cloudinary and save file details in database
+      for (const file of req.files) {
         try {
-          const result = await cloudinary.uploader.upload(uploadedFile.path);
-          const cloudinaryUrl = result.url;
-
-          // Save file details in the chat_files table
+          const result = await cloudinary.uploader.upload(file.path, { resource_type: "auto" });
           db.query(
             "INSERT INTO chat_files SET ?",
             [
               {
-                file_url: cloudinaryUrl,
-                file_type: FileType,
-                file_name: encryptedFileName,
-                file_size: fileSize,
+                file_url: result.url,
+                file_type: file.mimetype,
+                file_name: file.filename,
+                file_size: (file.size / 1024).toFixed(2) + " KB",
                 chat_id: chatId,
                 message_id: messageId,
               },
             ],
-            (errored) => {
-              if (errored) {
-                console.error("Error saving file details:", errored);
-              }
+            (err) => {
+              if (err) console.error("Error saving file details:", err);
             }
           );
 
-          // Delete the local file after uploading to Cloudinary
-          fs.unlink(uploadedFile.path, (unlinkErr) => {
-            if (unlinkErr) {
-              console.error("Error deleting local file:", unlinkErr);
-            }
+          // Delete local file
+          fs.unlink(file.path, (err) => {
+            if (err) console.error("Error deleting local file:", err);
           });
         } catch (error) {
-          console.error("Error during Cloudinary upload:", error);
+          console.error("Error uploading to Cloudinary:", error);
         }
       }
 

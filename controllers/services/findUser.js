@@ -2,7 +2,7 @@ const db = require("../../routes/db.config")
 
 const findUserByName = async (user) =>{
       return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM user_info WHERE username =?", [user], async (err, data)=>{
+        db.query("SELECT * FROM user_info WHERE username =? OR id = ?", [user, user], async (err, data)=>{
             if(err){
                 reject(err)
                }else{
