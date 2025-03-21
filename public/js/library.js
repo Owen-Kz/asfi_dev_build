@@ -50,49 +50,37 @@ const book_list = document.getElementById("book_list")
   const ITEMS_PER_PAGE_LINKS = 3;
   
   // Initialize the current page numbers
-  let currentPageBooks = 1;
   let currentPageLinks = 1; 
-  
-  for(let i =0; i < 10; i++){
-    book_list.innerHTML+= `
-    <li class="card shadow h-50">
-   
-    <div class="card-body pb-0">
-      <!-- Badge and favorite -->
-      <div class="d-flex justify-content-between mb-2">
-            <div class="book_year" style="background-color:grey;">
-                
+  function addLoadingPlaceholders() {
+    for (let i = 0; i < 3; i++) {
+        const dummyCard = document.createElement("li");
+        dummyCard.className = "card shadow h-50 loading-placeholder";
+        dummyCard.innerHTML = `
+            <div class="card-body pb-0">
+                <h5 class="card-title" style="background-color: grey; height: 20px; width: 80%;"></h5>
+                <div style="background-color: grey; height: 15px; width: 60%; margin-top: 10px;"></div>
+            </div> 
+            <div class="card-footer pt-0 pb-3">
+                <hr>
+                <div class="d-flex justify-content-around">
+                    <div style="background-color: grey; height: 20px; width: 40px;"></div>
+                    <div style="background-color: grey; height: 20px; width: 40px;"></div>
+                </div>
             </div>
-      </div>
-      <!-- Title -->
-      <h5 class="card-title" style="background-color:grey;"><a href="#" ></a></h5>
-        <a href="#" class="badge bg-purple bg-opacity-10 text-purple" style="background-color:grey;"></a>
-     
-    </div> 
-    <!-- Card footer -->
-    <div class="card-footer pt-0 pb-3">
-      <hr>
-      <div class="d-flex justify-content-around">
-                          <a href="#" style="background-color:ash;"><div class="h6 fw-light mb-0 button refad"></div></a>
-                   <a href="#" style="background-color:ash;"> <div class="h6 fw-light mb-0 button download"></div></a>
-      </div>
-    </div>
-  </li>` 
-  }
+        `;
+        book_list.appendChild(dummyCard);
+    }
+}
+
+function removeLoadingPlaceholders() {
+    document.querySelectorAll(".loading-placeholder").forEach(el => el.remove());
+}
+
 
 // GET LINKS 
 const LINkS_body = document.getElementById("external_links")
 
-// for(let i=0; i<5; i++){
-//   LINkS_body.innerHTML += `<li class="card shadow h-50">
-        
-//   <div class="card-body pb-0">
-  
-//     <h5 class="card-title" style="background-color:grey;"><a href="#" target=_blank class="limited-text"></a></h5>
-//     <a style="background-color:grey;" href="#" class="badge bg-purple bg-opacity-10 text-purple limited-text"></a>
-  
-//   </li>`
-// } 
+
 
 // const LINkS_body = document.getElementById("linksContainer");
 // let currentPageLinks = 1;
@@ -197,8 +185,6 @@ async function renderPDFPreview(bookFile, canvas) {
 }
 
 function updateUIWithData(Books_Data) {
-    book_list.innerHTML = "";
-
     if (Books_Data.length > 0) {
         Books_Data.forEach(book => {
             const bookTitle = book.book_title;
@@ -238,27 +224,61 @@ function updateUIWithData(Books_Data) {
             // Append the canvas to the list item before the content
             listItem.insertBefore(canvas, listItem.firstChild);
 
-            // Append to book list
+            // Append the new book to the list instead of replacing it
             book_list.appendChild(listItem);
         });
     }
 }
 
 // Fetch and update the UI
-fetch(`/getAllBooksOnLibrary`, { method: "GET" })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === "success") {
-            const currentPage = data.currentPageBooks;
-            const totalPages = data.totalPagesBooks;
-            const booksList = JSON.parse(data.books);
-            
-            updateUIWithData(booksList);
-            booksNavigation(totalPages, currentPage);
-        } else {
+// Track current page for books
+let currentPageBooks = 1;
+let isFetchingBooks = false;
+let hasMoreBooks = true; // Flag to check if more books exist
+
+async function fetchBooks(page) {
+    if (isFetchingBooks || !hasMoreBooks) return;
+    isFetchingBooks = true;
+
+    // Add 3 dummy cards as loading placeholders
+    addLoadingPlaceholders();
+
+    try {
+        const response = await fetch(`/getAllBooksOnLibrary?pageBook=${page}`);
+        const data = await response.json();
+
+        if (data.status !== "success") {
             console.log(data.message);
+            return;
         }
-    });
+
+        const booksList = JSON.parse(data.books);
+        if (booksList.length === 0) {
+            hasMoreBooks = false; // No more books to load
+            removeLoadingPlaceholders();
+            return;
+        }
+
+        removeLoadingPlaceholders(); // Remove dummy cards after data is loaded
+        updateUIWithData(booksList); // Append books
+        currentPageBooks++; // Increment page number
+    } catch (error) {
+        console.error("Error fetching books:", error);
+    } finally {
+        isFetchingBooks = false;
+    }
+}
+
+
+// Attach scroll event listener to book list container
+book_list.addEventListener("scroll", () => {
+    if (book_list.scrollTop + book_list.clientHeight >= book_list.scrollHeight - 50) {
+        fetchBooks(currentPageBooks);
+    }
+});
+
+// Initial Load
+fetchBooks(currentPageBooks);
 
 
 export {
