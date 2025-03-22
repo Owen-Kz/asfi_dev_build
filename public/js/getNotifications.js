@@ -28,6 +28,7 @@ const formatTime = (timestamp) => {
 const  Notification_id_container = document.getElementById("Notification_id_container");
 const usernameContainer = document.getElementById("usernameContainer").value;
 const notifyCounter = document.getElementById("notify-counter");
+const notificationIcon = document.getElementById("notifications");
 fetch("/getAllNotifications", ()=>{
     method:"GET"
 })
@@ -77,4 +78,12 @@ const toggleChatButton = document.getElementById('toggleChatButton');
 toggleChatButton.addEventListener('click', () => {
     // Toggle the visibility of chat_container
     chatContainer.style.display = chatContainer.style.display === 'block' ? 'none' : 'block';
+});
+// When the chat icon is clicked, reset the counter.
+notificationIcon.addEventListener("click", () => {
+    // Option 1: Clear the counter completely (so no number is displayed)
+    notifyCounter.textContent = "";
+
+    // Option 2: Reset it to zero
+    // chatsCounter.textContent = "0";
 });

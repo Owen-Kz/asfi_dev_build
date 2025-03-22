@@ -1,5 +1,6 @@
 const Chat_id_container = document.getElementById("Chat_id_container");
 const chatsCounter = document.getElementById("chats-counter");
+const chatIcon = document.getElementById("chats");
 
 fetch("/getMessageNotifications", {
     method: "POST",
@@ -45,3 +46,12 @@ fetch("/getMessageNotifications", {
     }
 })
 .catch(error => console.error("Error fetching notifications:", error));
+
+// When the chat icon is clicked, reset the counter.
+chatIcon.addEventListener("click", () => {
+    // Option 1: Clear the counter completely (so no number is displayed)
+    chatsCounter.textContent = "";
+
+    // Option 2: Reset it to zero
+    // chatsCounter.textContent = "0";
+});
