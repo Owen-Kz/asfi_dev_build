@@ -14,47 +14,37 @@ cloudinary.config({
 // Set up multer (store files in memory)
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Cloudinary upload function with retry mechanism
-const uploadToCloudinary = (buffer, fileName, retries = 3) => {
+// Cloudinary upload function
+const uploadToCloudinary = (buffer, fileName) => {
   return new Promise((resolve, reject) => {
-    let attempt = 0;
-    const uploadStream = () => {
-      const stream = cloudinary.uploader.upload_stream(
-        { folder: "asfischolar/books", resource_type: "raw", public_id: fileName },
-        (error, result) => {
-          if (error) {
-            if (error.http_code === 499 && attempt < retries) {
-              console.log(`Retrying upload (attempt ${attempt + 1})...`);
-              attempt++;
-              return setTimeout(uploadStream, 3000); // Wait 3s before retrying
-            }
-            return reject(error);
-          }
-          resolve(result.secure_url);
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "asfischolar/books", resource_type: "raw", public_id: fileName },
+      (error, result) => {
+        if (error) {
+          console.error("Cloudinary upload error:", error);
+          return reject(error);
         }
-      );
-      stream.end(buffer);
-    };
-    uploadStream();
+        resolve(result.secure_url);
+      }
+    );
+    stream.end(buffer);
   });
 };
 
 const uploadBook = async (req, res) => {
-  try {
-    upload.single("file_pdf")(req, res, async function (err) {
-      if (err) {
-        console.error("Multer error:", err);
-        return res.status(500).send("File upload failed.");
-      }
+  upload.single("file_pdf")(req, res, async function (err) {
+    if (err) {
+      console.error("Multer error:", err);
+      return res.status(500).send("File upload failed.");
+    }
 
+    try {
       const { booksTitle, BookOwner, bufferBook, BookOwner_fullname, yearPublished, url_Link, url_title } = req.body;
 
       if (booksTitle && BookOwner && yearPublished) {
         const currentDate = new Date();
         const options = { month: "short" };
-        const currentMonth = currentDate.toLocaleString("en-US", options).slice(0, 3);
-        const currentDay = currentDate.getDate().toString().padStart(2, "0");
-        const dateString = `${currentMonth}, ${currentDay}`;
+        const dateString = `${currentDate.toLocaleString("en-US", options).slice(0, 3)}, ${String(currentDate.getDate()).padStart(2, "0")}`;
 
         // Check if the book already exists
         const [existingBook] = await db.promise().query(
@@ -76,43 +66,37 @@ const uploadBook = async (req, res) => {
         const fileType = uploadedFile.mimetype;
         const uniqueFilename = `${Date.now()}-${uploadedFile.originalname}`;
 
-        try {
-          // Upload file to Cloudinary
-          const fileUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);
+        // Upload file to Cloudinary
+        const fileUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);
 
-          // Insert book details into database
-          await db.promise().query(
-            "INSERT INTO books SET ?",
-            [{
-              book_title: booksTitle,
-              book_id: bufferBook,
-              book_author: BookOwner,
-              book_year: yearPublished,
-              file: uniqueFilename,
-              book_cover: "cover.jpg",
-              fileEXT: fileType,
-              datePublished: dateString,
-              book_owner_username: BookOwner_fullname,
-            }]
-          );
+        // Insert book details into database
+        await db.promise().query(
+          "INSERT INTO books SET ?",
+          [{
+            book_title: booksTitle,
+            book_id: bufferBook,
+            book_author: BookOwner,
+            book_year: yearPublished,
+            file: uniqueFilename,
+            book_cover: "cover.jpg",
+            fileEXT: fileType,
+            datePublished: dateString,
+            book_owner_username: BookOwner_fullname,
+          }]
+        );
 
-          // Insert Cloudinary file URL into `files` table
-          await db.promise().query(
-            "INSERT INTO files (filename, filedata) VALUES (?, ?)",
-            [uniqueFilename, fileUrl]
-          );
+        // Insert Cloudinary file URL into `files` table
+        await db.promise().query(
+          "INSERT INTO files (filename, filedata) VALUES (?, ?)",
+          [uniqueFilename, fileUrl]
+        );
 
-          console.log("Book uploaded successfully to Cloudinary");
+        console.log("✅ Book uploaded successfully to Cloudinary");
 
-          // Send notification and respond
-          const message = `Just uploaded a book`;
-          await newPostNotification(req, res, message, `https://asfischolar.org/library/b/${bufferBook}`);
-          res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });
-
-        } catch (cloudinaryError) {
-          console.error("Cloudinary upload error:", cloudinaryError);
-          res.status(500).render("error.ejs", { status: "Error uploading to Cloudinary" });
-        }
+        // Send notification and respond
+        const message = `Just uploaded a book`;
+        await newPostNotification(req, res, message, `https://asfischolar.org/library/b/${bufferBook}`);
+        return res.render("successful.ejs", { status: "Book has been uploaded", page: "/library" });
 
       } else if (url_Link) {
         // Handle URL-based book upload
@@ -130,15 +114,16 @@ const uploadBook = async (req, res) => {
           [{ link_href: url_Link, link_owner: BookOwner, link_buffer: bufferBook, link_owner_fullname: BookOwner_fullname, link_title: url_title }]
         );
 
-        res.render("successful.ejs", { status: "Link Added Successfully", page: "/library" });
+        return res.render("successful.ejs", { status: "Link Added Successfully", page: "/library" });
       } else {
-        res.status(400).render("error.ejs", { status: "Missing required data" });
+        return res.status(400).render("error.ejs", { status: "Missing required data" });
       }
-    });
-  } catch (error) {
-    console.error("Upload error:", error);
-    res.status(500).send("Internal server error.");
-  }
+
+    } catch (error) {
+      console.error("Upload error:", error);
+      return res.status(500).send("Internal server error.");
+    }
+  });
 };
 
 module.exports = uploadBook;

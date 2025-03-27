@@ -222,6 +222,7 @@ const getProfilePublications = require("../controllers/profile/getASFIPublicatio
 const siteMap = require("../controllers/services/siteMap");
 const deleteSpace = require("../controllers/spaces/deleteSpace");
 const getAllPodcasts = require("../controllers/podcasts/getAllPodcasts");
+const asfiMeetFileUpload = require("../controllers/external/asfiMeetFileUpload");
 
 // ADMINISTRATOR 
 
@@ -1105,6 +1106,10 @@ router.post("/deleteSpace/:space_id", LoggedIn, deleteSpace)
 // For ASFIRJ FILE PROCESSING 
 router.post("/mergeFilesAPI", mergeAPI)
 router.post("/deleteFileAPI", deleteFile)
+
+
+// For ASFIMeet file processing 
+router.post("/asfimeetfileupload", asfiMeetFileUpload)
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})
 })
