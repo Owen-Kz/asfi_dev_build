@@ -68,7 +68,7 @@ const asfiMeetFileUpload = (req, res) => {
 
     if (!req.file) {
       console.error("❌ No file uploaded");
-      return res.status(400).json({ error: "Invalid file", status: "No file uploaded" });
+      return res.json({ error: "Invalid file", status: "No file uploaded" });
     }
 
     console.log("✅ File successfully uploaded to temp storage");
