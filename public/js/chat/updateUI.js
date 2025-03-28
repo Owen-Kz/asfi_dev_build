@@ -114,6 +114,16 @@ async function GetChatUserData(id){
   })
 }
 
+async function processHashedValue(buffer) {
+  
+  // Remove all slashes from the hash
+  const sanitizedHash = buffer.replace(/\//g, '');
+
+  // Get last 5 and first 5 characters
+  const result = sanitizedHash.slice(-5);
+
+  return result;
+}
 async function UpdateChatUI(id){
 
   // const messageForm = document.getElementById("messageForm")
@@ -137,6 +147,9 @@ socket.emit('join-room', id, userId);
 
   const user = await GetChatUserData(id)
 
+  const callId = await processHashedValue(id)
+  const callButton = document.getElementById("callButton")
+  callButton.setAttribute("href", `https://asfischolar.net/call/CallFor${callId}`)
 
   
   const chatHistoryContainer = document.getElementById("chatHistory")

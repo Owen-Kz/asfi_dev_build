@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const AdminLoggedIn = require("./admin/loggedin");
 const ChatBufferID = [];
 let bufferGeneratedMain = "";
+let bufferID = "";
+let callerID = ""; // Initialize callerID here  
+
 const recentMessagesArray = [];
 
 console.log("SERVER SIDE CHAT WORKING")
@@ -10,7 +13,16 @@ const startNewChatSession = () => {
   ChatBufferID.length = 0; 
 };
 
+async function processHashedValue(buffer) {
+  
+  // Remove all slashes from the hash
+  const sanitizedHash = buffer.replace(/\//g, '');
 
+  // Get last 5 and first 5 characters
+  const result = sanitizedHash.slice(-5) + sanitizedHash.slice(0, 5);
+
+  return result;
+}
 
 const checkChatBufferExists = async (senderUsername, recipientUsername, bufferGenerated) => {
 console.log("BUFFER EXISTS")
@@ -27,6 +39,7 @@ console.log("BUFFER EXISTS")
             if (err) return reject(err);            
             // Push the buffer ID into the ChatBufferID array
             // ChatBufferID.push({ id: bufferResult[0]["buffer_generated"] });
+            bufferID = bufferResult[0]["id"];
             bufferGeneratedMain = bufferResult[0]["buffer_generated"]
             resolve(true);
           }
@@ -118,9 +131,11 @@ const PrivateChatRoom = async (req, res) => {
     startNewChatSession();
     const recipientUsername = req.params["username"];
     const messageHistory = [];
+    bufferID = recipientUsername + senderUsername;
     bufferGeneratedMain = await bcrypt.hash(senderUsername + recipientUsername, 8);
     const recentMessages = [];
     const receiverPoints = [];
+    callerID = bufferID + await processHashedValue(bufferGeneratedMain);
 
     try {
       const chatBufferExists = await checkChatBufferExists(senderUsername, recipientUsername, bufferGeneratedMain);
@@ -166,6 +181,7 @@ const PrivateChatRoom = async (req, res) => {
         chatHistory: JSON.stringify(messageHistory),
         ChatBufferID: JSON.stringify(ChatBufferID),
         chat_id:bufferGeneratedMain,
+        call_id: callerID,
         UserName:req.user.username, accountType:req.user.acct_Type, FirstName:req.user.first_name, LastName: req.user.last_name, ProfileImage: req.user.profile_picture, Email:req.user.email, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYer", username:req.user.username, Username:req.user.username, UserName:req.user.username
       });
       }else{
