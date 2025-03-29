@@ -33,15 +33,11 @@ const saveNotification = require("./controllers/scholarContols/saveNotification"
 const {Server} = require('socket.io');
 require('debug')('socket.io');
 
-// socketIo.Server
-// const io = new Server(server, {
-//   cors: {
-//     origin: '*', // Update with your actual origin
-//     methods: ["GET", "POST"],
-// },
-// transports: ["websocket"],
-// });
+const fs = require("fs");
+const WebSocket = require("ws");
+const { spawn } = require("child_process");
 
+const WebSocketServer = new WebSocket.Server({ port: 5000});
 
 const io = require('socket.io')(server, {
   cors: {
@@ -139,24 +135,35 @@ db.connect((err) => {
     console.log(`Database connected and server running on ${PORT}`);
 })
 
-let socketsConnected = new Set();
+WebSocketServer.on("connection", (ws) => {
+  console.log("Client connected, starting FFmpeg...");
 
-io.on('connection', onConnected);
+  // Generate a unique filename
+  const filename = `recordings/meeting-${Date.now()}.mp4`;
 
-function onConnected(socket) {
-  
- 
-  // SOCKET IO CODE FOR THE VIDEO CONFERENCING
-  socket.on('join-vc', (roomId_vc, userId_vc) => {
-    socket.join(roomId_vc);
+  // Start FFmpeg process to save the WebRTC stream as MP4
+  const ffmpeg = spawn("ffmpeg", [
+      "-y",
+      "-i", "pipe:0",
+      "-c:v", "libx264",
+      "-preset", "fast",
+      "-c:a", "aac",
+      "-b:a", "128k",
+      filename
+  ]);
 
-    socket.to(roomId_vc).broadcast.emit('user-connected-vc', userId_vc);
-
-    socket.on('disconnect_vc', () => {
-      socket.to(roomId_vc).broadcast.emit('user-disconnected-vc', userId_vc);
-    });
+  ws.on("message", (data) => {
+      ffmpeg.stdin.write(data); // Send stream data to FFmpeg
   });
-}
+
+  ws.on("close", () => {
+      console.log("Client disconnected, stopping FFmpeg...");
+      ffmpeg.stdin.end(); // Stop FFmpeg process
+  });
+});
+
+console.log("WebSocket server running on ws://localhost:5000");
+
 
 app.use("/", require("./routes/pages"));
 app.use("/administrator", require("./routes/adminPages"));
