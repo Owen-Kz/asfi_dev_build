@@ -155,26 +155,29 @@ db.connect((err) => {
 
 const wss = new WebSocket.Server({ port: 5000 });
 
+
+
 wss.on("connection", (ws) => {
     console.log("Client connected, starting FFmpeg...");
 
-    // Generate a unique MP4 filename
-    const filename = path.join(recordingsDir, `meeting-${Date.now()}.mp4`);
+    // Generate a unique filename
+    const filename = `recordings/meeting-${Date.now()}.mp4`;
 
-    // Start FFmpeg to convert WebM to MP4
+    // Start FFmpeg process to convert WebM stream to MP4 (H.264 + AAC)
     const ffmpeg = spawn("ffmpeg", [
-        "-y", // Overwrite if file exists
-        "-f", "webm",
-        "-i", "pipe:0", // Read input from WebSocket
-        "-c:v", "libx264", // Convert video to H.264
-        "-preset", "fast",
-        "-c:a", "aac", // Convert audio to AAC
-        "-b:a", "128k",
-        filename // Output MP4 file
+        "-y",                    // Overwrite existing file
+        "-f", "webm",            // Input format
+        "-i", "pipe:0",          // Read from stdin
+        "-c:v", "libx264",       // Convert video to H.264
+        "-preset", "fast",       // Optimize encoding speed
+        "-c:a", "aac",           // Convert audio to AAC
+        "-b:a", "128k",          // Set audio bitrate
+        "-movflags", "+faststart", // Optimize for web playback
+        filename                 // Output file
     ]);
 
     ws.on("message", (data) => {
-        ffmpeg.stdin.write(data); // Stream WebM data into FFmpeg
+        ffmpeg.stdin.write(data); // Stream data to FFmpeg
     });
 
     ws.on("close", () => {
@@ -182,10 +185,16 @@ wss.on("connection", (ws) => {
         ffmpeg.stdin.end(); // Stop FFmpeg process
     });
 
-    ffmpeg.on("exit", () => {
-        console.log(`Recording saved: ${filename}`);
+    ffmpeg.on("close", (code) => {
+        if (code === 0) {
+            console.log(`✅ Recording saved successfully: ${filename}`);
+        } else {
+            console.error(`❌ FFmpeg error, exit code: ${code}`);
+        }
     });
 });
+
+
 
 
 console.log(`WebSocket server running on ws://localhost:${WEBSOCKET_PORT}`);
