@@ -36,7 +36,6 @@ require('debug')('socket.io');
 const WebSocket = require("ws");
 const { spawn } = require("child_process");
 const fs = require("fs");
-const path = require("path");
 
 // Ensure recordings directory exists
 const recordingsDir = path.join(__dirname, "recordings");
