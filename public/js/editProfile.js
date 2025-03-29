@@ -7,6 +7,7 @@ const profileEdit = document.querySelector("#profile-edit");
 const linksEdit = document.querySelector('#links-edit');
 const emailEdit = document.querySelector('#email-edit');
 const passwordEdit = document.querySelector('#password-edit');
+const updateEmail = document.getElementById("updateEmail")
 
 // Add an event listener to the "Add More" button
 addMoreButton.addEventListener('click', () => {
