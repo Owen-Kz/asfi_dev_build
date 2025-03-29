@@ -36,9 +36,15 @@ require('debug')('socket.io');
 const fs = require("fs");
 const WebSocket = require("ws");
 const { spawn } = require("child_process");
+const ffmpeg = require("fluent-ffmpeg");
 
-const WebSocketServer = new WebSocket.Server({ port: 5000});
+const WEBSOCKET_PORT = 5000;
+const RECORDINGS_DIR = "recordings";
 
+// Ensure the recordings directory exists
+if (!fs.existsSync(RECORDINGS_DIR)) {
+    fs.mkdirSync(RECORDINGS_DIR);
+}
 const io = require('socket.io')(server, {
   cors: {
       origin: "https://asfischolar.org",
@@ -135,34 +141,47 @@ db.connect((err) => {
     console.log(`Database connected and server running on ${PORT}`);
 })
 
+
+
+const WebSocketServer = new WebSocket.Server({ port: WEBSOCKET_PORT });
+
 WebSocketServer.on("connection", (ws) => {
-  console.log("Client connected, starting FFmpeg...");
+    console.log("Client connected, starting WebM recording...");
 
-  // Generate a unique filename
-  const filename = `recordings/meeting-${Date.now()}.mp4`;
+    const webmFilename = `${RECORDINGS_DIR}/meeting-${Date.now()}.webm`;
+    const mp4Filename = webmFilename.replace(".webm", ".mp4");
 
-  // Start FFmpeg process to save the WebRTC stream as MP4
-  const ffmpeg = spawn("ffmpeg", [
-      "-y",
-      "-i", "pipe:0",
-      "-c:v", "libx264",
-      "-preset", "fast",
-      "-c:a", "aac",
-      "-b:a", "128k",
-      filename
-  ]);
+    // Start FFmpeg process to save WebRTC stream as WebM
+    const ffmpegProcess = spawn("ffmpeg", [
+        "-y",
+        "-i", "pipe:0",
+        "-c:v", "libvpx",
+        "-c:a", "libopus",
+        webmFilename
+    ]);
 
-  ws.on("message", (data) => {
-      ffmpeg.stdin.write(data); // Send stream data to FFmpeg
-  });
+    ws.on("message", (data) => {
+        ffmpegProcess.stdin.write(data); // Write stream data to FFmpeg
+    });
 
-  ws.on("close", () => {
-      console.log("Client disconnected, stopping FFmpeg...");
-      ffmpeg.stdin.end(); // Stop FFmpeg process
-  });
+    ws.on("close", () => {
+        console.log("Client disconnected, stopping FFmpeg...");
+        ffmpegProcess.stdin.end(); // Stop FFmpeg
+
+        // Convert WebM to MP4 after recording stops
+        ffmpeg(webmFilename)
+            .output(mp4Filename)
+            .videoCodec("libx264")
+            .on("end", () => {
+                console.log(`Conversion to MP4 complete: ${mp4Filename}`);
+                fs.unlinkSync(webmFilename); // Remove WebM after conversion
+            })
+            .on("error", (err) => console.error("FFmpeg error:", err))
+            .run();
+    });
 });
 
-console.log("WebSocket server running on ws://localhost:5000");
+console.log(`WebSocket server running on ws://localhost:${WEBSOCKET_PORT}`);
 
 
 app.use("/", require("./routes/pages"));
