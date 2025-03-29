@@ -84,11 +84,13 @@ linksEdit.addEventListener('click', () => {
 });
 
 emailEdit.addEventListener('click', () => {
+    const email = document.getElementById("email")
     const inputFields3 = form3.querySelectorAll('.form-control');
     updateEmail.removeAttribute("disabled")
-    inputFields3.forEach(field => {
-        field.removeAttribute('readonly');
-    })
+    email.removeAttribute("readonly")
+    // inputFields3.forEach(field => {
+    //     field.removeAttribute('readonly');
+    // })
 });
 
 passwordEdit.addEventListener('click', () => {
