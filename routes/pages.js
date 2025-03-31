@@ -282,7 +282,7 @@ router.get("/embedMega", (req,res)=>{
 }) 
 // router.get("/home", (req,res) =>{
 //     res.render("home", {
-//         UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+//         UserName: "ASFI Scholar", accountType:"scholar_account", FirstName:"ASFI", LastName: "Scholar", ProfileImage: "avatar.jpg", Email:"asfischolar@gmail.com"
 //     })
 // })
 router.get("/app", NotificationLoggedIN, (req, res) => {
@@ -603,7 +603,7 @@ router.get("/register", (req, res) => {
 // SEND REULTS TO THE USER
 router.get("/myresults", (req, res) =>{
     res.render("results.ejs", { 
-    UserName: "TestUsername", accountType:"user_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"})
+    UserName: "ASFI Scholar", accountType:"user_account", FirstName:"ASFI", LastName: "Scholar", ProfileImage: "avatar.jpg", Email:"asfischolar@gmail.com"})
 }) 
 
 // RESET USER PASSWORD 
@@ -694,10 +694,14 @@ router.post("/becomeScholar", createScholar)
 
 router.get("/contactUs", (req,res) =>{
     res.render("contactUs", {
-        UserName: "TestUsername", accountType:"scholar_account", FirstName:"Muhammed", LastName: "Obinna", ProfileImage: "avatar.jpg", Email:"email@hok.com"
+        UserName: "ASFI Scholar", accountType:"scholar_account", FirstName:"ASFI", LastName: "Scholar", ProfileImage: "avatar.jpg", Email:"asfischolar@gmail.com"
     })
 })
-
+router.get("/contact", (req,res) =>{
+    res.render("contactUs", {
+        UserName: "ASFI Scholar", accountType:"scholar_account", FirstName:"ASFI", LastName: "Scholar", ProfileImage: "avatar.jpg", Email:"asfischolar@gmail.com"
+    })
+})
 router.get("/forgotpassword", (req,res) =>{
    res.redirect("passwordReset")
 })
