@@ -8,7 +8,16 @@ const findPublications = async (userEmail) =>{
             const response = await fetch(`${process.env.ASFIRJ_DOMAIN}/external/findAuthorPublications.php?author=${userEmail}`, {
                 method: "GET"
             })
-            const responseData = await response.json()
+            const responseData = await response.json() || [{articlesList: []}]
+            if(!response.ok){
+                throw new Error(responseData.message || "Failed to fetch publications")
+            }
+            if(responseData.articlesList === undefined){
+                throw new Error("No articles found")
+            }
+            if(responseData.articlesList === null){
+                throw new Error("No articles found")
+            }
             const ArticleList = responseData.articlesList
   
          
