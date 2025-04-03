@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Red_Theme" data-layout="vertical">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Weperch Technologies Ltd">
+  <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/scholarDashboard.css">
+  <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/css/customChat.css">
+
+  <!-- Favicon -->
+  <!-- <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png"> -->
+  <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="/css/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+
+  <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+  <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+  <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+  <!-- Core Css -->
+  <link rel="stylesheet" href="/chatAssets/assets/css/styles.css" />
+  <title><%= receiverFirstName%> <%= receiverLastname%> | Chat
+  </title>
+
+  <input type="text" id="senderImage_" value="<%= senderImage %>" readonly hidden>
+  <input type="text" id="receiverImage_" value="<%=receiverImage%>" readonly hidden>
+  <input type="text" value="<%= receiverFirstName%> <%= receiverLastname%>" id="recipientFullname" hidden>
+  <input type="text" value="<%= senderFirstname %> <%= senderLastname %>" id="senderFulname" hidden>
+
+  <input type="text" id="chatHistory" value="<%= chatHistory %>" readonly hidden>
+  
+  <input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
+  <input type="text" id="name-input" class="name-input" value="<%=recipient %>" maxlength="20" readonly hidden />
+
+  <input type="text" id="name-input-sender" namce="name-input-sender" class="name-input" value="<%=sender %>" maxlength="20" hidden readonly />
+  <input type="text" id="chatID" value="<%=chat_id%>" hidden>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat/saveMessage.js"></script>
+  <script src="/js/chat/previewImage.js"></script>
+  <script src="/js/chat/chatFiles.js"></script>
+  <script src="/js/chat/updateUI.js"></script>
+  <style>
+    .chat-send-message-footers {
+  position: fixed; /* Keeps the element fixed relative to the viewport */
+  bottom: 0;       /* Anchors the footer to the bottom */
+  left: 25%;
+  /* right: 0; */
+  width: 60%;
+  background-color: #fff; /* Adjust background as needed */
+  z-index: 9999999;   /* Ensures it stays on top of other content */
+  padding: 1rem 2rem;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Optional: gives a floating effect*/
+}
+.card{
+  height: 82vh !important;
+  max-height: 82vh !important;
+}
+.mainChat .body-wrapper {
+    padding-top: 40px !important;
+    /* margin-top: 60px; */
+}
+.chat-box .chat-box-inner {
+    height: 70vh;
+    max-height: 70vh;
+    overflow: scroll;
+}
+@media screen and (max-width: 991px) {
+  .chat-send-message-footers {
+    left: 0;
+    right: 0;
+  width: 100%;
+  /* margin-bottom: 20px; */
+  }
+  .card{
+  height: 90vh !important;
+  max-height: 90vh !important;
+  width: 100%;
+}
+}
+
+.notify-container{
+		display: flex;
+		justify-content: space-between;
+		padding: 0px 10px 0px 10px;
+		width: 120px;
+	}
+	.marginLeft-70:before {
+        content: "\f00d";
+		margin-right: 10px;
+    }
+	.stack-bars{
+		margin-right: 20px;
+	}
+
+  .app-chat {
+    overflow-y: auto;
+    height: 50%;
+  }
+
+	@media (min-width: 1084px) {
+		.notify-container{
+		display: flex;
+		/* background-color: red; */
+		margin-left: -60%;
+		padding: 0px 10px 0px 10px;
+	}
+
+	}
+   </style>
+</head>
+
+<body style="overflow: hidden;">
+  
+
+  
+
+  <div id="main-wrapper" class="mainWrapper" style="overflow: hidden; width: 100%;">
+
+    <!--  Sidebar End -->
+    <div class="page-wrappe mainChat">
+
+      <div class="">
+        <div class="container-fluid">
+
+          <div class="card overflow-hidden chat-application">
+            <div class="d-flex align-items-center justify-content-between gap-6 m-3 d-lg-none" style="display: none !important;">
+              <button class="btn btn-primary d-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat-sidebar" aria-controls="chat-sidebar">
+                <i class="ti ti-menu-2 fs-5"></i>
+              </button>
+              <form class="position-relative w-100">
+                <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Contact" />
+                <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+              </form>
+            </div>
+            <div class="d-flex">
+              <div class="w-30 d-none d-lg-block border-end user-chat-box" style="display: none !important;">
+                <div class="px-4 pt-9 pb-6">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                      <div class="position-relative">
+                        <div class="avatar-img rounded-circle border border-white border-3 shadow" style="height: 54px;">
+                          <img src="<%= senderImage %>" alt="user1" width="54" height="54" />
+                        </div>
+                        <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
+                          <span class="visually-hidden">New alerts</span>
+                        </span>
+                      </div>
+                      <div class="ms-3">
+                        <h6 class="fw-semibold mb-2"><%= senderFirstname %> <%= senderLastname %></h6>
+                        <p class="mb-0 fs-2"><%= UserName%></p>
+                      </div>
+                    </div>
+                 
+                  </div>
+                  <form class="position-relative mb-4">
+                    <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Contact" />
+                    <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                  </form>
+                  <div class="dropdown">
+                    <a class="text-muted fw-semibold d-flex align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Recent Chats
+
+
+                      <span class="c-number" id="c-number"></span>
+
+                    </a>
+
+                  </div>
+                </div>
+                <div class="app-chat">
+                  <ul class="chat-users mb-0 mh-n100" data-simplebar id="active_conversations">
+
+
+                  </ul>
+                </div>
+              </div>
+              <div class="w-100 w-xs-100 chat-container">
+                <div class="chat-box-inner-part h-100">
+                  <div class="chat-not-selected h-100 d-none">
+                    <div class="d-flex align-items-center justify-content-center h-100 p-5">
+                      <div class="text-center">
+                        <span class="text-primary">
+                          <i class="ti ti-message-dots fs-10"></i>
+                        </span>
+                        <h6 class="mt-2">Open chat from the list</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="chatting-box d-block">
+                    <div class="p-9 border-bottom chat-meta-user d-flex align-items-center justify-content-between">
+                      <div class="hstack gap-3 current-chat-user-name">
+                        <div class="position-relative rounded-circle" style="height: 54px;">
+                          <img src="" alt="user1" width="48" height="48" id="user_image" style="visibility: hidden;" />
+                          <!-- <span class="position-absolute bottom-0 end-0 p-1 badge rounded-pill bg-success">
+                            <span class="visually-hidden">New alerts</span>
+                          </span> -->
+                        </div>
+                        <div>
+                          <h6 class="mb-1 name fw-semibold" id="recipientName"></h6>
+                          <!-- <p class="mb-0">Away</p> -->
+                        </div>
+                      </div>
+                      <ul class="list-unstyled mb-0 d-flex align-items-center">
+                        <li>
+                          <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" id="callButton">
+                            <i class="ti ti-phone"></i>
+                          </a>
+                        </li>
+                        <!-- <li>
+                          <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                            <i class="ti ti-video"></i>
+                          </a>
+                        </li> -->
+                        <!-- <li>
+                          <a class="chat-menu text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                            <i class="ti ti-menu-2"></i>
+                          </a>
+                        </li> -->
+                      </ul>
+                    </div>
+                    <div class="d-flex parent-chat-box">
+                      <div class="chat-box w-xs-100">
+                        <div class="chat-box-inner p-9" data-simplebar>
+                          <div class="chat-list chat active-chat" data-user-id="1" id="message-container" style="overflow-y: auto !important;">
+
+                          </div>
+                          <!-- 2 -->
+
+                        </div>
+                        <div class="px-9 py-6 border-top chat-send-message-footers " id="messageForm">
+                          <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-end gap-2 w-85" >
+                              <%- include("emojiPicker.ejs") %>
+                       
+                            </div>
+                            <ul class="list-unstyledn mb-0 d-flex align-items-center">
+                              <li>
+                                <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)" id="sendImage">
+                                  <i class="ti ti-photo-plus"></i>
+                                </a>
+                              </li>
+                              <li>
+                                <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)" id="sendAttachment">
+                                  <i class="ti ti-paperclip"></i>
+                                </a>
+                              </li>
+                              <li>
+                                <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)" title="send" id="send-message">
+                                  <i class="ti ti-location"></i>
+                                </a>
+                              </li>
+                              <!-- <li>
+                                <a class="text-dark px-2 fs-7 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                                  <i class="ti ti-microphone"></i>
+                                </a>
+                              </li> -->
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="app-chat-offcanvas border-start" id="mediaCanvas" style="display: none !important;">
+                        <div class="custom-app-scroll mh-n100" >
+                          <div class="p-3 d-flex align-items-center justify-content-between">
+                            <h6 class="fw-semibold mb-0 text-nowrap">
+                              Media <span class="text-muted" id="imageFileCount">0</span>
+                            </h6>
+                            <a class="chat-menu d-lg-none d-block text-dark fs-6 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                              <i class="ti ti-x"></i>
+                            </a>
+                          </div>
+                          <div class="offcanvas-body p-9">
+
+                            <div class="row mb-7 text-nowrap" id="chatImageFiles">
+
+
+
+
+                            </div>
+                            <div class="files-chat" id="otherFiles">
+                              <h6 class="fw-semibold mb-3 text-nowrap">
+                                Files <span class="text-muted" id="otherFilesLength">0</span>
+                              </h6>
+
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="offcanvas offcanvas-start user-chat-box chat-offcanvas" tabindex="-1" id="chat-sidebar" aria-labelledby="offcanvasExampleLabel" style="display: none;">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                    Chats
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="px-4 pt-9 pb-6">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                      <div class="position-relative">
+
+                        <div class="prod"> <img src="<%= senderImage %>" alt="user1" width="54" height="54" class="rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="ms-3">
+                        <h6 class="fw-semibold mb-2"><%= senderFirstname %> <%= senderLastname %></h6>
+                        <p class="mb-0 fs-2"><%= UserName%></p>
+                      </div>
+                    </div>
+
+                  </div>
+                  <form class="position-relative mb-4">
+                    <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Contact" />
+                    <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                  </form>
+                  <div class="dropdown">
+                    <a class="text-muted fw-semibold d-flex align-items-center" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Recent Chats<i class="ti ti-chevron-down ms-1 fs-5"></i>
+                    </a>
+
+                  </div>
+                </div>
+                <div class="app-chat">
+                  <ul class="chat-users mh-n100" data-simplebar id="active_conversation">
+
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+           <!-- Start right section  -->
+
+        </div>
+        <!----Footer--->
+        <!-- -------------------------------------------------------------- -->
+        <!-- footer -->
+        <!-- -------------------------------------------------------------- -->
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- End footer -->
+        <!-- -------------------------------------------------------------- -->
+        <!----Footer End--->
+      </div>
+      <script>
+        function handleColorTheme(e) {
+          document.documentElement.setAttribute("data-color-theme", e);
+        }
+      </script>
+
+    </div>
+
+
+  </div>
+  <div class="dark-transparent sidebartoggler"></div>
+  <script src="/chatAssets/assets/js/vendor.min.js"></script>
+  <!-- Import Js Files -->
+  <script src="/chatAssets/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/chatAssets/assets/js/theme/app.init.js"></script>
+  <!-- <script src="/chatAssets/assets/js/theme/theme.js"></script> -->
+  <!-- <script src="/chatAssets/assets/js/theme/app.min.js"></script> -->
+  <script src="/chatAssets/assets/js/theme/feather.min.js"></script>
+
+  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="/chatAssets/assets/js/chat.js"></script>
+
+
+  <script src="/js/jquery-3.4.1.min.js"></script>
+
+  <script src="/js/jquery-3.4.2.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+  <!-- <script src="/js/chatUI.js"></script> -->
+
+
+  <script src="/js/fetchFiles.js"></script>
+  <!-- <script type="module" src="/js/searchQueries/getUserInfo.js"></script> -->
+  <script src="/js/privateChatMain.js" type="module"></script>
+   
+  <script type="module" src="/js/privateRecentChats.js"></script>
+  <script src="/js/chat/submitMessage.js"></script>
+  <script src="/js/mainjs.js"></script>
+  <!-- <script src="/js/getNotifications.js"></script>
+  <script src="/js/getChatNotifications.js"></script> -->
+  <script type="module" src="/js/services/main.js"></script>
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
+
+  
+
+  <%- include("chatImagePreview") %>
+
+  <script>
+    const chatId = document.getElementById("chatID").value;
+    const chatIdContaner = document.getElementById("chatIdContaner")
+    
+    UpdateChatUI(chatId)
+    
+      </script>
+</body>
+
+</html>

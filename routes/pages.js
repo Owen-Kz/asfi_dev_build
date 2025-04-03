@@ -223,6 +223,7 @@ const siteMap = require("../controllers/services/siteMap");
 const deleteSpace = require("../controllers/spaces/deleteSpace");
 const getAllPodcasts = require("../controllers/podcasts/getAllPodcasts");
 const asfiMeetFileUpload = require("../controllers/external/asfiMeetFileUpload");
+const ChatInChat = require("../controllers/PrivateChatInChat");
 
 // ADMINISTRATOR 
 
@@ -483,6 +484,8 @@ router.get("/meetings/m/:roomId/u/:userId", render_main_room)
  
 // Render Private chat room 
 router.get("/@:username/chat", LoggedIn, PrivateChatRoom)
+router.get("/@:username/chat-in-chat", LoggedIn, ChatInChat)
+
 
 
 // Iinstructor Students

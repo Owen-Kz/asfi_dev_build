@@ -11,6 +11,36 @@ const ParticipantsCount = document.getElementById("c-number")
 
 ParticipantsCount.setAttribute("style", "display:none;")
 
+function getChatModal(user_name){
+  
+  // document.addEventListener("DOMContentLoaded", function () {
+    const messageIcons = document.querySelectorAll(".message-icon");
+    const modal = document.getElementById("chatModal");
+    const closeModal = document.querySelector(".close");
+    const chatFrame = document.getElementById("chatFrame");
+  
+    // messageIcons.addEventListener("click", function () {
+        // const username = this.getAttribute("data-username");
+        chatFrame.src = `/@${user_name}/chat-in-chat`; // Adjust URL as needed
+        modal.style.display = "block";
+
+      // });
+
+      
+  
+
+  
+    closeModal.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+  
+    window.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  // });
+}
 
 // The funciton for listing all the space participants 
 function UpdateSpaceParticipants(){
@@ -58,8 +88,8 @@ if(PArticipants.length > 0){
 
 
     participantsContainer.innerHTML += `
-     <li>
-          <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
+     <li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between;">
+         <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
               <span class="position-relative rounded-circle" style="height: 45px;">
                 <img src="${ProfileImageSrc}" alt="user-profile" width="48" height="48" />
@@ -69,14 +99,17 @@ if(PArticipants.length > 0){
                  ${Fullname}
                 </h6>
                 <span class="fs-3 text-truncate text-dark d-block">${TitleMain}</span>
+                <p class="fs-2 mb-0 text-muted"></p>
               </div>
             </div>
-            <p class="fs-2 mb-0 text-muted"></p>
-          </a>
+             </a>
+           <span class="message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;">
+    <img src="../public/assets/message.svg" width="20" height="20">
+  </span>
         </li>
 `; 
         if(mobileParticipantsContainer){
-            mobileParticipantsContainer.innerHTML += `<li>
+            mobileParticipantsContainer.innerHTML += `<li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between;">
           <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
               <span class="position-relative rounded-circle">
@@ -91,9 +124,13 @@ if(PArticipants.length > 0){
             </div>
             <p class="fs-2 mb-0 text-muted"></p>
           </a>
+           <span class="message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;">
+    <img src="../public/assets/message.svg" width="20" height="20">
+  </span>
         </li>`
         }
-    });
+     
+      });
     
 }else{
     participantsContainer.innerHTML = ""
