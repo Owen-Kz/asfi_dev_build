@@ -1,5 +1,4 @@
-console.log(confirmEmail.value)
- 
+
 confrimResetCode.addEventListener("submit", () =>{
     const codeConfrimEmail = {
         email:confirmEmail.value,

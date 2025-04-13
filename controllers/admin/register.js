@@ -1,4 +1,3 @@
-const sgMail = require("@sendgrid/mail");
 const db = require("../../routes/db.config");
 
 const bcrypt = require("bcryptjs");
@@ -65,15 +64,8 @@ async function SendWelcomeEmail(email, firstname, buffer){
     const msgContent = `<iframe src="https://asfischolar.org/aboutUs" frameborder="0" width="100%" height="900px"></iframe>`
 
          
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const subject = `Hi, ${firstname} - Admin Credentials`
-    const message = `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <title>Welcome to ASFI Scholar</title>
-      </head>
-      <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0;">
+    const message = `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0;">
       
           <!-- Header -->
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fff; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
@@ -101,8 +93,7 @@ async function SendWelcomeEmail(email, firstname, buffer){
               </tr>
           </table>
     
-      </body>
-      </html>`
+      </div>`
     await sendEmail(email, subject, message)
 
 

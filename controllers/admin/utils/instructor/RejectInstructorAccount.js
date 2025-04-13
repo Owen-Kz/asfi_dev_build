@@ -1,6 +1,6 @@
 
 const db = require("../../../../routes/db.config");
-const sgMail = require('@sendgrid/mail')
+const sendEmail = require("../../../utils/sendEmail");
 
 
 const RejectInstructorAccount = async(req,res)=>{
@@ -24,24 +24,13 @@ const RejectInstructorAccount = async(req,res)=>{
 
 
 
-function SendRejectionEmail(email, firstname){
+async function SendRejectionEmail(email, firstname){
     const msgContent = `<iframe src="https://asfischolar.org/aboutUs" frameborder="0" width="100%" height="900px"></iframe>`
 
          
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-    const msg = {
-      to: email,
-      from: 'support@asfischolar.org', 
-      subject: `Hi, ${firstname} - Request Rejection`,
+    const subject =  `Hi, ${firstname} - Request Rejection`
       // text: `Your password reset code is: ${resetToken}`,
-      html: `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <title>Instructor Request Rejection</title>
-      </head>
-      <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0;">
+     const message =  `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0;">
       
           <!-- Header -->
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fff; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
@@ -70,19 +59,9 @@ function SendRejectionEmail(email, firstname){
               </tr>
           </table>
       
-      </body>
-      </html>
-      `,
-    } 
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Instructor Rejection Email Sent')
-            //  res.status(200).json({ message: 'Reset token sent to your email' });
-          // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
-      })
-      .catch((error) => {
-        console.error(error)
-      }) 
+      </div>
+      `
+    await sendEmail(email. subject, message)
+   
 }
 module.exports = RejectInstructorAccount

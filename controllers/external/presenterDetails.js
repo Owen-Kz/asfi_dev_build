@@ -7,7 +7,7 @@ const PresenterDetails = async (req,res) =>{
             db.query("SELECT profile_picture, username, email, first_name, last_name FROM user_info WHERE email = ? OR username = ?", [userEMail, userEMail], (err, data) => {
               if (err) { 
                 console.log(err);
-                reject(err); // Reject the promise with the error
+                resolve(res.json({error:"NO USER DATA"}));
               } else {
                 if(data[0]){                 
                 resolve( res.json({userDetails:data[0]})); 

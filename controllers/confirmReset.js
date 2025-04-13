@@ -2,7 +2,7 @@ const db = require("../routes/db.config");
 
 const confrim_code = async (req,res) =>{
     const {code, email} = req.body
-
+try{
 
     if(!code || !email){
         return res.json({Status: "Err", Error: "You Did not provide Valid credentials"})
@@ -16,10 +16,14 @@ const confrim_code = async (req,res) =>{
                 res.status(200).json({message:"EmailConfirmed"})
             }else{
                 console.log("Invalid Code")
-                res.status(500).json({message: "Internal Server Error"})
+                res.status(500).json({message: "Reset Code or Email is Invalid"})
             }
         })
     } 
+}catch(error){
+    console.log(error)
+    return res.status(500).json({error:"Something Went wrong", message: "Something went wrong"})
+}
 }
 
 

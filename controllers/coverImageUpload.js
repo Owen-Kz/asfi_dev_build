@@ -34,7 +34,8 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage }).single("profileCover");
 
 const profileCoverUpload = (req, res) => {
-  uploads(req, res, function (err) {
+  try{
+      uploads(req, res, function (err) {
     if (err) {
       // An error occurred during file upload
       return res.status(500).send(err);
@@ -121,6 +122,10 @@ const profileCoverUpload = (req, res) => {
       res.status(400).render("error.ejs",{ status: "Missing required data" });
     }
   });
+}catch(error){
+  console.log(error)
+  res.status(400).render("error.ejs",{ status: error.message});
+}
 };
 
 module.exports = profileCoverUpload;
