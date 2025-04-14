@@ -27,7 +27,8 @@ const ScholarDetails = async (req,res)=>{
             title: title,
             prefix: prefix,
             location:location,
-            profile_picture: profile_picture
+            profile_picture: profile_picture,
+        username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email
         })
     })
 
