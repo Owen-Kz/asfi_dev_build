@@ -37,7 +37,7 @@ const userCourse = async  (req,res) =>{
                 if(NIL) throw NIL
                 var FollowingCount =JSON.stringify(NULL[0]["followingCount"]);
                 FOLLOWING.push(FollowingCount)
-            if(accountType == "scholar_account" || accountType == "user_account"){
+            if(accountType == "scholar_account" || accountType == "user_account" || accountType == "administrator"){
             res.render("userCourses", {
                 UserName: username,
                 accountType:accountType,

@@ -13,7 +13,7 @@ const createInstructor = async (req, res) => {
         // check if the user is a scholar 
         // console.log(req.body)
 
-        db.query("SELECT * FROM user_info WHERE username =? AND acct_type = 'scholar_account'", [username], async(err,result_) =>{
+        db.query("SELECT * FROM user_info WHERE username =? AND (acct_type = 'scholar_account' OR acct_type = 'administrator')", [username], async(err,result_) =>{
             if(err) throw err
             if(result_[0]){
                 db.query("UPDATE user_info SET ? WHERE ?", [{account_status:"2", bio:short_bio, home_address:address}, {username:username}], async (err, update) =>{

@@ -38,14 +38,14 @@ const offset = (page - 1) * ITEMS_PER_PAGE;
         //   DiscovereUSerData = []
         // }
         
-        db.query("SELECT COUNT(*) AS totalUsersCount from user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account') AND username !=?",[usernameLogged], (err, total)=> {
+        db.query("SELECT COUNT(*) AS totalUsersCount from user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account' OR acct_type = 'administrator') AND username !=?",[usernameLogged], (err, total)=> {
           if (err) {
             console.error(err);
             return res.status(500).send("Internal Server Error: More info: Error Getting Links");
           }
           const CountTotal = JSON.stringify(total[0]["totalUsersCount"])
 
-    db.query("SELECT * FROM user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account') AND username !=? ORDER BY first_name LIMIT ? OFFSET ?", [usernameLogged, ITEMS_PER_PAGE, offset], async(err, DiscoveredUsers)=>{
+    db.query("SELECT * FROM user_info WHERE (acct_type = 'scholar_account' OR acct_type = 'instructor_account' OR acct_type = 'administrator') AND username !=? ORDER BY first_name LIMIT ? OFFSET ?", [usernameLogged, ITEMS_PER_PAGE, offset], async(err, DiscoveredUsers)=>{
         if(err) throw err
         if(DiscoveredUsers[0]){
 

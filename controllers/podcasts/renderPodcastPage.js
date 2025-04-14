@@ -35,7 +35,7 @@ const podcastPage = async (req,res) =>{
         
         
         
-                db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'scholar_account' OR acct_type = 'instructor_account' ORDER BY id DESC", [username_visitor], async (err, scholar_user) => {
+                db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'scholar_account' OR acct_type = 'instructor_account' OR acct_type = 'administrator' ORDER BY id DESC", [username_visitor], async (err, scholar_user) => {
                     if(err) throw err
                    if(scholar_user[0]) {
                     // console.log(scholar_user[0])
