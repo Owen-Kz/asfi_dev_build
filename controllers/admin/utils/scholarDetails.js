@@ -22,7 +22,7 @@ const ScholarDetails = async (req,res)=>{
             fullname:fullname,
             email:email,
             phonenumber:phonenumber,
-            username:username,
+            user:username,
             Bio:Bio,
             title: title,
             prefix: prefix,
