@@ -117,7 +117,7 @@ border-radius: 25px;">View Profile</button>
 const followerFullname = `${req.user.first_name} ${req.user.last_name}`
           
 const Endpoint = `/@${userID}`
-await saveNotification(req.user.username, userID, `${followerFullname} started following you`, userPhoto, Endpoint)
+await saveNotification(req.user.username, userID, `${followerFullname} started following you`, userPhoto, Endpoint,"no")
 
 
           const sendEmailNotification = await sendEmail(useremail, subject, message)

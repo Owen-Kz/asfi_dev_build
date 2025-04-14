@@ -15,59 +15,57 @@ const logError = (error, source) => {
 };
 
 
-const newPostNotification = async (req, res, message, endpoint) => {
+const NewAnnouncementNotification = async (req, res, message, endpoint) => {
     try {
-        const username = req.user.username;
-        console.log("POST NOTIFICATION STARTED")
-        db.query("SELECT * FROM followers WHERE followingUsername = ? ORDER BY id DESC", [String(username)], async (err, followers) => {
-            if (err) {
-                console.log(err)
-                logError(err, "Fetching followers"); 
-                return;
-            }
 
-
-            if (followers[0]) {
-                followers.forEach((element) => {
-                    db.query("SELECT * FROM user_info WHERE username = ?", [element.followerUsername], async (err, data) => {
+                    db.query("SELECT * FROM user_info WHERE 1", async (err, data) => {
                         if (err) {
                             console.log(err)
                             logError(err, "Fetching user_info");
                             return;
                         }
+                        const userPhoto = `https://asfischolar.org/assets/images/ASFIScholar_Logo.png`;
                     
                         if (data[0]) {
+                            const isAnnouncement = "yes"
+                            await saveNotification(req.admin.username, req.admin.id, message, userPhoto, endpoint, isAnnouncement);
+                            data.forEach(async user => {
+
+                            
                             try {
-                                const { notification_token, id: userID } = data[0];
+                                const { notification_token:notification_token, id: userID, email:useremail } = user;
                                 
                                 if (notification_token && notification_token !=null && notification_token != undefined) {
                                     const notificationData = {
-                                        title: `New Post Notification`,
+                                        title: `Important`,
                                         message: `${message}`,
                                         token: notification_token,
                                     };
                                     await sendBody(notificationData);
                                 }
                                 
-                                const senderFullname = `${req.user.first_name} ${req.user.last_name}`;
-                                const userPhoto = `${req.user.profile_picture}`;
-                                const subject = `${senderFullname} Just made a post`;
+                                const senderFullname = `Special Announcement`;
+                                const subject = `${senderFullname} on ASFI Scholar`;
+                                const emailMessage = `<p>An Announcement was made on ASFIScholar</p> 
+                                <p> "${message}" </p>
+                                <a href=${endpoint}>Click her to view</a></p>`
                             
-                                await saveNotification(req.user.username, userID, subject, userPhoto, endpoint, "no");
-                                // await sendEmail(useremail, subject, emailMessage);
+                                
+                                await sendEmail(useremail, subject, emailMessage);
                             } catch (error) {
                                 console.log(error)
                                 logError(error, "Processing notification");
                             }
+                        })
                         }
                     });
-                });
-            }
-        });
+                
+            
+    
     } catch (error) {
         console.log(error)
         logError(error, "Main function");
     }
 };
 
-module.exports = newPostNotification;
+module.exports = NewAnnouncementNotification;

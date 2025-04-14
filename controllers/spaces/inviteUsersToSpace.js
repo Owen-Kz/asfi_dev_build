@@ -111,7 +111,7 @@ const inviteUserToSpace = async (req,res) =>{
                       res.json({success:"Invitation sent"})
                       
                                 await sendEmail(useremail, subject, message)
-                               await saveNotification(req.user.username,userData[0].username,`Invitation to Join ${spaceData[0].space_focus}`, req.user.profile_picture, `https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}`)
+                               await saveNotification(req.user.username,userData[0].username,`Invitation to Join ${spaceData[0].space_focus}`, req.user.profile_picture, `https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}`,"no")
 
                             }
                         })

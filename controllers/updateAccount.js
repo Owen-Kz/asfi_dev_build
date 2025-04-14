@@ -9,7 +9,7 @@ const updateAccount = async (req, res) => {
     try {
         const success = [];
         if (usernameValidator_main) {
-            db.query("SELECT * FROM user_info WHERE ID = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND prefix =? AND gender = ? AND home_address = ?", 
+            db.query("SELECT * FROM user_info WHERE id = ? AND phonenumber = ? AND bio = ? AND first_name = ? AND last_name = ? AND title = ? AND prefix =? AND gender = ? AND home_address = ?", 
             [user, phonenumber, bio, firstname, lastname, title, prefix, gender, NewLocation], async (err, exists) => {
                 if (err) throw err
                 if (exists[0]) {
@@ -22,7 +22,7 @@ const updateAccount = async (req, res) => {
 
             const updateUserField = async (field, value, successMessage) => {
                 if (value !== "") {
-                    db.query("UPDATE user_info SET ? WHERE ID =?", [{ [field]: value }, user], async(err, newdata) => {
+                    db.query("UPDATE user_info SET ? WHERE id =?", [{ [field]: value }, user], async(err, newdata) => {
                         if (err) throw err;
 
                         if (newdata && !responseSent) {  // Check if the response hasn't been sent yet
@@ -69,7 +69,7 @@ const updateAccount = async (req, res) => {
 
 
         if (phonenumber !== "") {
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND phonenumber =?", [user, phonenumber], async (err, phone) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND phonenumber =?", [user, phonenumber], async (err, phone) => {
                 if (err) throw err
                 if (phone[0]) {
                     console.log("Phonenumber did not change")
@@ -80,7 +80,7 @@ const updateAccount = async (req, res) => {
         }
 
         if (firstname !== "") {
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND first_name =?", [user, firstname], async (err, firstname_) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND first_name =?", [user, firstname], async (err, firstname_) => {
                 if (err) throw err
                 if (firstname_[0]) {
                     console.log("Firstname did not change")
@@ -98,7 +98,7 @@ const updateAccount = async (req, res) => {
 
         if (lastname !== "") {
 
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND last_name =?", [user, lastname], async (err, lastname_) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND last_name =?", [user, lastname], async (err, lastname_) => {
                 if (err) throw err
                 if (lastname_[0]) {
                     console.log("Lastname did not change")
@@ -113,7 +113,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(bio !==""){
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND bio =?", [user, bio], async (err, bio_) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND bio =?", [user, bio], async (err, bio_) => {
                 if (err) throw err
                 if (bio_[0]) {
                     console.log("Bio did not change")
@@ -124,7 +124,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(title !== ""){
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND title =?", [user, title], async (err, title_) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND title =?", [user, title], async (err, title_) => {
                 if (err) throw err
                 if (title_[0]) {
                     console.log("Title did not change")
@@ -135,7 +135,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(prefix !== ""){
-            db.query("SELECT *  FROM user_info WHERE ID  =? AND prefix =?", [user, title], async (err, title_) => {
+            db.query("SELECT *  FROM user_info WHERE id  =? AND prefix =?", [user, title], async (err, title_) => {
                 if (err) throw err
                 if (title_[0]) {
                     console.log("Title did not change")
@@ -146,7 +146,7 @@ const updateAccount = async (req, res) => {
         }
 
         if(gender !== ""){
-            db.query("SELECT * FROM user_info WHERE ID  =? AND gender =?", [user, title], async (err, gender_) => {
+            db.query("SELECT * FROM user_info WHERE id  =? AND gender =?", [user, title], async (err, gender_) => {
                 if (err) throw err
                 if (gender_[0]) {
                     console.log("Gender did not change")
@@ -159,7 +159,7 @@ const updateAccount = async (req, res) => {
 
         
         if(NewLocation !== ""){
-            db.query("SELECT * FROM user_info WHERE ID  =? AND home_address =?", [user, NewLocation], async (err, address) => {
+            db.query("SELECT * FROM user_info WHERE id  =? AND home_address =?", [user, NewLocation], async (err, address) => {
                 if (err) throw err
                 if (address[0]) {
                     console.log("Address did not change")

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>ASFIScholar Make Annoucement</title>
+	<title>ASFIScholar Make Announcement</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
@@ -84,8 +84,10 @@
 	<link rel="stylesheet" type="text/css" href="/assets/vendor/choices/css/choices.min.css">
 	<link rel="stylesheet" type="text/css" href="/assets/vendor/glightbox/css/glightbox.css">
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/assets/vendor/quill/css/quill.snow.css">
-	<link rel="stylesheet" type="text/css" href="/assets/vendor/stepper/css/bs-stepper.min.css">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+	<!-- <link rel="stylesheet" type="text/css" href="/assets/vendor/quill/css/quill.snow.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/assets/vendor/stepper/css/bs-stepper.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
 
 	<!-- Theme CSS -->
@@ -207,16 +209,16 @@
 
 		<!-- Card START -->
 		<div class="card border rounded-3 mb-5">
-			<div id="stepper" class="bs-stepper stepper-outline">
+			<div class="bs-stepper stepper-outline">
 			
 				<!-- Card body START -->
 				<div class="card-body px-1 px-sm-4">
 					<!-- Step content START -->
 					<div class="bs-stepper-content">
-						<form onsubmit="return false" enctype="multipart/form-data">
+						<form onsubmit="return false" id="announcementForm">
 
 							<!-- Step 1 content START -->
-							<div id="step-1" role="tabpanel" class="content fade" aria-labelledby="steppertrigger1">
+							<div  >
 								<!-- Title -->
 								<h4>Announcement details</h4>
 
@@ -227,10 +229,10 @@
 									<!-- Announcement title -->
 									<div class="col-12">
 										<label class="form-label">Announcement title</label>
-										<input class="form-control" type="text" placeholder="Enter Announcement title" value="">
+										<input class="form-control" type="text" name="title" id="titleMain" placeholder="Enter Announcement title" value="">
 									</div>
 
-									<!-- Short description -->			
+									<!-- Short description -->				
 
 
 								
@@ -238,7 +240,7 @@
 									<div class="col-12">
 										<label class="form-label">Add description</label>
 										<!-- Editor toolbar -->
-										<div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar">
+										<!-- <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar">
 											<span class="ql-formats">
 												<select class="ql-size"></select>
 											</span>
@@ -268,13 +270,11 @@
 											<span class="ql-formats">
 												<button class="ql-clean"></button>
 											</span>
-										</div>
+										</div> -->
 
 										<!-- Main toolbar -->
-										<div class="bg-body border rounded-bottom h-400px overflow-hidden" id="quilleditor">
+										<div class="bg-body border rounded-bottom h-400px overflow-hidden" id="quilleditor2">
 										
-											<br>
-											<p>Description goes here...</p>
 										</div>
 									</div>	
 
@@ -314,17 +314,21 @@
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
 <!-- Bootstrap JS -->
-<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+
 
 <!-- Vendors -->
+ <script type="module" src="/js/admin/quill.js"></script>
+ <script type="module" src="/js/admin/createAnnouncement.js"></script>
+
 <script src="/assets/vendor/choices/js/choices.min.js"></script>
 <script src="/assets/vendor/glightbox/js/glightbox.js"></script>
-<script src="/assets/vendor/quill/js/quill.min.js"></script>
+<!-- <script src="/assets/vendor/quill/js/quill.min.js"></script> -->
 <script src="/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js"></script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
 
 <!-- Template Functions -->
-<script>
+<!-- <script>
 	document.addEventListener("DOMContentLoaded", function () {
 	  // Initialize the Quill editor
 	  var quill = new Quill("#quilleditor", {
@@ -334,7 +338,7 @@
 		},
 	  });
 	});
-</script>
+</script> -->
 
 </body>
 

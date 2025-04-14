@@ -1,6 +1,6 @@
 const db = require("../../routes/db.config");
 
-const saveNotification = async (sender, receiver, message, sender_image, endpoint) => {
+const saveNotification = async (sender, receiver, message, sender_image, endpoint, isAnnouncement) => {
     try{
     console.log("SAVE NOTIFICATION")
 
@@ -24,7 +24,7 @@ const saveNotification = async (sender, receiver, message, sender_image, endpoin
         } else {
             db.query(
                 "INSERT INTO new_notifications SET ?",
-                [{ sender: sender, recipient: receiver, content: message, sender_image: sender_image, end_point:endpoint }],
+                [{ sender: sender, recipient: receiver, content: message, sender_image: sender_image, end_point:endpoint, isAnnouncement:isAnnouncement }],
                 async (err, notified) => {
                     if (err) {
                         console.log(err)

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Podcasts, Education">
+        <link rel="stylesheet" href="/css/contactUs.css">
+        <link rel="stylesheet" href="/css/general.css">
+        <link rel="stylesheet" href="/css/podcasts.css">
+       
+        <script src="/js/waveSurfer.js"></script>
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <title> Announcements </title>
+        <!-- Dark mode -->
+	 <script src="/js/colorTheme.js"></script>
+    </head>
+<body>
+  <input type="hidden" id="announcementContainer" value="<%=content %>">
+     <!-- NAVIGATION BAR  -->
+     <sidebar class="left-navigation-bar bg-shadow ">
+             <% if(accountType == "scholar_account") {%>
+              <script src="/js/scholarNavbar.js"></script>
+              <% } else if(accountType == "user_account"){%>
+                  <script src="/js/navbar.js"></script>
+              <%} else if(accountType == "instructor_account") {%>
+                  <script src="/js/instructorNavbar.js"></script>
+      
+                  <% } else if(accountType == "administrator") {%>
+             <script src="/js/admin/adminNavbar.js"></script>
+             <% } %>
+     </sidebar>
+     <!-- END NAVIGATION BAR  -->
+    <!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<button class="stack-bars fa ">
+            </button>
+               
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+    
+
+<main>
+    <!-- <div class="podcast_header"><h4>Podcasts</h4></div> -->
+   
+<div class="podcast_container" id="podcast_container">
+  <% if(success){ %>
+    <div class="content-title">
+        <%= title %>
+        <div class="timestamp">
+            <%= timestamp %>
+        </div>
+        </div>
+  <div id="content"></div>
+        
+ <% } %>
+
+   
+</div>
+
+
+</main>
+<!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+            <!-- Widget -->
+            <div><script src="/js/footer.js"></script></div>
+			<!-- Widget -->
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+
+<script>
+    // Parse the Quill content from the JSON data
+                                    
+    const contentValue = document.getElementById("announcementContainer").value
+    console.log( contentValue)
+    const quillContent = JSON.parse(contentValue);
+
+               
+                    // Create a Quill instance in "read-only" mode to render the content as HTML
+                    const contentDiv = document.getElementById('content');
+                    // const abstractDIV = document.getElementById("abstract")
+
+                    function renderQuillAsHTML(divId, deltaContent) {
+                        // Create a Quill instance in a temporary div
+                        const tempDiv = document.createElement('div');
+                        const quill = new Quill(tempDiv, {
+                            theme: 'snow',
+                            modules: { toolbar: false },
+                            readOnly: true,
+                        });
+
+                        // Set the content as Quill Delta and extract the HTML
+                        quill.setContents(deltaContent);
+
+                        // Get the innerHTML from the Quill editor
+                        const htmlContent = tempDiv.innerHTML;
+                        const toDisplay = document.getElementById(divId)
+
+                        // Render the extracted HTML into the specified div
+                        toDisplay.innerHTML = htmlContent;
+                    }
+
+                    // Render the Quill content as HTML in the "content" div
+                    renderQuillAsHTML('content', quillContent);
+                
+</script>
+</body>
+</html>
+</body>
+</html>

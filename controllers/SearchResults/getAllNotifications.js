@@ -6,7 +6,7 @@ const AllNotifications = async (req, res) => {
         const username = req.user.username
         // const isChat = singleFile.substring(singleFile.lastIndexOf("/") + 1);
         db.query(   `SELECT * FROM new_notifications 
-            WHERE (recipient = ? OR recipient = ?) 
+            WHERE (recipient = ? OR recipient = ? OR isAnnouncement = 'yes') 
             AND (end_point IS NULL OR end_point = '' OR end_point NOT LIKE ?) 
             ORDER BY id DESC 
             LIMIT 30`,         

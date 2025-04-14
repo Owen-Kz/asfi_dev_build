@@ -14,14 +14,13 @@ const updateUserLocation  = async (req,res, id) =>{
           
           const ip = getClientIP(req)
           const location = await getLocationByIP(ip)
-           const UserLocation = location
-            const country = UserLocation.country 
+           const UserLocation = location ?  location : {country:null}
+            const country = UserLocation.country ? UserLocation.country : null
             db.query("SELECT * FROM user_info WHERE id = ?",[id], async (error, data) =>{
                 if(error){
                     console.log(error)
                     resolve(false)
                 }
-                console.log(data.country_of_residence)
                 if((data[0].country_of_residence  === "N/A" || data[0].country_of_residence  === null) && country !== null){
                     db.query("UPDATE user_info SET country_of_residence  = ?, home_address = ? WHERE id = ?",[country, country, id], async (err, data) =>{
                         if(err){

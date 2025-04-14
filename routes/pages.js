@@ -226,6 +226,8 @@ const asfiMeetFileUpload = require("../controllers/external/asfiMeetFileUpload")
 const ChatInChat = require("../controllers/PrivateChatInChat");
 const adminProfileSettings = require("../controllers/admin/pages/profileSettings");
 const PrivateChatRoomAdmin = require("../controllers/privateChatAdmin");
+const CreateAnnouncement = require("../controllers/admin/createAnnouncement");
+const previewAnnouncement = require("../controllers/previewAnnouncement");
 
 // ADMINISTRATOR 
 
@@ -757,6 +759,9 @@ router.get("/scholarCourses/search/q/:searchQuery", LoggedIn, SearchScholarCours
 router.post("/coverImage", LoggedIn, profileCoverUpload)
 
 
+// Get Announcement page 
+router.get("/announcement", LoggedInExternal, previewAnnouncement )
+
 // FOR ADMIN 
 // DASHBOARD AND DASHBOARD DATA 
 router.get("/:SessionId/admin", (req,res)=>{
@@ -781,7 +786,7 @@ router.get("/admin/dashboard/instructors/registeredCount",AdminLoggedIn, TotalIN
 router.get("/admin/dashboard/scholars/registeredCount",AdminLoggedIn, TotalScholars)
 router.get("/admin/dashboard/count/pending/resources",AdminLoggedIn, pendingResources)
 router.get("/admin/dashboard/count/uploaded/resources",AdminLoggedIn, uploadedResources)
-
+router.post("/makeAnnouncement", AdminLoggedIn, CreateAnnouncement)
 // END DASHBOARD 
 
 router.get("/admin/courses",AdminLoggedIn, (req,res) =>{
