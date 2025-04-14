@@ -19,7 +19,7 @@ const dashboard = async(req, res) => {
         res.render("dashboard.ejs", {root:"./public", status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new})
         }else if(accountType == "instructor_account"){
             res.render("instructorDashboard.ejs", {status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new})
-        }else if(accountType == "scholar_account"){
+        }else if(accountType == "scholar_account" || accountType == "administrator"){
             res.render("scholarDashboard.ejs", { status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new})
         }
     })

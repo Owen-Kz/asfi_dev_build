@@ -13,7 +13,7 @@ document.write(`<div class='navbar-logo_container'> <a class='navbar-brand' href
             <a href='/Directory'><li class='navbar_item ' id='directory_link_pg' title='Directory'><span class='icon icon-folder'></span><p class='navName'>Directory</p><span class='nav_tool_tip'>Directory</span></li></a>\
             <a href='/Tutorials'><li class='navbar_item ' id='tutorials_link_pg' title='Tutorials'><img src='/files/icons_img/tutorial.png' alt='Tutorials'><p class='navName'>Tutorials</p><span class='nav_tool_tip'>Tutorials</span></li></a>\
             <a href='/Podcasts'><li class='navbar_item ' id='podcasts_link_pg' title='Podcasts'><span class='icon icon-mic'></span><p class='navName'>Podcasts</p><span class='nav_tool_tip'>Podcasts</span></li></a>\
-            <a href='https://asfischolar.net/create'><li class='navbar_item ' id='asfi_meet_link_pg' title='ASFIMeet'><span  ><img src="https://asfischolar.net/assets/asfimeet.png" style="object-fit:cover;"></span><p class='navName'>ASFIMeet</p><span class='nav_tool_tip'>ASFIMeet</span></li></a>\
+            <a href='https://asfischolar.net'><li class='navbar_item ' id='asfi_meet_link_pg' title='ASFIMeet'><span  ><img src="https://asfischolar.net/assets/asfimeet.png" style="object-fit:cover;"></span><p class='navName'>ASFIMeet</p><span class='nav_tool_tip'>ASFIMeet</span></li></a>\
     </ul>\
         </div>\
         

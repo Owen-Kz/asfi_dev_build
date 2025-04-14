@@ -197,17 +197,17 @@
 	<!-- Top bar END -->
 
 	<!-- Page main content START -->
-	<div class="page-content-wrapper border">
+	<div class="page-content-wrapper border" style="padding: 0px !important;">
 
 		<!-- Title -->
-		<div class="row mb-3">
+		<div class="row mb-3" style="display: none;">
 			<div class="col-12 d-sm-flex justify-content-between align-items-center">
 				<h1 class="h3 mb-2 mb-sm-0">Live Events on ASFI-Meet</h1>
-                <a href="https://asfischolar.net/create" target="_blank" class="btn btn-sm btn-primary mb-0">Create an Event</a>
+                <a href="https://asfischolar.net" target="_blank" class="btn btn-sm btn-primary mb-0">Create an Event</a>
 			</div>
 		</div>
 		<!-- Course boxes START -->
-		<div class="row g-4 mb-4">
+		<div class="row g-4 mb-4" style="display: none;">
 			
 			<!-- Course item -->
 			<div class="col-sm-6 col-lg-4">
@@ -221,9 +221,10 @@
 
 		</div>
 		<!-- Course boxes END -->
+		<iframe src="<%=meetingEndpoint %>/meetings/<%= user %>" frameborder="0" style="width: 100%;  margin: auto; height: 100vh;"></iframe>
  
 		<!-- Card START -->
-		<div class="card bg-transparent border">
+		<div class="card bg-transparent border" style="display: none;">
 
 			<!-- Card header START -->
 			<div class="card-header bg-light border-bottom">

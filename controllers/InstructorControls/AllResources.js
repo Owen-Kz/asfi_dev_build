@@ -6,8 +6,10 @@ const AllResources = async (req, res) => {
     let username
     if (req.query.username){
         username = req.query.username
-    }else{
+    }else if(req.user){
         username = req.user.username
+    }else{
+        username = ""
     }
 
     if (req.user) {

@@ -224,6 +224,8 @@ const deleteSpace = require("../controllers/spaces/deleteSpace");
 const getAllPodcasts = require("../controllers/podcasts/getAllPodcasts");
 const asfiMeetFileUpload = require("../controllers/external/asfiMeetFileUpload");
 const ChatInChat = require("../controllers/PrivateChatInChat");
+const adminProfileSettings = require("../controllers/admin/pages/profileSettings");
+const PrivateChatRoomAdmin = require("../controllers/privateChatAdmin");
 
 // ADMINISTRATOR 
 
@@ -769,8 +771,7 @@ router.get("/:SessionId/admin", (req,res)=>{
     })
 })
 router.get("/admin/pages/dashboard/user", AdminLoggedIn, async (req,res)=>{
-
-    res.render("admin-dashboard",{username:req.admin.username, firstName:req.admin.first_name})
+    res.render("admin-dashboard",{username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
  
 })
 
@@ -784,17 +785,17 @@ router.get("/admin/dashboard/count/uploaded/resources",AdminLoggedIn, uploadedRe
 // END DASHBOARD 
 
 router.get("/admin/courses",AdminLoggedIn, (req,res) =>{
-    res.render("admin-course-list")
+    res.render("admin-course-list", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
  
 router.get("/admin/pages/courses/categories",AdminLoggedIn, (req,res) =>{
-    res.render("admin-course-category")
+    res.render("admin-course-category",{username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
 
 // COURSE DETAILS 
 router.get("/admin/course/details/:courseId",AdminLoggedIn, (req,res) =>{
     const courseID = req.params.courseId
-    res.render("admin-course-detail", {CourseID:courseID})
+    res.render("admin-course-detail", {CourseID:courseID, username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
 // feed data to the course Details Page 
 router.get("/getcoursedetails/:courseId",AdminLoggedIn, courseDetail)
@@ -819,8 +820,11 @@ router.post("/rejectCourse",AdminLoggedIn, RejectCourses)
 router.post("/deleteCourse",AdminLoggedIn, DeleteCourses)
 // >>>> ENd Course PAge 
 
-router.get("/admin/courses/create",AdminLoggedIn,(req,res)=>{
-    res.render("admin-create-course")
+router.get("/admin/v3/courses/create", AdminLoggedIn,(req,res)=>{
+    res.render("admin-create-course", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
+})
+router.get("/admin/v2/pages/announcement", AdminLoggedIn, (req,res) =>{
+    res.render("admin-announcement", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
 
 router.get("/admin/courses/edit/:courseId",AdminLoggedIn, (req,res)=>{
@@ -829,7 +833,7 @@ router.get("/admin/courses/edit/:courseId",AdminLoggedIn, (req,res)=>{
 
 // INSTRUCTOR CONTENT 
 router.get("/admin/instructors",AdminLoggedIn, (req,res)=>{
-    res.render("admin-instructor-list")
+    res.render("admin-instructor-list", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
 router.get("/admin/totalCourse/instructor/:username",AdminLoggedIn, TotalInstructorCourses)
 router.get("/admin/instructors/totalStudents/:username",AdminLoggedIn, TotalInstructorStudents)
@@ -840,13 +844,13 @@ router.get("/allInstructorCourses/:username",AdminLoggedIn, AllInstructorCourses
 
 
 router.get("/admin/pages/instructors/requests",AdminLoggedIn, (req,res)=>{
-    res.render("admin-instructor-request")
+    res.render("admin-instructor-request", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
 // END INSTRUCTOR CONTEXT 
 
 router.get("/admin/review",AdminLoggedIn, (req,res)=>{
-    res.render("admin-review")
+    res.render("admin-review", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
 // SCHOLAR DETAILS 
@@ -866,22 +870,21 @@ router.get("/deleteResource/:ItemType",AdminLoggedIn, DeleteItem)
 // END SCHOLAR DETAILS 
 
 router.get("/admin/scholars/requests",AdminLoggedIn, (req,res)=>{
-    res.render("/admin-scholar-request")
+    res.render("/admin-scholar-request", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
-router.get("/admin/pages/settings",AdminLoggedIn, (req,res) =>{
-    res.render("admin-setting")
+router.get("/admin/pages/settings/me", AdminLoggedIn, (req,res) =>{
+    console.log("adminLogin")
+    res.render("admin-setting", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
-router.get("/admin/settings",AdminLoggedIn, (req,res)=>{
-    res.render("error", {status: "Comming Soon", page:"/Timothy/admin"})
-})
+router.get("/admin/settings",AdminLoggedIn, adminProfileSettings)
 
 
 
 // Get scholars 
 router.get("/admin/students",AdminLoggedIn, (req,res) =>{
-    res.render("admin-student-list")
+    res.render("admin-student-list", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
 router.get("/admin/allScholars",AdminLoggedIn, ScholarsList)
@@ -893,7 +896,7 @@ router.get("/totalLinks/:username",AdminLoggedIn, TotalLinks)
 
 // ISNTRUCTOR REQUESTS 
 router.get("/admin/admin/instructors/uploadRequests",AdminLoggedIn, (req,res)=>{
-    res.render("InstructorUploadRequests")
+    res.render("InstructorUploadRequests", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 router.get("/admin/instructors/account/requests", InstructorRequests)
 router.post("/instructors/applications/accept/:username",AdminLoggedIn, ApproveInstructorAccount)
@@ -901,17 +904,23 @@ router.post("/instructors/applications/reject/:username",AdminLoggedIn, RejectIn
 
 // END INSTUCTOR REQUESTS
 router.get("/admin/pages/scholars/uploadRequests",AdminLoggedIn, (req,res)=>{
-    res.render("ScholarUploadRequests")
+    res.render("ScholarUploadRequests", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
 // GET POSTERS Management PAge
 router.get("/admin/pages/posters/all", AdminLoggedIn, (req,res)=>{
-    res.render('posterManagement.ejs')
+    const user = req.cookies.adminRegistered
+    res.render('posterManagement.ejs',{username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email, meetingEndpoint:process.env.ASFI_MEET_ENDPOINT, user})
+    // res.redirect(`${process.env.ASFI_MEET_ENDPOINT}/posters/${req.cookies.adminRegistered}`)
 })
 
 // GET THE LIVE EVENTS PAGE 
 router.get("/admin/pages/pages/asfimeet/events",AdminLoggedIn, (req,res) =>{
-    res.render("liveEventsManagement")
+    const user = req.cookies.adminRegistered
+
+    res.render("liveEventsManagement",{username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email,meetingEndpoint:process.env.ASFI_MEET_ENDPOINT, user})
+    // res.redirect(`${process.env.ASFI_MEET_ENDPOINT}/meetings/${req.cookies.adminRegistered}`)
+
 })
 
 // Count NEw upload Requests
@@ -925,17 +934,18 @@ router.get("/admin/pages/polls/all",AdminLoggedIn, async (req,res)=>{
     res.render("pollsManagement.ejs")
 })
 router.get("/admin/sign-in", async(req,res)=>{
-    if(req.user){
+    if(req.admin){
         res.redirect("/admin/pages/dashboard/user")
     }else{
     res.redirect("/admin/sign-in.html")
     }
 })
+router.get("/v2/chat/:username", AdminLoggedIn, PrivateChatRoomAdmin)
 
 router.post("/admin/pages/login/oauth/verify", login_admin)
 
 router.get("/admin/sign-in.html", (req,res)=>{
-    if(req.user){
+    if(req.admin){
         res.redirect("/admin/pages/dashboard/user")
     }else{
         res.render("sign-in")
@@ -954,14 +964,11 @@ router.get("/admin/forgotPassword", (req,res)=>{
 })
 // GET ADMIN INFO 
 router.get("/admin/search/info/get/profile", AdminLoggedIn, async (req,res)=>{
-    console.log(req)
     const Username = req.admin.username 
-    console.log(Username)
     db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [Username], (err, result) => {
         if (err) {
           console.log(err);
         }
-    console.log(result[0])
     if(result.length > 0){
 
     const FirstName = result[0].first_name

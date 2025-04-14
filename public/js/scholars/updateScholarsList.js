@@ -22,8 +22,9 @@ function UpdateScholarsList(scholarsArray, data){
                     const ScholarLocation = Scholar.home_address
                     const ScholarProfilePicture = Scholar.profile_picture
                     const Email  = Scholar.email
+                    // const messageLink = `/chat/@${ScholarUsername}/chat?admin=${AdminBuffer}`
             
-                    const messageLink = `/@${ScholarUsername}/chat?admin=${AdminBuffer}`
+                    const messageLink = `/v2/chat/${ScholarUsername}`
                     const date_joined = formatTimestamp(Scholar.joined_date)
                     
                     let ProfileSource

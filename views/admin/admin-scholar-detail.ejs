@@ -120,7 +120,7 @@
 						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
 							<i class="bi bi-gear-fill"></i>
 						</a>
-						<a class="h5 mb-0 text-body" href=" " data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+						<a class="h5 mb-0 text-body" href="/dashboard" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
 							<i class="bi bi-globe"></i>
 						</a>
 						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
@@ -225,7 +225,7 @@
 							<% if(profile_picture == "avatar.jpg") { %>
 							<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&amp;name=<%=fullname%>&amp;font-size=0.6" alt="">
 							<%} else {%>
-								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/<%=profile_picture%>" alt="">
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="<%=profile_picture%>" alt="">
 							<%}%>
 						</div>
 

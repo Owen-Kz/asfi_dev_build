@@ -15,7 +15,7 @@ const AdminLoggedIn = (req, res, next) => {
 
   try {
     // Decrypt the cookie and retrieve user data with the id
-    const decoded = jwt.verify(req.cookies.adminRegistered, process.env.JWT_SECRET_ADMIN);
+    const decoded = jwt.verify(req.cookies.adminRegistered, process.env.JWT_SECRET);
 
     db.query("SELECT * FROM user_info WHERE id = ? AND acct_type = 'administrator' ", [decoded.id], (err, result) => {
       if (err) {

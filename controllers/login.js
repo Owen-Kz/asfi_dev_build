@@ -6,6 +6,7 @@ const router = require("./auth");
 const LoggedIn = require("./loggedin");
 const RestartConnection = require("./utils/restartConnection");
 const generateCode = require("./admin/generateUniqueCOde");
+const updateUserLocation = require("./admin/UpdateUserLocation");
 
 const login_user = async (req, res) => {
     // await RestartConnection()
@@ -23,6 +24,7 @@ const login_user = async (req, res) => {
 
             else{
                 const createUniqueCode = await generateCode(result[0].email)
+                await updateUserLocation(req,res, result[0].id)
                 
                 // create cookie token
                 const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {

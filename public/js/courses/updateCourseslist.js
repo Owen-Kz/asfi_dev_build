@@ -66,7 +66,7 @@ function UpdateCoursesUI(courseArray, data){
                     if(ProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${Fullname}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ProfilePicture}`
+                        ProfileSource = `${ProfilePicture}`
                     }
 
 

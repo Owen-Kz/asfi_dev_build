@@ -165,7 +165,6 @@ const PrivateChatRoom = async (req, res) => {
     // });
       
       const messageHistory = await fetchMessageHistory(senderUsername, recipientUsername);
-      console.log(bufferGeneratedMain)
       if(receiverPoints.length >0){
       res.render("app-chat.ejs", {
         status: "loggedIn",

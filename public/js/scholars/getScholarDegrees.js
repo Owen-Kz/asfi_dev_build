@@ -40,17 +40,17 @@ function renderResources(data) {
             let TypeText = '';
             if (Item.itemType === "book") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">BOOK</span>`;
-                Action = ` <a href="https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/library/books/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
+                Action = ` <a href="https://asfischolar.org/library/books/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
 
             } else if (Item.itemType === "link") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">PUBLICATION LINK</span>`;
                 Action = ` <a href="${Item.title}" class="btn btn-sm btn-info-soft mb-0"   target="_blank">View</a>`
             } else if (Item.itemType === "podcast") {
                 TypeText = `<span class="badge bg-purple bg-opacity-10 text-purple">PODCAST</span>`;
-                Action = ` <a href="https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/Audio/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
+                Action = ` <a href="https://asfischolar.org/userUploads/Audio/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
             } else if (Item.itemType === "tutorial") {
                 TypeText = `<span class="badge bg-warning bg-opacity-10 text-warning">TUTORIAL</span>`;
-                Action = ` <a href="https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/Videos/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
+                Action = ` <a href="https://asfischolar.org/userUploads/Videos/${Item.File}" class="btn btn-sm btn-info-soft mb-0"  >View</a>`
             }
 
             userResourceContainer.innerHTML += `

@@ -15,7 +15,6 @@ const CountNewUploads = async (req, res) => {
                     if (err) throw err
                     if (data[0]) {
                         Total = Math.floor(Total + data[0][`${toSum}`])
-                        console.log("Total", Total)
                         QueryCount++
 
                         if (QueryCount == 3) {

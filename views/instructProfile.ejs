@@ -76,14 +76,16 @@
     
         <!-- NAVIGATION BAR  -->
 	   <sidebar class="left-navigation-bar bg-shadow ">
-        <%if(accountType == "scholar_account") {%>
+          <%if(accountType == "scholar_account") {%>
          <script src="/js/scholarNavbar.js"></script>
          <% } else if(accountType == "user_account"){%>
              <script src="/js/navbar.js"></script>
          <%} else if(accountType == "instructor_account") {%>
              <script src="/js/instructorNavbar.js"></script>
  
-             <% } %>
+             <% } else if(accountType == "administrator") {%>
+				<script src="/js/admin/adminNavbar.js"></script>
+				<% } %>
      </sidebar>
      <!-- END NAVIGATION BAR  -->
 

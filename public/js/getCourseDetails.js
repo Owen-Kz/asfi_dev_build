@@ -46,7 +46,7 @@ fetch(`/getcoursedetails/${courseID.value}`, ()=>{
             course_duration_container.innerHTML = `<span>${course_duration} </span>`
             course_owner_fullname_container.innerHTML = `<span>${prefix}. ${owner_first_name} ${last_name}`
             course_owner_title_container.innerHTML = `<span>${Title}</span>`
-            owner_profile_picture.src = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${profilePic}`
+            owner_profile_picture.src = `${profilePic}`
             }
        
         })
@@ -106,7 +106,7 @@ function NewPage(page) {
                     if(ReviewerProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${ReviewerFullname}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ReviewerProfilePicture}`
+                        ProfileSource = `${ReviewerProfilePicture}`
                     }
 
                     course_reviews_container.innerHTML += `<tr>
@@ -212,7 +212,7 @@ ViewReviewForms.forEach(form => {
                     if(ReviewerProfilePicture == "avatar.jpg"){
                         ProfileSource = `https://eu.ui-avatars.com/api/?background=random&amp;name=${ReviewerFullname}&amp;font-size=0.6`
                     }else{
-                        ProfileSource = `https://asfi-demo-app-2cbea9ef1c2f.herokuapp.com/userUploads/profileImages/${ReviewerProfilePicture}`
+                        ProfileSource = `${ReviewerProfilePicture}`
                     }
                     viewReviewModal.innerHTML = `<div class="d-md-flex">
 					<!-- Avatar -->

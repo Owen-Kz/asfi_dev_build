@@ -13,7 +13,7 @@ const login_admin = async (req, res) => {
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
     else{
-        db.query("SELECT * FROM user_info WHERE username = ? AND acct_type = 'administrator' ", [user], async (Err, result) => {
+        db.query("SELECT * FROM user_info WHERE username = ? OR email = ? AND acct_type = 'administrator' ", [user, user], async (Err, result) => {
             if(Err) throw Err
             if(!result[0] || !await bcrypt.compare(pass, result[0].password )) return res.json({ status: "error", error: "Incorrect username / password combination"})
 
@@ -23,7 +23,7 @@ const login_admin = async (req, res) => {
                 // console.log(createUniqueCode)
                 // create cookie token
                 const buffer = result[0].buffer
-                const token = jwt.sign({id: result[0].ID}, process.env.JWT_SECRET_ADMIN, {
+                const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES
                     // httpOnly: true
                 })

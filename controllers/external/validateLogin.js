@@ -12,8 +12,9 @@ const ValidateLogin = async (req, res, next) => {
   try {
     // Decrypt the cookie and retrieve user data with the id
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // const decodedAdmin = jwt.verify(token, process.env.JWT_SECRET_ADMIN)
 
-    db.query("SELECT * FROM user_info WHERE id = ? ", [decoded.id], (err, result) => {
+    db.query("SELECT * FROM user_info WHERE id = ?", [decoded.id], (err, result) => {
       if (err) {
         console.log(err);
         return res.json({error:err})
