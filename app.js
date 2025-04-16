@@ -102,7 +102,7 @@ app.use(session({
 
 app.set("view engine", "ejs");
 
-app.set("views", ["./views", "./views/admin", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
+app.set("views", ["./views", "./views/admin", "./views/navbars", "./public/directory/profile", "./public/", "./public/userUpload/books", "./public/directory", "./public/userUpload/audio"]);
 
 
 app.get("/api/userFollows",LoggedIn, require( "./controllers/userFollows"))

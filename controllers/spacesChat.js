@@ -42,7 +42,8 @@ const SpacesChat = async (req,res) =>{
                             chat_id: SpaceId,
                             Email:req.user.email,
                             isAdmin:  isAdmin,
-                            PassKey: PassKey
+                            PassKey: PassKey,
+                            logger:"logged", user :req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, username:req.user.username, Username:req.user.username, UserName:req.user.username
                         })
                     }
                     function renderVerify(){
@@ -58,7 +59,8 @@ const SpacesChat = async (req,res) =>{
                             sender: username,
                             spaceId: SpaceId,
                             chat_id: SpaceId,
-                            Email:req.user.email
+                            Email:req.user.email,
+                            logger:"logged", user :req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, username:req.user.username, Username:req.user.username, UserName:req.user.username
                         })
                     }
                

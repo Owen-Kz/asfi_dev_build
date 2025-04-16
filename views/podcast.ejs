@@ -5,7 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Podcasts, Education">
-        <link rel="stylesheet" href="/css/contactUs.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
+        <!-- <link rel="stylesheet" href="/css/contactUs.css"> -->
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/podcasts.css">
        
@@ -26,49 +28,39 @@
     </head>
 <body>
   <input type="hidden" id="podcast_array_container" value="[]">
-     <!-- NAVIGATION BAR  -->
-     <sidebar class="left-navigation-bar bg-shadow ">
-       
-             <%if(accountType == "scholar_account") {%>
-              <script src="/js/scholarNavbar.js"></script>
-              <% } else if(accountType == "user_account"){%>
-                  <script src="/js/navbar.js"></script>
-              <%} else if(accountType == "instructor_account") {%>
-                  <script src="/js/instructorNavbar.js"></script>
-      
-                  <% } else if(accountType == "administrator") {%>
-             <script src="/js/admin/adminNavbar.js"></script>
-             <% } %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
-    <!-- Header START -->
-<header class="navbar-light navbar-sticky">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-expand-xl">
-		<div class="container">
-			<button class="stack-bars fa ">
-            </button>
+    
+  
 
             
-                    <searchBar>
-                        <form id="searchForm">
+                   
+                        <!-- <form id="searchForm">
                           <input type="text" placeholder="Find a podcast to listen to: Search by title or Owner" id="searchPodcast" />
                           <button type="submit" hidden>
 
                           </button>
-                  </form>
-                  <i class="fa fa-search"></i>                  
-    
-                    </searchBar>
-               
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
-    
+                  </form> -->
+
+    <!-- Header START -->
+   <%- include('header') %>
+   <!-- Header END -->
 
 <main>
     <!-- <div class="podcast_header"><h4>Podcasts</h4></div> -->
+      <!-- NAVIGATION BAR  -->
+      <sidebar class="left-navigation-bar bg-shadow ">
+       
+        <%if(accountType == "scholar_account") {%>
+         <%- include('scholarNavbar') %>
+         <% } else if(accountType == "user_account"){%>
+             <%- include ("navbar") %>
+         <%} else if(accountType == "instructor_account") {%>
+             <%- include ("instructorNavbar") %>
+ 
+             <% } else if(accountType == "administrator") {%>
+        <%- include ("adminNavbar") %>
+        <% } %>
+</sidebar>
+<!-- END NAVIGATION BAR  -->
    
 <div class="podcast_container" id="podcast_container">
     <!-- <button id="playButton">PLAY MEDIA</button> -->
@@ -135,19 +127,7 @@
     </div>
     <!-- Pagination END -->
 </main>
-<!-- =======================
-Footer START -->
-<footer class="bg-dark p-3">
-	<div class="container">
-		<div class="row align-items-center">
-            <!-- Widget -->
-            <div><script src="/js/footer.js"></script></div>
-			<!-- Widget -->
-		</div>
-	</div>
-</footer>
-<!-- =======================
-Footer END -->
+
 <!-- PODCAST_ARRAY -->
 <script src="/js/podcastContent.js"></script>
 <script src="/js/searchQueries/podcastSearch.js" type="module"></script>

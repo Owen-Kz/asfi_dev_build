@@ -44,7 +44,8 @@ const book = async (req, res) => {
                 TOTAL_BOOKS: TOTAL_BOOKS,
                 booksCover: bookCover,
                 booksFile: BOOK_FILE,
-                cloudinaryPDFUrl: cloudinaryPDFUrl, // Pass the URL to the front end
+                cloudinaryPDFUrl: cloudinaryPDFUrl,
+                      logger:"logged", user : username_new, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:username_new, Email:req.user.email, username:username_new, Username:username_new, UserName:username_new
               });
             });
           } else {

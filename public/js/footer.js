@@ -1,4 +1,4 @@
-document.write('<footer> <div class="col-md-4 text-center text-md-start mb-3 mb-md-0"><a href=""> <img class="h-20px" src="/files/images/ASFIScholar_Logo.png" alt="logo"> </a></div>&copy;' + new Date().getFullYear() + ' - ASFIScholar  <div class="col-md-4"><ul class="list-inline mb-0 text-center text-md-end"><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-facebook"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-instagram"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-linkedin-in"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-twitter"></i></a></li></ul></div></footer>')
+
 
 
 

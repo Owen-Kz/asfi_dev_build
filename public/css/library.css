@@ -51,6 +51,19 @@ searchBar input{
     list-style-type: none;
 }
 
+.externalLinks{
+    width: 50%;
+}
+
+.lib2{
+    width: 50%;
+}
+
+.lib-container{
+    display: flex; 
+    flex-direction: row;
+}
+
 .books_container {
     height: 700px;
 }
@@ -66,7 +79,7 @@ searchBar input{
 }
 
 .books_container .card {
-    width: 290px;
+    width: 45%;
     height: 10px;
     margin: auto;
     overflow:hidden;
@@ -281,3 +294,71 @@ h1 {
         width: 40%;
     }
 }
+
+  
+
+@media (max-width: 1080px) {
+    .library_main {
+        width: 100%;
+    }
+    .library-section {
+        width: 100%;
+        margin-left: 0;
+    }
+    .library_main .externalLinks{
+        width: 100% !important;
+    }
+    
+    .lib2{
+        width: 100%;
+    }
+    
+    .lib-container{
+        display: flex; 
+        flex-direction: column;
+    }
+
+} 
+
+/* Tab switcher buttons */
+.tab-switcher {
+    display: none;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 10px;
+  }
+  
+  .tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--bs-bg-header);
+    color: var(--bs-text-color);
+    border-radius: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-btn.active {
+    background-color: #6e42c146;
+    color: white;
+  }
+
+  /* Hide both sections on mobile */
+@media (max-width: 1080px) {
+    .tab-switcher{
+        display: flex;
+    }
+    .books_container .card {
+        width: 100%;
+        height: 10px;
+    }
+    .lib2, .externalLinks {
+      display: none;
+    }
+  
+    .lib2.active-tab, .externalLinks.active-tab {
+      display: block;
+    }
+  }
+

@@ -1,0 +1,12 @@
+<footer> <div class="flex text-center text-md-start mb-3 mb-md-0">
+    <a href=""> 
+    <img class="h-20px" src="/files/images/ASFIScholar_Logo.png" alt="logo"> 
+</a>
+<span style="font-size: 12px;">&copy; <span id="date"></span> - ASFIScholar </span>
+</div>
+ <div class="flex"><ul class="list-inline mb-0 text-center text-md-end" style="display: flex; flex-direction: row; font-size: 14px;"><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-facebook"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-instagram"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-linkedin-in"></i></a></li><li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-twitter"></i></a></li></ul></div></footer>
+
+<script>
+   const yearDate = document.getElementById("date");
+   yearDate.innerHTML = (new Date()).getFullYear();
+</script>

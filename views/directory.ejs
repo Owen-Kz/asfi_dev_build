@@ -7,7 +7,8 @@
         <meta name="author" content="Weperch Technologies Ltd">
 	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
         <link rel="stylesheet" href="/css/dashboard.css">
-        <link rel="stylesheet" href="/css/contactUs.css">
+        <!-- <link rel="stylesheet" href="/css/contactUs.css"> -->
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/directory.css">
        
@@ -85,50 +86,32 @@
     
             </style>
 
-    <!-- NAVIGATION BAR  -->
-    <sidebar class="left-navigation-bar bg-shadow ">
-   <%if(accountType == "scholar_account") {%>
-         <script src="/js/scholarNavbar.js"></script>
-         <% } else if(accountType == "user_account"){%>
-             <script src="/js/navbar.js"></script>
-         <%} else if(accountType == "instructor_account") {%>
-             <script src="/js/instructorNavbar.js"></script>
- 
-             <% } else if(accountType == "administrator") {%>
-				<script src="/js/admin/adminNavbar.js"></script>
-				<% } %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
+    
 
-<!-- Header START -->
-<header class="navbar-light navbar-sticky">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-expand-xl">
-		<div class="container">
-			<button class="stack-bars fa ">
-            </button>
 
-            
-             
-            
-            <searchBar>
-                <form id="searchForm">
-                <input type="text" name="searchScholars" placeholder="Find a Scholar: Search by name or Username" id="searchDirectory"/>
-                <button type="submit" hidden></button>
-            </form>
-               <i class="fa fa-search"></i>
-            </searchBar>
-               
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
-<!-- Header END -->
+         <!-- Header START -->
+         <%- include('header') %>
+         <!-- Header END -->
 
 
 
 <main class="main_directory" style="background-image: url(/files/images/03.png); background-repeat: no-repeat; background-size: cover;">
-    <!-- Follow & Discover Start -->
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar bg-shadow ">
+        <%if(accountType == "scholar_account") {%>
+              <%- include('scholarNavbar') %>
+              <% } else if(accountType == "user_account"){%>
+                  <%- include ("navbar") %>
+              <%} else if(accountType == "instructor_account") {%>
+                  <%- include ("instructorNavbar") %>
+      
+                  <% } else if(accountType == "administrator") {%>
+                     <%- include ("adminNavbar") %>
+                     <% } %>
+          </sidebar>
+          <!-- END NAVIGATION BAR  -->
+<div class="directory-container">
+   <!-- Follow & Discover Start -->
 <div class="accounts_container" >
     <div class="account_header">
         <span class="active header_tag" id="DiscoverSlide">Following </span>
@@ -177,35 +160,33 @@
             
                 <h4>Spaces</h4>
             <% if(accountType != "user_account") { %>
-                <button class="btn btn-orange next-btn mb-0 fw-bold" id="CreateSpaceBtn">Create Space</button>
+                <button class="btn next-btn fw-bold" id="CreateSpaceBtn">Create Space</button>
                 <%}%>
             <br>
         </div>
-       <br>
         <div class="spaces_main" id="spaces_container">
         </div>
     </div>
 <!-- Spaces End -->
 
+</div>
+  <!-- Include Notification panel -->
+  <div class="MainRight_side">
+    <%- include("notificationsPanel.ejs") %>
+      </div>
+    <!--Include Chats Panel-->
+    <div class="ChatRight_side">
+        <%- include("chatsPanel.ejs") %>
+    </div>
+        <!-- End right side  -->
+    
 </main>
-<div class="bottom_navbar release_spaces bg-shadow bg-white">
+<div class="bottom_navbar release_spaces bg-shadow">
     Spaces
 </div> 
 
 
-<!-- =======================
-Footer START -->
-<footer class="bg-dark p-3">
-	<div class="container">
-		<div class="row align-items-center">
-            <!-- Widget -->
-            <div><script src="/js/footer.js"></script></div>
-			<!-- Widget -->
-		</div>
-	</div>
-</footer>
-<!-- =======================
-Footer END -->
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/fetchFiles.js"></script>
 <script src="/js/mainjs.js"></script>
@@ -216,6 +197,8 @@ Footer END -->
 <script src="/js/searchQueries/getDiscoverQuery.js"></script>
 <script src="/js/searchQueries/updateDiscoverUI.js"></script>
 <script src="/js/searchQueries/scholarsSearchQuery.js"></script>
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
 
 <!-- <script src="/js/newFollower.js"></script> -->
 
@@ -234,6 +217,28 @@ Footer END -->
 <script src="/js/functions.js"></script>
 <script>
     FollowingSlide.click()
+</script>
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+    chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+    notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
 </script>
 </body>
 </html>
