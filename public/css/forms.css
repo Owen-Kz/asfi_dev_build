@@ -53,6 +53,14 @@
         .login-card {
         width: 100%;
     }
+    main{
+        height: 100vh;
+        overflow: scroll;
+    }
+    body{
+        overflow:hidden !important;
+      }
+
     .mb-4, .mt-4 {
         font-size: 10px;
     }
