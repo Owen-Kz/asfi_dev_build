@@ -49,6 +49,8 @@ main{
     width: 50%;
     display: flex;
     overflow: hidden;
+
+    
     /* flex-direction: column; */
 }
 
@@ -64,7 +66,7 @@ main{
 }
 
 .bg-purple{
-    background-color: purple;
+    background-color: #80078b;
 }
 
 
@@ -170,7 +172,7 @@ form {
     font-size: 20px;
     border: none;
     outline: none;
-    background-color: purple;
+    background-color: #80078b;
     color: whitesmoke;
     display: flex;
     align-items: center;
@@ -217,21 +219,21 @@ form {
 }
 .welcome_page .buttons_container .primary{
     outline: none;
-    background-color: #6f42c1;
-    box-shadow: 0px 7px 9px 0px rgba(0, 0, 0, 0.233);
+    background-color: #80078b;
+    /* box-shadow: 0px 7px 9px 0px rgba(0, 0, 0, 0.233); */
     color: whitesmoke;
 }
 
 .welcome_page .buttons_container .secondary{
     outline: none;
     background-color: rgb(255, 201, 85);
-    box-shadow: 0px 7px 9px 0px rgba(0, 0, 0, 0.233);
+    /* box-shadow: 0px 7px 9px 0px rgba(0, 0, 0, 0.233); */
     color: whitesmoke;
     
 }
 
 .welcome-card{
-    width: 60%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -338,7 +340,7 @@ form {
 
 .welcome-text h3 {
     color: whitesmoke;
-    font-size: 18px;
+    font-size: 12px;
 }
 
 
@@ -371,8 +373,8 @@ form {
         position: relative;
     }
     .login-card{
-       width: 80%;
-       height: 90%;
+       width: 100%;
+       height: 100%;
     }
     .welcome_page_main .circle{
         animation: SCALEUP forwards;
@@ -414,10 +416,11 @@ form {
 }
 
 .welcome_text {
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
+    text-align: center;
 }
 .user_text {
-    color: #55146eda;
+    color: #80078b;
     text-decoration: dotted;
 }

@@ -63,8 +63,11 @@
 </script>
 </head>
 
-<body>
+<body id="body">
 
+	<div class="mainContentContainer">
+
+		<div class="contentLeft" id="panelLeft">
 <!-- Header START -->
 <header class="navbar-light navbar-sticky">
 	<!-- Logo Nav START -->
@@ -125,8 +128,13 @@
 			<!-- Main navbar END -->
 
 			<!-- SignUp or Login -->
-			<a href="/app"><span class="btn btn-primary">Get Started</span></a>
+			 <% if(user) { %>
+			<a href="/feed"><span class="btn btn-primary">Dashboard</span></a>
 				
+			<% } else {%>
+				 <span class="btn btn-primary" id="getStarted">Get Started</span>
+
+				<% } %>
 
 				
 		
@@ -600,6 +608,7 @@ Faq START -->
 <!-- =======================
 Faq END -->
 
+
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
@@ -693,7 +702,14 @@ Footer START -->
 </footer>
 <!-- =======================
 Footer END -->
-
+</div>
+<!-- Right side content hidden on arrival  -->
+ <div class="contentRight" id="panelRight">
+	<div class="bg-purple circle top-circle"></div>
+	<span id="close_panel" class="close_panel"><i class="fa fa-times"></i></span>
+	<%- include("Loginform") %>
+ </div>
+	</div>
 <!-- Back to top -->
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
@@ -706,6 +722,7 @@ Footer END -->
 
 <!-- Template Functions -->
   <!-- Include Firebase App (required for Firebase services) -->
+  <script src="js/login.js"></script>
 
   <!-- Your main JavaScript file, included after Firebase SDK -->
   <!-- <script type="module" src="/js/services/main.js"></script> -->
@@ -718,6 +735,28 @@ Footer END -->
 	document.getElementById("year").textContent = currentYear;
 </script>
 
+<script>
+	const getStarted = document.getElementById("getStarted")
+	const close_panel = document.getElementById("close_panel")
+	const loginRight = document.getElementById("panelRight")
+		const panelLeft = document.getElementById("panelLeft")
+		const body = document.getElementById("body")
+	if(getStarted){
+	
+		getStarted.addEventListener("click", function(){
+		panelLeft.classList.toggle("contentLeft-close")
+		loginRight.classList.toggle("contentRight-open")
+		body.classList.toggle("closeMobileBody")
 
+		})
+	}
+	if(close_panel){
+		close_panel.addEventListener("click", function(){
+			panelLeft.classList.toggle("contentLeft-close")
+		loginRight.classList.toggle("contentRight-open")
+		body.classList.toggle("closeMobileBody")
+		})
+	}
+</script>
 </body>
 </html>

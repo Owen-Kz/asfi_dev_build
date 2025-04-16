@@ -600,11 +600,12 @@ router.get("/check/validate/follower/:username", LoggedIn, ValidateFollower)
 
 router.get("/login", async (req, res) => {
     // await RestartConnection()
-    res.sendFile("login.html", {root:"./public"})
+    res.render("loginPage")
 })
 
 router.get("/register", (req, res) => {
-    res.sendFile("register.html",  {root:"./public"})
+    // res.sendFile("register.html",  {root:"./public"})
+    res.render("register")
 })
 
 // SEND REULTS TO THE USER
