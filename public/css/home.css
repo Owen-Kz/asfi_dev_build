@@ -22299,6 +22299,11 @@ html[dir=rtl] .choices__input {
 .contentLeft-close {
   width: 60%;
 }
+
+.contentLeft-close i, .contentLeft-close .display-6, .contentLeft-close p{
+  font-size: 18px !important;
+  line-height: 18px;
+}
 .close_panel{
   align-self:flex-start;
   padding:20px;
