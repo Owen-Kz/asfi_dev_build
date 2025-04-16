@@ -53,11 +53,12 @@
         .login-card {
         width: 100%;
     }
-    main{
+    .main{
         height: 100vh;
         overflow: scroll;
     }
-    body{
+    
+    .body{
         overflow:hidden !important;
       }
 
