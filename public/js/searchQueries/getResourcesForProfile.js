@@ -71,7 +71,7 @@ function renderResources(data) {
 
     const paginationHTML = generatePaginationHTML(currentPage, totalPages, PrevPage, NexxtPage);
     footerContainer.innerHTML = paginationHTML;
-
+    const url = window.location.pathname
     if(url == "/dashboard" ||  url == "/Dashboard"){
         hideActionButtons()
     }
