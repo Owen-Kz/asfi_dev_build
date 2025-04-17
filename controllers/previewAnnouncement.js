@@ -5,16 +5,17 @@ const previewAnnouncement = async (req, res) =>{
       
         let timestamp  = "" 
         let content = "[]"
+        let title = "No data"
         if(req.user){
             if(req.query.q){
-                const title = req.query.q
-                db.query("SELECT * FROM announcements WHERE title = ?",[title], (err, data) =>{
+                const ID = req.query.q
+                db.query("SELECT * FROM announcements WHERE id = ?",[ID], (err, data) =>{
                     if(err){
                         console.log(err)
                         return res.json({error:"No data found"})
                     }
                     if(data[0]){
-                    //    title = data[0].title 
+                       title = data[0].title 
                        timestamp  = data[0].timestamp 
                         content = data[0].data
                         console.log(content)

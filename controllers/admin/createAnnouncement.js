@@ -29,7 +29,7 @@ const CreateAnnouncement = async (req,res) =>{
                     }else{
                         // sendAnnoucment to subscribed users and email
                         const message = title 
-                        const endpoint = `https://asfischolar.org/announcement?q=${title}`
+                        const endpoint = `https://asfischolar.org/announcement?q=${created.insertId}`
 
                         await NewAnnouncementNotification(req, res, message, endpoint)
 
