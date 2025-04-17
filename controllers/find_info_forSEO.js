@@ -13,8 +13,12 @@ const find_info_for_SEO = async (req, res) => {
         "SELECT username FROM user_info WHERE unique_code = ? OR username = ?",
         [req.params.username, req.params.username]
       );
-      if (!data.length) throw "invalidParameters";
+      if (!data[0]){
+      throw new Error("invalidParameters");
+      }else{
+    
       return data[0].username;
+      }
     };
 
     const username_visitor = await username_visitorQuery();
