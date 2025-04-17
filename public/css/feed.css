@@ -1,14 +1,10 @@
 
-body{
-  /* background-color: pink; */
-  overflow-y: hidden !important;
 
-}
 
-.main_page img{
+/* .main_page img{
     width: 100%;
     object-fit: cover;
-}
+} */
 .loading-indicator {
   text-align: center;
   padding: 10px;
@@ -21,10 +17,10 @@ body{
     flex-direction: row;
     /* margin: auto; */
     padding: 0px;
-    width:80%;
+    width:100%;
     height: 100% !important;
     margin: 0px auto !important;
-    overflow-y: hidden !important;
+    /* overflow-y: hidden !important; */
     /* background-color: rgb(13, 172, 74); */
 }
 .panelTitle{
@@ -32,17 +28,17 @@ body{
 }
 .section {
     /* display: flex; */
-    height: 100vh;
-    overflow:scroll;
+    /* height: 100vh;
+    overflow:scroll; */
     flex-direction: column;
 }
 .leftSideMain{
-  padding: 100px 10px;
-  width: 70%;
+  padding:60px 20px 70px 20px;
+  width: 60%;
   /* background: red; */
-  min-height: 100vh;
-  height: 110vh; /* Ensures full height of viewport */
-  overflow-y: hidden; /* Enables vertical scrolling */
+  /* min-height: 100vh; */
+  /* height: 110vh; Ensures full height of viewport */
+  /* overflow-y: hidden; Enables vertical scrolling */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -75,7 +71,7 @@ body{
     overflow: hidden;
     height: max-content;
     /* max-height: max-content; */
-    width: 100%;
+    width: 70%;
     max-height: max-content;
     border-radius: 8px;
     /* overflow: scroll; */
@@ -138,7 +134,7 @@ body{
     width:max-content;
     height: max-content;
     padding: 5px 10px 5px 10px;
-    background-color: #80078b;
+    background-color: #6e42c146;
     cursor: pointer;
     border-radius: 8px;
     /* border: 1px solid rgb(133, 22, 133); */
@@ -264,6 +260,9 @@ header{
   
   @media (max-width: 785px) {
     .leftSideMain{
+      width: 100%;
+    }
+    .leftSide .card {
       width: 100%;
     }
   }

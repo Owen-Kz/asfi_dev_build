@@ -12,7 +12,8 @@ const renderTutorialsPage = (req,res) =>{
         accountType: accountType,
         FirstName: first_name,
         LastName:last_name,
-        UserName: username,
+
+        logger:"logged",  user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username,
     })
 }
 }

@@ -9,10 +9,8 @@ if(req.user){
 
 
     res.render("library.ejs", {
-    
       status: "logged",
-    
-      accountType: req.user.acct_type,
+      logger:"logged", user : username_new, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:username_new, Email:req.user.email, username:username_new, Username:username_new, UserName:username_new
  
     });
 

@@ -38,22 +38,27 @@ main{
     justify-content:space-between;
     display: flex;
     flex-direction: row;
-    padding: 60px;
+    /* padding: 60px; */
 }
 .FollowingAccounts, .header_tag{
     font-size: 17px;
     transition: ease-in-out 200ms;
     -webkit-transition: ease-in-out 200ms;
 }
+.directory-container{
+    display: flex;
+    width: 80%;
+    margin-left: 20%;
+}
 .accounts_container{
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow-x: hidden;
-    margin-left: 80px;
+    margin-left: 30px;
     justify-content: center;
     align-items: center;
-    width:40%;
+    width:50%;
     padding-top: 10px;
     border-radius: 9px;
     box-shadow: 0px 20px 20px 2px rgba(0, 0, 0, 0.212);
@@ -75,7 +80,10 @@ main{
 }
 .account_header .active{
     font-weight: bold;
-    color: rgba(119, 118, 118, 0.692);
+    background-color: #4e0055;
+    padding: 10px 15px 10px 15px;
+    border-radius: 8px;
+    color: whitesmoke;
 }
 
 .accounts_box{
@@ -172,7 +180,7 @@ account .details div:last-child{
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 40px;
+    /* padding-left: 40px; */
 }
 
 .spaces_container .spaces_header h4{
@@ -199,13 +207,12 @@ account .details div:last-child{
 
 .spaces_main {
     display: grid;
-    /* Create columns that are at least 250px wide, but expand to fill available space */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;           /* Space between grid items */
-    padding: 1rem;       /* Optional padding around the grid */
-    margin: auto;        /* Center the grid container */
-    overflow-y: auto;    /* Scroll vertically if needed */
-    height: 70vh;
+    gap: 1rem;          
+    padding: 1rem;      
+    margin: auto;       
+    overflow-y: auto;    
+    height: 80vh;
   }
 
 .space{
@@ -213,7 +220,7 @@ account .details div:last-child{
 }
 .space .image_container{ 
         /* background-color: rgb(255, 72, 0); */
-        border-radius: 9px;
+        /* border-radius: 9px; */
         width: 100%;
         height: 145px;
         margin: 0px;
@@ -235,17 +242,11 @@ account .details div:last-child{
 .image_container:hover img{
     scale:1.2;
 }
-.space .title, .space .participants{
-        /* background-color: rgb(236, 236, 236); */
-        /* height: 29px; */
-        margin-top: 5px;
-        padding: 5px;      
-}
+
 .space{
     border: 1px solid grey;
     border-radius: 9px;
-    /* width: fit-content; */
-    /* overflow: hidden; */
+    background-color: var(--bs-bg-header);
     padding: 0px;
     width: 100%;
     height: fit-content;
@@ -270,6 +271,31 @@ account .details div:last-child{
     display:flex;
     width: 20px;
     border-radius: 100%;
+}
+
+.space-info{
+    display: flex;
+        flex-direction: column;
+        padding: 12px;
+       
+}
+
+.join{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    border-radius: 8px;
+    margin: auto;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    color: var(--bs-text-color);
+    padding: 10px;
+    border: none;
+    background-color: var(--bs-body-bg);
+}
+
+.join:hover{
+    background-color: #6e42c146;
 }
 
 .top{
@@ -861,19 +887,27 @@ padding: 6px;
         font-weight: bold;
         display: none;
     }
-    .spaces_container {
+    /* .spaces_container {
         margin-top: -30px;
-    }
+    } */
+  }
+
+  #CreateSpaceBtn{
+    background-color: #4e0055;
+    color: whitesmoke;
   }
 
 /* Media query for mobile screens */
 @media screen and (max-width: 767px), (max-width: 1080px) {
     /* Your styles for mobile screens go here */
+    .directory-container{
+        margin-left: 0;
+    }
     .spaces_container {
         position: absolute;
         width: 500px;
         height: 90vh;
-        margin-left: -12%;
+        margin-left: 0;
         background-color: white;
     }
     
@@ -921,7 +955,7 @@ padding: 6px;
     display: none;
     position: fixed;
     align-items: center;
-    z-index: 9999;
+    z-index: 9999999;
     left: 0;
     top: 0;
     width: 100%;
@@ -942,7 +976,7 @@ padding: 6px;
     justify-content: center;
     /* bottom: 20%; */
     overflow: hidden;
-    background-color: #fefefe;
+    background-color: var(--bs-bg-header);
     border-radius: 20px;
     width: 80%;
     max-width: 800px;
@@ -999,7 +1033,7 @@ padding: 6px;
   .bx_content .header_p{
     align-items: center;
     font-size: 25px;
-    color: black;
+    color: var(--bs-text-color);
     margin: auto;
   }
   .bx_content {
@@ -1062,19 +1096,21 @@ padding: 6px;
     padding: 7px;
   }
   .submitBook {
-    background-color: var(--bs-primary);
+    background-color: var(--bs-body-bg);
     border-radius: 25px;
     text-align: center;
+    width: 60%;
     padding: 12px;
     color: whitesmoke;
     width: 150px;
     margin: auto;
     margin-bottom: 15px;
+    margin-top: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   .submitBook:hover {
-    background-color: #fbbc05;
+    background-color: #6e42c146;
   }
   .submitPodcast {
     background-color: var(--bs-primary);

@@ -54,7 +54,8 @@ const book_list = document.getElementById("book_list")
   function addLoadingPlaceholders() {
     for (let i = 0; i < 3; i++) {
         const dummyCard = document.createElement("li");
-        dummyCard.className = "card shadow h-50 loading-placeholder";
+        dummyCard.className = "card shadow h-50 w-90 loading-placeholder";
+        dummyCard.style.width = "80px";
         dummyCard.innerHTML = `
             <div class="card-body pb-0">
                 <h5 class="card-title" style="background-color: grey; height: 20px; width: 80%;"></h5>

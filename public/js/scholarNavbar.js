@@ -1,6 +1,16 @@
 document.write(`<div class='navbar-logo_container'> <a class='navbar-brand' href=''>\
-<img class='light-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'>\
-<img class='dark-mode-item navbar-brand-item' src='/files/images/ASFIScholar_Logo.png' alt='logo'></a>\
+<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+				<% if(ProfileImage == "avatar.jpg"){ %>
+					<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= UserFirstname %>+<%= UserLastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
+					<% } else { %>
+						<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
+						src="" alt="Loading" >
+					<% }%>
+				
+			</a><personal_info>
+				<account_name><%=UserFirstname %> <%= UserLastName %></account_name>
+			</personal_info>
+
 </div>\
         <div class='navbar-contents'>\
         <ul class='navbar_buttons'>\

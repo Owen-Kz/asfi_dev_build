@@ -9,7 +9,7 @@ const getPeopleFollowed = async (req, res) => {
         const page = req.query.page ? parseInt(req.query.page) : 1;
         const limit = 10; 
         const offset = (page - 1) * limit;
-
+        
         // Fetch followed users
         db.query("SELECT username FROM user_info WHERE 1", async (err, followers) => {
             if (err) return res.json({ error: err.message });
@@ -39,7 +39,7 @@ const getPeopleFollowed = async (req, res) => {
                     ORDER BY timestamp DESC
                     LIMIT 100
                 `;
-
+                
                 db.query(query, [...followedUsers, ...followedUsers, ...followedUsers], async (err, results) => {
                     if (err) return res.json({ error: err.message });
 
