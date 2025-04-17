@@ -33,7 +33,8 @@ const Assets = async (req,res) =>{
                     
                     if(accountType == "scholar_account" || accountType == "instructor_account" || accountType == "administrator"){
                     res.render("assets", {
-                        UserName: username, Username:username, accountType:accountType, UserFirstname:Firstname, FirstName:Firstname,UserLastName:Lastname, LastName:Lastname, ProfileImage: ProfilePicture, Email:Email, Followers:followersCount, Following:followingCount
+                       FirstName:Firstname,  LastName:Lastname, Email:Email, Followers:followersCount, Following:followingCount,
+                        user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username,
                     })
 
                 }else{

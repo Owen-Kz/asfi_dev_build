@@ -39,14 +39,12 @@ const userCourse = async  (req,res) =>{
                 FOLLOWING.push(FollowingCount)
             if(accountType == "scholar_account" || accountType == "user_account" || accountType == "administrator"){
             res.render("userCourses", {
-                UserName: username,
-                accountType:accountType,
+        
                 FirstName:FirstName,
                 LastName:LastName,
-                ProfileImage: ProfileImage,
-                Email:Email,
-                Followers:FollowersCountArray[0], 
+                Followers:FollowersCountArray[0],  
                 Following:FOLLOWING[0],
+                user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username
             })
          }else{
             res.redirect("/instructorCourses")
