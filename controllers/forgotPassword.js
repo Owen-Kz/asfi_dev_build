@@ -54,11 +54,24 @@ const forgotPassword = async (req, res) => {
       const mainMessage = `  
       <html>
       <body>
+<%- include ("loader") %>
       <div class="strongText">Your password reset code is: <h2>${resetToken} </h2>
         <br> if this was not initiated by you please ignore.
         <br>Do Not Provide this code to anyone</div>
           <p>© ${currentYear} asfischolar.org. All rights reserved.</p>
-          </body>
+          <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
+
           </html>
           `
       await sendEmail(email,subject, mainMessage)

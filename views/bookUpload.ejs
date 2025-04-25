@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/uploadBook.css">
 </head>
 <body>
+<%- include ("loader") %>
 
     <form enctype="multipart/form-data" id="bookUploadForm" method="post">
         <input type="text" placeholder="Book Title" name="booksTitle" id="booksTitle" value="MORALES"><br><br>
@@ -26,5 +27,17 @@
   
     <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="/js/scholarControls/uploadBook.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

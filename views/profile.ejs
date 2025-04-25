@@ -106,13 +106,14 @@
 					}
 					.about-me{
 						margin-top: 20px;
+						margin-left: 30px;
 					}
 					.itchy{
 						width: 50px;
 					}
 					.halloffame,.googlescholar,.educationhistory,.workhistory,.techexpertise,.awards{
 					margin-left: 0px;
-					margin-right: 35px;
+					margin-right: 0px;
 				}
 				}
 				@media (max-width: 780px) {
@@ -186,6 +187,7 @@ p{
 			</style>
     </head>
 <body>
+<%- include ("loader") %>
 	<input type="text" id="AllTutorials" value="<%= TutorialsArray %>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
 	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
@@ -208,26 +210,28 @@ p{
             </form>
         <% } %>
     
-        <!-- NAVIGATION BAR  -->
-	   <sidebar class="left-navigation-bar bg-shadow ">
-          <%if(accountType == "scholar_account") {%>
-         <%- include('scholarNavbar') %>
-         <% } else if(accountType == "user_account"){%>
-             <%- include ("navbar") %>
-         <%} else if(accountType == "instructor_account") {%>
-             <%- include ("instructorNavbar") %>
- 
-             <% } else if(accountType == "administrator") {%>
-				<%- include ("adminNavbar") %>
-				<% } %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
-
+       
        <!-- Header START -->
    <%- include('header') %>
    <!-- Header END -->
      
 <main class="profile_main">
+
+	 <!-- NAVIGATION BAR  -->
+	 <sidebar class="left-navigation-bar">
+		<%if(accountType == "scholar_account") {%>
+	   <%- include('scholarNavbar') %>
+	   <% } else if(accountType == "user_account"){%>
+		   <%- include ("navbar") %>
+	   <%} else if(accountType == "instructor_account") {%>
+		   <%- include ("instructorNavbar") %>
+
+		   <% } else if(accountType == "administrator") {%>
+			  <%- include ("adminNavbar") %>
+			  <% } %>
+   </sidebar>
+   <!-- END NAVIGATION BAR  -->
+
  <!-- =======================
 Page Banner START -->
 <section class="pt-0 profile_section">
@@ -330,7 +334,7 @@ Page Banner END -->
 
 <!-- =======================
 Page content START -->
-<section class="pt-5 pb-0" style="margin-top: -40px;">
+<section class="pt-5 pb-0 profile_section" style="margin-top: -40px;">
 	<div class="container">
 		<div class="con-wrapper">
 
@@ -536,7 +540,7 @@ Page content START -->
 <!-- Left sidebar END -->
 				
 			<!-- Main content START -->
-			<div class="col-lg-4 about-me">
+			<div class="about-me">
 			
 				<!-- Title -->
 				<h5 class="mb-0">About me!</h5>
@@ -603,34 +607,28 @@ Page content START -->
 <!-- =======================
 Page content END -->
 
-
-    <script>
-               var dashboard =  document.getElementById("directory_link_pg");
-            dashboard.classList += "active_item";
-    </script>
     
     <!-- END BOTTOM_RIGHT  -->
     </div>
     </div>
-</main>
-    
-<!-- =======================
-Footer START -->
-<footer class="bg-dark p-3 profile_footer">
-	<div class="container">
-		<div class="row align-items-center">
-            <!-- Widget -->
-            <div><script src="/js/footer.js"></script></div>
-			<!-- Widget -->
-		</div>
+
+	<!-- Start right section  -->
+ <!-- Include Notification panel -->
+ <div class="MainRight_side">
+	<%- include("notificationsPanel.ejs") %>
+	  </div>
+	<!--Include Chats Panel-->
+	<div class="ChatRight_side">
+		<%- include("chatsPanel.ejs") %>
 	</div>
-</footer>
-<!-- =======================
-Footer END -->
+	<!-- End right Section  -->
+
+</main>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
   <script src="/js/newFollower.js"></script>
   <script src="/js/getSocialLinks.js"></script>
+
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
@@ -643,6 +641,32 @@ Footer END -->
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
+
+
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
 <script>
 	function showContent(tabName) {
 		document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -702,5 +726,17 @@ Footer END -->
 		}
 	}
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

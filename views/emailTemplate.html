@@ -13,6 +13,7 @@
       </script>
 </head>
 <body>
+<%- include ("loader") %>
     <style>
         body{
             box-sizing: border-box;
@@ -89,5 +90,17 @@
         </div>
         <button>View Profile</button>
     </div>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

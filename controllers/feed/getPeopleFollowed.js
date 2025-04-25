@@ -52,6 +52,7 @@ const getPeopleFollowed = async (req, res) => {
                         if (emails[i] !== "NoData" && emails[i].length > 0) {
                             const fullname = `${emails[i][0].first_name} ${emails[i][0].last_name}`;
                             const publications = await findPublications(fullname);
+                          
                             ASFIRJ_Publications.push(...publications.map(publication => ({
                                 type: "ASFIRJ Publication",
                                 title: publication.manuscript_full_title || "Untitled Publication",
@@ -60,6 +61,7 @@ const getPeopleFollowed = async (req, res) => {
                                 person: emails[i][0].username,
                                 id: publication.buffer
                             })));
+                 
                         }
                     }
 

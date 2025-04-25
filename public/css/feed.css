@@ -7,7 +7,7 @@
 } */
 .loading-indicator {
   text-align: center;
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 14px;
   color: #666;
   display: none; /* Initially hidden */
@@ -66,7 +66,7 @@
 .leftSide .card{
     display: flex;
     margin: auto;
-    min-height: 400px;
+    /* min-height: 400px; */
     border-radius: 25px;
     overflow: hidden;
     height: max-content;
@@ -75,12 +75,12 @@
     max-height: max-content;
     border-radius: 8px;
     /* overflow: scroll; */
-    margin-top: 10px;
+    margin-bottom: 20px;
     position: relative;
     /* border: 1px solid #80078b;  */
 }
 .card_image{
-    display: flex;
+    display: none;
     object-fit: cover;
     /* overflow: hidden; */
     /* border-bottom-left-radius: 20px;
@@ -99,6 +99,9 @@
     font-weight: bolder;
     padding: 10px 0px 10px 0px;
 }
+.card_body .title a{
+  color: var(--text-color) !important;
+}
 .card_body{
     display: flex;
     padding: 10px;
@@ -107,22 +110,42 @@
 }
 .author{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    align-items: center;
+    /* align-items: center; */
+    margin-bottom: 20px;
+}
+.author a{
+  display: flex;
+  align-items: center;
+  color: var(--bs-text-color);
+}
+
+.author a .authorName{
+  color: var(--bs-heading-color) !important;
+  font-weight: bold;
 }
 .authorImage{
     display: flex;
-    width: 30px;
+    width: 42px;
     align-items: center;
     object-fit: cover;
     justify-content: center;
-    height: 30px;
-    border-radius: 5px;
+    height: 42px;
+    border-radius: 50%;
     overflow: hidden;
 }
-.authorName{
-    padding: 5px;
+.authorImage img{
+  height: auto !important;
+}
+.extra{
+    /* padding: 5px; */
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+}
+.extra .date{
+   font-size: 0.7rem;
 }
 .cardFooter{
     display: flex;
@@ -130,15 +153,43 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.cardAction{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.cardAction button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  width: 25%;
+  padding: 2px;
+  /* background-color: red; */
+}
+.cardAction button span{
+  margin-right: 8px;
+}
+.cardAction button:hover{
+  background-color: var(--bs-border-color);
+  border-radius: 6px;
+  padding: 3px;
+}
 .itemType{
     width:max-content;
     height: max-content;
     padding: 5px 10px 5px 10px;
     background-color: #6e42c146;
-    cursor: pointer;
-    border-radius: 8px;
+    /* cursor: pointer; */
+    border-radius: 3px;
     /* border: 1px solid rgb(133, 22, 133); */
-    color: rgb(255, 233, 255);
+    color: var(--text-color);
+    font-size: 0.7rem;
 }
 .rightSide{
     /* background:blue; */
@@ -156,8 +207,8 @@ header{
 .divider{
     height: 1px;
     display: flex;
-    background-color: #9999998a;
-    width: 80%;
+    background-color: var(--bs-border-color);
+    width: 95%;
     margin-top:15px;
     margin-left: auto;
     margin-right: auto;
@@ -262,7 +313,107 @@ header{
     .leftSideMain{
       width: 100%;
     }
-    .leftSide .card {
+   
+  }
+  @media (max-width: 1080px) {
+    .leftSideMain .card{
       width: 100%;
     }
   }
+
+  [data-bs-theme=light] {
+    --bs-skeleton-bg1: #e0e0e0;
+    --bs-skeleton-bg2: #f5f5f5;
+  }
+  
+  [data-bs-theme=dark] {
+    --bs-skeleton-bg1: #33313bfd ;
+    --bs-skeleton-bg2: #3a3842;
+  }
+
+  /* Skeleton base style */
+.skeleton-box {
+  background: linear-gradient(90deg, var(--bs-skeleton-bg1) 25%, var(--bs-skeleton-bg2) 50%, var(--bs-skeleton-bg1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+      background-position: 200% 0;
+  }
+  100% {
+      background-position: -200% 0;
+  }
+}
+
+
+
+.skeleton-card {
+  padding: 1rem;
+  /* border: 1px solid #ccc; */
+  width: 70%;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.card_image.skeleton-box {
+  height: 150px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-card .author {
+  display: flex;
+  flex-direction: row !important;
+  /* align-items: center; */
+  gap: 10px;
+}
+
+.skeleton-circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--bs-skeleton-bg1) 25%, var(--bs-skeleton-bg2) 50%, var(--bs-skeleton-bg1)  75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-name {
+  width: 150px;
+  height: 14px;
+  margin-bottom: 6px;
+}
+
+.skeleton-date {
+  width: 100px;
+  height: 12px;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 16px;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 10px;
+}
+
+.skeleton-tag {
+  width: 60px;
+  height: 14px;
+}
+
+.cardAction {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skeleton-btn {
+  height: 32px;
+  width: 80px;
+  border-radius: 6px;
+}

@@ -199,6 +199,7 @@ font-family: "Heebo", sans-serif;
     </head>
     
 <body>
+<%- include ("loader") %>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
 	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
@@ -219,18 +220,7 @@ font-family: "Heebo", sans-serif;
             </form>
         <% } %>
     
-        <!-- NAVIGATION BAR  -->
-	   <!-- <sidebar class="left-navigation-bar bg-shadow ">
-        <%if(accountType == "scholar_account") {%>
-         <%- include('scholarNavbar') %>
-         <% } else if(accountType == "user_account"){%>
-             <%- include ("navbar") %>
-         <%} else if(accountType == "instructor_account") {%>
-             <%- include ("instructorNavbar") %>
- 
-             <% } %>
-     </sidebar> -->
-     <!-- END NAVIGATION BAR  -->
+       
 
      <!-- Header START -->
 	 <header class="navbar-light navbar-sticky" style="background: transparent; border: none;">
@@ -749,5 +739,17 @@ Footer END -->
 	}
 </script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

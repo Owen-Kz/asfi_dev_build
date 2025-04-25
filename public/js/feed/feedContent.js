@@ -1,6 +1,86 @@
 const feedContainer = document.getElementById("feedContainer");
 const loadingIndicator = document.createElement("div"); 
-loadingIndicator.innerHTML = "Loading...";
+loadingIndicator.innerHTML = `<div class="card heightSmall skeleton-card">
+    <div class="card_image skeleton-box"></div>
+
+    <div class="card_body">
+        <div class="author">
+            <div class="authorImage skeleton-circle"></div>
+            <div class="extra">
+                <div class="skeleton-box skeleton-name"></div>
+                <div class="skeleton-box skeleton-date"></div>
+            </div>
+        </div>
+
+        <div class="skeleton-box skeleton-title"></div>
+
+        <div class="cardFooter">
+            <div class="skeleton-box skeleton-tag"></div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="cardAction">
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+    </div>
+</div>
+<div class="card heightSmall skeleton-card">
+    <div class="card_image skeleton-box"></div>
+
+    <div class="card_body">
+        <div class="author">
+            <div class="authorImage skeleton-circle"></div>
+            <div class="extra">
+                <div class="skeleton-box skeleton-name"></div>
+                <div class="skeleton-box skeleton-date"></div>
+            </div>
+        </div>
+
+        <div class="skeleton-box skeleton-title"></div>
+
+        <div class="cardFooter">
+            <div class="skeleton-box skeleton-tag"></div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="cardAction">
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+    </div>
+</div>
+<div class="card heightSmall skeleton-card">
+    <div class="card_image skeleton-box"></div>
+
+    <div class="card_body">
+        <div class="author">
+            <div class="authorImage skeleton-circle"></div>
+            <div class="extra">
+                <div class="skeleton-box skeleton-name"></div>
+                <div class="skeleton-box skeleton-date"></div>
+            </div>
+        </div>
+
+        <div class="skeleton-box skeleton-title"></div>
+
+        <div class="cardFooter">
+            <div class="skeleton-box skeleton-tag"></div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="cardAction">
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+        <div class="skeleton-box skeleton-btn"></div>
+    </div>
+</div>`;
 loadingIndicator.classList.add("loading-indicator"); // Style this with CSS
 feedContainer.appendChild(loadingIndicator);
 
@@ -51,7 +131,7 @@ async function loadFeed() {
         }
 
         for (const item of feedItems) {
-            const { person, type, title, link, timestamp } = item;
+            const { person, type, title, timestamp } = item;
             const profileDetails = await personProfileDetails(person);
             const firstName = profileDetails.first_name || "N/A";
             const lastName = profileDetails.last_name || "N/A";
@@ -61,6 +141,7 @@ async function loadFeed() {
             let fileType = "";
             let is_asfirj = "";
             let smallHeight = ""
+            let link = ""
 
             switch (type) {
                 case "Book":
@@ -68,12 +149,14 @@ async function loadFeed() {
                     is_asfirj = "hidden"
                     smallHeight = "heightSmall"
                     fileType = "Book";
+                    link = `/library/b/${item.id}`
                     break;
                 case "Podcast":
                     image = "/assets/images/podcast-icon.png";
                     is_asfirj = "hidden"
                     smallHeight = "heightSmall"
                     fileType = "Podcast";
+                    link= `/podcasts/${item.id}/${person}`
                     break;
                 case "Publication Link":
                     // image = await fetchLinkPreview(link);
@@ -81,12 +164,14 @@ async function loadFeed() {
                     is_asfirj = "hidden"
                     smallHeight = "heightSmall"
                     fileType = "Publication Link";
+                    link = `/link?x=${encodeURI(item.id)}`
                     break;
                 case "ASFIRJ Publication":
                     image = "";
                     is_asfirj = "hidden"
                     smallHeight = "heightSmall"
                     fileType = "ASFIRJ Publication";
+                    link = `/link?x=${encodeURIComponent(`https://asfirj.org/content/?sid=${item.id}`)}`
                     break;
                 default:
                     image = "default.jpg";
@@ -97,6 +182,17 @@ async function loadFeed() {
             }
 
             const card = document.createElement("div");
+            const date = new Date(timestamp.replace(' ', 'T'));
+
+const options = {
+  day: 'numeric',
+  month: 'long',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true,
+};
+
+const formatted = date.toLocaleString('en-US', options).replace(',', ' at');
             card.className = `card ${smallHeight}`;
             card.innerHTML = `
                 <div class="card_image ${is_asfirj}">
@@ -105,22 +201,35 @@ async function loadFeed() {
                     </a>
                 </div>
                 <div class="card_body">
-                    <div class="title"><a href="${link}">${title}</a></div>
-                    <div class="author">
+                 <div class="author">
+                 <a href="@${person}">
                         <div class="authorImage">
                             <img src="${profilePicture}" alt="${person}_image">
                         </div>
+                        <div class="extra">
                         <div class="authorName">${firstName} ${lastName} (${person})</div>
-                    </div>
+                        <div class="date">${formatted}</div>
+                        </div>
+                        
+                </a>
+                        
+                </div>
+                    <div class="title"><a href="${link}">${title}</a></div>
+                   
                     <div class="cardFooter">
-                        <div class="date">${formatTime(timestamp)}</div>
                         <div class="itemType">${fileType}</div>
                     </div>
                 </div>
                 <div class="divider"></div>
+                <div class="cardAction">
+                <button class="cardActionButton"><a href="${link}"><span class="solar--download-bold-duotone"></span> View</a></button>
+                <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="follow()"><span class="fluent-mdl2--follow-user"></span> Follow</button>
+                 <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="share('${link}')"><span class="solar--share-linear"></span> Share</button>
+                </div>
             `;
 
             feedContainer.appendChild(card);
+            
         }
 
         currentPage++; // Move to the next page
@@ -141,3 +250,42 @@ feedContainer.addEventListener("scroll", () => {
 
 // Load initial feed
 loadFeed();
+
+
+function share(contentLink) {
+    // 1) populate each platform URL
+    asfischolar = "https://asfischolar.org" + contentLink;
+    document.getElementById("fbShare").href =
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(asfischolar)}`;
+    document.getElementById("waShare").href =
+      `https://api.whatsapp.com/send?text=${encodeURIComponent(asfischolar)}`;
+    document.getElementById("liShare").href =
+      `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(asfischolar)}`;
+    document.getElementById("xShare").href =
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(asfischolar)}`;
+
+    // 2) wire up Copy link
+    const copyBtn = document.getElementById("copyShare");
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(asfischolar)
+        .then(() => copyBtn.textContent = "Copied!")
+        .catch(() => copyBtn.textContent = "Failed");
+      setTimeout(() => copyBtn.innerHTML = '<span class="gravity-ui--link"></span><div>Copy link</div>', 1500);
+    };
+
+    // 3) show modal
+    document.getElementById("shareModal").style.display = "flex";
+  }
+
+  function closeShareModal() {
+    document.getElementById("shareModal").style.display = "none";
+  }
+
+  const overlays = document.getElementsByClassName("share-modal__overlay");
+if (overlays.length > 0) {
+  overlays[0].addEventListener("click", e => {
+    if (e.target === overlays[0]) {
+      overlays[0].style.display = "none";
+    }
+  });
+}

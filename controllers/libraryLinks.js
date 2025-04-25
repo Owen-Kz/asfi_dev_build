@@ -1,10 +1,9 @@
 const db = require("../routes/db.config");
 const fetchWebsiteData = require("./utils/getLinkPreview");
-const ITEMS_PER_PAGE_LINKS = 5; // Number of links per page
+const ITEMS_PER_PAGE_LINKS = 4; // Number of links per page
 
 const getLinksForLibrary = async (req,res) =>{
     let pageLinks = req.query.pageLink || 1; // Get the current link page from the query parameter
-  console.log(pageLinks)
     // Calculate the offset for both books and links
     const offsetLinks = (pageLinks - 1) * ITEMS_PER_PAGE_LINKS;
   
@@ -35,7 +34,7 @@ const getLinksForLibrary = async (req,res) =>{
           linkResult.forEach(async (url) => {
             const dataLink = url.link_href
             const linkTitle = url.link_title
-            dataLinksArray.push({link:dataLink, title:linkTitle})
+            dataLinksArray.push({link:dataLink, title:linkTitle, link_owner: url.link_owner})
           })
           // Find the external link Data 
           const allDataLink = await fetchWebsiteData(dataLinksArray);

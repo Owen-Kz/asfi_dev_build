@@ -12040,11 +12040,11 @@
 }
 
 [data-bs-theme=dark] .offcanvas {
-    --bs-offcanvas-bg: #192430 !important
+    --bs-offcanvas-bg: #292730 !important
 }
 
 [data-bs-theme=dark] .card {
-    --bs-card-bg: #192430;
+    --bs-card-bg: #292730;
     --bs-card-title-color: #eaeff4;
     --bs-card-subtitle-color: #7c8fac;
     --bs-card-box-shadow: rgba(145, 158, 171, 0.3) 0px 0px 2px 0px, rgba(145, 158, 171, 0.02) 0px 12px 24px -4px
@@ -12052,7 +12052,7 @@
 
 [data-bs-theme=dark] .dropdown-menu {
     --bs-dropdown-box-shadow: rgba(145, 158, 171, 0.3) 0px 0px 2px 0px, rgba(145, 158, 171, 0.02) 0px 12px 24px -4px;
-    --bs-dropdown-bg: #192430;
+    --bs-dropdown-bg: #292730;
     --bs-dropdown-link-color: #EAEFF4;
     --bs-dropdown-link-hover-color: #EAEFF4;
     --bs-dropdown-link-hover-bg: transparent
@@ -12095,7 +12095,7 @@
 }
 
 [data-bs-theme=dark] .jvectormap-container {
-    background-color: #192430 !important
+    background-color: #292730 !important
 }
 
 [data-bs-theme=dark] hr {
@@ -12226,7 +12226,7 @@
 [data-bs-theme=dark] a:hover h4,
 [data-bs-theme=dark] a:hover h5,
 [data-bs-theme=dark] a:hover h6 {
-    color: #b70000
+    color: blueviolet
 }
 
 [data-bs-theme=dark] pre[class*=language-] {
@@ -12263,17 +12263,17 @@
 [data-bs-theme=dark] .form-select {
     border-color: #333f55 !important;
     color: #7c8fac;
-    background-color: #192430 !important
+    background-color: #292730 !important
 }
 
 [data-bs-theme=dark] .form-floating>.form-control:focus~label::after {
-    background-color: #192430 !important
+    background-color: #292730 !important
 }
 
 [data-bs-theme=dark] .form-control:focus,
 [data-bs-theme=dark] .form-select:focus {
     border-color: #f33e5a !important;
-    background-color: #192430
+    background-color: #292730
 }
 
 [data-bs-theme=dark] input::file-selector-button {
@@ -12332,8 +12332,8 @@
 }
 
 [data-bs-theme=dark] .app-calendar .fc .fc-addEventButton-button {
-    background-color: #b70000;
-    border-color: #b70000
+    background-color: blueviolet;
+    border-color: blueviolet
 }
 
 [data-bs-theme=dark] .app-calendar .fc .fc-daygrid-day.fc-day-today,
@@ -12412,7 +12412,7 @@
 [data-bs-theme=dark] .select2-container--default .select2-selection--multiple,
 [data-bs-theme=dark] .select2-container--default .select2-selection--single,
 [data-bs-theme=dark] .select2-dropdown {
-    background-color: #192430
+    background-color: #292730
 }
 
 [data-bs-theme=dark] .select2-container--classic .select2-selection--single,
@@ -12652,11 +12652,11 @@
 
 [data-bs-theme=dark][data-color-theme=Red_Theme]:root,
 [data-bs-theme=light][data-color-theme=Red_Theme]:root {
-    --bs-primary: #b70000;
+    --bs-primary: blueviolet;
     --bs-primary-rgb: 243, 62, 90;
     --bs-light-primary: rgba(243, 62, 90, 0.1);
     --bs-primary-bg-subtle: rgba(243, 62, 90, 0.1);
-    --bs-secondary: #b70000;
+    --bs-secondary: blueviolet;
     --bs-secondary-rgb: 23, 129, 253;
     --bs-light-secondary: rgba(23, 129, 253, 0.1);
     --bs-secondary-bg-subtle: rgba(23, 129, 253, 0.1)
@@ -12672,15 +12672,15 @@
 
 [data-bs-theme=dark][data-color-theme=Red_Theme]:root .btn-secondary,
 [data-bs-theme=light][data-color-theme=Red_Theme]:root .btn-secondary {
-    --bs-btn-bg: #b70000;
-    --bs-btn-border-color: #b70000;
-    --bs-btn-hover-bg: #b70000;
-    --bs-btn-hover-border-color: #b70000
+    --bs-btn-bg: blueviolet;
+    --bs-btn-border-color: blueviolet;
+    --bs-btn-hover-bg: blueviolet;
+    --bs-btn-hover-border-color: blueviolet
 }
 
 [data-bs-theme=dark][data-color-theme=Aqua_Theme]:root,
 [data-bs-theme=light][data-color-theme=Aqua_Theme]:root {
-    --bs-primary: #b70000;
+    --bs-primary: blueviolet;
     --bs-primary-rgb: 0, 116, 186;
     --bs-light-primary: rgba(0, 116, 186, 0.1);
     --bs-primary-bg-subtle: rgba(0, 116, 186, 0.1);
@@ -12692,10 +12692,10 @@
 
 [data-bs-theme=dark][data-color-theme=Aqua_Theme]:root .btn-primary,
 [data-bs-theme=light][data-color-theme=Aqua_Theme]:root .btn-primary {
-    --bs-btn-bg: #b70000;
-    --bs-btn-border-color: #b70000;
-    --bs-btn-hover-bg: #b70000;
-    --bs-btn-hover-border-color: #b70000
+    --bs-btn-bg: blueviolet;
+    --bs-btn-border-color: blueviolet;
+    --bs-btn-hover-bg: blueviolet;
+    --bs-btn-hover-border-color: blueviolet
 }
 
 [data-bs-theme=dark][data-color-theme=Aqua_Theme]:root .btn-secondary,
@@ -12708,7 +12708,7 @@
 
 [data-bs-theme=dark][data-color-theme=Purple_Theme]:root,
 [data-bs-theme=light][data-color-theme=Purple_Theme]:root {
-    --bs-primary: #b70000;
+    --bs-primary: blueviolet;
     --bs-primary-rgb: 118, 62, 189;
     --bs-light-primary: rgba(118, 62, 189, 0.1);
     --bs-primary-bg-subtle: rgba(118, 62, 189, 0.1);
@@ -12720,8 +12720,8 @@
 
 [data-bs-theme=dark][data-color-theme=Purple_Theme]:root .btn-primary,
 [data-bs-theme=light][data-color-theme=Purple_Theme]:root .btn-primary {
-    --bs-btn-bg: #b70000;
-    --bs-btn-border-color: #b70000;
+    --bs-btn-bg: blueviolet;
+    --bs-btn-border-color: blueviolet;
     --bs-btn-hover-bg: #6435a1;
     --bs-btn-hover-border-color: #6435a1
 }
@@ -12736,7 +12736,7 @@
 
 [data-bs-theme=dark][data-color-theme=Green_Theme]:root,
 [data-bs-theme=light][data-color-theme=Green_Theme]:root {
-    --bs-primary: #b70000;
+    --bs-primary: blueviolet;
     --bs-primary-rgb: 10, 126, 164;
     --bs-light-primary: rgba(10, 126, 164, 0.1);
     --bs-primary-bg-subtle: rgba(10, 126, 164, 0.1);
@@ -12764,7 +12764,7 @@
 
 [data-bs-theme=dark][data-color-theme=Cyan_Theme]:root,
 [data-bs-theme=light][data-color-theme=Cyan_Theme]:root {
-    --bs-primary: #b70000;
+    --bs-primary: blueviolet;
     --bs-primary-rgb: 1, 192, 200;
     --bs-light-primary: rgba(1, 192, 200, 0.1);
     --bs-primary-bg-subtle: rgba(1, 192, 200, 0.1);
@@ -12796,7 +12796,7 @@
     --bs-primary-rgb: 250, 137, 107;
     --bs-light-primary: rgba(250, 137, 107, 0.1);
     --bs-primary-bg-subtle: rgba(250, 137, 107, 0.1);
-    --bs-secondary: #b70000;
+    --bs-secondary: blueviolet;
     --bs-secondary-rgb: 0, 116, 186;
     --bs-light-secondary: rgba(0, 116, 186, 0.1);
     --bs-secondary-bg-subtle: rgba(0, 116, 186, 0.1)
@@ -12812,10 +12812,10 @@
 
 [data-bs-theme=dark][data-color-theme=Orange_Theme]:root .btn-secondary,
 [data-bs-theme=light][data-color-theme=Orange_Theme]:root .btn-secondary {
-    --bs-btn-bg: #b70000;
-    --bs-btn-border-color: #b70000;
-    --bs-btn-hover-bg: #b70000;
-    --bs-btn-hover-border-color: #b70000
+    --bs-btn-bg: blueviolet;
+    --bs-btn-border-color: blueviolet;
+    --bs-btn-hover-bg: blueviolet;
+    --bs-btn-hover-border-color: blueviolet
 }
 
 /*!
@@ -12849,7 +12849,7 @@
     --bs-gray-800: #343a40;
     --bs-gray-900: #333747;
     --bs-primary: #F33E5A;
-    --bs-secondary: #b70000;
+    --bs-secondary: blueviolet;
     --bs-success: #2cd07e;
     --bs-indigo: #7547FF;
     --bs-info: #2cabe3;
@@ -12877,7 +12877,7 @@
     --bs-inverse-rgb: 245, 245, 246;
     --bs-light-indigo-rgb: 198, 205, 253;
     --bs-primary-text-emphasis: shade-color(#F33E5A, 60%);
-    --bs-secondary-text-emphasis: shade-color(#b70000, 60%);
+    --bs-secondary-text-emphasis: shade-color(blueviolet, 60%);
     --bs-success-text-emphasis: shade-color(#2cd07e, 60%);
     --bs-info-text-emphasis: shade-color(#2cabe3, 60%);
     --bs-warning-text-emphasis: shade-color(#ffc36d, 60%);
@@ -12911,7 +12911,7 @@
     --bs-body-line-height: 1.5;
     --bs-body-color: #67757c;
     --bs-body-color-rgb: 103, 117, 124;
-    --bs-body-bg: #fff;
+    --bs-body-bg: #f2f4f7;
     --bs-body-bg-rgb: 255, 255, 255;
     --bs-emphasis-color: #000;
     --bs-emphasis-color-rgb: 0, 0, 0;
@@ -12960,7 +12960,7 @@
     color-scheme: dark;
     --bs-body-color: #7c8fac;
     --bs-body-color-rgb: 124, 143, 172;
-    --bs-body-bg: #161b22;
+    --bs-body-bg: #232129;
     --bs-body-bg-rgb: 22, 27, 34;
     --bs-emphasis-color: #fff;
     --bs-emphasis-color-rgb: 255, 255, 255;
@@ -13639,7 +13639,7 @@ progress {
 
     .container,
     .container-sm {
-        max-width: 540px
+        /* max-width: 540px */
     }
 }
 
@@ -13648,7 +13648,7 @@ progress {
     .container,
     .container-md,
     .container-sm {
-        max-width: 720px
+        /* max-width: 720px */
     }
 }
 
@@ -13658,7 +13658,7 @@ progress {
     .container-lg,
     .container-md,
     .container-sm {
-        max-width: 960px
+        /* max-width: 960px */
     }
 }
 
@@ -13669,7 +13669,7 @@ progress {
     .container-md,
     .container-sm,
     .container-xl {
-        max-width: 1140px
+        /* max-width: 1140px */
     }
 }
 
@@ -13681,7 +13681,7 @@ progress {
     .container-sm,
     .container-xl,
     .container-xxl {
-        max-width: 1320px
+        /* max-width: 1320px */
     }
 }
 
@@ -15815,8 +15815,8 @@ textarea.form-control-lg {
 }
 
 .form-check-input:checked {
-    background-color: #b70000;
-    border-color: #b70000
+    background-color: blueviolet;
+    border-color: blueviolet
 }
 
 .form-check-input:checked[type=checkbox] {
@@ -16580,8 +16580,8 @@ fieldset:disabled .btn {
 
 .btn-secondary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #b70000;
-    --bs-btn-border-color: #b70000;
+    --bs-btn-bg: blueviolet;
+    --bs-btn-border-color: blueviolet;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #146ed7;
     --bs-btn-hover-border-color: #1267ca;
@@ -16591,8 +16591,8 @@ fieldset:disabled .btn {
     --bs-btn-active-border-color: #1161be;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #b70000;
-    --bs-btn-disabled-border-color: #b70000
+    --bs-btn-disabled-bg: blueviolet;
+    --bs-btn-disabled-border-color: blueviolet
 }
 
 .btn-success {
@@ -16817,19 +16817,19 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-secondary {
-    --bs-btn-color: #b70000;
-    --bs-btn-border-color: #b70000;
+    --bs-btn-color: blueviolet;
+    --bs-btn-border-color: blueviolet;
     --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #b70000;
-    --bs-btn-hover-border-color: #b70000;
+    --bs-btn-hover-bg: blueviolet;
+    --bs-btn-hover-border-color: blueviolet;
     --bs-btn-focus-shadow-rgb: 23, 129, 253;
     --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #b70000;
-    --bs-btn-active-border-color: #b70000;
+    --bs-btn-active-bg: blueviolet;
+    --bs-btn-active-border-color: blueviolet;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #b70000;
+    --bs-btn-disabled-color: blueviolet;
     --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #b70000;
+    --bs-btn-disabled-border-color: blueviolet;
     --bs-gradient: none
 }
 
@@ -30376,7 +30376,7 @@ a:hover h3,
 a:hover h4,
 a:hover h5,
 a:hover h6 {
-    color: #b70000 !important
+    color: blueviolet !important
 }
 
 ul {
@@ -30905,7 +30905,7 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 }
 
 .customizer-box label.btn:hover {
-    color: #b70000;
+    color: blueviolet;
     transform: scale(1.05)
 }
 
@@ -30922,7 +30922,7 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 .customizer-box .btn.show .icon,
 .customizer-box .btn:first-child:active .icon,
 .customizer-box :not(.btn-check)+.btn:active .icon {
-    color: #b70000
+    color: blueviolet
 }
 
 .customizer-box.color-pallete .btn-check:checked+.btn .icon,
@@ -30947,11 +30947,11 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 }
 
 .customizer-box.color-pallete label .color-box.skin-2 {
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .customizer-box.color-pallete label .color-box.skin-3 {
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .customizer-box.color-pallete label .color-box.skin-4 {
@@ -31007,7 +31007,7 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 }
 
 .btn.bg-primary-subtle:hover {
-    background-color: #b70000 !important;
+    background-color: blueviolet !important;
     color: var(--bs-white) !important
 }
 
@@ -31070,12 +31070,12 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 
 .btn-white {
     background-color: var(--bs-white);
-    color: #b70000
+    color: blueviolet
 }
 
 .btn-white:hover {
     background-color: var(--bs-white);
-    color: #b70000
+    color: blueviolet
 }
 
 .btn-white-outline {
@@ -31086,11 +31086,11 @@ html[data-layout=horizontal] .reverse-mode .left-part.dashboard-right-part {
 
 .btn-white-outline:hover {
     background-color: var(--bs-white);
-    color: #b70000
+    color: blueviolet
 }
 
 .btn-default {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: var(--bs-white)
 }
 
@@ -31238,8 +31238,8 @@ html[data-card=border] .card {
 }
 
 .form-check-input.primary:checked {
-    background-color: #b70000;
-    border: #b70000
+    background-color: blueviolet;
+    border: blueviolet
 }
 
 .form-check-input.secondary:checked {
@@ -31345,7 +31345,7 @@ html[data-card=border] .card {
     width: 0;
     bottom: 1px;
     position: absolute;
-    background: #b70000;
+    background: blueviolet;
     transition: .2s ease all;
     -moz-transition: .2s ease all;
     -webkit-transition: .2s ease all
@@ -31460,7 +31460,7 @@ html[data-card=border] .card {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed #b70000 !important;
+    border: 1px dashed blueviolet !important;
     border-radius: 6px;
     background-color: var(--bs-primary-bg-subtle) !important
 }
@@ -31500,7 +31500,7 @@ html[data-card=border] .card {
 
 .picker__day--infocus:hover,
 .picker__day--outfocus:hover {
-    background: #b70000 !important;
+    background: blueviolet !important;
     color: #fff !important
 }
 
@@ -31514,7 +31514,7 @@ html[data-card=border] .card {
 .dtp div.dtp-time,
 .dtp table.dtp-picker-days tr>td>a.selected,
 .dtp>.dtp-content>.dtp-date-view>header.dtp-header {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 .ql-container {
@@ -31551,19 +31551,19 @@ html[data-card=border] .card {
 
 body div.dt-buttons>.dt-button,
 body div.dt-buttons>div.dt-button-split .dt-button {
-    background: #b70000;
+    background: blueviolet;
     border-radius: 6px;
-    background-color: #b70000;
-    border: 1px solid #b70000;
+    background-color: blueviolet;
+    border: 1px solid blueviolet;
     color: #fff
 }
 
 body div.dt-buttons>.dt-button:hover,
 body div.dt-buttons>div.dt-button-split .dt-button:hover {
-    background: #b70000 !important;
+    background: blueviolet !important;
     border-radius: 6px !important;
-    background-color: #b70000 !important;
-    border: 1px solid #b70000 !important;
+    background-color: blueviolet !important;
+    border: 1px solid blueviolet !important;
     color: #fff !important
 }
 
@@ -31572,7 +31572,7 @@ body table.dataTable.table-striped>tbody>tr:nth-of-type(2n+1)>* {
 }
 
 body table.dataTable>tbody>tr.selected>* {
-    box-shadow: inset 0 0 0 9999px #b70000
+    box-shadow: inset 0 0 0 9999px blueviolet
 }
 
 .form-check-input.secondary:checked {
@@ -31787,7 +31787,7 @@ body table.dataTable>tbody>tr.selected>* {
 }
 
 .bg-primary-gt {
-    background: linear-gradient(261.23deg, #b70000 .42%, #5a52ff 100%)
+    background: linear-gradient(261.23deg, blueviolet .42%, #5a52ff 100%)
 }
 
 .bg-light-dark {
@@ -31795,7 +31795,7 @@ body table.dataTable>tbody>tr.selected>* {
 }
 
 .bg-hover-primary:hover {
-    color: #b70000 !important
+    color: blueviolet !important
 }
 
 .bg-hover-light-black:hover {
@@ -37430,7 +37430,7 @@ body .datepicker table tr td.today,
 body .datepicker table tr td.today.disabled,
 body .datepicker table tr td.today.disabled:hover,
 body .datepicker table tr td.today:hover {
-    background-color: #b70000 !important;
+    background-color: blueviolet !important;
     background-image: unset;
     color: #fff
 }
@@ -37450,16 +37450,16 @@ body .daterangepicker {
 }
 
 body .daterangepicker td.active {
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 body .daterangepicker td.active:hover {
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 body .daterangepicker td.in-range {
     background-color: var(--bs-primary-bg-subtle);
-    color: #b70000
+    color: blueviolet
 }
 
 body .daterangepicker .drp-buttons {
@@ -37487,19 +37487,19 @@ body .dtp>.dtp-content {
 }
 
 body .dtp>.dtp-content>.dtp-date-view>header.dtp-header {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 body .dtp div.dtp-date {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 body .dtp div.dtp-time {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 body .dtp table.dtp-picker-days tr>td>a.selected {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 body .dtp table.dtp-picker-days tr>th {
@@ -37507,11 +37507,11 @@ body .dtp table.dtp-picker-days tr>th {
 }
 
 body .dtp .dtp-actual-meridien a.selected {
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 body .dtp .p10>a {
-    color: #b70000 !important
+    color: blueviolet !important
 }
 
 body .dtp a.dtp-meridien-am {
@@ -37539,16 +37539,16 @@ body .picker__select--year {
 }
 
 body .picker__day--highlighted {
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 body .picker__day--highlighted:hover {
-    background: #b70000;
+    background: blueviolet;
     color: #fff
 }
 
 body .picker--focused .picker__day--highlighted {
-    background: #b70000;
+    background: blueviolet;
     color: #fff
 }
 
@@ -37562,7 +37562,7 @@ body .picker__button--today {
 }
 
 body .picker__button--today:before {
-    border-top: .66em solid #b70000
+    border-top: .66em solid blueviolet
 }
 
 body .picker__button--clear {
@@ -37611,7 +37611,7 @@ body .ql-toolbar.ql-snow {
 
 .calendar-container {
     padding: 30px 30px;
-    background-color: #b70000;
+    background-color: blueviolet;
     border-radius: 6px;
     border: 1px solid #e0e6ed
 }
@@ -37625,7 +37625,7 @@ body .ql-toolbar.ql-snow {
 }
 
 .app-calendar .fc-toolbar-title {
-    color: #b70000;
+    color: blueviolet;
     font-size: 18px
 }
 
@@ -37641,22 +37641,22 @@ body .ql-toolbar.ql-snow {
 
 .app-calendar .fc .fc-button-primary {
     background-color: var(--bs-white);
-    border-color: #b70000;
+    border-color: blueviolet;
     letter-spacing: 1px;
     font-size: 14px;
     color: var(--bs-white)
 }
 
 .app-calendar .fc .fc-button-primary:not(:disabled).fc-button-active {
-    background-color: #b70000;
+    background-color: blueviolet;
     font-weight: 400;
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 .app-calendar .fc .fc-button-primary:hover {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: var(--bs-white);
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 .app-calendar .fc .fc-button-primary:not(:disabled):active {
@@ -37692,13 +37692,13 @@ body .ql-toolbar.ql-snow {
     border-radius: 6px;
     padding: 7px 20px;
     text-transform: capitalize;
-    color: #b70000
+    color: blueviolet
 }
 
 .app-calendar .fc .fc-button:hover {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: var(--bs-white);
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 .app-calendar .fc .fc-toolbar>*>:not(:first-child) {
@@ -37706,21 +37706,21 @@ body .ql-toolbar.ql-snow {
 }
 
 .app-calendar .fc .fc-addEventButton-button {
-    background-color: #b70000;
-    border-color: #b70000;
+    background-color: blueviolet;
+    border-color: blueviolet;
     color: var(--bs-white);
     font-weight: 400
 }
 
 .app-calendar .fc .fc-addEventButton-button:hover {
-    background-color: #b70000;
-    border-color: #b70000;
+    background-color: blueviolet;
+    border-color: blueviolet;
     box-shadow: none;
     color: var(--bs-white)
 }
 
 .app-calendar .fc .fc-addEventButton-button:not(:disabled):active {
-    background-color: #b70000;
+    background-color: blueviolet;
     box-shadow: none;
     color: var(--bs-white)
 }
@@ -37808,17 +37808,17 @@ body .ql-toolbar.ql-snow {
 }
 
 .app-calendar .fc-bg-primary {
-    color: #b70000;
+    color: blueviolet;
     background-color: var(--bs-primary-bg-subtle);
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 .app-calendar .fc-bg-primary .fc-daygrid-event-dot {
-    border-color: #b70000
+    border-color: blueviolet
 }
 
 .app-calendar .fc-bg-primary.fc-h-event .fc-event-main {
-    color: #b70000
+    color: blueviolet
 }
 
 .app-calendar .fc-bg-success {
@@ -37988,7 +37988,7 @@ body .apexcharts-tooltip-title {
 }
 
 .css-bar-primary.css-bar-20 {
-    background-image: linear-gradient(90deg, var(--bs-gray-100) 50%, transparent 50%, transparent), linear-gradient(162deg, #b70000 50%, var(--bs-gray-100) 50%, var(--bs-gray-100))
+    background-image: linear-gradient(90deg, var(--bs-gray-100) 50%, transparent 50%, transparent), linear-gradient(162deg, blueviolet 50%, var(--bs-gray-100) 50%, var(--bs-gray-100))
 }
 
 .css-bar-danger.css-bar-20 {
@@ -38004,11 +38004,11 @@ body .apexcharts-tooltip-title {
 }
 
 .checkout .wizard-content .tab-wizard .steps ul li.done .step {
-    background-color: #b70000 !important
+    background-color: blueviolet !important
 }
 
 .checkout .wizard-content .tab-wizard .steps ul li.current .step {
-    background-color: #b70000 !important
+    background-color: blueviolet !important
 }
 
 .checkout .wizard-content .tab-wizard .steps ul li.current a {
@@ -38041,13 +38041,13 @@ body .apexcharts-tooltip-title {
 }
 
 .checkout .wizard-content .tab-wizard .actions ul li a:hover {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: #fff
 }
 
 .checkout .payment-method .btn-group-active .btn-group input:checked+label {
     background-color: var(--bs-primary-bg-subtle);
-    border-color: #b70000;
+    border-color: blueviolet;
     box-shadow: inherit
 }
 
@@ -38114,8 +38114,8 @@ body .apexcharts-tooltip-title {
 
 .table-responsive .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     color: #fff;
-    background-color: #b70000;
-    border-color: #b70000
+    background-color: blueviolet;
+    border-color: blueviolet
 }
 
 .wizard {
@@ -38201,13 +38201,13 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard>.steps .current a {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     cursor: default
 }
 
 .wizard>.steps .current a:active {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     cursor: default
 }
@@ -38319,7 +38319,7 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard>.actions a {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     display: block;
     padding: .5em 1em;
@@ -38328,7 +38328,7 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard>.actions a:hover {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     display: block;
     padding: .5em 1em;
@@ -38337,7 +38337,7 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard>.actions a:active {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     display: block;
     padding: .5em 1em;
@@ -38464,9 +38464,9 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard-content .wizard>.steps>ul>li.current .step {
-    border-color: #b70000;
+    border-color: blueviolet;
     background-color: var(--bs-white);
-    color: #b70000
+    color: blueviolet
 }
 
 .wizard-content .wizard>.steps>ul>li.disabled a {
@@ -38497,8 +38497,8 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard-content .wizard>.steps>ul>li.done .step {
-    background-color: #b70000;
-    border-color: #b70000;
+    background-color: blueviolet;
+    border-color: blueviolet;
     color: var(--bs-white)
 }
 
@@ -38607,7 +38607,7 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard-content .wizard .actions>ul>li>a {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white);
     display: block;
     padding: 7px 12px;
@@ -38658,15 +38658,15 @@ body .apexcharts-tooltip-title {
 
 .wizard-content .wizard .actions>ul>li.disabled>a {
     opacity: .5;
-    color: #b70000
+    color: blueviolet
 }
 
 .wizard-content .wizard .actions>ul>li.disabled>a:focus {
-    color: #b70000
+    color: blueviolet
 }
 
 .wizard-content .wizard .actions>ul>li.disabled>a:hover {
-    color: #b70000
+    color: blueviolet
 }
 
 .wizard-content .wizard .actions>ul>li.disabled>a[href="#previous"] {
@@ -38696,11 +38696,11 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard-content .wizard .actions ul li a {
-    background: #b70000
+    background: blueviolet
 }
 
 .wizard-content .wizard .actions ul li a:hover {
-    background: #b70000;
+    background: blueviolet;
     color: var(--bs-white)
 }
 
@@ -38708,14 +38708,14 @@ body .apexcharts-tooltip-title {
     top: 45px;
     width: 50%;
     height: 3px;
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-circle>.steps>ul>li:before {
     top: 45px;
     width: 50%;
     height: 3px;
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-circle>.steps>ul>li.current:after {
@@ -38743,24 +38743,24 @@ body .apexcharts-tooltip-title {
     top: 39px;
     width: 50%;
     height: 2px;
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li:before {
     top: 39px;
     width: 50%;
     height: 2px;
-    background-color: #b70000
+    background-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current .step {
-    border: 2px solid #b70000;
-    color: #b70000;
+    border: 2px solid blueviolet;
+    color: blueviolet;
     line-height: 36px
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current .step:after {
-    border-top-color: #b70000
+    border-top-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current:after {
@@ -38772,7 +38772,7 @@ body .apexcharts-tooltip-title {
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.done .step:after {
-    border-top-color: #b70000
+    border-top-color: blueviolet
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current~li:after {
@@ -38979,7 +38979,7 @@ body .apexcharts-tooltip-title {
 
     .wizard-content .wizard>.steps>ul>li:last-child:after {
         content: "";
-        background-color: #b70000
+        background-color: blueviolet
     }
 
     .wizard-content .wizard.vertical>.steps {
@@ -39003,7 +39003,7 @@ body .apexcharts-tooltip-title {
     }
 
     .wizard-content .wizard>.steps>ul>li.current:after {
-        background-color: #b70000
+        background-color: blueviolet
     }
 
     .wizard-content .wizard.vertical>.steps {
@@ -39373,7 +39373,7 @@ circle.jvectormap-marker {
 }
 
 body .circle-filled .noUi-handle {
-    background: #b70000;
+    background: blueviolet;
     border-radius: 50%
 }
 
@@ -39389,7 +39389,7 @@ body .noUi-handle {
     box-shadow: none;
     border-radius: 50%;
     background: #fff;
-    border: 5px solid #b70000
+    border: 5px solid blueviolet
 }
 
 body .noUi-handle:after {
@@ -39469,7 +39469,7 @@ body .noUi-horizontal.slider-xs .noUi-handle {
 }
 
 body .noUi-vertical.square .noUi-handle {
-    background: #b70000;
+    background: blueviolet;
     border-radius: 3px
 }
 
@@ -39490,7 +39490,7 @@ body .noUi-vertical.square .noUi-handle:after {
 }
 
 body .square .noUi-handle {
-    background: #b70000;
+    background: blueviolet;
     border-radius: 3px
 }
 
@@ -39531,7 +39531,7 @@ body .square.slider-lg .noUi-handle:after {
 }
 
 body .noUi-connect {
-    background: #b70000;
+    background: blueviolet;
     box-shadow: none
 }
 
@@ -39600,7 +39600,7 @@ body .select2-container .flag-icon {
 
 body .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
 body .select2-container--default .select2-results__option--selected {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: var(--bs-white)
 }
 
@@ -39633,8 +39633,8 @@ body .select2-container--default .select2-selection--multiple {
 body .select2-container--classic .select2-selection--multiple .select2-selection__choice,
 body .select2-container--default .select2-selection--multiple .select2-selection__choice,
 body .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    background-color: #b70000;
-    border-color: #b70000;
+    background-color: blueviolet;
+    border-color: blueviolet;
     color: #fff
 }
 
@@ -39879,7 +39879,7 @@ body .select2-container--default .select2-selection--multiple .select2-selection
 }
 
 body div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-    background-color: #b70000 !important;
+    background-color: blueviolet !important;
     border-radius: var(--bs-border-radius)
 }
 
@@ -40157,7 +40157,7 @@ button.toast-close-button {
 }
 
 .twitter-typeahead .tt-menu .tt-suggestion:hover {
-    background-color: #b70000;
+    background-color: blueviolet;
     color: var(--bs-white)
 }
 
@@ -40562,7 +40562,7 @@ body pre[class*=language-] {
 
 .calendar-schedule-table td.cal-active {
     border-radius: 6px;
-    background: #b70000 !important
+    background: blueviolet !important
 }
 
 .mailbox-widget {
@@ -41074,8 +41074,8 @@ body .landingpage .btn-lg {
 }
 
 .el-element-overlay .el-card-item .el-overlay-1 .el-info .el-item .el-link:hover {
-    border-color: #b70000;
-    background: #b70000
+    border-color: blueviolet;
+    background: blueviolet
 }
 
 .el-element-overlay .el-card-item .el-overlay {
@@ -41241,12 +41241,12 @@ body .scrumboard .card .card-body .task-body .task-bottom {
 }
 
 body .scrumboard .card .card-body .task-body .task-bottom div.tb-section-1 span:hover {
-    color: #b70000;
+    color: blueviolet;
     cursor: pointer
 }
 
 body .scrumboard .card .card-body .task-body .task-bottom div.tb-section-2 i.ti-pencil:hover {
-    color: #b70000
+    color: blueviolet
 }
 
 body .scrumboard .card.img-task .card-body .task-content img {
@@ -41274,11 +41274,11 @@ body .scrumboard .card.simple-title-task .card-body .task-body .task-bottom {
 
 body .ui-state-highlight {
     position: relative;
-    border-color: #b70000;
+    border-color: blueviolet;
     height: 141px;
     margin-bottom: 36px;
     border-radius: 15px;
-    border: 2px dashed #b70000;
+    border: 2px dashed blueviolet;
     background-color: var(--bs-body-bg);
     box-shadow: var(--card-box-shadow);
     background-image: linear-gradient(45deg, rgba(93, 135, 255, .09) 25%, transparent 25%, transparent 50%, rgba(93, 135, 255, .09) 50%, rgba(93, 135, 255, .09) 75%, transparent 75%, transparent);
@@ -41589,7 +41589,7 @@ body .connect-sorting-content {
 }
 
 .timeline-widget .timeline-item .timeline-badge.badge-primary {
-    border: 2px solid #b70000
+    border: 2px solid blueviolet
 }
 
 .comment-widgets .comment-row {
@@ -41726,3 +41726,17 @@ body .connect-sorting-content {
 .mailbox .message-center .message-item .user-img .offline {
     background: var(--bs-warning)
 }
+
+.ant-design--message-filled {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M924.3 338.4a447.6 447.6 0 0 0-96.1-143.3a443.1 443.1 0 0 0-143-96.3A443.9 443.9 0 0 0 512 64h-2c-60.5.3-119 12.3-174.1 35.9a444.1 444.1 0 0 0-141.7 96.5a445 445 0 0 0-95 142.8A449.9 449.9 0 0 0 65 514.1c.3 69.4 16.9 138.3 47.9 199.9v152c0 25.4 20.6 46 45.9 46h151.8a447.7 447.7 0 0 0 199.5 48h2.1c59.8 0 117.7-11.6 172.3-34.3A443.2 443.2 0 0 0 827 830.5c41.2-40.9 73.6-88.7 96.3-142c23.5-55.2 35.5-113.9 35.8-174.5c.2-60.9-11.6-120-34.8-175.6M312.4 560c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48s47.9 21.5 47.9 48s-21.4 48-47.9 48m199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48s47.9 21.5 47.9 48s-21.5 48-47.9 48m199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48s47.9 21.5 47.9 48s-21.5 48-47.9 48'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }

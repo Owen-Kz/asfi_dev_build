@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
     <h1>Required Data>>></h1>
     <h3>Meeting Title: <%= meetingTitle %></h3>
     <h3>Hosted By: <%= meetingHost %></h3>
@@ -147,5 +148,17 @@
 
         }
       </script>
-        </body>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
+
   

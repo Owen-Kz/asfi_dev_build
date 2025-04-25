@@ -53,6 +53,7 @@ searchBar input{
 
 .externalLinks{
     width: 50%;
+    margin-left: 40px;
 }
 
 .lib2{
@@ -65,7 +66,7 @@ searchBar input{
 }
 
 .books_container {
-    height: 700px;
+    height: 100%;
 }
 .books_container .book_list{
     width:100%;
@@ -76,11 +77,12 @@ searchBar input{
     overflow-y: scroll;
     list-style-type: none;
     margin:auto;
+    padding-bottom: 90px;
 }
 
 .books_container .card {
     width: 45%;
-    height: 10px;
+    /* height: 10px; */
     margin: auto;
     overflow:hidden;
     transition: ease-in-out 300ms;
@@ -119,12 +121,14 @@ searchBar input{
 .modal_container{
     position:fixed;
     display: flex;
-    height: 100%;
+    height: 100vh;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
-    top: 0;
-    z-index: 99954;
+    margin-left: 20%;
+    /* top: 0; */
+    /* z-index: 99954; */
+    padding-bottom: 40px;
     backdrop-filter: blur(20px);
     transition: ease-in-out 300ms;
 }
@@ -133,11 +137,13 @@ searchBar input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
+    background-color: var(--bs-bg-header);
     border-radius: 36px;
     width: 60%;
     height: 90%;
+    margin-left: 120px;
     overflow: hidden;
+    /* margin-bottom: 120px; */
 }
 
 .modal_header, .modal_footer{
@@ -145,12 +151,23 @@ searchBar input{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height:40px;
+    height:70px;
     width: 90%;
 }
 
 .modal_header .book_title{
+    display: flex;
+    flex-direction: column;
     font-weight: bold;
+    text-transform: capitalize;
+    margin-left: 5%;
+}
+
+
+
+.modal_header .bookAuthor{
+    color: blueviolet;
+    font-size: 0.7rem;
 }
 
 .modal_body{
@@ -205,7 +222,7 @@ searchBar input{
 }
 .page_count .close_button{
     padding-left: 10px;
-    font-size: 18px;
+    font-size: 38px;
     display: flex;
     font-weight: bold;
     cursor: pointer;
@@ -295,11 +312,30 @@ h1 {
     }
 }
 
+@media (max-width: 805px) {
+    .book_title{
+        margin-left: 5% !important;
+    }
+    .modal_header .book_title .bookTitle{
+        font-size: 0.75rem;
+    }
+}
   
 
 @media (max-width: 1080px) {
+    .lib2 .book_list .card-body{
+        margin-top: -25%;
+
+    }
+    .lib2 .book_list .card-footer{
+        margin-top: 100%;
+
+    }
     .library_main {
         width: 100%;
+    }
+    .externalLinks{
+        margin-left: 0;
     }
     .library-section {
         width: 100%;
@@ -316,6 +352,13 @@ h1 {
     .lib-container{
         display: flex; 
         flex-direction: column;
+    }
+
+    .modal_container{
+        margin: auto;
+    }
+    .modalMain{
+        margin:auto;
     }
 
 } 
@@ -351,7 +394,7 @@ h1 {
     }
     .books_container .card {
         width: 100%;
-        height: 10px;
+        /* height: 10px; */
     }
     .lib2, .externalLinks {
       display: none;
@@ -362,3 +405,39 @@ h1 {
     }
   }
 
+  .navbar-contents .navbar_item:not(.active_item) {
+    display: flex
+;
+    align-items: center;
+    flex-direction: row;
+    /* justify-content: center; */
+    /* background-color: rgba(236, 236, 236, 0.38); */
+    /* color: #4a4a4a; */
+    width: 100%;
+    /* height: 70px; */
+    padding: 10px;
+    /* background-color: red; */
+    cursor: pointer;
+    transition: ease-in-out 200ms;
+    text-align: center;
+}
+
+.card-footer::before,
+.card-footer::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.card-footer::before {
+  left: -20px;
+}
+
+.card-footer::after {
+  right: -20px;
+}

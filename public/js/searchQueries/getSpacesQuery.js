@@ -55,14 +55,17 @@ fetch("/directorySpaces", async ()=>{
             }
 
             spaces_container.innerHTML += 
-            `<div class="space">
-            <a href="/spaces/${space_id}">
-            <div class="image_container bg-purple-gradient">
-            <img src="${spacePreview}"></div>
-            </a>
-            <div class="space-info"><span class="title"> ${space_focus}</span>
-            <span class="participants">${members_count} Participants </span></div>
-            <a href="/spaces/${space_id}" class="join">Join Space</a>
+            `<div onclick="window.location.href='/spaces/${space_id}'" class="space">
+              <a href="/spaces/${space_id}">
+               <div class="image_container bg-purple-gradient">
+               <img src="${spacePreview}">
+                </div>
+               </a>
+            <div class="space-info">
+              <span class="title"> ${space_focus}</span>
+              <span class="participants">${members_count} Participants </span>
+            </div>
+              <a href="/spaces/${space_id}" class="join">Join Space</a>
             </div>`;
 
         });

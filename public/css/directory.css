@@ -22,6 +22,7 @@ justify-content: space-between;
 background-color: white;
 border-radius: 25px;
 padding: 15px;
+margin-bottom: 20px;
 }
 
 searchBar input{
@@ -55,7 +56,7 @@ main{
     flex-direction: column;
     height: 100%;
     overflow-x: hidden;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     justify-content: center;
     align-items: center;
     width:50%;
@@ -81,7 +82,7 @@ main{
 .account_header .active{
     font-weight: bold;
     background-color: #4e0055;
-    padding: 10px 15px 10px 15px;
+    padding: 8px 10px 8px 10px;
     border-radius: 8px;
     color: whitesmoke;
 }
@@ -113,14 +114,14 @@ main{
 .followingContainer{
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 100%;
     margin-left: 5%;
 }
 
 .discoverContainer{
     display: none;
     flex-direction: column;
-    width: 500px;
+    width: 100%;
     margin-left: 5%;
 }
 
@@ -173,7 +174,7 @@ account .details div:last-child{
 }
 
 .spaces_container{
-    height: 90vh;
+    height: 100%;
     /* display: flex;
     flex-direction: column; */
     width:60%;
@@ -181,6 +182,8 @@ account .details div:last-child{
     padding-top: 10px;
     padding-bottom: 10px;
     /* padding-left: 40px; */
+    background-color: var(--bs-bg-header);
+    border: 1px solid var(--bs-border-color);
 }
 
 .spaces_container .spaces_header h4{
@@ -195,6 +198,11 @@ account .details div:last-child{
     font-weight: bold;
 }
 
+.spaces_container .search-container{
+    margin-left: 0 !important;
+    width: 90% !important;
+    margin-bottom: 10px;
+}
 /* .spaces_main{
     display: flex;
     flex-wrap: wrap;
@@ -209,20 +217,48 @@ account .details div:last-child{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;          
-    padding: 1rem;      
+    padding-bottom: 80px;      
     margin: auto;       
     overflow-y: auto;    
-    height: 80vh;
+    height: 80%;
   }
+
+  .spaces_main::-webkit-scrollbar {
+    /* Chrome, Safari, Opera */
+    display: none;
+     background-color: transparent !important;
+     opacity: 0 !important;
+     z-index: 657 !important;
+     height: 20px !important;
+     width: 6px !important;
+     border-radius: 30px !important;
+   }
+   .spaces_main:hover::-webkit-scrollbar {
+     display: block;
+     background-color: transparent !important;
+     opacity: 0 !important;
+     z-index: 657 !important;
+     height: 20px !important;
+     width: 6px !important;
+     border-radius: 30px !important;
+   }
 
 .space{
     margin: 10px;
 }
+.space a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.space .join {
+    display: none;
+}
 .space .image_container{ 
         /* background-color: rgb(255, 72, 0); */
-        /* border-radius: 9px; */
-        width: 100%;
-        height: 145px;
+        border-radius: 9px;
+        width: 70px;
+        height: 70px;
         margin: 0px;
         padding: 0px;
         display: flex;
@@ -244,24 +280,30 @@ account .details div:last-child{
 }
 
 .space{
-    border: 1px solid grey;
+    border: 1px solid var(--bs-border-color);
     border-radius: 9px;
     background-color: var(--bs-bg-header);
-    padding: 0px;
-    width: 100%;
-    height: fit-content;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.08);
+    padding-left: 10px;
+    /* width: 100%; */
+    height:90px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 3px;
+    cursor: pointer;
+}
+.space:hover{
+    background-color: var(--bs-body-bg);
 }
 .space .title{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 0.8rem;
 }
 .space .participants{
     display: flex;
     flex-direction: row;
-    color: rgb(98, 98, 98);
+    color: var(--bs-text-color);
+    font-size: 0.75rem;
     /* font-weight: bold; */
 }
 .space .participants span{
@@ -276,12 +318,13 @@ account .details div:last-child{
 .space-info{
     display: flex;
         flex-direction: column;
-        padding: 12px;
+        padding-left: 10px;
+        justify-content: center;
        
 }
 
 .join{
-    display: flex;
+    display: none;
     justify-content: center;
     width: 90%;
     border-radius: 8px;
@@ -895,6 +938,7 @@ padding: 6px;
   #CreateSpaceBtn{
     background-color: #4e0055;
     color: whitesmoke;
+    font-size: 0.9rem;
   }
 
 /* Media query for mobile screens */
@@ -903,12 +947,15 @@ padding: 6px;
     .directory-container{
         margin-left: 0;
     }
+    .spaces_container .search-input{
+        display: block;
+    }
     .spaces_container {
         position: absolute;
         width: 500px;
         height: 90vh;
         margin-left: 0;
-        background-color: white;
+        background-color: var(--bs-bg-header);
     }
     
     .accounts_container .account_header{
@@ -923,7 +970,7 @@ padding: 6px;
         align-items: center;
     }
     .spaces_container{
-        height: 90vh;
+        height: 100%;
         /* display: flex;
         flex-direction: column; */
         align-items: center;
@@ -935,6 +982,7 @@ padding: 6px;
     }
     .spaces_main {
         padding: 3%;
+        padding-bottom: 80px;
     }
     
   }
@@ -1092,7 +1140,7 @@ padding: 6px;
   .podcast_upload {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 90%;
     padding: 7px;
   }
   .submitBook {

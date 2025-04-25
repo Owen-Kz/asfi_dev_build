@@ -21,7 +21,6 @@ const findPublications = async (userEmail) =>{
             const ArticleList = responseData.articlesList
   
          
-          
             if(ArticleList.length > 0){
                 return ArticleList
             }else{

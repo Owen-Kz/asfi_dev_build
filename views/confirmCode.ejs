@@ -30,6 +30,7 @@
 	<script src="/js/colorTheme.js"></script>
 </head>
 <body>
+<%- include ("loader") %>
     <main>
         <div class="msg-container">
             <div class="msg alert-danger " role="alert" id="error" >Text Goes Here</div>
@@ -85,6 +86,30 @@
 
     <script src="/js/jquery-3.4.2.min.js"></script>
     <script src="/js/confirmEmailReset.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

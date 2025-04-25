@@ -3,7 +3,7 @@
 var Imageform = document.getElementById("image_form")
 
 
-const usernameContainer = document.getElementById("usernameContainer")
+const usernameCont = document.getElementById("usernameContainer")
 genBuffer()
 
 
@@ -93,7 +93,7 @@ $(".profile-edit-btn").on("click", function(){
 
 $(".edit-cover").on("click", function(){
     const bufferID_main = bufferContainer.value
-    const username = usernameContainer.value
+    const username = usernameCont.value
 
     // if($("#cover_form").length > 0){
     //     $("#cover_form").remove()

@@ -88,7 +88,7 @@ if(PArticipants.length > 0){
 
 
     participantsContainer.innerHTML += `
-     <li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between;">
+     <li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between; align-items: center;">
          <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
               <span class="position-relative rounded-circle" style="height: 45px;">
@@ -103,13 +103,13 @@ if(PArticipants.length > 0){
               </div>
             </div>
              </a>
-           <span class="message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;">
-    <img src="../public/assets/message.svg" width="20" height="20">
-  </span>
+           
+    <span class="ant-design--message-filled message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;"></span>
+ 
         </li>
 `; 
         if(mobileParticipantsContainer){
-            mobileParticipantsContainer.innerHTML += `<li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between;">
+            mobileParticipantsContainer.innerHTML += `<li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between; align-items: center;">
           <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
               <span class="position-relative rounded-circle">
@@ -124,9 +124,7 @@ if(PArticipants.length > 0){
             </div>
             <p class="fs-2 mb-0 text-muted"></p>
           </a>
-           <span class="message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;">
-    <img src="../public/assets/message.svg" width="20" height="20">
-  </span>
+             <span class="ant-design--message-filled message-icon" data-username="${user_name}" onclick=getChatModal("${user_name}") style="cursor: pointer; margin-right: 5px;"></span>
         </li>`
         }
      

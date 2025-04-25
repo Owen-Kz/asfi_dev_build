@@ -36,7 +36,9 @@
 </script>
 </head>
 <body>
-	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+<%- include ("loader") %>
+<input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
 	<%- include ("bookUploadModal") %>
 
@@ -91,6 +93,7 @@ Page content START -->
 							<div class="dropdown dash_upload">
 								<span>Post Something</span>
                                 <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
+								<a href='https://asfischolar.net' style="display: flex; justify-content: center; align-items: center; "><span class="proicons--video"></span><span class='navName'>ASFI Meet</span></a>
                                 <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                                     <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
 					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
@@ -156,20 +159,7 @@ Page content START -->
 				</div>
 
 					<!-- Counter item -->
-					<div class="col-sm-6 col-lg-4">
-						<a href="/dashboard">
-						<div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
-							<span ><i class="fa fa-video fa-fw"></i></span>
-							<div class="ms-4">
-								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">Tutorials</h5>
-									<!-- <span class="mb-0 h5">K</span> -->
-								</div>
-								<!-- <span class="mb-0 h6 fw-light">Dashboard</span> -->
-							</div>
-						</div>
-						</a>
-					</div>
+					
 
 						<!-- Counter item -->
 				<div class="col-sm-6 col-lg-4">
@@ -281,7 +271,19 @@ Page content END -->
 
 <sidebar class="right-navigation-bar">
 	
-				
+	<% if(announcementTitle !== "") { %>
+		<div class="announcementWidget">
+			<span>Announcement</span>
+			<a href="/announcement?q=<%= announcementTitle %>">
+				<%- include("announcementWidget") %>
+			</a>
+   
+		</div>
+	<% } %>
+	<div class="announcementWidget">
+		<span>Suggested people to follow</span>
+		<%- include("discoverpeopleWidget") %>
+	</div>
 </sidebar>
 
 <!-- Start right section  -->
@@ -351,7 +353,31 @@ closeButtonChat.addEventListener("click", function(){
     chatsPanel.classList.toggle("visible");
 })
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
 
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

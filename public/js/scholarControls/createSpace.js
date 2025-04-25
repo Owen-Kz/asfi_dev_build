@@ -45,7 +45,7 @@ Spacebtn.onclick = function() {
                                             </div>
                                             <label class="form-label">Space/Forum Description</label>
                                             <div class="input-group mb-3">
-											   <textarea class="form-control" name="shortDescription" id="shortDescription" palcecols="30" rows="10" required placeholder="Write a schort description about this space"></textarea>
+											   <textarea class="form-control" name="shortDescription" id="shortDescription" palcecols="30" rows="10" required placeholder="Write a short description about this space"></textarea>
 										
                                             </div>
 											<label class="form-label">Make this space private?</label>
@@ -155,7 +155,7 @@ window.addEventListener = function(event) {
                     <div class="create_space_notification">
                         <h2 class="header_p">${data.message}!</h2>
                         <p>Your space Key is:</p> 
-                        <h3 style="font-weight:bold; color:black;">${data.space_key}</h3>
+                        <h3 style="font-weight:bold; color:var(--bs-text-color);">${data.space_key}</h3>
                         <div class="create_buttons">
                             <a href="/s/m/p/${document.getElementById('bufferSpace').value}/settings">
                                 <span class="submitBook" id="invite_users">Invite Users</span>

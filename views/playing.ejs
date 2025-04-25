@@ -31,15 +31,18 @@
     </head>
 
 <body>
-    <header>
-        <topnav>
-            <div class="topNavbar ">
-            </div>
-        </topnav>
-    </header>
+<%- include ("loader") %>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+
+
+   
+<%- include ("header") %>
     
-       <!-- NAVIGATION BAR  -->
-    <sidebar class="left-navigation-bar bg-shadow ">
+       
+
+<main>
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar ">
         <%if(accountType == "scholar_account") {%>
             <%- include('scholarNavbar') %>
             <% } else if(accountType == "user_account"){%>
@@ -50,8 +53,6 @@
                 <% } %>
      </sidebar>
      <!-- END NAVIGATION BAR  -->
-
-<main>
     <!-- PLAYER INTERFACE  -->
     <div class="podcast_modal">
         <span class="close_podcast_modal" id="closePodcastModal">&times;</span>
@@ -95,7 +96,16 @@
     <!-- END PLAYER INTERFACE  -->
 
 
-      
+      	<!-- Start right section  -->
+ <!-- Include Notification panel -->
+ <div class="MainRight_side">
+	<%- include("notificationsPanel.ejs") %>
+	  </div>
+	<!--Include Chats Panel-->
+	<div class="ChatRight_side">
+		<%- include("chatsPanel.ejs") %>
+	</div>
+	<!-- End right Section  -->
  
     <script src="/js/fetchFiles.js"></script>
 
@@ -178,14 +188,56 @@
 
 
 
-        <script>
-            var podcasts =  document.getElementById("podcasts_link_pg");
-            podcasts.classList += "active_item";
-        </script>
+      
 
 <script src="/js/footer.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
 
 </main>
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

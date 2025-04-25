@@ -23,8 +23,21 @@ const sendEmail = async (useremail, subject, message) => {
                     to: [{ email: useremail }],
                     sender: { email: 'support@asfischolar.org', name: 'ASFI Scholar' },
                     subject:subject,
-                    htmlContent: `<html><body>${messageHtml}
-                                 </body></html>`
+                    htmlContent: `<html><body>
+<%- include ("loader") %>${messageHtml}
+                                 <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
+</html>`
                 };
                 await SendMain(email);
 

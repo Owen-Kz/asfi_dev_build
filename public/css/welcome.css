@@ -49,6 +49,7 @@ main{
     width: 50%;
     display: flex;
     overflow: hidden;
+    background-color: var(--bs-body-bg);
 
     
     /* flex-direction: column; */
@@ -73,7 +74,7 @@ main{
 .login-card {
     width: 35%;
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--bs-body-bg);
     /* background-color: red; */
     height:500px;
   
@@ -421,6 +422,55 @@ form {
     text-align: center;
 }
 .user_text {
-    color: #80078b;
+    color: #fd5949;
     text-decoration: dotted;
 }
+
+/* Loader Styles */
+#custom-loader {
+    position: fixed;
+    inset: 0;
+    background-color: var(--bs-body-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  
+  .loader-logo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .loader-footer {
+    position: absolute;
+    margin-top: 88vh;
+    text-align: center;
+    font-size: 13px;
+    color: var(--bs-header-color);
+    font-family: 'Inter', sans-serif;
+  }
+  .loader-logo {
+    margin-bottom:80px;
+  }
+  
+  .loader-footer strong {
+    display: block;
+    color: #fd5949;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  /* Hide class */
+  #custom-loader.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  

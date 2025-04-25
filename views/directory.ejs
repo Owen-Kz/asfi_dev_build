@@ -30,6 +30,9 @@
     </head>
 
 <body class="main_directory_body">
+    <%- include("loader") %>
+    <input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 <input type="hidden" id="loggedUser" value="<%=user%>" readonly>
     <style>
         .AccountLeft{
@@ -97,7 +100,7 @@
 
 <main class="main_directory" style="background-image: url(/files/images/03.png); background-repeat: no-repeat; background-size: cover;">
     <!-- NAVIGATION BAR  -->
-    <sidebar class="left-navigation-bar bg-shadow ">
+    <sidebar class="left-navigation-bar">
         <%if(accountType == "scholar_account") {%>
               <%- include('scholarNavbar') %>
               <% } else if(accountType == "user_account"){%>
@@ -113,6 +116,13 @@
 <div class="directory-container">
    <!-- Follow & Discover Start -->
 <div class="accounts_container" >
+    <searchBar>
+        <form id="searchForm">
+        <input type="text" name="searchDirectory" placeholder="Search Directory.." id="searchDirectory" value=""/>
+        <button type="submit" hidden></button>
+        </form>
+       <i class="fa fa-search"></i>
+    </searchBar>
     <div class="account_header">
         <span class="active header_tag" id="DiscoverSlide">Following </span>
         |
@@ -156,13 +166,24 @@
 <!-- Spaces Start -->
 
     <div class="spaces_container closed_spaces_container" >
-        <div style="text-align: center;">
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; border-bottom: 1px solid var(--bs-border-color);">
             
                 <h4>Spaces</h4>
             <% if(accountType != "user_account") { %>
                 <button class="btn next-btn fw-bold" id="CreateSpaceBtn">Create Space</button>
                 <%}%>
-            <br>
+            <div class="search-container">
+                
+                <input type="text" name="searchSpaces" placeholder="Search spaces" class="search-input" id="searchSpaces"/>
+            <button class="search-button" type="submit" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+             <circle cx="11" cy="11" r="8"></circle>
+             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+           </svg>
+            </button>
+      
+          </div>
         </div>
         <div class="spaces_main" id="spaces_container">
         </div>
@@ -240,5 +261,17 @@ closeButtonChat.addEventListener("click", function(){
     chatsPanel.classList.toggle("visible");
 })
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

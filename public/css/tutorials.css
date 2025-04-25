@@ -16,7 +16,7 @@ searchBar{
     justify-self: center;
     align-self: center;
     justify-content: space-between;
-    background-color: white;
+    background-color: var(--bs-bg-header);
     /* border: 1px solid; */
     border-radius: 25px;
     padding: 15px;
@@ -31,8 +31,8 @@ searchBar input{
 
 main{
     margin-top: 100px;
-    width:100%;
-    margin-left: auto;
+    width:80%;
+    margin-left: 20%;
     margin-right: 0px;
     /* justify-content:space-between; */
     display: flex;

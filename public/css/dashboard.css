@@ -60,10 +60,15 @@ personal_info{
   }
 .profile-name, .profile-username{
     width: 100% !important;
-    height: 20px !important;
+    /* height: 20px !important; */
+    margin-bottom: 0 !important;
 }
 .profile-name{
-    font-weight: 900;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.navbar-logo_container .avatar{
+    margin-bottom: 0 !important;
 }
 .profile-username{
     font-size: 12px;
@@ -148,6 +153,7 @@ personal_info .image_container img{
     z-index: 2;
 }
 .chathead{
+    display: none !important;
     top: 10%;
     left: 80%;
     transform: translateX(-50%);
@@ -174,6 +180,7 @@ logohere i {
 
 @media screen and (max-width: 768px) {
     .chathead {
+        display: none !important;
         top: auto; /* Remove the 'top' property for mobile screens */
         bottom: 0; /* Position it at the bottom */
         left: auto; /* Remove the 'left' property */

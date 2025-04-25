@@ -4,6 +4,7 @@ const ITEMS_PER_PAGE_PODCASTS = 6; // Number of podcasts per page
 let  PODCAST_ARRAY = []
 
 const UserPodcast = async (req,res) => {
+    console.log("podcasts")
     if(req.user){
     const visitor = req.user.username;
     const pagePodcasts = req.query.page || 1; // Get the current podcast page from the query parameter
@@ -70,8 +71,7 @@ else {
 
 }
 } else{ //   count Podcasts of scholars
-    db.query("SELECT * FROM user_info WHERE username =?", [visitor], (err,result) => {
-        if(err) throw err
+   
        const  UserFirstname = req.user.first_name
         const UserLastname = req.user.last_name
         const ProfileImage = req.user.profile_picture
@@ -105,7 +105,6 @@ else {
             // res.render("podcast.ejs", { PODCAST_ARRAY:PODCAST_ARRAY, podcast:podcast, PodcastCount:PodcastCount,  accountType:accountType, userName:visitor, UserName:visitor, username:visitor, firstName:UserFirstname, FirstName: UserFirstname, firstname:UserFirstname, lastname:UserLastname, LastName:UserLastname, Lastname:UserLastname, lastName:UserLastname, Email:Email, profilePicture:ProfileImage, ProfilePicture:ProfileImage, profile_photo:ProfileImage, profile_picture:ProfileImage, podcast_owner_fullname:podcast_owner_fullname, podcastCount: podcastCount,
             // currentPage: pagePodcasts,
             // totalPages: totalPagesPodcasts})
-
             res.render("podcast.ejs", { PODCAST_ARRAY:PODCAST_ARRAY, podcast:podcast, PodcastCount:PodcastCount,              logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, podcastCount: podcastCount,
                 currentPage: pagePodcasts,
                 totalPages: totalPagesPodcasts})
@@ -114,7 +113,7 @@ else {
 
         })
   
-          })
+          
 }
    
 }

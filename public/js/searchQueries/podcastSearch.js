@@ -44,6 +44,7 @@ function removeExisitng() {
     PODCAST_SEARCH_ARRAY = [];
 }
 
+if(SearchBar){
 searchForm.addEventListener("submit", function(e) {
     e.preventDefault();
     removeExisitng(); // Clear the arrays before fetching new data
@@ -74,8 +75,8 @@ searchButton.addEventListener("click", () => {
         }
     });
 });
-
-// Call initializePage when the DOM is ready
-document.addEventListener("DOMContentLoaded", function () {
-    initializePage();
-});
+}
+// // Call initializePage when the DOM is ready
+// document.addEventListener("DOMContentLoaded", function () {
+//     initializePage();
+// });

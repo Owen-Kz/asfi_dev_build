@@ -28,6 +28,7 @@
     </head>
 
 <body>
+<%- include ("loader") %>
     
        <!-- NAVIGATION BAR  -->
 	   <sidebar class="left-navigation-bar bg-shadow ">
@@ -228,5 +229,17 @@ Footer END -->
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

@@ -29,66 +29,83 @@
 
     </head>
 <body id="body">
+    <%- include ("loader") %>
+  <input type="hidden" id="podcast_array_container" value="[]">
+  <input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
-    <div class="modal_container shown">
-        <div class="modalMain bg-shadow">
-            <div class="modal_header">
-            <div class="book_title"><%= bookTitle %></div>
-            <div class="page_count"> <a href="../">
-                <span class="close_button" id="close_modal">&times;</span></a>
-            </div>
-            </div>
+    <!-- Header START -->
+    <%- include('header') %>
+    <!-- Header END -->
+       
 
-            <div class="modal_body" style="height: 100vh !important; max-height: 100vh;">
-             
+    <main>
+         <!-- NAVIGATION BAR  -->
+         <sidebar class="left-navigation-bar ">
+            <%if(accountType == "scholar_account") {%>
+                <%- include('scholarNavbar') %>
+                <% } else if(accountType == "user_account"){%>
+                    <%- include ("navbar") %>
+                <%} else if(accountType == "instructor_account") {%>
+                    <%- include ("instructorNavbar") %>
+        
+                    <% } else if(accountType == "administrator") {%>
+               <%- include ("adminNavbar") %>
+               <% } %>
+         </sidebar>
+         <!-- END NAVIGATION BAR  -->
 
-<canvas id="pdf-viewer" style="width:100%; height: 100vh;"></canvas>
-            </div>
-
-            <div class="modal_footer">
-                <div class="download_button">
-                    <a href="/library/books/<%= book_ID %>"> <i class="fa fa-download"></i></a>
-                </div>
+        <div class="modal_container shown">
+           
+           <div class="modalMain bg-shadow">
+               <div class="modal_header">
+               <div class="book_title"> <span class="bookTitle"><%= bookTitle %></span><span class="bookAuthor"> - Published by <%= bookAuthor %></span>  </div>
+               <div class="page_count"> <a href="../">
+                   <span class="close_button" id="close_modal">&times;</span></a>
+               </div>
+               </div>
+   
+               <div class="modal_body" style="height: 100vh !important; max-height: 100vh;">
+                
+   
+   <canvas id="pdf-viewer" style="width:100%; height: 100vh;"></canvas>
+               </div>
+   
+               <div class="modal_footer">
+                   <div class="download_button">
+                       <a href="/library/books/<%= book_ID %>"> <i class="fa fa-download"></i></a>
+                   </div>
+   
+         
+                   <!-- <div id="warning"></div> -->
+               </div>
+   
+           </div>
+       </div>
+       
+ <!-- Start right section  -->
+ <!-- Include Notification panel -->
+ <div class="MainRight_side">
+	<%- include("notificationsPanel.ejs") %>
+	  </div>
+	<!--Include Chats Panel-->
+	<div class="ChatRight_side">
+		<%- include("chatsPanel.ejs") %>
+	</div>
+	<!-- End right Section  -->
+    </main>
+   
 
       
-                <!-- <div id="warning"></div> -->
-            </div>
-
-        </div>
-    </div>
-    
-    <header>
-        <topnav>
-        
-            <div class="topNavbar ">
-                <button class="stack-bars fa" style="color:#333;">
-                </button>
-                <searchBar>
-                    <input type="text" name="searchLibrary" placeholder="Find a book: search by name or Author" id="searchLibrary"/>
-
-                    <i class="fa fa-search"></i>
-                </searchBar>
-            </div>
-        </topnav>
-    </header>
-    
-       <!-- NAVIGATION BAR  -->
-	   <sidebar class="left-navigation-bar bg-shadow ">
-             <%- include ("navbar") %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
 
 
 
-<script>
-    // FOR THE LIBRARY PAGE 
-        var dashboard =  document.getElementById("library_link_pg");
-    dashboard.classList += "active_item";
-</script>
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/library.js" type="module"></script>
 <script src="/js/mainjs.js"></script>
-
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
@@ -121,6 +138,40 @@
     });
   });
 </script>
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

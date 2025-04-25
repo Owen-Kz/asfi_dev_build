@@ -25,6 +25,7 @@
 <input type="text" id="recent_message_recipient" value="<%=recent_message_recipient%>" readonly hidden>
 
 <body>
+<%- include ("loader") %>
   <!-- partial:index.partial.html -->
   <div class="app-container">
     
@@ -173,7 +174,19 @@
 
       <script src="/js/privateChatMain.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 
 </html>
 

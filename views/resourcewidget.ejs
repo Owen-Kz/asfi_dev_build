@@ -1,0 +1,94 @@
+
+    <!-- <link rel="stylesheet" href="/css/scholarAssets.css"> -->
+   
+    
+   
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main class="scholar_main">
+	
+
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+		<div class="row">
+
+			
+
+			<!-- Main content START -->
+			<div class="col-xl-9">
+				<!-- Card START -->
+				<div class="card border rounded-3">
+					<!-- Card header START -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="mb-0">My Resources</h3>
+					</div>
+					<!-- Card header END -->
+
+					<!-- Card body START -->
+					<div class="card-body">
+
+						<!-- Search and select START -->
+						<div class="row g-3 align-items-center justify-content-between mb-4">
+							<!-- Search -->
+							<div class="col-md-8">
+								<form class="rounded position-relative" id="searchResources">
+									<input class="form-control pe-5 bg-transparent" type="search" name="searchForResources" id="searchForResources" placeholder="Search" aria-label="Search">
+								<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+								</form>
+							</div>
+
+							<!-- Select option -->
+							<div class="col-md-3">
+								<!-- Short by filter -->
+								<form id="filterByType">
+									<select class="form-select js-choice border-0 z-index-9 bg-transparent" aria-label=".form-select-sm" id="filterType" name="filterType">
+										<option value="">Sort by</option>
+										<option value="book">Books</option>
+										<option value="podcast">Podcasts</option>
+										<option value="publication">Publications</option>
+										<option value="tutorial">Tutorials</option>
+									</select>
+									<input type="submit" hidden id="submitFilter">
+								</form>
+							</div>
+						</div>
+						<!-- Search and select END -->
+
+						<!-- Course list table START -->
+						<div class="table-responsive border-0">
+							<!-- Table START -->
+							<%- include ("assetsList") %>
+							<!-- Table END -->
+						</div>
+						<!-- Course list table END -->
+
+						
+					</div>
+					<!-- Card body START -->
+				</div>
+				<!-- Card END -->
+			</div>
+			<!-- Main content END -->
+		</div><!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!--Edit Modal START -->
+  <%- include ("editResourceModal") %>
+<!-- Edit Modal END -->
+
+
+<script src="/js/getFormEdit.js"></script>
+
+
+

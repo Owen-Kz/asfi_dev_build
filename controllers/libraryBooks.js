@@ -20,7 +20,7 @@ const GetBooksForLibrary = async (req,res)=>{
   
         // Query books
         db.query("SELECT * FROM books WHERE 1 LIMIT ? OFFSET ?",
-          [ITEMS_PER_PAGE_BOOKS, offsetBooks], (err, bookResult) => {
+          [ITEMS_PER_PAGE_BOOKS, offsetBooks], async (err, bookResult) => {
             if (err) {
               console.error(err);
               res.json({error:err, message:err})
@@ -29,11 +29,41 @@ const GetBooksForLibrary = async (req,res)=>{
             }
             const books = bookResult;
 
+            const getBook = async (filename) =>{
+              return new Promise((resolve, reject) =>{
+                db.query("SELECT filedata FROM files WHERE filename = ?",[filename], (err, data) =>{
+                  if(err){
+                    console.log(err)
+                    resolve("")
+                  }else if(data[0]){
+                    resolve(data[0].filedata)
+                  }else{
+                    resolve("")
+                  }
+                })
+              })
+            }
+            const bookData = await Promise.all(
+              books.map(async (book) => {
+                const bookFile = await getBook(book.file);
+            
+                return {
+                  book_title: book.book_title,
+                  book_id: book.book_id,
+                  book_cover: book.book_cover,
+                  book_owner_username: book.book_owner_username,
+                  book_author: book.book_author,
+                  datePublished: book.datePublished,
+                  book_year: book.book_year,
+                  date_uploaded: book.date_uploaded,
+                  file: bookFile
+                };
+              })
+            );
             if(books){
                 res.json({
                     status:"success",
-                    BOOK_DATA_ARRAY: JSON.stringify(books),
-                    books: JSON.stringify(books),
+                    books: JSON.stringify(bookData),
                     currentPageBooks:pageBooks,
                     totalPagesBooks: totalPages,
                    })

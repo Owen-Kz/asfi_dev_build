@@ -34,7 +34,8 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/roomScript.js" defer></script>
 </head>
-<body>   
+<body>
+<%- include ("loader") %>   
      <!-- NAVIGATION BAR  -->
     <sidebar class="left-navigation-bar bg-shadow ">
         <%if(accountType == "scholar_account") {%>
@@ -385,5 +386,17 @@
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

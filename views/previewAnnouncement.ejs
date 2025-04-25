@@ -5,9 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Podcasts, Education">
-        <link rel="stylesheet" href="/css/contactUs.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
         <link rel="stylesheet" href="/css/general.css">
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
         <link rel="stylesheet" href="/css/podcasts.css">
+       
        
         <script src="/js/waveSurfer.js"></script>
         <!-- Favicon -->
@@ -25,52 +27,59 @@
         <title> Announcements </title>
         <!-- Dark mode -->
 	 <script src="/js/colorTheme.js"></script>
+   <style>
+    .announcementContainer{
+      height: 100%;
+      margin-top: 90px;
+      margin-bottom: 90px;
+      background-color: var(--bs-bg-header);
+    }
+    .announcementContents{
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      margin-top: 50px;
+    }
+   </style>
     </head>
 <body>
+<%- include ("loader") %>
   <input type="hidden" id="announcementContainer" value="<%=content %>">
-     <!-- NAVIGATION BAR  -->
-     <sidebar class="left-navigation-bar bg-shadow ">
-             <% if(accountType == "scholar_account") {%>
-              <%- include('scholarNavbar') %>
-              <% } else if(accountType == "user_account"){%>
-                  <%- include ("navbar") %>
-              <%} else if(accountType == "instructor_account") {%>
-                  <%- include ("instructorNavbar") %>
-      
-                  <% } else if(accountType == "administrator") {%>
-             <%- include ("adminNavbar") %>
-             <% } %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
-    <!-- Header START -->
-<header class="navbar-light navbar-sticky">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-expand-xl">
-		<div class="container">
-			<button class="stack-bars fa ">
-            </button>
-               
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
+    
+   <!-- Header START -->
+   <%- include('header') %>
+   <!-- Header END -->
     
 
 
     <!-- <div class="podcast_header"><h4>Podcasts</h4></div> -->
    
     <main class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+       <!-- NAVIGATION BAR  -->
+     <sidebar class="left-navigation-bar">
+      <% if(accountType == "scholar_account") {%>
+       <%- include('scholarNavbar') %>
+       <% } else if(accountType == "user_account"){%>
+           <%- include ("navbar") %>
+       <%} else if(accountType == "instructor_account") {%>
+           <%- include ("instructorNavbar") %>
+
+           <% } else if(accountType == "administrator") {%>
+      <%- include ("adminNavbar") %>
+      <% } %>
+</sidebar>
+<!-- END NAVIGATION BAR  -->
         <div id="podcast_container" class="w-full max-w-2xl h-[100vh]">
           <% if (success) { %>
-            <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
-              <div class="p-4">
-                <h1 class="text-2xl font-bold text-gray-900 mb-2">
+            <div class="shadow-xl rounded-2xl overflow-hidden border border-gray-200 announcementContainer">
+              <div class="announcementContents">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2 text-center">
                   <%= title %>
                 </h1>
-                <p class="text-sm text-gray-500 mb-4">
+                <p class="text-sm text-gray-500 mb-4 text-center">
                   <%= timestamp %>
                 </p>
-                <div id="content" class="prose max-w-none text-gray-800"></div>
+                <div id="content" class=""></div>
               </div>
             </div>
           <% } else { %>
@@ -81,21 +90,19 @@
         </div>
       
 
+<!-- Start right section  -->
+ <!-- Include Notification panel -->
+ <div class="MainRight_side">
+	<%- include("notificationsPanel.ejs") %>
+	  </div>
+	<!--Include Chats Panel-->
+	<div class="ChatRight_side">
+		<%- include("chatsPanel.ejs") %>
+	</div>
+	<!-- End right Section  -->
 
 </main>
-<!-- =======================
-Footer START -->
-<footer class="bg-dark p-3">
-	<div class="container">
-		<div class="row align-items-center">
-            <!-- Widget -->
-            <div><script src="/js/footer.js"></script></div>
-			<!-- Widget -->
-		</div>
-	</div>
-</footer>
-<!-- =======================
-Footer END -->
+
 
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
@@ -104,12 +111,47 @@ Footer END -->
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/CountUserFollowinOnProfile.js"></script>
+
+<!-- <script src="/js/fetchFiles.js"></script> -->
+
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
+
+
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
 
 <script>
     // Parse the Quill content from the JSON data
                                     
     const contentValue = document.getElementById("announcementContainer").value
-    console.log( contentValue)
+    
     const quillContent = JSON.parse(contentValue);
 
                
@@ -141,7 +183,17 @@ Footer END -->
                     renderQuillAsHTML('content', quillContent);
                 
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
-</html>
-</body>
+
 </html>

@@ -8,11 +8,24 @@
     <title><%= status %></title>
 </head>
 <body>
+<%- include ("loader") %>
     <div id="main">
     	<div class="fof">
            <%= status %> | 
     	</div>
 </div>
    
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

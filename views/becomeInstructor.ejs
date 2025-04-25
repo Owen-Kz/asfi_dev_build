@@ -28,21 +28,8 @@
 </head>
 
 <body>
-    <!-- NAVIGATION BAR  -->
-    <% if(accountType != ""){ %>
-    <sidebar class="left-navigation-bar bg-shadow ">
-
-        <%if(accountType == "scholar_account") {%>
-         <%- include('scholarNavbar') %>
-         <% } else if(accountType == "user_account"){%>
-             <%- include ("navbar") %>
-         <%} else if(accountType == "instructor_account") {%>
-             <%- include ("instructorNavbar") %>
-             <% } %>
-     </sidebar>
-     <% } %>
-
-     <!-- END NAVIGATION BAR  -->
+<%- include ("loader") %>
+   
 
 <!-- Header START -->
 <header class="navbar-light navbar-sticky">
@@ -523,5 +510,17 @@ Footer END -->
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 <script src="/js/functions.js"></script>
 <script src="/js/countriesJSON.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

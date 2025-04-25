@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
   <h1>VC - Test Layout</h1>
   <form id="joinMeeting_form">
     <label for="roomId">Meeting ID:</label>
@@ -37,7 +38,19 @@
         <% } %>
     <button type="submit">Join Room</button>
   </form>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 
 <script src="/js/join-room.js"></script>
 

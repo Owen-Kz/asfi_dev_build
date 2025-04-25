@@ -50,6 +50,7 @@
 			</script>
     </head>
 <body>
+<%- include ("loader") %>
 	<input type="text" id="AllTutorials" value="<%=TutorialsArray%>" readonly hidden>
 	<input type="text" id="SocialLinks" value="<%=SocialLinks%>" readonly hidden>
 	<input type="hidden" id="searchNameUser" value="<%=searchUSERNAME%>" readonly>
@@ -496,5 +497,17 @@ Footer END -->
 <script src="/vendor/glightbox/js/glightbox.js"></script>
 // <script src="/js/fetchFiles.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

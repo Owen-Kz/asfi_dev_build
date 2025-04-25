@@ -41,6 +41,7 @@
 </script>
 </head>
 <body>
+<%- include ("loader") %>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
     <%- include ("tutorialUploadModal") %>
@@ -357,7 +358,31 @@ Footer END -->
 <script src="/js/bs-stepper.min.js"></script>
 
 <script type="module" src="/js/services/main.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
 
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

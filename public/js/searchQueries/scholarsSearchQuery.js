@@ -7,7 +7,7 @@ function removeExisitng() {
     Scholar_Data = []
     Scholar_SEARCH_ARRAY = []
 }
-
+if(SearchForm){
 searchForm.addEventListener("submit", function(e){
     e.preventDefault();
     removeExisitng(); // Clear the arrays before fetching new data
@@ -41,3 +41,4 @@ searchButton.addEventListener("click",()=>{
         } 
     })
 })
+}

@@ -1,9 +1,9 @@
-const ProfilePhoto = document.getElementById("profilePhoto")
-const profileImageContainer = document.querySelectorAll(".profileImageContainer")
-const VisitedpPofilePhoto = document.getElementById("VisitedpPofilePhoto")
-const personProfilePicture = document.querySelectorAll(".personImageContainer")
-const CoverPhotoContainer = document.querySelector(".cover_image_container")
-const CoverPhotoMain = document.getElementById("CoverPhotoMain")
+let profilePhotoFetch = document.getElementById("profilePhoto")
+let profileImageContainerFetch = document.querySelectorAll(".profileImageContainer")
+let VisitedpPofilePhoto = document.getElementById("VisitedpPofilePhoto")
+let personProfilePicture = document.querySelectorAll(".personImageContainer")
+let CoverPhotoContainer = document.querySelector(".cover_image_container")
+let CoverPhotoMain = document.getElementById("CoverPhotoMain")
     // fetch(`/files/uploaded/images/${image}`, ()=>{
     //     method:"GET"
     // })
@@ -15,7 +15,7 @@ const CoverPhotoMain = document.getElementById("CoverPhotoMain")
     //     })
     //     .then(blob => {
     //       // Create a URL for the Blob object
-    //       const fileURL = URL.createObjectURL(blob);
+    //       let fileURL = URL.createObjectURL(blob);
 
     //       // Use the fileURL to display the PDF in an iframe or link to download
     //       personProfilePicture.forEach(imageContainer =>{
@@ -46,7 +46,7 @@ if(VisitedpPofilePhoto){
     //     })
     //     .then(blob => {
     //       // Create a URL for the Blob object
-    //       const fileURL = URL.createObjectURL(blob);
+    //       let fileURL = URL.createObjectURL(blob);
       
           // Use the fileURL to display the PDF in an iframe or link to download
           personProfilePicture.forEach(imageContainer =>{
@@ -62,12 +62,12 @@ if(VisitedpPofilePhoto){
 }
 
 //   For Profile Image 
-if(ProfilePhoto){
+if(profilePhotoFetch){
    let imageProfile
-if(ProfilePhoto.value == "avatar.jpg"){
+if(profilePhotoFetch.value == "avatar.jpg"){
     imageProfile = "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg"
 }else{
-    imageProfile = ProfilePhoto.value
+    imageProfile = profilePhotoFetch.value
 }
 // fetch(`/files/uploaded/images/${imageProfile}`, ()=>{
 //     method:"GET"
@@ -80,10 +80,10 @@ if(ProfilePhoto.value == "avatar.jpg"){
 //   })
 //   .then(blob => {
 //     // Create a URL for the Blob object
-//     const fileURL = URL.createObjectURL(blob);
+//     let fileURL = URL.createObjectURL(blob);
 
     // Use the fileURL to display the PDF in an iframe or link to download
-    profileImageContainer.forEach(imageContainer =>{
+    profileImageContainerFetch.forEach(imageContainer =>{
         imageContainer.setAttribute("src", imageProfile)
     })
  
@@ -105,12 +105,12 @@ async function fetchProfileImage(Image) {
     }
     if (Image !== "cover.jpg" || Image !== "avatar.jpg") {
         try {
-            // const response = await fetch(`/files/uploaded/images/${imageToFind}`);
+            // let response = await fetch(`/files/uploaded/images/${imageToFind}`);
             // if (!response.ok) {
             //     throw new Error('Network response was not ok');
             // }
-            // const blob = await response.blob();
-            // const fileURL = URL.createObjectURL(blob);
+            // let blob = await response.blob();
+            // let fileURL = URL.createObjectURL(blob);
             
             return Image;
         } catch (error) {
@@ -126,11 +126,11 @@ async function fetchProfileImage(Image) {
 async function fetchPodcast(podcast) {
     if (podcast !== "avatar.jpg" && podcast !== "cover.jpg") {
         try {
-            const response = await fetch(`/files/uploaded/podcast/${podcast}`);
+            let response = await fetch(`/files/uploaded/podcast/${podcast}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const file = await response.json();
+            let file = await response.json();
 
         } catch (error) {
             console.error('There was a problem fetching the image:', error);
@@ -151,7 +151,7 @@ if (CoverPhotoContainer) {
 
     async function setCoverPhotoImage() {
         try {
-            const coverPhoto = await fetchProfileImage(CoverPhotoMain.value);
+            let coverPhoto = await fetchProfileImage(CoverPhotoMain.value);
 
             // Check if the coverPhoto exists and is not null or undefined
             if (coverPhoto) {

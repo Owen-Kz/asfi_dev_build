@@ -1,8 +1,12 @@
 const express = require("express")
 const db = require("../routes/db.config")
 const { CountryCodes } = require("validator/lib/isISO31661Alpha2")
+const getAllFollowers = require("./profile/getFollowers")
+const getAllFollowing = require("./profile/getFollowing")
 
 
+
+    
 const ProfileSettings = async (req,res) =>{
     if(req.user){
         const username__ = req.user.username
@@ -15,6 +19,10 @@ const ProfileSettings = async (req,res) =>{
         const CountryCode = []
         const ID = []
         const ASFI_CODE = []
+        const allFollowers = await getAllFollowers(req.user.username)
+        const allFollowing = await getAllFollowing(req.user.username)
+
+
 
         db.query("SELECT * FROM user_info WHERE username = ?", [username__], async (error, result) => {
             if(error) throw error
@@ -103,19 +111,19 @@ const ProfileSettings = async (req,res) =>{
                 // Render i logged in username belongs to regular user 
                 if(AccountType == "user_account"){
                 res.render("userProfile.ejs", {status:"loggedIn", root:"./public",UserFirstname:FirstName, UserLastName:LastName, ProfileImage:ProfileImage, FirstName:FirstName, LastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration,Following:FOLLOWING[0], accountType:AccountType, Course:CourseAssigned, CourseYear:SchoolYear, ProfileCover:ProfileCover, Username:UserName, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix, ASFI_CODE:ASFI_CODE})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix, ASFI_CODE:ASFI_CODE, allFollowers, allFollowing})
                 }
                 else if(AccountType == "scholar_account" || AccountType == "administrator"){
  
         // Render if loggedin user name belongs to a scholar  
                 res.render("scholarProfile.ejs", {status:"loggedIn", root:"./public", Username:UserName, ProfileImage:ProfileImage, FirstName:FirstName, LastName:LastName, UserFirstname:FirstName, UserLastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration, Following:FOLLOWING[0],accountType:AccountType, Course:CourseAssigned, CourseYear:SchoolYear,ProfileCover:ProfileCover, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix, ASFI_CODE:ASFI_CODE})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix, ASFI_CODE:ASFI_CODE, allFollowers, allFollowing})
 
                 }
                 // Render if the username belongs to an instructor 
                 else if(AccountType == "instructor_account"){
                 res.render("instructorProfile.ejs", {status:"loggedIn", root:"./public", Username:UserName, ProfileImage:ProfileImage, FirstName:FirstName,UserFirstname:FirstName, UserLastName:LastName, LastName:LastName, Email:Email, PhoneNumber:PhoneNumber, UserName:UserName, CountryCode: CountryCode, validPoint:ID, DoB_:DoB, Level_of_education:Level_of_education, Relationship_With_NOK:Relationship_With_NOK, NOK_email:NOK_email, NOK_phone:NOK_phone, Nationality:Nationality, Country_Of_Residence:Country_Of_Residence,State_of_residence:State_of_residence, City_OF_residence:City_OF_residence, HomeAddress: HomeAddress, PostalCode: PostalCode, CourseAssigned__: CourseAssigned, CourseId:CourseId, SchoolYear:SchoolYear, CourseDuration__:CourseDuration, FOLLOWING:FOLLOWING[0], accountType:AccountType,ProfileCover:ProfileCover, Followers:0, bio:Bio, FacebookLink:FacebookLink, Twitter_link:TwitterLink, Instagram:Instagram_Lnk,
-            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix,ASFI_CODE:ASFI_CODE})
+            research_Gate:ReasearchGate_Link, Scopus:scopusLink_, youtube:YoutubeLink, GoogleScholar: GoogleScholarLink,WebOfScience_Link:WebOfScience_Link, OrchidLink:orchid_link, LinkedIn_Link:LinkedIn_Link, Academia:Academia, Title:Title, prefix:Prefix,ASFI_CODE:ASFI_CODE, allFollowers, allFollowing})
              
                 }else{
                     res.render("error.ejs", {status:"Invalid Account Provided", error:"Invalid Account"})

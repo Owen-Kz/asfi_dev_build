@@ -332,15 +332,17 @@ account .details div:last-child{
     font-weight: light;
     text-transform: uppercase;
     color: rgb(94, 94, 94);
+    
 }
 
 .buttons, .buttons:hover, .buttons:focus{
-    background-color: var(--golden-Yellow);
+    background-color: blueviolet;
     width: 100px;
     height: 30px; 
     font-size: 15px;
+    /* padding: 10px; */
     color: white;
-    border-radius: 100px;
+    border-radius: 10px;
     border: none;
     outline: none;
     margin-top: 8px;      
@@ -800,12 +802,13 @@ padding: 6px;
 .profile_main {
     display: flex;
     flex-direction: column;
-    margin-top: -10%;
+    /* margin-top: -10%; */
     width: 100%;
 }
 .profile_section {
     margin: auto;
     width: 80%;
+    margin-left: 20%;
     margin-top: 0;
 }
 .profile_section .cover_image_container {
@@ -846,3 +849,21 @@ span i{
         list-style: none;
 }
     }
+
+    @media (max-width: 1080px) {
+        .profile_section {
+            margin: auto;
+            width: 100%;
+            margin-top: 0;
+        }
+        
+        .profile-tag {
+            padding-top: 10px;
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+        .list-inline {
+            padding-left:0;
+            list-style: none;
+    }
+        }

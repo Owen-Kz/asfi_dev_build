@@ -15,7 +15,7 @@ body{
 a{
     color: rgb(255, 150, 0);
     font-weight: bold;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 searchBar{
@@ -40,19 +40,21 @@ main{
     width: 80%;
     margin: auto;
     margin-top:1px;
+    margin-left: 20%;
     display: flexbox;
     height: 100vh;
     overflow-y: scroll;
     align-items: center;
     float: center;
     flex-direction: column;
+    /* background: red; */
 }
 
 
 
 .podcasts{
     border-radius: 52px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bs-bg-header);
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.065);
     top: 59px;
     /* width: 1168px; */
@@ -131,21 +133,25 @@ main{
 .actions .buttons{
     padding-left: 5px;
     padding-right: 5px;
-    color: var(--golden-Yellow);
+    color: blueviolet;
+}
+
+.actions .buttons:hover{
+    cursor: pointer;
 }
 
 /* Popup for podcast player  */
 .podcast_modal{
     position: fixed;
     height: 100vh;
-    width: 100%;
+    width: 80%;
     backdrop-filter: blur(19px);
     display: flex;
     align-items: center;
     justify-content: center;
     top: 0;
     margin: 0;
-    z-index: 10000;
+    /* z-index: 10000; */
 }
 
 .player{
@@ -178,6 +184,20 @@ main{
       width: 90%;
     }
     main{
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width:1080px) {
+    main{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .podcast_modal {
+        width: 100%;
+    }
+    .player{
         width: 100%;
     }
   }

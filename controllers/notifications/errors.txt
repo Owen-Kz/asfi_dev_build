@@ -337,3 +337,5 @@
 [2025-04-14T13:03:20.604Z] Error in Processing notification: notification_token is not defined
 [2025-04-14T13:03:20.605Z] Error in Processing notification: notification_token is not defined
 [2025-04-14T13:03:20.606Z] Error in Processing notification: notification_token is not defined
+[2025-04-24T07:44:41.268Z] Error in Main function: Cannot read properties of undefined (reading 'username')
+[2025-04-24T08:25:20.319Z] Error in Main function: Cannot read properties of undefined (reading 'username')

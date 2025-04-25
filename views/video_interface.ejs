@@ -36,6 +36,7 @@
 
     </head>
 <body>
+<%- include ("loader") %>
     <%- include ("reviewModal.ejs") %>
     <input type="hidden" value="<%=tutorialOwnerName%>" id="tutorialOwnerContainer" readonly>
     <input type="hidden" value="<%=tutorialCategory_value%>" id="tutorialCategory" readonly>
@@ -301,5 +302,17 @@
     IFrame.removeAttribute("height")
     IFrame.setAttribute("height", "100%")
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

@@ -35,6 +35,7 @@ async function fetchWebsiteData(urls) {
           LINK_DESCRIPTION: ogDescription,
           LINK_IMAGE: ogImage,
           LINK_URL: url.link,
+          LINK_OWNER: url.link_owner
         };
         allData.push(LINK_DATA_RECEIVED);
       } else {
@@ -43,6 +44,7 @@ async function fetchWebsiteData(urls) {
           LINK_DESCRIPTION: "This is an external Link to an article / publication",
           LINK_IMAGE: ogImage,
           LINK_URL: url.link,
+          LINK_OWNER: url.link_owner
         };
         allData.push(LINK_DATA_RECEIVED);
 

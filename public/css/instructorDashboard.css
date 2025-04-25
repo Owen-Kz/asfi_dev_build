@@ -22473,7 +22473,7 @@ logoHere{
 .podcast_upload {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 90%;
   padding: 7px;
 }
 .submitBook {

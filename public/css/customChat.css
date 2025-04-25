@@ -1,13 +1,14 @@
 header{
     width: 100% !important;
-    margin:auto;
+    /* margin:auto; */
 }
 
 
 .mainWrapper{
-    width: 90%;
-    margin: auto;
+    width: 80%;
+    /* margin: auto; */
     align-self: center;
+    margin-left: 20%;
     background-color: transparent !important;
     float: center;
 }
@@ -232,4 +233,16 @@ header{
     align-self: center;
     width: 100%;
     margin: auto;
+}
+
+@media (max-width: 1080px) {
+    
+.mainWrapper{
+    width: 100%;
+    /* margin: auto; */
+    align-self: center;
+    margin-left: 0;
+    background-color: transparent !important;
+    float: center;
+}
 }

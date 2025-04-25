@@ -64,7 +64,7 @@ const uploadBook = async (req, res) => {
 
         const uploadedFile = req.file;
         const fileType = uploadedFile.mimetype;
-        const uniqueFilename = `${Date.now()}-${uploadedFile.originalname}`;
+        const uniqueFilename = `${Date.now()}`;
 
         // Upload file to Cloudinary
         const fileUrl = await uploadToCloudinary(uploadedFile.buffer, uniqueFilename);

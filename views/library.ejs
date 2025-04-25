@@ -30,6 +30,9 @@
 </head>
 
 <body>
+<%- include ("loader") %>
+<input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 <style>
 	.card-title{
 		font-size: 12px !important;
@@ -88,6 +91,14 @@
 <!-- =======================
 Page content START -->
 <section class="pt-0 library-section">
+
+  <!-- <searchBar>
+    <form id="searchForm">
+    <input type="text" name="searchLibrary" placeholder="Search Library.." id="searchLibrary" value=""/>
+    <button type="submit" hidden></button>
+    </form>
+   <i class="fa fa-search"></i>
+</searchBar> -->
 	<div class="container">
         <!-- <div class="header" style="margin-top:100px;">
             <div class="text">By ASFIScholars</div></div> -->
@@ -248,5 +259,17 @@ closeButtonChat.addEventListener("click", function(){
 })
 </script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

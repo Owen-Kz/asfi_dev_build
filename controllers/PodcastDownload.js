@@ -35,27 +35,14 @@ const PodcastDownload = async (req, res) => {
         const FILE_TITLE = PodcastData[0]["podcast_title"];
         const FILE_ID = PodcastData[0]["fileID"];
         const FILE_EXT = PodcastData[0]["fileExt"];
+        const FILE_URL = PodcastData[0].fileURL
+        const buffer = PodcastData[0].buffer
 
         if (!FILE_ID) {
           return res.render("error.ejs", { status: "File ID not found" });
         }
-
-        // Step 2: Fetch the file URL from the files table
-        db.query(
-          "SELECT filedata FROM `files` WHERE filename = ?",
-          [FILE_ID],
-          async (err, FileData) => {
-            if (err) {
-              console.error("Error fetching file URL:", err);
-              return res.render("error.ejs", { status: "Error retrieving file URL" });
-            }
-
-            if (!FileData || FileData.length === 0) {
-              return res.render("error.ejs", { status: "File Not Found in Files Table" });
-            }
-
-            const FILE_URL = FileData[0].filedata;
-            const FILE_MAIN_EXT = FILE_EXT === "audio/wav" ? ".wav" : ".mp3";
+     
+            const FILE_MAIN_EXT = FILE_EXT === "audio/wav" ? ".wav" : ".mp3" || "audio/mpeg";
 
             if (!FILE_URL) {
               return res.render("error.ejs", { status: "Invalid File URL" });
@@ -78,7 +65,7 @@ const PodcastDownload = async (req, res) => {
               }
 
               // Step 5: Define the temporary file path
-              const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${os.hostname()}${FILE_MAIN_EXT}`;
+              const downloadFileName = `${FILE_TITLE}-${FILE_OWNER}_${FILE_MAIN_EXT}`;
               const tempFilePath = path.join(podcastDir, downloadFileName);
 
               // Step 6: Write the buffer to a temporary file
@@ -94,6 +81,7 @@ const PodcastDownload = async (req, res) => {
                 // Step 8: Delete the temporary file after successful download
                 await unlinkFile(tempFilePath);
                 console.log("Temporary file deleted successfully");
+                // res.redirect(`/podcast/${buffer}/${FILE_OWNER}`)
               });
 
             } catch (error) {
@@ -102,8 +90,7 @@ const PodcastDownload = async (req, res) => {
             }
           }
         );
-      }
-    );
+  
   } catch (error) {
     console.error("Unexpected error:", error);
     res.render("error.ejs", { status: "Server Error" });

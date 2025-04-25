@@ -27,6 +27,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
 	<input type="text" id="usernameContainer" value="<%= UserName %>" readonly hidden>
 	<input type="hidden" id="CoverPhotoMain" value="<%=ProfileCover%>" readonly>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
@@ -750,5 +751,17 @@ Footer END -->
 <script src="/js/addDetails.js"></script>
 <script src="/js/fetchFiles.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

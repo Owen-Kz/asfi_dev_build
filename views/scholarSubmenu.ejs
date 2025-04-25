@@ -1,11 +1,11 @@
-<ul class="list-inline mb-0">
-    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-check-circle text-warning me-2"></i>Verified</li>
-    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-users text-purple"></i>
-    <a href="/following"><span class="profile-stat-count"><%= Following %></span> Following</a></li>
-    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-users text-purple"></i>
-    <a href="/followers"><span class="profile-stat-count" id="followersCount"></span> Followers</a></li>
-    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>0 Books</li>
-</ul>
+<ul class="list-inline mb-0 tab-buttons">
+    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0 tab-button" data-tab="settings"><i class="fas fa-cog text-purple me-2"></i><a href="javascript:void(0)">Settings</a></li>
+    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0 tab-button" data-tab="following"><i class="fa fa-users text-purple"></i>
+      <a href="javascript:void(0)"><span class="profile-stat-count"><%= Following %></span> Following</a></li>
+    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0 tab-button" data-tab="followers"><i class="fa fa-users text-purple"></i>
+      <a href="javascript:void(0)"><span class="profile-stat-count" id="followersCount"></span> Followers</a></li>
+    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0 tab-button" data-tab="uploads"><i class="fas fa-book text-purple me-2"></i>0 Resources</li>
+  </ul>
 
 <script>
     fetch("/totalFollowersCount", ()=>{

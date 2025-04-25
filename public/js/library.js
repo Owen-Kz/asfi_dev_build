@@ -120,7 +120,7 @@ async function fetchLinks(page) {
         }
 
         LinksArray.forEach(link => {
-            const { LINK_TITLE, LINK_IMAGE, LINK_URL } = link;
+            const { LINK_TITLE, LINK_IMAGE, LINK_URL, LINK_OWNER } = link;
             const linkItem = document.createElement("li");
             linkItem.className = "card shadow h-50";
             linkItem.innerHTML = `
@@ -128,6 +128,9 @@ async function fetchLinks(page) {
                 <div class="card-body pb-0">
                     <h5 class="card-title"><a href="${LINK_URL}" target=_blank class="limited-text">${LINK_TITLE}</a></h5>
                     <a href="${LINK_URL}" class="badge bg-purple bg-opacity-10 text-purple limited-text">${LINK_URL}</a>
+                    <div style="margin-top: 10px; margin-bottom: 20px;" class="d-flex justify-content-center justify-content-around">
+                    <span>Published by </span> <a href="@${LINK_OWNER}/chat" class="badge bg-purple bg-opacity-10 text-purple"">${LINK_OWNER}</a>
+                    </div>
                 </div>
             `;
             LINkS_body.prepend(linkItem);
@@ -163,26 +166,46 @@ fetchLinks(currentPageLinks);
  
 // Load PDF.js 
 async function renderPDFPreview(bookFile, canvas) {
-    const loadingTask = pdfjsLib.getDocument(bookFile);
-    loadingTask.promise.then(pdf => {
-        return pdf.getPage(1); // Load only page 1
-    }).then(page => {
+    // const loadingTask = pdfjsLib.getDocument(bookFile);
+    // loadingTask.promise.then(pdf => {
+    //     return pdf.getPage(1); // Load only page 1
+    // }).then(page => {
+    //     const context = canvas.getContext("2d");
+    //     const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale as needed
+
+    //     // Resize canvas to match the page size
+    //     canvas.width = viewport.width;
+    //     canvas.height = viewport.height;
+
+    //     const renderContext = {
+    //         canvasContext: context,
+    //         viewport: viewport
+    //     };
+
+    //     return page.render(renderContext);
+    // }).catch(error => {
+    //     console.error("Error rendering PDF:", error);
+    // });
+
+    const urlPage = bookFile;
+
+    pdfjsLib.getDocument(urlPage).promise.then(pdf => {
+      pdf.getPage(1).then(page => {
         const context = canvas.getContext("2d");
         const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale as needed
 
-        // Resize canvas to match the page size
-        canvas.width = viewport.width;
+
         canvas.height = viewport.height;
-
+        canvas.width = viewport.width;
+  
         const renderContext = {
-            canvasContext: context,
-            viewport: viewport
+          canvasContext: context,
+          viewport: viewport
         };
-
-        return page.render(renderContext);
-    }).catch(error => {
-        console.error("Error rendering PDF:", error);
+       return page.render(renderContext);
+      });
     });
+
 }
 
 function updateUIWithData(Books_Data) {
@@ -196,37 +219,47 @@ function updateUIWithData(Books_Data) {
             const bookFile = book.file; // Cloudinary PDF URL
 
             const listItem = document.createElement("li");
-            listItem.className = "card shadow h-50";
+            listItem.className = "card shadow h-50"
 
             // Create a canvas for PDF preview
             const canvas = document.createElement("canvas");
             canvas.className = "book-thumbnail";
-
+            
             // Load the PDF into the canvas
             renderPDFPreview(bookFile, canvas);
-
+            
             listItem.innerHTML = `
-                <div class="card-body pb-0">
-                    <div class="d-flex justify-content-between mb-2">
-                        <div class="book_year">${bookYear}</div>
-                    </div>
-                    <h5 class="card-title"><a href="/library/b/${bookId}">${bookTitle}</a></h5>
-                    <a href="#" class="badge bg-purple bg-opacity-10 text-purple">${bookOwnerUsername}</a>
-                </div> 
-                <div class="card-footer pt-0 pb-3">
-                    <hr>
-                    <div class="d-flex justify-content-around">
-                        <a href="/library/b/${bookId}" class="button refad"><i class="fa fa-book"></i></a>
-                        <a href="/library/books/${bookId}" class="button download"><i class="fa fa-download"></i></a>
-                    </div>
-                </div>
+               <div class="card" style="width:90%">
+                  <div class="card-body pb-0" style="margin-top:20px; position:absolute;">
+                      <div class="d-flex justify-content-between mb-2">
+                          <div class="book_year" style="background: var(--bs-bg-header); padding: 2px; border-radius: 6px;">${bookYear}</div>
+                      </div>
+                      <h5 class="card-title" style="background: var(--bs-bg-header); padding: 4px; border-radius: 6px;><a href="/library/b/${bookId}">${bookTitle}</a></h5>
+                      <a href="#" class="badge bg-purple bg-opacity-10 text-purple">${bookOwnerUsername}</a>
+                  </div> 
+               </div>
+            
+               <div class="card-footer pt-0 pb-3" style="background:var(--bs-bg-header);">
+                  <hr>
+                  <div class="d-flex justify-content-around">
+                      <a href="/library/b/${bookId}" class="button refad"><i class="fa fa-book"></i></a>
+                      <a href="/library/books/${bookId}" class="button download"><i class="fa fa-download"></i></a>
+                  </div>
+                  <div style="margin-top: 30px;" class="d-flex justify-content-center justify-content-around">
+                      <span>Published by </span> <a href="@${bookAuthor}/chat" class="badge bg-purple bg-opacity-10 text-purple">${bookAuthor}</a>
+                  </div>
+               </div>
             `;
-
-            // Append the canvas to the list item before the content
-            listItem.insertBefore(canvas, listItem.firstChild);
-
-            // Append the new book to the list instead of replacing it
+            
+            // Now get the card div inside listItem
+            const cardDiv = listItem.querySelector(".card");
+            
+            // Insert the canvas at the start of the card div, before .card-body
+            cardDiv.insertBefore(canvas, cardDiv.firstChild);
+            
+            // Append the new book to the list
             book_list.appendChild(listItem);
+            
         });
     }
 }

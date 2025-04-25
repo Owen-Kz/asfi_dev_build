@@ -3,7 +3,7 @@ const footerContainer = document.getElementById("footer_container")
 const searchQuery = document.getElementById("searchField")
 const SearchForm = document.getElementById("searchForm")
 
-
+if(SearchForm){
 SearchForm.addEventListener("submit", function(e){
     e.preventDefault()
     if(searchQuery.value != ""){
@@ -18,6 +18,8 @@ searchQuery.addEventListener("change", function(){
         NewMeetingPage(1)
     }
 })
+
+}
  
 
 

@@ -27,7 +27,8 @@ const deleteAccountPage = async  (req,res) =>{
                 Email:Email,
                 Following:0,
                 BufferId: BufferId,
-                CoverPhoto:coverPhoto
+                CoverPhoto:coverPhoto,
+                logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username
 
             })
     

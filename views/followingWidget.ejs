@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/css/following.css">
+
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main style="background-image: url(/files/images/03.png);">
+
+<!-- =======================
+Page content START -->
+<section class="py-5 folowing_section">
+    <div class="container">
+        <div class="row">
+            <div class="section_header">
+                <h4>People you follow</h4>
+            </div>
+            <!-- Main content START -->
+            <div class="col-lg-8 col-xl-9 following">
+                
+                <ul id="followers-list">
+                    <% if(allFollowing && allFollowing.length > 0) { for(let i=0; i<allFollowing.length; i++){ %>
+                        <li data-index="<%=i%>" id="li" data-name="<%=allFollowing[i].username%>">
+                            <a href="/@<%=allFollowing[i].username%>">
+                            <div class="image_container">
+                                <img src="<%=allFollowing[i].profile_picture%>">
+                            </div>
+                                <div class="text">
+                                    <strong><%=allFollowing[i].first_name%> <%=allFollowing[i].last_name%> </strong>
+                                    <span>@<%=allFollowing[i].username%> </span>
+                                    <span></span>
+                            </div>
+                        </a>
+                        </li>
+                        <%}} else{%>
+                            <li>NO Data Found</li>
+                            <%}%>
+                </ul>
+                     
+    
+                
+            </div>
+            <!-- Right sidebar END -->
+        </div><!-- Row END -->
+    </div>
+</section>
+    <!-- =======================
+    Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+
+

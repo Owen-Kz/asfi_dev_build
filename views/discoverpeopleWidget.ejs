@@ -1,0 +1,189 @@
+<input type="hidden" id="loggedUser" value="<%=user%>" readonly>
+
+<style>
+    .DiscoverAccounts account{
+        display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    }
+    .DiscoverAccounts account .AccountLeft{
+       display: flex;
+    }
+    
+account .image_container{
+  border-radius: 50%;
+  background-color: var(--bs-bg-header);
+  left: 0px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+account .details{
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+}
+
+account .details div{
+    /* background-color: rgb(236, 236, 236); */
+    margin-top: 2px;
+    font-size: 0.8rem;
+    margin-left: 6px;
+    padding: 2px;
+}
+
+account .details div:last-child{
+    width: fit-content;
+
+}
+account button{
+    width: max-content;
+    height: max-content;
+    padding: 5px 10px 5px 10px;
+    background-color: #6e42c146;
+    /* cursor: pointer; */
+    border: none;
+    border-radius: 3px;
+    /* border: 1px solid rgb(133, 22, 133); */
+    color: var(--text-color);
+    font-size: 0.7rem;
+}
+img{
+    object-fit: cover !important;
+}
+.image_container img{
+    transition: ease-in-out 300ms;
+    /* height: inherit; */
+    width: inherit;
+}
+.image_container:hover img{
+    scale:1.2;
+}
+</style>
+
+
+<div class="accounts_box">
+<div class="discoverContainer">
+    <p class="mb-0 text-end" id="pageCountContainer"></p>
+   <div class="DiscoverAccounts" id="DiscoverAccounts">
+
+   </div>
+
+
+
+</div>   
+</div>
+
+<script>
+  const discoverAccountsContainer = document.getElementById("DiscoverAccounts");
+
+FindDiscoverAccounts(1);
+
+function FindDiscoverAccounts(page) {
+  fetch(`/directorydiscoverAccounts?page=${page}`, {
+    method: "GET"
+  })
+    .then(res => res.json())
+    .then(data => DiscoverItems(data))
+    .catch(err => console.error("Error fetching discover accounts:", err));
+}
+
+async function DiscoverItems(data) {
+  // Parse and sort
+  const Discover = JSON.parse(data.DiscoverData);
+  const sortedDiscover = Discover.sort((a, b) =>
+    a.first_name.localeCompare(b.first_name)
+  );
+
+  // For each user, check if we're already following them.
+  // If NOT following, keep the user object; otherwise map to null.
+  const checkPromises = sortedDiscover.map(async user => {
+    try {
+      const res = await fetch(`/check/validate/follower/${user.username}`, {
+        method: "GET"
+      });
+      const json = await res.json();
+      return json.message === "following" ? null : user;
+    } catch (e) {
+      console.warn(`Failed to check follow status for ${user.username}`, e);
+      // In case of error, you might choose to hide or show—here we hide
+      return null;
+    }
+  });
+
+  // Wait for _all_ follow‐checks to complete
+  const maybeUnfollowed = await Promise.all(checkPromises);
+  // Filter out the ones we _are_ following (i.e. the nulls)
+  const unfollowed = maybeUnfollowed.filter(user => user !== null);
+
+  // Clear out any previous content
+  discoverAccountsContainer.innerHTML = "";
+
+  if (unfollowed.length === 0) {
+    // No one left to follow
+    discoverAccountsContainer.innerHTML = `
+      <div class="no_content_message" style="width:70%">
+        <svg class="icon icon-no_sim"><use xlink:href="#icon-no_sim"></use>
+          <symbol id="icon-no_sim" viewBox="0 0 24 24">
+            <path d="M3.656 3.891l17.484 17.438-1.313 1.313-1.875-1.922q-0.563 0.281-0.938 0.281h-10.031q-0.797 0-1.383-0.609t-0.586-1.406v-11.203l-2.625-2.625zM18.984 5.016v11.672l-11.344-11.344 2.344-2.344h7.031q0.797 0 1.383 0.609t0.586 1.406z"></path>
+          </symbol>
+        </svg>              
+        <span class="text">Become our First Scholar</span>
+      </div>`;
+    return;
+  }
+
+  // Otherwise render each unfollowed account
+  unfollowed.forEach((user, index) => {
+    const fullName = `${user.first_name} ${user.last_name}`;
+    // handle null prefix or title
+    const prefix = user.prefix && user.prefix !== "null" ? user.prefix : "";
+    const titleText = user.title !== "N/A" ? user.title : "";
+    // fallback avatar
+    const profilePic =
+      user.profile_picture !== "avatar.jpg"
+        ? user.profile_picture
+        : "https://res.cloudinary.com/dll8awuig/image/upload/v1705444097/dc69h8mggh01bvlvbowh.jpg";
+    // icon for account type
+    const accountIcon =
+      user.acct_type === "scholar_account"
+        ? '<i class="fas fa-check-circle text-warning me-2"></i>'
+        : '<i class="fas fa-check-circle text-instagram-gradient me-2"></i>';
+
+    // Build your account node
+    const accountHTML = `
+      <account data-index="${index}">
+        <div class="AccountLeft">
+          <a href="/@${user.username}">
+            <div class="image_container bg-purple-gradient">
+              <img src="${profilePic}" alt="${fullName}">
+            </div>
+          </a>
+          <div class="details">
+            <div css="name">
+              <a href="/@${user.username}">
+                ${prefix} ${fullName} ${accountIcon}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="followButton">
+          <form method="post" class="follow">
+            <input type="hidden" name="followed" value="${user.username}">
+             <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
+            <button class="discoverFollowButton" value="${user.username}">Follow</button>
+          </form>
+        </div>
+      </account>
+    `;
+    discoverAccountsContainer.innerHTML += accountHTML;
+  });
+}
+
+
+</script>

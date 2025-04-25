@@ -7,7 +7,7 @@
 	<meta name="author" content="Weperch Technologies Ltd">
 	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
     <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/scholarAssets.css">
+    <!-- <link rel="stylesheet" href="/css/scholarAssets.css"> -->
     <link rel="stylesheet" href="/css/general.css">
    
     
@@ -27,6 +27,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
 	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
 	<%- include ("bookUploadModal") %>
@@ -468,5 +469,17 @@ Footer END -->
 <script src="/js/functions.js"></script>
 <script src="/js/fetchFiles.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

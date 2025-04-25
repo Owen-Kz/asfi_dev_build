@@ -228,6 +228,7 @@ const adminProfileSettings = require("../controllers/admin/pages/profileSettings
 const PrivateChatRoomAdmin = require("../controllers/privateChatAdmin");
 const CreateAnnouncement = require("../controllers/admin/createAnnouncement");
 const previewAnnouncement = require("../controllers/previewAnnouncement");
+const linkPreviewPage = require("../controllers/feed/linkPreviewPage");
 
 // ADMINISTRATOR 
 
@@ -343,7 +344,7 @@ router.get("/library", LoggedIn, library)
 
 
 // GET OPEN BOOK
-router.get("/library/b/:bookID",LoggedIn, book)
+router.get("/library/b/:bookID",LoggedInExternal, book)
 
 // GET Download Book
 router.get("/library/books/:downloadFile",LoggedIn, BookDownload)
@@ -368,7 +369,7 @@ router.post("/getAllPodcasts", LoggedIn, getAllPodcasts)
 
 //GET PodcastFile
 router.get("/podcasts/download/:downloadFile", LoggedIn, DownloadPodcast)
-router.get("/podcasts/:EncryptedFileName/:FileOwner", LoggedIn, PlayPodcast)
+router.get("/podcasts/:EncryptedFileName/:FileOwner", LoggedInExternal, PlayPodcast)
 
 // Search for a podcast by name or owner name 
 router.get("/podcasts/:q",LoggedIn, podcastSearchResults)
@@ -661,7 +662,7 @@ router.get("/becomeInstructor",LoggedIn, (req,res) =>{
    
     if(!req.user){
     res.render("becomeInstructor", {
-        UserName: "", accountType:"", FirstName:"", LastName: "", ProfileImage: "", Email:""
+        UserName: "", accountType:"", FirstName:"", LastName: "", ProfileImage: "", Email:"",  logger:"logged", user : "", ProfileImage:"", UserFirstname:"", UserLastName:"", Course:"Course", CourseYear:"CourseYear", accountType:"", UserName:"", Email:"", username:"", Username:"", UserName:"",
     })
 }else{
     
@@ -674,7 +675,7 @@ router.get("/becomeInstructor",LoggedIn, (req,res) =>{
     
     if(accountType !== "instructor_account"){
     res.render("becomeInstructor", {
-        UserName: username, accountType:accountType, FirstName:FirstName, LastName: LastName, ProfileImage: profilePicture, Email:Email
+        UserName: username, accountType:accountType, FirstName:FirstName, LastName: LastName, ProfileImage: profilePicture, Email:Email,  logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username,
     })
     }else{
         res.redirect("/dashboard")
@@ -884,7 +885,9 @@ router.get("/admin/pages/settings/me", AdminLoggedIn, (req,res) =>{
     res.render("admin-setting", {username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email})
 })
 
-router.get("/admin/settings",AdminLoggedIn, adminProfileSettings)
+router.get("/admin/settings",AdminLoggedIn, ProfileSettings)
+// router.get("/admin/settings",AdminLoggedIn, adminProfileSettings)
+
 
 
 
@@ -1100,7 +1103,8 @@ router.get("/getUserPublicData/:username", getUserInfo)
 router.post("/recentChatList", LoggedIn, fetchRecentMessages)
 router.post("/getChatHistory", LoggedIn, fetchChatHistory)
 router.get("/s/m/p/:spaceid/settings", LoggedIn, SpaceSettings)
-
+// link Preview page 
+router.get("/link", LoggedInExternal, linkPreviewPage)
 
 // Space functions 
 router.post("/validateSpaceKey", LoggedIn, validateSpaceKey)

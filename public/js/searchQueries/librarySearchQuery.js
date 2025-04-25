@@ -15,7 +15,7 @@ function removeExisitng() {
     BOOKS_SEARCH_ARRAY = []
 }
 
-
+if(SearchForm){
 searchForm.addEventListener("submit", function(e){
     e.preventDefault();
 
@@ -49,3 +49,4 @@ searchButton.addEventListener("click",()=>{
     })
 })
 
+}

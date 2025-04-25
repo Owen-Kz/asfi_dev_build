@@ -6,9 +6,22 @@
     <title>Document</title>
 </head>
 <body>
+<%- include ("loader") %>
 
     <iframe width="640" height="360" frameborder="0" src="https://mega.nz/embed/BjUjwYIL#Hy8zY9kKZwUfMR-yGldsDExaMm9nrKpIi64YcW38MbA" allowfullscreen ></iframe>
 
         <iframe src="https://mega.nz/embed" frameborder="0" title="Mega Upload"  width="100%"   height="500px"></iframe>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

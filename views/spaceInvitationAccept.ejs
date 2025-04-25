@@ -124,6 +124,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
   <!-- NAVIGATION BAR  -->
   <sidebar class="left-navigation-bar bg-shadow ">
 
@@ -291,6 +292,18 @@
 
     setTimeout(redirectTOSpace, 2000)
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 
 </html>

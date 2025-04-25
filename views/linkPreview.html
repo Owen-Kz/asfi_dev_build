@@ -6,6 +6,7 @@
     <title>Fetch and Render Data</title>
 </head>
 <body>
+<%- include ("loader") %>
     <div id="externalData"></div>
 
     <script>
@@ -20,5 +21,17 @@
   .catch(error => console.error('Error:', error));
 
     </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>

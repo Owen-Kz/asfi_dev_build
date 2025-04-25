@@ -17,7 +17,7 @@ function removeExisitng() {
     tutorialS_SEARCH_ARRAY = []
 }
 
-
+if(SearchForm){
 searchForm.addEventListener("submit", function(e){
     e.preventDefault();
     removeExisitng(); // Clear the arrays before fetching new data
@@ -63,7 +63,7 @@ searchButton.addEventListener("click",()=>{
         }
     })
 })
-
+}
 // Call updateUIWithData when the DOM is ready, or when needed
 // document.addEventListener("DOMContentLoaded", function () {
 //     updateUIWithData(tutorials_Data);

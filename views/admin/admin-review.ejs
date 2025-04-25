@@ -90,6 +90,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
 
 
 <!-- **************** MAIN CONTENT START **************** -->
@@ -117,13 +118,13 @@
 			<!-- Sidebar footer START -->
 			<div class="px-3 mt-auto pt-3">
 				<div class="d-flex align-items-center justify-content-between text-primary-hover">
-						<a class="h5 mb-0 text-body" href="/admin/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+						<a class="h5 mb-0 text-body" href="/settings" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
 							<i class="bi bi-gear-fill"></i>
 						</a>
 						<a class="h5 mb-0 text-body" href="/dashboard" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
 							<i class="bi bi-globe"></i>
 						</a>
-						<a class="h5 mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+						<a class="h5 mb-0 text-body" href="/admin/logout/kill/session" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
 							<i class="bi bi-power"></i>
 						</a>
 				</div>
@@ -435,6 +436,18 @@
 <!-- Template Functions -->
 <script src="/assets/js/functions.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 
 </html>

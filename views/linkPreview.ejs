@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/scholarDashboard.css">
+    <!-- <link rel="stylesheet" href="/css/contactUs.css"> -->
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/library.css">
+   
+    
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
+
+    <link rel="stylesheet" href="/css/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+
+    <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+    <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+    <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+
+    <title>Library</title>
+    <!-- Dark mode -->
+	 <script src="/js/colorTheme.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+
+<body>
+<%- include ("loader") %>
+<input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+<style>
+	.card-title{
+		font-size: 12px !important;
+	}
+	.limited-text {
+    display: inline-block;
+	width: 100%;
+	text-wrap: wrap;
+    max-width: 50ch; 
+    white-space: wrap; /* Prevents text from wrapping */
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+#linksContainer {
+    max-height: 80vh; 
+    overflow-y: auto;
+}
+
+.loading {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+.link_main{
+    width: 80%;
+    margin-left: 20%;
+    height: 100%;
+}
+iframe{
+    width: 100%;
+    height: 100%;
+}
+.linkpreview-section{
+    width: 90%;
+}
+@media (max-width:1080px) {
+    .link_main{
+    width: 90%;
+    margin: auto;
+    height: 100%;
+}
+.linkpreview-section{
+    width: 100%;
+}
+}
+</style>
+
+   <!-- Header START -->
+   <%- include('header') %>
+   <!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main class="link_main" >
+      <!-- NAVIGATION BAR  -->
+	 <sidebar class="left-navigation-bar">
+		<%if(accountType == "scholar_account") {%>
+			
+			<%- include('scholarNavbar') %>
+			<% } else if(accountType == "user_account"){%>
+				
+				<%- include ("navbar") %>
+			<%} else if(accountType == "instructor_account") {%>
+				<%- include ("instructorNavbar") %>
+	
+				<% } else if(accountType == "administrator") {%>
+				   <%- include ("adminNavbar") %>
+				   <% } %>
+				   
+							<!-- Widget -->
+							<div><script src="/js/footer.js"></script></div>
+							<!-- Widget -->
+					
+	</sidebar>
+	<!-- END NAVIGATION BAR  -->
+	
+<!-- =======================
+Page content START -->
+<section class="pt-0 linkpreview-section">
+
+    <iframe src="<%=link%>" frameborder="0"></iframe>
+</section>
+<!-- =======================
+Page content END -->
+ 
+        <!-- Include Notification panel -->
+        <div class="MainRight_side">
+            <%- include("notificationsPanel.ejs") %>
+              </div>
+            <!--Include Chats Panel-->
+            <div class="ChatRight_side">
+                <%- include("chatsPanel.ejs") %>
+            </div>
+                <!-- End right side  -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+
+<!-- =======================
+Footer END -->
+<script src="/js/fetchFiles.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/mainjs.js"></script>
+<!-- <script src="/js/library.js" type="module"></script> -->
+<!-- <script src="/js/searchQueries/librarySearchQuery.js" type="module"></script> -->
+<!-- <script src="/js/scholarControls/uploadBook.js"></script>
+  <script src="/js/scholarControls/uploadPodcast.js"></script> -->
+  <script src="/js/getNotifications.js"></script>
+  <script src="/js/getChatNotifications.js"></script>
+<!-- <script src="./js/updateAccountData.js"></script> -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/functions.js"></script>
+
+
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+    chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+    notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
+
+</html>

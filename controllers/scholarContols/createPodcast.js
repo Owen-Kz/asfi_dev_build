@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const cloudinary = require("cloudinary").v2;
 const newPostNotification = require("../notifications/newPostNotifications");
+const generateRandomString = require("../admin/utils/randomSring");
 
 // ✅ Configure Cloudinary
 cloudinary.config({
@@ -60,7 +61,7 @@ const createPodcast = (req, res) => {
       return res.status(400).render("error.ejs", { status: "No file uploaded" });
     }
 
-    console.log("✅ File successfully uploaded to temp storage:", req.file);
+    console.log("✅ File successfully uploaded to temp storage:");
 
     const { podcastTitle, podcastOwner, podcastOwner_fullname } = req.body;
     if (!podcastTitle || !podcastOwner) {
@@ -88,11 +89,11 @@ const createPodcast = (req, res) => {
       const cloudinaryUpload = await uploadToCloudinary(sourcePath);
       const cloudinaryUrl = cloudinaryUpload.secure_url;
       console.log("✅ Cloudinary Upload Successful:", cloudinaryUrl);
-
+      const buffer = await generateRandomString(8)
       // ✅ Insert podcast into database
       await db.promise().query(
-        "INSERT INTO podcasts (podcast_title, podcast_owner, podcast_owner_fullname, date_uploaded, fileID, fileEXT, fileURL) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [podcastTitle, podcastOwner, podcastOwner_fullname, dateString, req.file.filename, fileType, cloudinaryUrl]
+        "INSERT INTO podcasts (podcast_title, podcast_owner, buffer, podcast_owner_fullname, date_uploaded, fileID, fileEXT, fileURL) VALUES (?,?, ?, ?, ?, ?, ?, ?)",
+        [podcastTitle, podcastOwner, buffer, podcastOwner_fullname, dateString, req.file.filename, fileType, cloudinaryUrl]
       );
 
       // ✅ Delete temp file

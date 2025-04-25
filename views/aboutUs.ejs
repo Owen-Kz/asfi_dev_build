@@ -36,6 +36,7 @@
 </head>
 
 <body>
+<%- include ("loader") %>
 
 <!-- Header START -->
 <header class="navbar-light navbar-sticky">
@@ -584,5 +585,17 @@ Footer END -->
 	})();
 	</script>
 	<!--End of Tawk.to Script-->
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
 </body>
+
 </html>
