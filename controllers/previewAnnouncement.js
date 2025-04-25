@@ -9,7 +9,7 @@ const previewAnnouncement = async (req, res) =>{
         if(req.user){
             if(req.query.q){
                 const ID = req.query.q
-                db.query("SELECT * FROM announcements WHERE id = ?",[ID], (err, data) =>{
+                db.query("SELECT * FROM announcements WHERE id = ? OR title = ?",[ID, ID], (err, data) =>{
                     if(err){
                         console.log(err)
                         return res.json({error:"No data found"})
