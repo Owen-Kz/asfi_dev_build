@@ -13119,9 +13119,8 @@ h6 {
 }
 
 p {
-    margin-top: 0;
-    margin-bottom: 1rem
-}
+    margin: 10px 0;
+  }
 
 abbr[title] {
     -webkit-text-decoration: underline dotted;
