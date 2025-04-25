@@ -6,9 +6,9 @@
 		<a href="https://asfischolar.org/"><img class='navbar-brand-item' width="90" height="30" src='/files/images/ASFIScholar_Logo.png' alt='logo'></a>
 <!-- <img class='dark-mode-item navbar-brand-item' width="90" height="30" src='/files/images/ASFIScholar_Logo.png' alt='logo'> -->
 		<div class="container">
-			<div class="search-container">
-                
-                    <input type="text" name="searchLibrary" placeholder="Search..." class="search-input" id="searchLibrary"/>
+                <form action="/feed" method="get" class="search-container">
+                    <input type="text" name="q" placeholder="Search..." class="search-input" id="searchLibrary"/>
+					
 				<button class="search-button" type="submit" >
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
 					stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
@@ -16,6 +16,8 @@
 				 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 			   </svg>
 				</button>
+				</form>
+			
           
 			  </div>
 <div class="notify-container">

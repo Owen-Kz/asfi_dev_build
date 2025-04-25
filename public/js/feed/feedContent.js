@@ -162,6 +162,11 @@ async function fetchLinkPreview(url) {
         return "";
     }
 }
+let searchQuery = "";
+if (window.location.search) {
+    const urlParams = new URLSearchParams(window.location.search);
+    searchQuery = `&q=${urlParams.get("q")}`;
+}
 
 async function loadFeed() {
     if (isLoading || !hasMoreData) return;
@@ -169,7 +174,7 @@ async function loadFeed() {
     loadingIndicator.style.display = "block"; // Show loading
 
     try {
-        const response = await fetch(`/getPeopleFeed?page=${currentPage}`);
+        const response = await fetch(`/getPeopleFeed?page=${currentPage}${searchQuery}`);
         const data = await response.json();
 
         if (!data.success) {
@@ -181,6 +186,10 @@ async function loadFeed() {
 
         if (feedItems.length === 0) {
             hasMoreData = false; // No more data to load
+            // feedContainer.removeEventListener("scroll", loadFeed);
+            feedContainer.innerHTML = `<div class="card no-data">
+            <div class="card_body"> No more data to load</div></div>`;
+            return;
         }
 
         for (const item of feedItems) {
