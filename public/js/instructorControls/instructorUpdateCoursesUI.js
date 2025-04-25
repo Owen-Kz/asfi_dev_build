@@ -1,5 +1,5 @@
 const courseContainer = document.getElementById("instructorCoursesContainer")
-
+const url = window.location.pathname
 function updateCourseUI(courseArray){
     courseContainer.innerHTML = " "
 

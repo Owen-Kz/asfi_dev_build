@@ -235,8 +235,8 @@ const linkPreviewPage = require("../controllers/feed/linkPreviewPage");
 
 
 const router = express.Router();
-router.use(express.json({ limit: '500mb' }));
-router.use(express.urlencoded({ limit: '500mb', extended: true }));
+router.use(express.json({ limit: '5000mb' }));
+router.use(express.urlencoded({ limit: '5000mb', extended: true }));
 // router.use(express.json())
 // router.use(express.urlencoded({ extended: true }));
 // Example: Proxy all requests to /api to a different service

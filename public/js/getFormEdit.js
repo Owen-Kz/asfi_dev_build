@@ -139,7 +139,7 @@ fetch(`/deleteResourceModal/${JSON.stringify(DeleteData)}`, ()=>{
 
     updateDeleteModal(NewFormData)
 
-    }else if(data.type == "publication"){
+    }else if(data.type == "publication"){ 
         deleteFormResult = JSON.parse(data.queryResult)
         const publicationURL = deleteFormResult[0].link_href
         const publicationId = deleteFormResult[0].link_buffer

@@ -69,8 +69,9 @@ const userFollows = async (req, res) => {
                 res.render("following.ejs", {
                   root: "./public",
                   FollowingCount: FollowingCount,
-                  accountType: accountType,
-                  dataJSON: dataJSON, // Pass the JSON string to the template
+                
+                  dataJSON: dataJSON,
+                  user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username
                 });
               })
               .catch((error) => {
@@ -84,8 +85,9 @@ const userFollows = async (req, res) => {
         res.render("following.ejs", {
           root: "./public",
           FollowingCount: FollowingCount,
-          accountType: accountType,
+        
           dataJSON: "[]",
+          user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username
         });
       }
 })

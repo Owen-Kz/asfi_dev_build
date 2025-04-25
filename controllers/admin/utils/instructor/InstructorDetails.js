@@ -13,20 +13,21 @@ const InstructorDetails = async (req,res)=>{
         const prefix = data[0].prefix
         const location = data[0].home_address
         const phonenumber = data[0].phonenumber
-        const email = data[0].email
+        const emailScholar = data[0].email
         const profile_picture = data[0].profile_picture
         const fullname = `${first_name} ${last_name}`
 
         res.render("admin-instructor-detail", {
             fullname:fullname,
-            email:email,
+            emailScholar:emailScholar,
             phonenumber:phonenumber,
             username:username,
             Bio:Bio,
             title: title,
             prefix: prefix,
             location:location,
-            profile_picture: profile_picture
+            profile_picture: profile_picture,
+            username:req.admin.username, firstName:req.admin.first_name, LastName:req.admin.last_name, adminPicture:req.admin.profile_picture, email:req.admin.email
         })
     })
 
