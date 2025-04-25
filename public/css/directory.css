@@ -56,10 +56,10 @@ main{
     flex-direction: column;
     height: 100%;
     overflow-x: hidden;
-    /* margin-left: 30px; */
+    margin-left: 40px;
     justify-content: center;
     align-items: center;
-    width:50%;
+    width:70%;
     padding-top: 10px;
     border-radius: 9px;
     box-shadow: 0px 20px 20px 2px rgba(0, 0, 0, 0.212);
@@ -116,6 +116,7 @@ main{
     flex-direction: column;
     width: 100%;
     margin-left: 5%;
+    padding: 0 40px 0 40px;
 }
 
 .discoverContainer{
@@ -123,6 +124,7 @@ main{
     flex-direction: column;
     width: 100%;
     margin-left: 5%;
+    padding: 0 40px 0 40px;
 }
 
 account {
@@ -175,6 +177,7 @@ account .details div:last-child{
 
 .spaces_container{
     height: 100%;
+    display: none;
     /* display: flex;
     flex-direction: column; */
     width:60%;
@@ -971,6 +974,7 @@ padding: 6px;
     }
     .spaces_container{
         height: 100%;
+        display: block;
         /* display: flex;
         flex-direction: column; */
         align-items: center;

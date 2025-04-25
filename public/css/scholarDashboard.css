@@ -22426,11 +22426,11 @@ html[dir=rtl] .choices__input {
 .dash_upload {
   display: flex;
   flex-direction: column;
-  justify-content: space-between !important;
+  justify-content: center !important;
   align-items: center;
   z-index:10;
   padding: 10px;
-  height: 20vh;
+  height: 15vh;
   width: 70% !important;
   background-color: var(--bs-bg-header);
   border-radius: 15px;
@@ -22799,7 +22799,7 @@ header{
   justify-content: center;
   align-items: center;
   justify-content: space-between;
-  width: 62px;
+  /* width: 62px; */
 }
 
 

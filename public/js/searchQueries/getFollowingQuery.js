@@ -155,6 +155,8 @@ followingAccountsContainer.innerHTML = ""
                 AccountIcon =  `<i class="fas fa-check-circle text-warning me-2"></i>`
             }else if(account_Type == "instructor_account"){
                 AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
+            }else if(account_Type == "administrator"){
+                AccountIcon = `<i class="fas fa-check-circle text-instagram-gradient me-2"></i>`
             }
 
             followingAccountsContainer.innerHTML +=`
@@ -165,6 +167,9 @@ followingAccountsContainer.innerHTML = ""
             </div>
             <div css="degree">${titleText}</div></div>
             </div> 
+            <div class="followButton">
+            <button class="UnfollowButton" value="${Username}">Unfollow</button>
+            </div>
             </account>`
      
     })

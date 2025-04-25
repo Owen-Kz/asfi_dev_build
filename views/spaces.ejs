@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Weperch Technologies Ltd">
+	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <!-- <link rel="stylesheet" href="/css/contactUs.css"> -->
+        <link rel="stylesheet" href="/css/scholarDashboard.css">
+        <link rel="stylesheet" href="/css/general.css">
+        <link rel="stylesheet" href="/css/directory.css">
+       
+        
+        <!-- Favicon --> 
+        <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
+    
+        <link rel="stylesheet" href="/css/css/fontawesome.css">
+        <link rel="stylesheet" href="/css/css/fontawesome-all.css">
+    
+        <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+        <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+        <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+    
+        <title>Directory</title>
+        <!-- Dark mode -->
+    <script src="/js/colorTheme.js"></script>
+
+    </head>
+
+<body class="main_directory_body">
+    <%- include("loader") %>
+    <input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+<input type="hidden" id="loggedUser" value="<%=user%>" readonly>
+    <style>
+        .AccountLeft{
+            display: flex;
+        }
+        account{
+
+            justify-content: space-between;
+        }
+        .followButton{
+            width: 20%;
+            display: flex;
+            padding-right: 10px;
+            justify-content: flex-end;
+            align-items: center;
+            align-self: center;
+            position: relative;
+            right: 0;
+            justify-self: center;
+        }
+        .followButton button{
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            background-color: purple;
+            color: white;
+            padding: 5px 15px 5px 15px;
+            /* width: 50px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .create_space_notification{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-items: center;
+            height: 100%;
+        }
+        .create_space_notification p,h3{
+            text-align: center;
+        }
+        .create_buttons{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: auto;
+        }
+        .navbar-brand img {
+            object-fit: contain !important;
+        } 
+
+        .accounts_container{
+            display: none !important;
+        }
+        
+        .spaces_container{
+            display: block !important;
+    width: 70%;
+    margin-left: 40px;
+        }
+        @media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1080px) {
+    .main_directory {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+        @media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1080px) {
+    .main_directory .closed_spaces_container, .main_directory .closed_accounts_container {
+        height: 100%;
+        content-visibility: visible;
+    }
+}
+@media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1080px) {
+    .main_directory .spaces_container {
+        padding: 0px;
+        transition: ease-in-out 200ms;
+        margin-left: -6% !important;
+        z-index: 999;
+        background-color: var(--bs-bg-header);
+        width: 92% !important;
+    }
+}
+
+@media screen and (max-width: 767px), (max-width: 1080px) {
+    .spaces_container {
+        height: 100%;
+        display: block;
+        align-items: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 40px;
+        width: 100%;
+        margin: auto;
+    }
+}
+@media screen and (max-width: 767px), (max-width: 1080px) {
+    .spaces_container {
+        position: absolute;
+        width: 100%;
+        height: 90vh;
+        margin-left: 0 !important;
+        background-color: var(--bs-bg-header);
+    }
+}
+
+    
+            </style>
+
+    
+
+
+         <!-- Header START -->
+         <%- include('header') %>
+         <!-- Header END -->
+
+
+
+<main class="main_directory" style="background-image: url(/files/images/03.png); background-repeat: no-repeat; background-size: cover;">
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar">
+        <%if(accountType == "scholar_account") {%>
+              <%- include('scholarNavbar') %>
+              <% } else if(accountType == "user_account"){%>
+                  <%- include ("navbar") %>
+              <%} else if(accountType == "instructor_account") {%>
+                  <%- include ("instructorNavbar") %>
+      
+                  <% } else if(accountType == "administrator") {%>
+                     <%- include ("adminNavbar") %>
+                     <% } %>
+          </sidebar>
+          <!-- END NAVIGATION BAR  -->
+<div class="directory-container">
+
+
+<!-- Follow & Discover End -->
+
+<!-- <div class="divider"> </div> -->
+
+<!-- Spaces Start -->
+
+    <div class="spaces_container closed_spaces_container" >
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; border-bottom: 1px solid var(--bs-border-color);">
+            
+                <h4>Spaces</h4>
+            <% if(accountType != "user_account") { %>
+                <button class="btn next-btn fw-bold" id="CreateSpaceBtn">Create Space</button>
+                <%}%>
+            <div class="search-container">
+                
+                <input type="text" name="searchSpaces" placeholder="Search spaces" class="search-input" id="searchSpaces"/>
+            <button class="search-button" type="submit" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+             <circle cx="11" cy="11" r="8"></circle>
+             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+           </svg>
+            </button>
+      
+          </div>
+        </div>
+        <div class="spaces_main" id="spaces_container">
+        </div>
+    </div>
+<!-- Spaces End -->
+<sidebar class="right-navigation-bar">
+	 
+            
+    <% if(announcementTitle !== "") { %>
+        <div class="announcementWidget">
+            <span>Announcement</span>
+            <a href="/announcement?q=<%= announcementTitle %>">
+                <%- include("announcementWidget") %>
+            </a>
+   
+        </div>
+    <% } %>
+
+    <div class="announcementWidget">
+        <span>Suggested people to follow</span>
+        <%- include("discoverpeopleWidget") %>
+    </div>
+</sidebar>
+
+</div>
+  <!-- Include Notification panel -->
+  <div class="MainRight_side">
+    <%- include("notificationsPanel.ejs") %>
+      </div>
+    <!--Include Chats Panel-->
+    <div class="ChatRight_side">
+        <%- include("chatsPanel.ejs") %>
+    </div>
+        <!-- End right side  -->
+    
+</main>
+ 
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/fetchFiles.js"></script>
+<script src="/js/mainjs.js"></script>
+<script src="/js/directory.js"></script>
+<!-- <script src="/js/userDirectory.js"></script> -->
+<script src="/js/searchQueries/getSpacesQuery.js"></script>
+<script src="/js/searchQueries/scholarsSearchQuery.js"></script>
+<script src="/js/getNotifications.js"></script>
+<script src="/js/getChatNotifications.js"></script>
+
+<!-- <script src="/js/newFollower.js"></script> -->
+
+
+<% if(accountType != "user_account") { %>
+    <%- include ("createSpaceModal") %>
+    <%}%>
+<!-- Back to top -->
+<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Vendors -->
+<script src="/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/vendor/glightbox/js/glightbox.js"></script>
+<script src="/js/functions.js"></script>
+
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+    chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+    notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
+
+</html>

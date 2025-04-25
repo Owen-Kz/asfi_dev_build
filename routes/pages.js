@@ -7,6 +7,7 @@ const library = require("../controllers/library")
 const book = require("../controllers/open-book")
 const UserPodcast = require("../controllers/UserPodcast")
 const Directory = require("../controllers/directory")
+const Spaces = require("../controllers/spaces")
 const ProfileSettings = require('../controllers/ProfileSettings')
 const ProfileUpload = require("../controllers/profileImageUpload")
 const DownloadPodcast = require("../controllers/PodcastDownload")
@@ -391,6 +392,9 @@ router.post("/uploadPodcast/u", createPodcast)
 router.get("/directory", LoggedIn, Directory)
 // FOR FOLLOWING FROM THE DIRECTORY
 router.post("/directory", LoggedIn, FollowFromDirectory)
+
+// GET THE SPACES
+router.get("/spaces", LoggedIn, Spaces)
 
 
 // GET the spaces to feed to the directory 

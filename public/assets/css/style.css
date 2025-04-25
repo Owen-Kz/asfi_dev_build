@@ -22310,10 +22310,18 @@ html[dir=rtl] .choices__input {
 }
 
 .loader-logo img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  /* width: 170px; */
+  height: 170px;
+  /* border-radius: 50%; */
   object-fit: cover;
+}
+@media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1080px) {
+  .loader-logo img {
+    /* width: 170px; */
+    height: 90px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+  }
 }
 
 .loader-footer {
@@ -22330,7 +22338,7 @@ html[dir=rtl] .choices__input {
 
 .loader-footer strong {
   display: block;
-  color: #fd5949;
+  color: rgb(255, 150, 0);
   font-weight: 600;
   font-size: 0.9rem;
 }

@@ -20,7 +20,8 @@ const allowedFileTypes = [
   "image/jpeg", "image/png", "image/gif",
   "video/mp4", "video/mpeg", "video/quicktime",
   "audio/mpeg", "audio/ogg", "audio/wav",
-  "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/pdf"
 ];
 
 const storage = multer.diskStorage({

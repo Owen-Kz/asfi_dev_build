@@ -93,43 +93,54 @@ async function follow(username) {
         const response = await fetch("/follow", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ followed:username }),
-            
-          });
-          const result = await response.json();
-          if (result.success) {
-            // alert("Followed successfully!");
-         
-          } else {
+            body: JSON.stringify({ followed: username }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const button = document.querySelector(`button[onclick="follow('${username}')"]`);
+            if (button) {
+                button.innerHTML = `<span class="fluent-mdl2--unfollow-user"></span> Unfollow`;
+                button.setAttribute("onclick", `unFollow('${username}')`);
+            }
+        } else {
             alert("Failed to follow. Please try again.");
-          }
-    }catch (error) {
+        }
+    } catch (error) {
         console.error("Error following user:", error);
     }
 }
+
+
 async function unFollow(username) {
     try {
         const response = await fetch("/unfollow", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ unfollowed:username }),
-            
-          });
-          const result = await response.json();
-          if (result.success) {
-            // alert("Followed successfully!");
-         
-          } else {
-            alert("Failed to follow. Please try again.");
-          }
-    }catch (error) {
-        console.error("Error following user:", error);
+            body: JSON.stringify({ unfollowed: username }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const button = document.querySelector(`button[onclick="unFollow('${username}')"]`);
+            if (button) {
+                button.innerHTML = `<span class="fluent-mdl2--follow-user"></span> Follow`;
+                button.setAttribute("onclick", `follow('${username}')`);
+            }
+        } else {
+            alert("Failed to unfollow. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error unfollowing user:", error);
     }
 }
+
 
 
 // Chwck if user is followed 

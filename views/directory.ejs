@@ -189,6 +189,24 @@
         </div>
     </div>
 <!-- Spaces End -->
+<sidebar class="right-navigation-bar">
+	 
+            
+    <% if(announcementTitle !== "") { %>
+        <div class="announcementWidget">
+            <span>Announcement</span>
+            <a href="/announcement?q=<%= announcementTitle %>">
+                <%- include("announcementWidget") %>
+            </a>
+   
+        </div>
+    <% } %>
+
+    <div class="announcementWidget">
+        <span>Suggested people to follow</span>
+        <%- include("discoverpeopleWidget") %>
+    </div>
+</sidebar>
 
 </div>
   <!-- Include Notification panel -->
@@ -215,7 +233,7 @@
 <!-- <script src="/js/userDirectory.js"></script> -->
 <script src="/js/searchQueries/getSpacesQuery.js"></script>
 <script src="/js/searchQueries/getFollowingQuery.js"></script>
-<script src="/js/searchQueries/getDiscoverQuery.js"></script>
+<!-- <script src="/js/searchQueries/getDiscoverQuery.js"></script> -->
 <script src="/js/searchQueries/updateDiscoverUI.js"></script>
 <script src="/js/searchQueries/scholarsSearchQuery.js"></script>
 <script src="/js/getNotifications.js"></script>

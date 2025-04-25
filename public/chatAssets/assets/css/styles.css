@@ -21021,7 +21021,9 @@ fieldset:disabled .btn {
 .text-truncate {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap
+    white-space: nowrap;
+    max-width: 150px;
+    /* font-size: 0.6rem; */
 }
 
 .vr {
@@ -22853,7 +22855,7 @@ fieldset:disabled .btn {
 }
 
 .fs-3 {
-    font-size: .875rem !important
+    font-size: 0.6rem !important
 }
 
 .fs-4 {
@@ -30376,7 +30378,7 @@ a:hover h3,
 a:hover h4,
 a:hover h5,
 a:hover h6 {
-    color: blueviolet !important
+    color: whitesmoke !important
 }
 
 ul {
@@ -41739,4 +41741,19 @@ body .connect-sorting-content {
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
+  }
+
+  .message-icon{
+    position: absolute;
+    margin-left: 90%;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+
+  .files-chat h6{
+    font-size: 0.6rem;
+  }
+
+  .files-chat a{
+    margin-bottom: 10px;
   }

@@ -19,7 +19,7 @@
 				</form>
 			
           
-			  </div>
+	</div>
 <div class="notify-container">
     <div id="home" style="cursor: pointer;"><a style="text-decoration: none; color: var(--bs-text-color);" href="/dashboard">
         <span class="lets-icons--home"></span>
@@ -96,7 +96,7 @@
 				
 	  <li> <hr class="dropdown-divider"></li>
 				<!-- Links -->
-				<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+				<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>View Profile</a></li>
 				<li><a class="dropdown-item" href="/settings"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 				<li><a class="dropdown-item" href="/contactUs"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
 				<li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
@@ -136,3 +136,47 @@
 	</nav>
 	<!-- Logo Nav END -->
 </header>
+
+<!-- Search Modal -->
+<div id="searchModal" class="search-modal">
+	<div class="search-modal-content">
+	  <span class="close-search">&times;</span>
+	  <form action="/feed" method="get">
+		<input type="text" name="q" placeholder="Search..." class="search-input" id="modalSearchInput"/>
+		<button class="search-button" type="submit" >
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+			stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+		 <circle cx="11" cy="11" r="8"></circle>
+		 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+	   </svg>
+		</button>
+	  </form>
+	</div>
+  </div>
+
+
+<script>
+	const searchButton = document.querySelector(".search-button");
+const searchModal = document.getElementById("searchModal");
+const closeSearch = document.querySelector(".close-search");
+
+searchButton.addEventListener("click", function (e) {
+  // On mobile, open modal instead of submitting form directly
+  if (window.innerWidth <= 1080) {
+    e.preventDefault();
+    searchModal.style.display = "block";
+  }
+});
+
+closeSearch.addEventListener("click", function () {
+  searchModal.style.display = "none";
+});
+
+// Close modal if user clicks outside content
+window.addEventListener("click", function (event) {
+  if (event.target === searchModal) {
+    searchModal.style.display = "none";
+  }
+});
+
+</script>
