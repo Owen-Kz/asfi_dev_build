@@ -173,7 +173,7 @@ async function DiscoverItems(data) {
           </div>
         </div>
         <div class="followButton">
-          <form method="post" class="follow">
+          <form method="post" class="follow" onsubmit="return false">
             <input type="hidden" name="followed" value="${user.username}">
              <input type="hidden" name="follower" id="follower" value="${loggedUser.value}" readonly>
             <button class="discoverFollowButton" value="${user.username}">Follow</button>
@@ -182,6 +182,31 @@ async function DiscoverItems(data) {
       </account>
     `;
     discoverAccountsContainer.innerHTML += accountHTML;
+  });
+
+  const followForm = document.querySelectorAll(".follow")
+  followForm.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const followed = formData.get("followed");
+
+      const response = await fetch("/follow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ followed }),
+        
+      });
+      const result = await response.json();
+      if (result.success) {
+        // alert("Followed successfully!");
+        FindDiscoverAccounts(1);
+      } else {
+        alert("Failed to follow. Please try again.");
+      }
+    });
   });
 }
 

@@ -88,6 +88,59 @@ let currentPage = 1;
 let isLoading = false;
 let hasMoreData = true;
 
+async function follow(username) {
+    try {
+        const response = await fetch("/follow", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ followed:username }),
+            
+          });
+          const result = await response.json();
+          if (result.success) {
+            // alert("Followed successfully!");
+         
+          } else {
+            alert("Failed to follow. Please try again.");
+          }
+    }catch (error) {
+        console.error("Error following user:", error);
+    }
+}
+async function unFollow(username) {
+    try {
+        const response = await fetch("/unfollow", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ unfollowed:username }),
+            
+          });
+          const result = await response.json();
+          if (result.success) {
+            // alert("Followed successfully!");
+         
+          } else {
+            alert("Failed to follow. Please try again.");
+          }
+    }catch (error) {
+        console.error("Error following user:", error);
+    }
+}
+
+
+// Chwck if user is followed 
+async function isFollowed(username) {
+    const res = await fetch(`/check/validate/follower/${username}`, {
+        method: "GET"
+      });
+      const json = await res.json();
+      return json.message === "following" ? true : false;
+
+}
 async function personProfileDetails(username) {
     try {
         const res = await fetch(`/p/s/v/details/${username}`);
@@ -133,6 +186,8 @@ async function loadFeed() {
         for (const item of feedItems) {
             const { person, type, title, timestamp } = item;
             const profileDetails = await personProfileDetails(person);
+            const isFollowedAccount = await isFollowed(person);
+            
             const firstName = profileDetails.first_name || "N/A";
             const lastName = profileDetails.last_name || "N/A";
             const profilePicture = profileDetails.profile_picture || "default.jpg";
@@ -142,7 +197,12 @@ async function loadFeed() {
             let is_asfirj = "";
             let smallHeight = ""
             let link = ""
-
+            let followButton = "";
+            if (isFollowedAccount) {
+                followButton = `<button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="unFollow('${encodeURIComponent(person)}')"><span class="fluent-mdl2--unfollow-user"></span> Unfollow</button>`;
+            }else{
+                followButton = `<button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="follow('${encodeURIComponent(person)}')"><span class="fluent-mdl2--follow-user"></span> Follow</button>`;  
+            }
             switch (type) {
                 case "Book":
                     image = "/assets/images/book-cover.png";
@@ -223,7 +283,8 @@ const formatted = date.toLocaleString('en-US', options).replace(',', ' at');
                 <div class="divider"></div>
                 <div class="cardAction">
                 <button class="cardActionButton"><a href="${link}"><span class="solar--download-bold-duotone"></span> View</a></button>
-                <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="follow()"><span class="fluent-mdl2--follow-user"></span> Follow</button>
+                
+                ${followButton}
                  <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="share('${link}')"><span class="solar--share-linear"></span> Share</button>
                 </div>
             `;

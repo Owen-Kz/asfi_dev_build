@@ -229,6 +229,8 @@ const PrivateChatRoomAdmin = require("../controllers/privateChatAdmin");
 const CreateAnnouncement = require("../controllers/admin/createAnnouncement");
 const previewAnnouncement = require("../controllers/previewAnnouncement");
 const linkPreviewPage = require("../controllers/feed/linkPreviewPage");
+const FollowUserFromFeed = require("../controllers/scholarContols/followUserFromFeed");
+const UnfollowFromFeed = require("../controllers/scholarContols/unfollowUser");
 
 // ADMINISTRATOR 
 
@@ -596,7 +598,8 @@ router.get("/userFollowers/:loggedUser", LoggedIn, AccountFollowers)
 router.get("/userFollows/:loggedUser", LoggedIn, accountFollows)
 router.get("/api/userFollowers", LoggedIn, userFollowers)
 router.get("/check/validate/follower/:username", LoggedIn, ValidateFollower)
-
+router.post("/follow", LoggedIn, FollowUserFromFeed)
+router.post("/unfollow", LoggedIn, UnfollowFromFeed)
 // GET THE LOGIN PAGE 
 
 router.get("/login", async (req, res) => {
