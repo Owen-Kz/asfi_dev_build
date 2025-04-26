@@ -112,7 +112,7 @@ if(PArticipants.length > 0){
             mobileParticipantsContainer.innerHTML += `<li style="display: flex; flex-direction: row; width: 100%; justify-content:space-between; align-items: center;">
           <a href="/@${user_name}" class="px-4 py-3 bg-hover-light-black d-flex align-items-start justify-content-between chat-user">
             <div class="d-flex align-items-center">
-              <span class="position-relative rounded-circle">
+              <span class="position-relative rounded-circle" style="height: 40px;width: 40px !important;">
                 <img src="${ProfileImageSrc}" alt="user-profile" width="48" height="48" />
               </span>
               <div class="ms-3 d-inline-block w-75">
