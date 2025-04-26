@@ -183,7 +183,7 @@ async function DiscoverItems(data){
           <img src= ${ProfilePicture} />
             </div></a> 
             <div class="details">
-            <div css="name"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
+            <div class="name"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
             </div>
             <div class="degree">${titleText}</div></div>
             </div>

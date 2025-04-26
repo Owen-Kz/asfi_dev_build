@@ -153,6 +153,10 @@ account .details{
     margin-left: 2px;
 }
 
+account .details .degree{
+    display: none;
+}
+
 account .details div{
     /* background-color: rgb(236, 236, 236); */
     margin-top: 2px;
@@ -1148,7 +1152,7 @@ padding: 6px;
     padding: 7px;
   }
   .submitBook {
-    background-color: var(--bs-body-bg);
+    background-color:var(--bs-primary);
     border-radius: 25px;
     text-align: center;
     width: 60%;

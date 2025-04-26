@@ -23115,7 +23115,7 @@ input:checked + .slider:before {
 }
 
 .userprofileName > .profile-tag {
-  color: whitesmoke;
+  /* color: whitesmoke; */
 }
 
 .profile-tag {

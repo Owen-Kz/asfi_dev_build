@@ -49,7 +49,7 @@ fetch("/directorySpaces", async ()=>{
             let spacePreview
 
             if(space_cover == "image.jpg" || space_cover == "images.jpg" || space_cover == "avatar.jpg" || space_cover == "cover.jpg"){
-                spacePreview = `https://eu.ui-avatars.com/api/?rounded=false&amp;background=7f417d&amp;color=fff&amp;name=${space_focus}&amp;font-size=0.4`
+                spacePreview = `https://res.cloudinary.com/diml8ljwa/image/upload/v1745653313/asfispacelogo_qyju4c.png`
                 }else{
                 spacePreview = `${space_cover}`
             }
@@ -57,7 +57,7 @@ fetch("/directorySpaces", async ()=>{
             spaces_container.innerHTML += 
             `<div onclick="window.location.href='/spaces/${space_id}'" class="space">
               <a href="/spaces/${space_id}">
-               <div class="image_container bg-purple-gradient">
+               <div class="image_container">
                <img src="${spacePreview}">
                 </div>
                </a>

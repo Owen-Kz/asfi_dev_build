@@ -871,7 +871,7 @@ transition: ease-in-out 300ms;
 }
 
 .main_directory .spaces_main .space .image_container{
-  width: 100%;
+  width: 100px;
   height: 100px;
 }
 .main_directory .spaces_main .space .title{

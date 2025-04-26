@@ -163,7 +163,7 @@ followingAccountsContainer.innerHTML = ""
             <account data-index="0${id}" id="li" data-name="${Fullname}">
             <div class="AccountLeft">
             <a href="/@${Username}"><div class="image_container bg-purple-gradient"><img src="${ProfilePicture}"></div></a><div class="details">
-            <div css="name"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
+            <div class="name" data-name="${Fullname}"><a href="/@${Username}">${prefix} ${Fullname} ${AccountIcon}</a>
             </div>
             <div css="degree">${titleText}</div></div>
             </div> 

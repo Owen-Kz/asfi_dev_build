@@ -86,6 +86,25 @@
         .navbar-brand img {
             object-fit: contain !important;
         } 
+
+        @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
     
             </style>
 
@@ -233,7 +252,7 @@
 <!-- <script src="/js/userDirectory.js"></script> -->
 <script src="/js/searchQueries/getSpacesQuery.js"></script>
 <script src="/js/searchQueries/getFollowingQuery.js"></script>
-<!-- <script src="/js/searchQueries/getDiscoverQuery.js"></script> -->
+<script src="/js/searchQueries/getDiscoverQuery.js"></script>
 <script src="/js/searchQueries/updateDiscoverUI.js"></script>
 <script src="/js/searchQueries/scholarsSearchQuery.js"></script>
 <script src="/js/getNotifications.js"></script>
@@ -289,6 +308,110 @@ closeButtonChat.addEventListener("click", function(){
             
           });
       
+      </script>
+      <script>
+      document.getElementById("searchForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+});
+
+document.getElementById("searchDirectory").addEventListener("input", function() {
+  const searchValue = this.value.toLowerCase();
+
+  const followingAccounts = document.querySelectorAll("#FollowingAccounts account");
+  const discoverAccounts = document.querySelectorAll("#DiscoverAccounts account");
+
+  const followingVisible = document.querySelector(".followingContainer").style.display !== "none";
+  const discoverVisible = document.querySelector(".discoverContainer").style.display !== "none";
+
+  let matchCount = 0;
+
+  if (followingVisible) {
+    followingAccounts.forEach(account => {
+      const name = account.getAttribute("data-name")?.toLowerCase();
+
+      // if input is empty — show everything instantly
+      if (searchValue === "") {
+        account.style.display = "flex";
+        account.classList.remove("fade-in", "fade-out");
+      } else if (name && name.includes(searchValue)) {
+        account.classList.remove("fade-out");
+        account.style.display = "flex";
+        account.classList.add("fade-in");
+        matchCount++;
+      } else {
+        account.classList.remove("fade-in");
+        account.classList.add("fade-out");
+        setTimeout(() => {
+          account.style.display = "none";
+        }, 300);
+      }
+    });
+
+    if (followingAccounts.length && matchCount === 0 && searchValue !== "") {
+      if (!document.getElementById("noFollowingResult")) {
+        const msg = document.createElement("p");
+        msg.id = "noFollowingResult";
+        msg.textContent = "No matching accounts found.";
+        document.getElementById("FollowingAccounts").appendChild(msg);
+      }
+    } else {
+      const existingMsg = document.getElementById("noFollowingResult");
+      if (existingMsg) existingMsg.remove();
+    }
+  }
+
+  if (discoverVisible) {
+    matchCount = 0;
+    discoverAccounts.forEach(account => {
+      const name = account.querySelector(".name a")?.textContent.toLowerCase();
+
+      if (searchValue === "") {
+        account.style.display = "flex";
+        account.classList.remove("fade-in", "fade-out");
+      } else if (name && name.includes(searchValue)) {
+        account.classList.remove("fade-out");
+        account.style.display = "flex";
+        account.classList.add("fade-in");
+        matchCount++;
+      } else {
+        account.classList.remove("fade-in");
+        account.classList.add("fade-out");
+        setTimeout(() => {
+          account.style.display = "none";
+        }, 300);
+      }
+    });
+
+    if (discoverAccounts.length && matchCount === 0 && searchValue !== "") {
+      if (!document.getElementById("noDiscoverResult")) {
+        const msg = document.createElement("p");
+        msg.id = "noDiscoverResult";
+        msg.textContent = "No matching accounts found.";
+        document.getElementById("DiscoverAccounts").appendChild(msg);
+      }
+    } else {
+      const existingMsg = document.getElementById("noDiscoverResult");
+      if (existingMsg) existingMsg.remove();
+    }
+  }
+});
+
+
+      </script>
+      <script>
+        document.getElementById("searchSpaces").addEventListener("input", function() {
+  const searchValue = this.value.toLowerCase();
+  const spaces = document.querySelectorAll("#spaces_container .space");
+
+  spaces.forEach(space => {
+    const title = space.querySelector(".title").textContent.toLowerCase();
+    if (title.includes(searchValue)) {
+      space.style.display = "flex";
+    } else {
+      space.style.display = "none";
+    }
+  });
+});
       </script>
 </body>
 

@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="/css/scholarDashboard.css">
         <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/directory.css">
+
        
         
         <!-- Favicon --> 
@@ -141,6 +142,25 @@
     }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+
     
             </style>
 
@@ -242,7 +262,7 @@
 <script src="/js/directory.js"></script>
 <!-- <script src="/js/userDirectory.js"></script> -->
 <script src="/js/searchQueries/getSpacesQuery.js"></script>
-<script src="/js/searchQueries/scholarsSearchQuery.js"></script>
+<!-- <script src="/js/searchQueries/scholarsSearchQuery.js"></script> -->
 <script src="/js/getNotifications.js"></script>
 <script src="/js/getChatNotifications.js"></script>
 
@@ -294,6 +314,39 @@ closeButtonChat.addEventListener("click", function(){
             
           });
       
+      </script>
+      <script>
+       document.getElementById("searchSpaces").addEventListener("input", function() {
+    const searchValue = this.value.toLowerCase();
+    const spaces = document.querySelectorAll("#spaces_container .space");
+
+    if (searchValue === "") {
+      // If input is cleared, show all spaces with fade-in animation
+      spaces.forEach(space => {
+        space.style.display = "flex";
+        space.classList.remove("fade-out");
+        space.classList.add("fade-in");
+      });
+    } else {
+      // If there's a search value, filter spaces
+      spaces.forEach(space => {
+        const title = space.querySelector(".title").textContent.toLowerCase();
+        if (title.includes(searchValue)) {
+          // Show space with fade-in animation
+          space.style.display = "flex";
+          space.classList.remove("fade-out");
+          space.classList.add("fade-in");
+        } else {
+          // Hide space with fade-out animation
+          space.classList.remove("fade-in");
+          space.classList.add("fade-out");
+          setTimeout(() => {
+            space.style.display = "none";
+          }, 300); // Wait for the fade-out animation to complete before hiding
+        }
+      });
+    }
+  });
       </script>
 </body>
 
