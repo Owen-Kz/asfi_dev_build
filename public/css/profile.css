@@ -807,12 +807,18 @@ padding: 6px;
 }
 .profile_section {
     margin: auto;
-    width: 80%;
+    width: 75%;
     margin-left: 20%;
-    margin-top: 0;
+    margin-top: 2%;
+    background: var(--bs-bg-header);
+    border-radius: 15px 15px 0 0 !important;
 }
 .profile_section .cover_image_container {
     padding: 15%;
+    border-radius: 15px 15px 0 0 !important;
+}
+.profile_section .px-0{
+    border-radius: 15px 15px 0 0 !important;
 }
 .profile-tag {
     font-size: 25px;

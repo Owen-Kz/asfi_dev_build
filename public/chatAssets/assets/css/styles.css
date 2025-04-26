@@ -30377,7 +30377,7 @@ a:hover h3,
 a:hover h4,
 a:hover h5,
 a:hover h6 {
-    color: whitesmoke !important
+    color: rgb(255, 150, 0) !important
 }
 
 ul {
