@@ -1,4 +1,5 @@
 const db = require("../../routes/db.config")
+const dbPromise = require("../../routes/dbPromise.config")
 
 const deleteSpace = async (req,res) =>{
     try{
@@ -18,8 +19,12 @@ const deleteSpace = async (req,res) =>{
                 }else{
                     db.query("DELETE FROM spaces WHERE space_id = ?", [SpaceId], async(err, deleted)=>{
                         if(err){
+                           
                             return res.json({error:err})
                         }else{
+                            const deleteParticipants = await dbPromise.query("DELETE FROM space_participants WHERE space_id = ?", [SpaceId])
+                            const deleteInvitations = await dbPromise.query("DELETE FROM space_invitations WHERE space_id = ?", [SpaceId])
+                            const deleteMessages = await dbPromise.query("DELETE FROM spaces_messages WHERE buffer = ?", [SpaceId])
                             return res.json({success:"Space Deleted Succesfully"})
                         }
                     })
