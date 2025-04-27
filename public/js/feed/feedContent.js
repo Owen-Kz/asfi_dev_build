@@ -1,4 +1,5 @@
 const feedContainer = document.getElementById("feedContainer");
+const mainScroll = document.getElementById("mainScroll");
 const loadingIndicator = document.createElement("div"); 
 loadingIndicator.innerHTML = `<div class="card heightSmall skeleton-card">
     <div class="card_image skeleton-box"></div>
@@ -323,8 +324,9 @@ const formatted = date.toLocaleString('en-US', options).replace(',', ' at');
 }
 
 // Scroll event inside feedContainer
-feedContainer.addEventListener("scroll", () => {
-    if (feedContainer.scrollTop + feedContainer.clientHeight >= feedContainer.scrollHeight - 50) {
+mainScroll.addEventListener("scroll", () => {
+    console.log("Scroll event triggered");
+    if (mainScroll.scrollTop + mainScroll.clientHeight >= mainScroll.scrollHeight - 50) {
         loadFeed();
     }
 });

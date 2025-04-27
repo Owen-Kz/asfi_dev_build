@@ -40,9 +40,9 @@ const deleteBtn = document.getElementById('delete_space');
       mainContainer.innerHTML = `<span>Internal Server Error!</span>`
         }else if(data.success){
            mainContainer.innerHTML = `<span class="successMessage">You've successfully deleted your Space!</span>
-           <p>You'll be redirected to the directory.<p>`;
+           <p>You'll be redirected in shortly.<p>`;
            setTimeout(()=>{
-            window.location.href="/directory";
+            window.location.href="/Spaces";
            }, 2000);
             
         } else if(data.error){

@@ -23,7 +23,7 @@ const SpacesChat = async (req,res) =>{
                     const SpaceCover = space[0].space_cover
                     const PassKey = space[0].space_passkey
                     let isAdmin = "no"
-                    if(space[0].space_admin == req.user.id){
+                    if(space[0].space_admin == req.user.id || req.user.acct_type == "administrator"){
                         isAdmin = "yes"
                     }
                     // check if the user is already part of the space 
@@ -70,10 +70,15 @@ const SpacesChat = async (req,res) =>{
                         }
                         if(data[0]){
                             renderSpace()
-                        }else if(space[0].is_private === "yes" && space[0].space_admin != req.user.id){
+                        }else if(space[0].is_private === "yes" && space[0].space_admin != req.user.id && req.user.acct_type !== "administrator"){
                             renderVerify()
                                 }else{
+                                    // if(req.user.acct_type === "administrator" &&){
+                                    // }else{
                                 await JoinSpace(SpaceId, req.user.username)
+
+                                    // }
+                        
                                renderSpace()
                             }
                     })
