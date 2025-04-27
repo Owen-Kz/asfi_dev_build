@@ -43,6 +43,18 @@ const updateSpaceCover = async (req, res) => {
       let thumbnailUrl = req.file ? req.file.path : "cover.jpg"; // Cloudinary URL
   
       if (thumbnailUrl !== "cover.jpg") {
+        if(req.user.acct_type === "administrator"){
+          db.query(
+            "UPDATE spaces SET space_cover = ? WHERE space_id = ?",
+            [thumbnailUrl, space_id],
+            async (err, data) => {
+              if (err) {
+                console.log(err);
+                return res.json({ error: err });
+              }
+            }
+          );
+        }else{
         db.query(
           "UPDATE spaces SET space_cover = ? WHERE space_admin = ? AND space_id = ?",
           [thumbnailUrl, userId, space_id],
@@ -53,6 +65,7 @@ const updateSpaceCover = async (req, res) => {
             }
           }
         );
+    }
       }
       return res.json({ success: "Space Updated" });
     } catch (error) {

@@ -12,7 +12,7 @@ const deleteSpace = async (req,res) =>{
                 const SpaceMembersCount = space[0].members_count
                 const SpaceCover = space[0].space_cover
               
-                if(space[0].space_admin != req.user.id){
+                if(space[0].space_admin != req.user.id && req.user.acct_type !== "administrator"){ 
                     // res.redirect(`/spaces/${SpaceId}`)
                     return res.json({error:"Unauthorized Access"})
                 }else{

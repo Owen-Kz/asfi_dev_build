@@ -13,6 +13,32 @@ const approveJoinRequest = async (req,res) =>{
         if(!requested_by){
             return res.json({error:"Requested By is required"})
         }else{
+            if(req.user.acc_type === "administrator"){
+            db.query("SELECT * FROM spaces WHERE space_id  = ?", [space_id], async(err, spaceData)=>{
+                if(err){
+                    return res.json({error:err})
+                }else if(spaceData[0]){
+                    db.query("UPDATE space_invitations SET status = ? WHERE user = ? AND space_id = ?", ["approved", requested_by, space_id], async(err, update)=>{
+                        if(err){
+                            return res.json({error:err})
+                        }else if(update){
+                            if(update.affectedRows === 0){
+                                return res.json({error:"No Request Found"})
+                            }else{
+                                db.query("INSERT INTO space_participants SET ?", [{username:requested_by, space_id:space_id}], async(err, insert)=>{
+                                    if(err){
+                                        return res.json({error:err})
+                                    }else if(insert){
+                                        return res.json({success:"Request Approved"})
+                                    }
+                                })
+                            }
+                            // return res.json({success:"Request Approved"})
+                        }
+                    })
+                }
+            })
+        }else{
             db.query("SELECT * FROM spaces WHERE space_admin = ? AND space_id  = ?", [username, space_id], async(err, spaceData)=>{
                 if(err){
                     return res.json({error:err})
@@ -37,6 +63,7 @@ const approveJoinRequest = async (req,res) =>{
                     })
                 }
             })
+        }
         }
     }catch(error){
         console.log(error)
