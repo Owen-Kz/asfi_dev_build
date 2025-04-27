@@ -62,7 +62,7 @@ const book = async (req, res) => {
                 booksCover: bookCover,
                 booksFile: BOOK_FILE,
                 cloudinaryPDFUrl: cloudinaryPDFUrl,
-                      logger:"logged", user : username_new, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:username_new, Email:userData.email, username:username_new, Username:username_new, UserName:username_new
+                      logger:"logged", user : username_new, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:username_new, Email:userData.email, username:username_new, Username:username_new, UserName:username_new, ASFI_CODE:req.user.unique_code
               });
             });
           } else {

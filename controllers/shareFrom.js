@@ -16,7 +16,7 @@ if(url){
     const LinkImage = WebData[0].LINK_IMAGE 
 
 
-    res.render("share", { status :"logged", logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user._first_name, UserLastName:req.user.lasT_name, Course:req.user.course_assigned, CourseYear:req.user.school_year, accountType:req.user.acct_type, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, submissionTitle:Title, linkUrl:linkURL})
+    res.render("share", { status :"logged", logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user._first_name, UserLastName:req.user.lasT_name, Course:req.user.course_assigned, CourseYear:req.user.school_year, accountType:req.user.acct_type, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, submissionTitle:Title, linkUrl:linkURL, ASFI_CODE:req.user.unique_code})
 }else{
     res.redirect("/home")
 }

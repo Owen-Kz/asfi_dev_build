@@ -14,6 +14,7 @@ const dashboard = async(req, res) => {
             Course = result[0]["course_assigned"]
             accountType = result[0]["acct_type"]
             Email = result[0]["email"]
+            ASFI_ID = result[0].unique_code 
           
             CourseYear = result[0]["school_year"] 
             const getAnnoucement = await dbPromise.query("SELECT * FROM announcements ORDER BY id DESC LIMIT 1")
@@ -26,11 +27,11 @@ const dashboard = async(req, res) => {
             announcementDate = getAnnoucement[0][0].timestamp
             }
         if(accountType == "user_account"){
-        res.render("dashboard.ejs", {root:"./public", status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, success:true})
+        res.render("dashboard.ejs", {root:"./public", status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, ASFI_CODE:ASFI_ID, success:true})
         }else if(accountType == "instructor_account"){
-            res.render("instructorDashboard.ejs", {status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, success:true})
+            res.render("instructorDashboard.ejs", {status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, ASFI_CODE:ASFI_ID, success:true})
         }else if(accountType == "scholar_account" || accountType == "administrator"){
-            res.render("scholarDashboard.ejs", { status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, success:true})
+            res.render("scholarDashboard.ejs", { status :"logged", logger:"logged", user : username_new, ProfileImage:ProfileImage, UserFirstname:UserFirstname, UserLastName:UserLastname, Course:Course, CourseYear:CourseYear, accountType:accountType, UserName:username_new, Email:Email, username:username_new, Username:username_new, UserName:username_new, announcementTitle, content, announcementDate, ASFI_CODE:ASFI_ID, success:true})
         }
     })
         }

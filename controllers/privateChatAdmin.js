@@ -180,7 +180,7 @@ const PrivateChatRoomAdmin = async (req, res) => {
         ChatBufferID: JSON.stringify(ChatBufferID),
         chat_id:bufferGeneratedMain,
         call_id: callerID,
-        UserName:req.admin.username, accountType:req.admin.acct_type, FirstName:req.admin.first_name, LastName: req.admin.last_name, ProfileImage: req.admin.profile_picture, Email:req.admin.email, UserFirstname:req.admin.first_name, UserLastName:req.admin.last_name, Course:"Course", CourseYear:"CourseYer", username:req.admin.username, Username:req.admin.username, UserName:req.admin.username
+        UserName:req.admin.username, accountType:req.admin.acct_type, FirstName:req.admin.first_name, LastName: req.admin.last_name, ProfileImage: req.admin.profile_picture, Email:req.admin.email, UserFirstname:req.admin.first_name, UserLastName:req.admin.last_name, Course:"Course", CourseYear:"CourseYer", username:req.admin.username, Username:req.admin.username, UserName:req.admin.username, ASFI_CODE:req.admin.unique_code
       });
       }else{
 

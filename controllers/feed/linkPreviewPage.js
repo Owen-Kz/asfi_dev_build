@@ -12,7 +12,7 @@ const dummyUser = {
 if(userData){
    const link = req.query.x 
 if(link){
-    res.render("linkPreview", { link, logger:"logged", user : userData.username, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:userData.username, Email:userData.email, username:userData.username, Username:userData.username, UserName:userData.username });
+    res.render("linkPreview", { link, logger:"logged", user : userData.username, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:userData.username, Email:userData.email, username:userData.username, Username:userData.username, UserName:userData.username, ASFI_CODE:req.user.unique_code });
 }else{
     res.redirect("/home")
 }

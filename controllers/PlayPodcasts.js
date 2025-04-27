@@ -41,7 +41,7 @@ const PlayPodcast = async (req,res) =>{
 
     
 
-    res.render("playing.ejs", { PodcastTitle:PodcastTitle, PodcastDuration:PodcastDuration, PodcastOwner:PodcastOwner, PodcastOwnerFullname:PodcastOwnerFullname, PodcastDate:PodcastDate,  Podcast_File:Podcast_File, BufferString:BufferString, podcastURL,     logger:"logged", user : userData.username, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:userData.username, Email:userData.email, username:userData.username, Username:userData.username, UserName:userData.username})
+    res.render("playing.ejs", { PodcastTitle:PodcastTitle, PodcastDuration:PodcastDuration, PodcastOwner:PodcastOwner, PodcastOwnerFullname:PodcastOwnerFullname, PodcastDate:PodcastDate,  Podcast_File:Podcast_File, BufferString:BufferString, podcastURL,     logger:"logged", user : userData.username, ProfileImage:userData.profile_picture, UserFirstname:userData.first_name, UserLastName:userData.last_name, Course:"Course", CourseYear:"CourseYear", accountType:userData.acct_type, UserName:userData.username, Email:userData.email, username:userData.username, Username:userData.username, UserName:userData.username, ASFI_CODE:req.user.unique_code})
     })
     }
 }else{

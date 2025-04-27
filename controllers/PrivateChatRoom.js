@@ -181,7 +181,7 @@ const PrivateChatRoom = async (req, res) => {
         ChatBufferID: JSON.stringify(ChatBufferID),
         chat_id:bufferGeneratedMain,
         call_id: callerID,
-        UserName:req.user.username, accountType:req.user.acct_type, FirstName:req.user.first_name, LastName: req.user.last_name, ProfileImage: req.user.profile_picture, Email:req.user.email, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYer", username:req.user.username, Username:req.user.username, UserName:req.user.username
+        UserName:req.user.username, accountType:req.user.acct_type, FirstName:req.user.first_name, LastName: req.user.last_name, ProfileImage: req.user.profile_picture, Email:req.user.email, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYer", username:req.user.username, Username:req.user.username, UserName:req.user.username, ASFI_CODE:req.user.unique_code
       });
       }else{
 

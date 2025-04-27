@@ -44,6 +44,7 @@ const Spaces = (req, res) => {
             announcementTitle,
             content,
             announcementDate,
+            ASFI_CODE:req.user.unique_code,
             success: true
           });
         }

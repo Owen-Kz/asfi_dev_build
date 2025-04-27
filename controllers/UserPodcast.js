@@ -56,7 +56,7 @@ const UserPodcast = async (req,res) => {
 
       
         res.render("podcast", {root: "./public/podcast", searchName: displayName, personTitle: title, personProfilePicture: profilePicture, accountStatus:accountStatus, visitor:visitor,searchUSERNAME:searchNameUser,  PODCAST_ARRAY:PODCAST_ARRAY,      currentPage: pagePodcasts,
-        totalPages: totalPagesPodcasts, podcast_owner_fullname: podcast_owner_fullname,  PodcastCount: podcastCount,     user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username}) 
+        totalPages: totalPagesPodcasts, podcast_owner_fullname: podcast_owner_fullname,  PodcastCount: podcastCount,     user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, ASFI_CODE:req.user.unique_code}) 
           
     
 } 
@@ -107,7 +107,7 @@ else {
             // totalPages: totalPagesPodcasts})
             res.render("podcast.ejs", { PODCAST_ARRAY:PODCAST_ARRAY, podcast:podcast, PodcastCount:PodcastCount,              logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, podcastCount: podcastCount,
                 currentPage: pagePodcasts,
-                totalPages: totalPagesPodcasts})
+                totalPages: totalPagesPodcasts, ASFI_CODE:req.user.unique_code})
     })
 
 

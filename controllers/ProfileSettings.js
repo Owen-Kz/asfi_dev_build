@@ -53,7 +53,7 @@ const ProfileSettings = async (req,res) =>{
             Title = result[0]["title"]
             Bio = result[0]["bio"]
             Prefix = result[0]["prefix"]
-            ASFI_ID = result[0].unique_code
+            ASFI_ID = result[0].unique_code 
 
             ID_ = result[0]["id"]
             CountryCode_ = result[0]["country_code"]

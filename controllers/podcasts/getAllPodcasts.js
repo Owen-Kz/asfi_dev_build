@@ -103,7 +103,7 @@ else {
                 
              return res.json({success:"podcasts",PODCAST_ARRAY:PODCAST_ARRAY, podcast:podcast, PodcastCount:PodcastCount,  accountType:accountType, userName:visitor, UserName:visitor, username:visitor, firstName:UserFirstname, FirstName: UserFirstname, firstname:UserFirstname, lastname:UserLastname, LastName:UserLastname, Lastname:UserLastname, lastName:UserLastname, Email:Email, profilePicture:ProfileImage, ProfilePicture:ProfileImage, profile_photo:ProfileImage, profile_picture:ProfileImage, podcast_owner_fullname:podcast_owner_fullname, podcastCount: podcastCount,
             currentPage: pagePodcasts,
-            totalPages: totalPagesPodcasts})
+            totalPages: totalPagesPodcasts, ASFI_CODE:req.user.unique_code})
     })
 
 
