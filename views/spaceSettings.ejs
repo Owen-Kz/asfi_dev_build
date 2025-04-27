@@ -277,13 +277,30 @@
           <label for="passkey">Delete Space:</label>
           <button type="button" class="btn cta" style="border-radius: 10px; background-color: #fd3b35; color: white; width: 40%;" id="delete_space">Delete</button>
         </div><br>
-        <div class="form-control cta" style="width: 60%; ">
-          <form action="" style="width: 100%;display: flex; justify-content: space-between; align-items: center;">
-            <label for="passkey">Change Thumbnail:</label>
-            <input type="file" accept="image/*" name="editThumbnail" id="edit_thumbnail" class="btn cta" style="border-radius: 10px; width: 40%;">
-            <button type="button" class="btn cta" style="border-radius: 10px; background-color: blueviolet; color: white;">save</button>
+        <div class="form-control cta" style="width: 60%;">
+          <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+          <% if(SpaceCover !== "" && SpaceCover !== "cover.jpg") { %>
+
+            <img src="<%=SpaceCover %>" alt="" style=" width: 100px; margin-top: 10px; border-radius: 10px;" id="previousImage">
+            <% } %>
+           
+            <!-- previous image  -->
+          <form id="thumbnailForm" method="POST" enctype="multipart/form-data" style="width: 100%; display: flex; flex-direction: column; gap: 10px;" >
+            <label for="edit_thumbnail">Change Thumbnail:</label>
+       
+      
+            <input type="file" accept="image/*" name="editThumbnail" id="edit_thumbnail" class="btn cta" style="border-radius: 10px; width: 100%;">
+       
+            <!-- Preview image -->
+            <img id="previewImage" src="" alt="Preview" style="display: none; width: 200px; margin-top: 10px; border-radius: 10px;">
+        
+            <!-- Buttons -->
+            <div style="display: none; gap: 10px;" id="actionButtons">
+              <button type="button" id="saveButton" class="btn cta" style="border-radius: 10px; background-color: blueviolet; color: white;">Save</button>
+              <button type="button" id="cancelButton" class="btn cta" style="border-radius: 10px; background-color: crimson; color: white;">Cancel</button>
+            </div>
           </form>
-          
+          </div>
         </div>
         <div class="settings-container">
            <div class="columnster waitinglist-container">
@@ -442,6 +459,7 @@ closeButtonChat.addEventListener("click", function(){
           });
       
       </script>
+      <script src="/js/spaces/editSpaceCoverPhoto.js"></script>
 </body>
 
 

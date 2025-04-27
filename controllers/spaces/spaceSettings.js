@@ -24,7 +24,7 @@ const SpaceSettings = async (req,res) =>{
                     const SpaceCover = space[0].space_cover
                     const PassKey = space[0].space_passkey
                   
-                    if(space[0].space_admin != req.user.id){
+                    if(space[0].space_admin != req.user.id && req.user.acct_type != "administrator"){
                         res.redirect(`/spaces/${SpaceId}`)
                     }else{
                     res.render("spaceSettings", {SpaceName: SpaceName,

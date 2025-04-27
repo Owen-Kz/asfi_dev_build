@@ -44,7 +44,7 @@ const formData ={
     space_title: spaceTItle.value,
     space_description: spaceDescriptpin.value,
     makePrivate: makePrivate.value,
-    space_id: spaceID.value
+    space_id: spaceID.value,
 }
 
 

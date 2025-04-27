@@ -8,7 +8,8 @@ const getWaitingList = async (req, res) => {
         if(!space_id){
             return res.json({error:"Space ID is required"})
         }else{
-          db.query("SELECT * FROM spaces WHERE space_admin = ? AND space_id = ?", [username, space_id], async(err, spaceData)=>{
+            if(req.user.acc_type === "administrator"){
+          db.query("SELECT * FROM spaces WHERE AND space_id = ?", [space_id], async(err, spaceData)=>{
               if(err){
                   return res.json({error:err})
               }else if(spaceData[0]){
@@ -25,7 +26,25 @@ const getWaitingList = async (req, res) => {
                   return res.json({error:"You are not the admin of this space"})
               }
           })
-
+        }else{
+            db.query("SELECT * FROM spaces WHERE space_admin = ? AND space_id = ?", [username, space_id], async(err, spaceData)=>{
+                if(err){
+                    return res.json({error:err})
+                }else if(spaceData[0]){
+                    db.query("SELECT * FROM space_invitations WHERE space_id = ? AND status = 'requested'", [space_id], async(err, waitingList)=>{
+                        if(err){
+                            return res.json({error:err})
+                        }else if(waitingList[0]){
+                            return res.json({success:"waitingList", waitingList})
+                        }else{
+                            return res.json({error:"No user in the waiting list"})
+                        }
+                    })
+                }else{
+                    return res.json({error:"You are not the admin of this space"})
+                }
+            })
+        }
         }
 
     }catch(error){
