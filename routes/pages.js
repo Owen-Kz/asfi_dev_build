@@ -232,6 +232,7 @@ const previewAnnouncement = require("../controllers/previewAnnouncement");
 const linkPreviewPage = require("../controllers/feed/linkPreviewPage");
 const FollowUserFromFeed = require("../controllers/scholarContols/followUserFromFeed");
 const UnfollowFromFeed = require("../controllers/scholarContols/unfollowUser");
+const updateSpaceCover = require("../controllers/spaces/updateSpaceCover");
 
 // ADMINISTRATOR 
 
@@ -1122,7 +1123,7 @@ router.post("/joinSpaceRoom", LoggedIn, joinSpaceWaitingRoom)
 // router.post("/joinSpace", LoggedIn, JoinSpace)
 router.post("/getWaitingList", LoggedIn, getWaitingList)
 router.post("/updateSpaceSettings", LoggedIn, updateSpaceData)
-
+router.post("/editSpaceCoverPhoto", LoggedIn, updateSpaceCover)
 router.get("/directory/users/spaces/:space_id", LoggedIn, GetUsersToInvite)
 router.get("/s/m/spaces/accept/:space_id", LoggedInExternal, acceptInvitationPage)
 
