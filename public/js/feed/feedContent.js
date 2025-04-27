@@ -272,43 +272,80 @@ const options = {
   minute: '2-digit',
   hour12: true,
 };
-
+const postId = link;
 const formatted = date.toLocaleString('en-US', options).replace(',', ' at');
-            card.className = `card ${smallHeight}`;
-            card.innerHTML = `
-                <div class="card_image ${is_asfirj}">
-                    <a href="${link}">
-                        <img src="${image}" alt="${type}_image">
-                    </a>
-                </div>
-                <div class="card_body">
-                 <div class="author">
-                 <a href="@${person}">
-                        <div class="authorImage">
-                            <img src="${profilePicture}" alt="${person}_image">
-                        </div>
-                        <div class="extra">
-                        <div class="authorName">${firstName} ${lastName} (${person})</div>
-                        <div class="date">${formatted}</div>
-                        </div>
-                        
-                </a>
-                        
-                </div>
-                    <div class="title"><a href="${link}">${title}</a></div>
-                   
-                    <div class="cardFooter">
-                        <div class="itemType">${fileType}</div>
-                    </div>
-                </div>
-                <div class="divider"></div>
-                <div class="cardAction">
-                <button class="cardActionButton"><a href="${link}"><span class="solar--download-bold-duotone"></span> View</a></button>
-                
-                ${followButton}
-                 <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="share('${link}')"><span class="solar--share-linear"></span> Share</button>
-                </div>
-            `;
+
+// Set the class and build the card content
+card.className = `card ${smallHeight}`;
+card.innerHTML = `
+  <div class="card_image ${is_asfirj}">
+    <a href="${link}">
+      <img src="${image}" alt="${type}_image">
+    </a>
+  </div>
+  <div class="card_body">
+    <div class="author">
+      <a href="@${person}">
+        <div class="authorImage">
+          <img src="${profilePicture}" alt="${person}_image">
+        </div>
+        <div class="extra">
+          <div class="authorName">${firstName} ${lastName} (${person})</div>
+          <div class="date">${formatted}</div>
+        </div>
+      </a>
+
+      <!-- Reaction Container -->
+      <div class="reaction-container" data-post-id="${postId}">
+        <button class="reaction-button">React</button>
+        <div class="reaction-options">
+          <span data-reaction="👍">👍</span>
+          <span data-reaction="❤️">❤️</span>
+          <span data-reaction="👏">👏</span>
+          <span data-reaction="😲">😲</span>
+          <span data-reaction="🤝">🤝</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="title"><a href="${link}">${title}</a></div>
+    <div class="cardFooter">
+      <div class="itemType">${fileType}</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="cardAction">
+    <button class="cardActionButton"><a href="${link}"><span class="solar--download-bold-duotone"></span> View</a></button>
+    ${followButton}
+    <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="share('${link}')"><span class="solar--share-linear"></span> Share</button>
+  </div>
+`;
+
+const container = card.querySelector('.reaction-container');
+const reactpostId = container.getAttribute('data-post-id');
+const button = container.querySelector('.reaction-button');
+const reactoptions = container.querySelector('.reaction-options');
+
+// Load stored reaction from localStorage (if exists)
+const storedReaction = localStorage.getItem(`reaction-${reactpostId}`);
+if (storedReaction) {
+  button.textContent = storedReaction; // Update the button with stored reaction
+}
+
+// Toggle reaction options visibility on button click
+button.addEventListener('click', () => {
+  reactoptions.classList.toggle('show');
+});
+
+// Handle selecting a reaction
+reactoptions.querySelectorAll('span').forEach(option => {
+  option.addEventListener('click', () => {
+    const reaction = option.getAttribute('data-reaction');
+    button.textContent = reaction; // Update button text
+    localStorage.setItem(`reaction-${postId}`, reaction); // Save reaction to localStorage
+    reactoptions.classList.remove('show'); // Close the options
+  });
+});
 
             feedContainer.appendChild(card);
             
