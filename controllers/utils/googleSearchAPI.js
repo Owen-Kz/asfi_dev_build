@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { config } = require('dotenv');
+const puppeteer = require("puppeteer");
 
 async function getScholarProfile(name) {
     const response = await axios.get('https://serpapi.com/search.json?', {
@@ -10,14 +11,15 @@ async function getScholarProfile(name) {
         }
     });
     return response.data;
-}
 
-// getScholarProfile()
-//     .then(data => {
-//         console.log(data)
-//        return data
-//     })
-//     .catch(error => console.error(error));
+    File: scholarScraper.js
+
+
+
+
+ 
+
+}
 
 
 

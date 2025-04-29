@@ -9,6 +9,7 @@ const findPublications = async (userEmail) =>{
                 method: "GET"
             })
             const responseData = await response.json() || [{articlesList: []}]
+
             if(!response.ok){
                 throw new Error(responseData.message || "Failed to fetch publications")
             }

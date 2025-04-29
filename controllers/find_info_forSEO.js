@@ -1,4 +1,5 @@
 const dbPromise = require("../routes/dbPromise.config");
+const countPublications = require("./feed/countPublications/countPublications");
 
 const summation_FX = 5;
 
@@ -107,7 +108,7 @@ const find_info_for_SEO = async (req, res) => {
         Orchid: ""
       });
     }
-
+    const publicationsCount = await countPublications(username_visitor);
     res.render("profileForSEO", {
       searchName: displayName,
       personTitle: user.title || "Dr.",
@@ -140,7 +141,8 @@ const find_info_for_SEO = async (req, res) => {
       tutorialSum: TutorialCount,
       SocialLinks: JSON.stringify(socialLinksArray),
       username_visitor,
-      prefix: user.prefix
+      prefix: user.prefix,
+      publicationsCount
     });
   } catch (error) {
     console.error(error);

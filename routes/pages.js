@@ -233,6 +233,9 @@ const linkPreviewPage = require("../controllers/feed/linkPreviewPage");
 const FollowUserFromFeed = require("../controllers/scholarContols/followUserFromFeed");
 const UnfollowFromFeed = require("../controllers/scholarContols/unfollowUser");
 const updateSpaceCover = require("../controllers/spaces/updateSpaceCover");
+const maybeRunGetAllSavedScholars = require("../controllers/feed/SaveGoogleInMonths");
+const saveReaction = require("../controllers/feed/saveReactions");
+const getReactions = require("../controllers/feed/getReactions");
 
 // ADMINISTRATOR 
 
@@ -441,7 +444,7 @@ router.get("/@:username",LoggedIn, profile_page, find_info);
 router.get("/s/:username",LoggedIn, profile_page, find_info);
 
 // GET THE PROFILE PAGE FOR SEO 
-router.get("/v/:username", find_info_for_SEO);
+router.get("/v/:username", LoggedInExternal, find_info_for_SEO);
 // GET THE TUTORIALS PAGE 
 router.get("/tutorials", LoggedIn, renderTutorialsPage)
 router.get("/feedTutorials", LoggedIn, displayTutorials)
@@ -1104,6 +1107,8 @@ router.post("/getMessageNotifications", LoggedIn, getMessageNotifications)
 router.get("/feed", LoggedIn, feedsPage)
 // Get the feed of people user follows
 router.get("/getPeopleFeed", LoggedIn, getPeopleFollowed)
+router.post("/feed/saveReaction", LoggedIn, saveReaction)
+router.post("/feed/getReactions", LoggedIn, getReactions)
 
 // Get user public data  
 router.get("/getUserPublicData/:username", getUserInfo)
@@ -1133,8 +1138,7 @@ router.get('/sitemap.xml', siteMap)
 router.get("/findGoogleScholar", getGoogleProfile) 
 router.post("/deleteSpace/:space_id", LoggedIn, deleteSpace)
 
-
-
+maybeRunGetAllSavedScholars()
 // For ASFIRJ FILE PROCESSING 
 router.post("/mergeFilesAPI", mergeAPI)
 router.post("/deleteFileAPI", deleteFile)

@@ -296,7 +296,7 @@ card.innerHTML = `
       </a>
 
       <!-- Reaction Container -->
-      <div class="reaction-container" data-post-id="${postId}">
+      <div class="reaction-container" data-post-id="${postId}" data-post-type="${type}">
         <button class="reaction-button">React</button>
         <div class="reaction-options">
           <span data-reaction="👍">👍</span>
@@ -323,11 +323,48 @@ card.innerHTML = `
 
 const container = card.querySelector('.reaction-container');
 const reactpostId = container.getAttribute('data-post-id');
+const postType = container.getAttribute('data-post-type');
 const button = container.querySelector('.reaction-button');
 const reactoptions = container.querySelector('.reaction-options');
 
 // Load stored reaction from localStorage (if exists)
-const storedReaction = localStorage.getItem(`reaction-${reactpostId}`);
+async function getReactions(){
+    
+  return  fetch(`/feed/getReactions`, {
+        method:"POST",
+        headers:{
+            "Content-type": "application/JSON"
+        },
+        body: JSON.stringify({
+            post_id:reactpostId,
+            post_type:type
+        })
+    }).then(res=>res.json())
+    .then(data => {
+        if(data.error){
+            console.log(data.error)
+            return {reaction_type:"", reaction_count:0}
+        }else{
+            return data
+        }
+    })
+}
+
+const myReaction = await getReactions()
+const myReactionContent = myReaction.reaction_type
+const storedReaction =  myReactionContent ? myReactionContent  : localStorage.getItem(`reaction-${reactpostId}`);
+const TotalReactions = myReaction.reaction_count
+const reactionCount = document.createElement("div");
+reactionCount.className = "reaction-count";
+let reactionsText = "reaction"
+if(TotalReactions > 1){
+    reactionsText = "reactions"
+}else if(TotalReactions == 0){
+    reactionsText = "reactions"
+}
+reactionCount.innerHTML = `<span>${TotalReactions} ${reactionsText}</span>`;
+container.appendChild(reactionCount);
+
 if (storedReaction) {
   button.textContent = storedReaction; // Update the button with stored reaction
 }
@@ -342,8 +379,31 @@ reactoptions.querySelectorAll('span').forEach(option => {
   option.addEventListener('click', () => {
     const reaction = option.getAttribute('data-reaction');
     button.textContent = reaction; // Update button text
-    localStorage.setItem(`reaction-${postId}`, reaction); // Save reaction to localStorage
+    localStorage.setItem(`reaction-${reactpostId}`, reaction); // Save reaction to localStorage
+
+    reactionCount.innerHTML = `<span>${new Number(TotalReactions)+1} ${reactionsText}</span>`;
+    container.appendChild(reactionCount);
+    
     reactoptions.classList.remove('show'); // Close the options
+    const reactionData = {
+        reactionType:reaction,
+        post_id:reactpostId,
+        post_type:type
+    }
+    fetch(`/feed/saveReaction`,{
+      method:"POST",
+      headers:{
+        "Content-type": "application/JSON"
+      },
+    body: JSON.stringify(reactionData)
+    }).then(res => res.json())
+    .then(data =>{
+        if(data.error){
+            console.log(data.error)
+        }else{
+            console.log(data.success)
+        }
+    })
   });
 });
 

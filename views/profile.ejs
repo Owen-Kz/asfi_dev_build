@@ -291,10 +291,10 @@ Page Banner START -->
 									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0">
                                         <a href="#">
 											<!-- <button class="buttons">										</button> -->
-                                        <i class="fas fa-book text-purple me-1"></i><% if(BooksSum > 1 || BooksSum == 0) { %>
-                                            <span><%= BooksSum %> Publications</span> 
+                                        <i class="fas fa-book text-purple me-1"></i><% if(publicationsCount > 1 || publicationsCount == 0) { %>
+                                            <span><%= publicationsCount %> Publications</span> 
                                             <% } else { %>
-                                                <span><%= BooksSum %> Publication</span>  
+                                                <span><%= publicationsCount %> Publication</span>  
                                             <% } %>
 										</a>										
                                     </li>
@@ -374,7 +374,7 @@ Page content START -->
 							<div class="ms-3">
 								<div class="d-flex">
 									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="36"	data-purecounter-delay="200"></h5>
-									<span class="mb-0 h5"><%= BooksSum %></span>
+									<span class="mb-0 h5"><%= publicationsCount %></span>
 								</div>
 								<p class="mb-0 h6 fw-light">Total Publications</p>
 							</div>
