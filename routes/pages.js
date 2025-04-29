@@ -1112,7 +1112,7 @@ router.post("/openMessageNotification", LoggedIn, openMessageNotifications)
 router.post("/countNotifcations", LoggedIn, countMyNotifications)
 router.post("/markAllAsRead", LoggedIn, markAsRead)
 // Feeds page 
-router.get("/feed", LoggedIn, feedsPage)
+router.get("/feed", LoggedInExternal, feedsPage)
 // Get the feed of people user follows
 router.get("/getPeopleFeed", LoggedIn, getPeopleFollowed)
 router.post("/feed/saveReaction", LoggedIn, saveReaction)
