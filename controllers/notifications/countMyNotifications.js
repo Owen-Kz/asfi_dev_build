@@ -5,7 +5,7 @@ const countMyNotifications = async (req,res) =>{
         const userID = req.user.id
         const username = req.user.username 
         const CheckNotification = await dbPromise.query(`SELECT COUNT(*) as notifications_count FROM new_notifications WHERE (recipient = ? OR recipient = ? OR isAnnouncement = 'yes') 
-            AND (end_point != '' OR end_point NOT LIKE ?) AND status = 'unread'`, [username, userID, '%chat'])
+            AND (end_point NOT LIKE ?) AND status = 'unread'`, [username, userID, '%chat'])
         const myMessageNotifications = await dbPromise.query("SELECT COUNT(*) as message_count FROM message_notifications WHERE (recipient = ? OR recipient =?) AND status = 'unread'", [username, userID])
         if(CheckNotification[0].length > 0){
             return res.json({success:"Notifications Available", notifications_count:CheckNotification[0][0].notifications_count, message_count:myMessageNotifications[0][0].message_count})
