@@ -21,7 +21,7 @@ const feedsPage = async (req,res) =>{
 
         res.render("feed", {status :"logged", logger:"logged", user : req.user.username, ProfileImage:userProfileImage, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, announcementTitle, content, announcementDate, ASFI_CODE:req.user.unique_code, success:true})
         }else{
-            res.render("login")
+            res.render("loginExternal")
         }
     }catch(error){
         console.log(error)
