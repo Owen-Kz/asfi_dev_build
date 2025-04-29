@@ -296,7 +296,7 @@ card.innerHTML = `
       </a>
 
       <!-- Reaction Container -->
-      <div class="reaction-container" data-post-id="${postId}" data-post-type="${type}">
+      <div class="reaction-container" data-post-id="${postId}" data-post-type="${type}" data-post-person="${person}">
         <button class="reaction-button">React</button>
         <div class="reaction-options">
           <span data-reaction="👍">👍</span>
@@ -324,6 +324,7 @@ card.innerHTML = `
 const container = card.querySelector('.reaction-container');
 const reactpostId = container.getAttribute('data-post-id');
 const postType = container.getAttribute('data-post-type');
+
 const button = container.querySelector('.reaction-button');
 const reactoptions = container.querySelector('.reaction-options');
 
@@ -383,12 +384,13 @@ reactoptions.querySelectorAll('span').forEach(option => {
 
     reactionCount.innerHTML = `<span>${new Number(TotalReactions)+1} ${reactionsText}</span>`;
     container.appendChild(reactionCount);
-    
+
     reactoptions.classList.remove('show'); // Close the options
     const reactionData = {
         reactionType:reaction,
         post_id:reactpostId,
-        post_type:type
+        post_type:type,
+        person:person,
     }
     fetch(`/feed/saveReaction`,{
       method:"POST",

@@ -1817,3 +1817,8 @@ margin: auto;
 .search-modal-content form{
   display: flex;
 }
+
+
+.unread{
+  background: #ce08ff46;
+}

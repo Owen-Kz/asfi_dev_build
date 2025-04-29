@@ -236,6 +236,10 @@ const updateSpaceCover = require("../controllers/spaces/updateSpaceCover");
 const maybeRunGetAllSavedScholars = require("../controllers/feed/SaveGoogleInMonths");
 const saveReaction = require("../controllers/feed/saveReactions");
 const getReactions = require("../controllers/feed/getReactions");
+const openNotifications = require("../controllers/notifications/openNotifications");
+const openMessageNotifications = require("../controllers/notifications/openMessageNotification");
+const countMyNotifications = require("../controllers/notifications/countMyNotifications");
+const markAsRead = require("../controllers/notifications/markAllAsRead");
 
 // ADMINISTRATOR 
 
@@ -1103,6 +1107,10 @@ router.post("/y/saveSpaceMessage", saveSpaceMessage)
 
 // GEt messag enotifications  
 router.post("/getMessageNotifications", LoggedIn, getMessageNotifications)
+router.post("/openNotification", LoggedIn, openNotifications)
+router.post("/openMessageNotification", LoggedIn, openMessageNotifications)
+router.post("/countNotifcations", LoggedIn, countMyNotifications)
+router.post("/markAllAsRead", LoggedIn, markAsRead)
 // Feeds page 
 router.get("/feed", LoggedIn, feedsPage)
 // Get the feed of people user follows

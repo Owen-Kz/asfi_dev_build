@@ -17,20 +17,21 @@ fetch("/getMessageNotifications", {
 
     if (data.notifications.length > 0) {
         // Update the counter to show the number of new notifications
-        chatsCounter.textContent = data.notifications.length;
+        // chatsCounter.textContent = messageCount;
 
         const notificationArray = data.notifications;
 
         notificationArray.forEach(Notification => {
             const notificationElement = document.createElement("div");
             notificationElement.classList.add("notification");
+            notificationElement.classList.add(`${Notification.status}`);
 
             notificationElement.innerHTML = `
                 <div class="icon">
                     <img src="${Notification.sender_image}" alt="notification_image">
                 </div>
-                <div class="notification_body">
-                    <a href="${Notification.end_point}">
+                <div class="notification_body" >
+                    <a href="${Notification.end_point}" onclick="OpenMessageNotification(${Notification.id})">
                         <div class="title">${Notification.content}:</div>
                     </a>
                     <div class="timestamp">${formatTime(Notification.date_sent)}</div>
@@ -55,3 +56,27 @@ chatIcon.addEventListener("click", () => {
     // Option 2: Reset it to zero
     // chatsCounter.textContent = "0";
 });
+
+
+function OpenMessageNotification(id){
+    const notificationId = id
+    const openNotification = {
+        notification_id: notificationId,
+    }
+    fetch("/openMessageNotification", {
+        method:"POST",
+        headers:{
+            "Content-type" : "application/JSON"
+        },
+        body: JSON.stringify(openNotification),
+
+    }).then(res => res.json())
+    .then(data =>{
+        if(data.success){
+            console.log(data.success)
+         
+        }else{
+            console.log(data.error)
+        }
+    })
+}
