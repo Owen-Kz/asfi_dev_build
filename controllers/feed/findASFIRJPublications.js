@@ -20,6 +20,7 @@ const findPublications = async (userEmail) =>{
                 throw new Error("No articles found")
             }
             const ArticleList = responseData.articlesList
+         
   
          
             if(ArticleList.length > 0){

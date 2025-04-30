@@ -22394,3 +22394,61 @@ form{
     white-space: pre-wrap;
   }
 }
+
+
+/* Loader Styles */
+#custom-loader {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bs-body-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader-logo img {
+  /* width: 170px; */
+  height: 170px;
+  /* border-radius: 50%; */
+  object-fit: cover;
+}
+@media screen and (max-width: 240px), (max-width: 360px), (max-width: 480px), (max-width: 720px), (max-width: 1080px) {
+  .loader-logo img {
+    /* width: 170px; */
+    height: 90px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+  }
+}
+
+.loader-footer {
+  position: absolute;
+  margin-top: 45%;
+  bottom: 30px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--bs-header-color);
+  font-family: 'Inter', sans-serif;
+}
+.loader-logo {
+  margin-bottom:80px;
+}
+
+.loader-footer strong {
+  display: block;
+  color: rgb(255, 150, 0);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Hide class */
+#custom-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
