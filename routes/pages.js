@@ -648,6 +648,7 @@ router.get("/easyFlex/reset",(req,res)=>{
 
 
 router.get("/createPassword", (req,res) => {
+    
     const emailData = JSON.parse(req.cookies.resetPasswordData)|| {}
     const ConfrimCodeData_ = req.session.tokenData || {}
 

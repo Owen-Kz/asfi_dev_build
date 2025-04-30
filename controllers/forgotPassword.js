@@ -1,13 +1,17 @@
 const db = require("../routes/db.config");
 const sendEmail = require("./utils/sendEmail");
 const generateResetToken = require("./admin/generateResetToken");
+const dbPromise = require("../routes/dbPromise.config");
  
 
 
 const forgotPassword = async (req, res) => {
   const currentYear = new Date().getFullYear();
-
       const { email, message } = req.body;
+  const checkIfUSERExists = await dbPromise.query("SELECT * FROM user_info WHERE email = ?", [email])
+  if(checkIfUSERExists[0].length > 0){
+
+
       if(!email) return res.json({ status: "error", error: "Please fill all fields"});
       else{
 
@@ -19,7 +23,7 @@ const forgotPassword = async (req, res) => {
       db.query('UPDATE user_info SET resetToken = ? WHERE email = ?', [resetToken, email],async (err) => {
         if (err) {
           console.error('Error updating resetToken:', err);
-          res.json({ status:"error", message: 'Internal server error' });
+        return  res.json({ status:"error", message: 'Internal server error' });
         } else {
           // Create an email message 
           const emailDataH  = { email:email, message:message };
@@ -54,7 +58,6 @@ const forgotPassword = async (req, res) => {
       const mainMessage = `  
       <html>
       <body>
-<%- include ("loader") %>
       <div class="strongText">Your password reset code is: <h2>${resetToken} </h2>
         <br> if this was not initiated by you please ignore.
         <br>Do Not Provide this code to anyone</div>
@@ -75,7 +78,7 @@ const forgotPassword = async (req, res) => {
           </html>
           `
       await sendEmail(email,subject, mainMessage)
-      res.json({status:"success", message: 'Reset token sent to your email', emailData:JSON.stringify(emailDataH)});
+     return res.json({status:"success", message: 'Reset token sent to your email', emailData:JSON.stringify(emailDataH)});
       // res.render("confirmCode", {message:"Code has been Sent to your email", email:email})
       // sgMail
       //   .send(msg)
@@ -89,7 +92,10 @@ const forgotPassword = async (req, res) => {
         }
       });
     }
-
+  }else{
+ 
+    return res.json({status:"error", message: 'This User Does not exist'})
+  }
   };
   
 

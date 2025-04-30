@@ -19,8 +19,7 @@ resetForm.addEventListener("submit", () =>{
         SetCookies("emailData", data.emailData)
           window.location.href = `/easyFlex/reset`; // Change to the actual rout 
         }else{
-          console.log(data.message)
-          console.log(data)
+          alert(data.message)
         }
       })
 })
