@@ -12,13 +12,13 @@ try{
     }
     const personID_main = personID[0][0].id
    
-    const CheckNotificatoinsExist = await dbPromise.query("SELECT * FROM new_notifications WHERE endpoint = ? AND (recipient = ? OR recipient = ?)", [post_id, person, personID_main] )
+    const CheckNotificatoinsExist = await dbPromise.query("SELECT * FROM new_notifications WHERE end_point = ? AND (recipient = ? OR recipient = ?)", [post_id, person, personID_main] )
 
     if(CheckNotificatoinsExist[0].length > 0){
 
     }else{
         const notification = `${userName} reacted to your post`
-        const SaveNotification = await dbPromise.query("INSERT INTO new_notifications SET ?", [{endpoint:post_id, content:notification, recipient:person, sender:userName, sender_image:req.user.profile_picture}])
+        const SaveNotification = await dbPromise.query("INSERT INTO new_notifications SET ?", [{end_point:post_id, content:notification, recipient:person, sender:userName, sender_image:req.user.profile_picture}])
         if(SaveNotification[0].affectedRows > 0){
             console.log("Notification Saved")
         }
