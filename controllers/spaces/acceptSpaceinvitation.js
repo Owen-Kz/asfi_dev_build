@@ -3,20 +3,20 @@ const db = require("../../routes/db.config");
 const acceptSpaceInvitation = async (req, res) => {
 
     try {
-        const { space_id, user } = req.body
-        console.log(req.user.username)
-        console.log(user)
-        const username = user
+        const { space_id, username, email, unique_code } = req.body
+        
+    
+        const user = username
         if (!username) {
             return res.json({ error: "Username is required" })
         }
         if (!space_id) {
             return res.json({ error: "Space ID is required" })
         } else {
-            db.query("SELECT * FROM space_invitations WHERE user =? AND space_id =? AND status = 'invited' ", [user, space_id], async (err, spaceData) => {
+            db.query("SELECT * FROM space_invitations WHERE (user =? OR user = ? OR user = ?) AND space_id =? AND status = 'invited' ", [user, email, unique_code, space_id], async (err, spaceData) => {
                 if (err) throw err
                 if (spaceData[0]) {
-                    db.query("DELETE FROM space_invitations WHERE user =? AND space_id =?", [user, space_id], async (err, deleteData) => {
+                    db.query("DELETE FROM space_invitations WHERE (user =? OR user = ? OR user = ?) AND space_id =?", [user, email, unique_code, space_id], async (err, deleteData) => {
                         if (err) throw err
                         if (deleteData) {
                             db.query("INSERT INTO space_participants SET ?", [{ username: user, space_id: space_id }], async (err, insert) => {

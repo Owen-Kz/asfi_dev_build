@@ -30,7 +30,7 @@ const acceptInvitationPage =(req,res) =>{
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({user:req.user.username, space_id:SpaceId})
+                                body: JSON.stringify({username:req.user.username, email:req.user.email, unique_code:req.user.unique_code, space_id:SpaceId})
                             }); 
                         
                             const acceptInvite = await response.json(); 
