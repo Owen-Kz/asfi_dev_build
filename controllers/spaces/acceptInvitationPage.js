@@ -22,9 +22,7 @@ const acceptInvitationPage =(req,res) =>{
                             console.log(err)
                             return res.json({error:err})
                         }
-                        console.log(SpaceId)
-                        console.log(req.user)
-                        console.log(req.user.username, req.user.unique_code, req.user.email)
+                   
 
                         if(data[0]){
                             const response = await fetch(`${process.env.CURRENT_SCHOLAR_DOMAIN}/acceptSpaceInvitations`, {
