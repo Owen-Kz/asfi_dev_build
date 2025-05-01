@@ -19,8 +19,12 @@ const acceptInvitationPage =(req,res) =>{
 
                     db.query("SELECT * FROM space_invitations WHERE (user =? OR user =? OR user = ?) AND space_id = ? ", [req.user.username, req.user.unique_code, req.user.email, SpaceId], async(err, data)=>{
                         if(err){
+                            console.log(err)
                             return res.json({error:err})
                         }
+                        console.log(req.user.username, req.user.unique_code, req.user.email)
+                        console.log(SpaceId)
+                        console.log(req.user)
                         console.log(data)
                         if(data[0]){
                             const response = await fetch(`${process.env.CURRENT_SCHOLAR_DOMAIN}/acceptSpaceInvitations`, {
