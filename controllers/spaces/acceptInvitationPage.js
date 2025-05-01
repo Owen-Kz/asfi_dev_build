@@ -18,6 +18,9 @@ const acceptInvitationPage =(req,res) =>{
                     }
 
                     db.query("SELECT * FROM space_invitations WHERE (user =? OR user =? OR user = ?) AND space_id = ? ", [req.user.username, req.user.unique_code, req.user.email, SpaceId], async(err, data)=>{
+                        
+                        console.log(data)
+                        console.log(req.user.username, req.user.unique_code, req.user.email)
                         if(err){
                             console.log(err)
                             return res.json({error:err})
