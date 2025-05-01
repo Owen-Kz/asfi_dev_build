@@ -21,6 +21,7 @@ const acceptInvitationPage =(req,res) =>{
                         if(err){
                             return res.json({error:err})
                         }
+                        console.log(data)
                         if(data[0]){
                             const response = await fetch(`${process.env.CURRENT_SCHOLAR_DOMAIN}/acceptSpaceInvitations`, {
                                 method: 'POST',
