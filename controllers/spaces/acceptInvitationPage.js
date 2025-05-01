@@ -39,7 +39,7 @@ const acceptInvitationPage =(req,res) =>{
                             if(acceptInvite.success){
                             res.render("spaceInvitationAccept", {SpaceName, SpaceDescription, SpaceMembersCount, SpaceCover,   user_first_name:req.user.first_name,
                                 user_last_name:req.user.last_name,
-                                username: req.user.username, user_profile_picture:req.user.profile_picture, Email:req.user.email, spaceId:SpaceId, ASFI_CODE:req.user.unique_code})
+                                username: req.user.username, user_profile_picture:req.user.profile_picture, Email:req.user.email, spaceId:SpaceId, ASFI_CODE:req.user.unique_code, logger:"logged", user : req.user.username, ProfileImage:req.user.profile_picture, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, Username:req.user.username, UserName:req.user.username,})
                             }else{
                                 res.render("error", {error:"Page Not found", status:`${acceptInvite.error}`, message:"Invalid Space Id Provided"})
                             }
