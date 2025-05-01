@@ -17,7 +17,7 @@ const acceptInvitationPage =(req,res) =>{
                         isAdmin = "yes"
                     }
 
-                    db.query("SELECT * FROM space_invitations WHERE user =? AND space_id = ? ", [req.user.username, SpaceId], async(err, data)=>{
+                    db.query("SELECT * FROM space_invitations WHERE (user =? OR user =?) AND space_id = ? ", [req.user.username, req.user.id, SpaceId], async(err, data)=>{
                         if(err){
                             return res.json({error:err})
                         }
