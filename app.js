@@ -142,6 +142,12 @@ db.connect((err) => {
     console.log(`Database connected and server running on ${PORT}`);
 })
 
+setInterval(() => {
+    db.query('SELECT 1');
+  }, 60000); // 1 minute
+  
+  
+
 
 
 // const WebSocketServer = new WebSocket.Server({ port: WEBSOCKET_PORT });
