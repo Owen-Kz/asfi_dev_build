@@ -36,6 +36,7 @@ require('debug')('socket.io');
 const WebSocket = require("ws");
 const { spawn } = require("child_process");
 const fs = require("fs");
+const dbPromise = require("./routes/dbPromise.config");
 
 // Ensure recordings directory exists
 const recordingsDir = path.join(__dirname, "recordings");
@@ -84,13 +85,7 @@ app.use(express.urlencoded({ limit: '5000mb', extended: true }));
 
 
 // Configure the session store
-const sessionStore = new MySQLStore({
-  host: process.env.DATABASE_HOST,
-  port: '3306',
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE,
-});
+const sessionStore = new MySQLStore({}, dbPromise);
 
 
 app.use(session({
