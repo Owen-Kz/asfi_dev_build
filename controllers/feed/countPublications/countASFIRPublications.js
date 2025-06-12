@@ -21,7 +21,6 @@ const ASFIRJ_PUBLICATIONS = async (firstname, lastname) => {
         if (responseData.count === undefined || responseData.count === null) {
             throw new Error("No articles found");
         }
-
         return responseData.count;
 
     } catch (error) {

@@ -1,4 +1,6 @@
 const db = require("../../routes/db.config");
+const dbPromise = require("../../routes/dbPromise.config");
+const findPublications = require("../feed/findASFIRJPublications");
 
 const AllResources = async (req, res) => {
     const itemsPerPage = 5; // Number of items to display per page
@@ -11,12 +13,36 @@ const AllResources = async (req, res) => {
     }else{
         username = ""
     }
+    const getUserFullname = await dbPromise.query("SELECT first_name, email, last_name FROM user_info WHERE username = ? OR unique_code = ?", [username, username])
+    if(getUserFullname[0].length <1){
+        return res.json({error:"Could not find user",  queryArray:[], currentPage:0, totalPages:0})
+    }
+    const fullname = `${getUserFullname[0][0].first_name} ${getUserFullname[0][0].last_name}`
+   
 
-    if (req.user) {
+    const ASFIRJ_Publications = await findPublications(fullname)
+    
+    // if (req.user) {
         // const username = req.user.username;
         const DataArray = [];
         let completedQueries = 0;
         const totalQueries = 4; // Total number of queries to run
+
+        // Add ASFIRJ publications to DataArray
+        if (ASFIRJ_Publications && ASFIRJ_Publications.length > 0) {
+            ASFIRJ_Publications.forEach(publication => {
+                DataArray.push({
+                    title: publication.manuscript_full_title,
+                    itemID: publication.buffer || publication.doi,
+                    itemType: "publication",
+                    Status: "Published",
+                    co_authors: publication.co_authors,
+                    journal: "ASFIRJ",
+                    year: publication.data_published,
+                    url: publication.buffer
+                });
+            });
+        }
 
         const FindResource = (tableName, validator, value) => {
             return new Promise((resolve, reject) => {
@@ -68,7 +94,7 @@ const AllResources = async (req, res) => {
                                 const totalPages = Math.ceil(totalItems / itemsPerPage);
                                 const startIdx = (page - 1) * itemsPerPage;
                                 const endIdx = startIdx + itemsPerPage;
-    
+     
 
                                 if(endIdx > totalItems){
                                     endMain = totalItems
@@ -111,7 +137,7 @@ const AllResources = async (req, res) => {
         } catch (error) {
             res.status(500).json({ error: "Internal Server Error" });
         }
-    }
+    // }
 };
 
 module.exports = AllResources;

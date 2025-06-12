@@ -1,467 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="Weperch Technologies Ltd">
-	<meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/scholarDashboard.css">
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/feed.css">
-   
-    
-     <!-- Favicon -->
-	 <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Weperch Technologies Ltd">
+  <meta name="description" content="ASFI, African Science Frontiers Initiatives, African Scientists, African Scholars, Scholars, Education">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/scholarDashboard.css">
+  <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/css/feed.css">
 
-    <link rel="stylesheet" href="/css/css/fontawesome.css">
-    <link rel="stylesheet" href="/css/css/fontawesome-all.css">
 
-    <link rel="stylesheet" href="/css/material-design-iconic-font.css">
-    <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
-    <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
 
-    <title><%= UserName %> | Feed</title>
-    <!-- Dark mode -->
-	<script src="/js/colorTheme.js"></script>
-	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-32YRZWEG3P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
- 
-  gtag('config', 'G-32YRZWEG3P');
-</script>
-<style>
-/* overlay & centering */
-.share-modal__overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 9999999;
-  align-items: center;
-  justify-content: center;
-}
-/* modal box */
-.share-modal {
-  background: var(--bs-bg-header);
-  width: 50%;
-  border-radius: 8px;
-  overflow: hidden;
-  color: #e4e6eb;
-  font-family: Arial, sans-serif;
-}
-/* header */
-.share-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid #8a8a8a;
-}
-.share-modal__title {
-  margin: 0;
-  font-size: 18px;
-}
-.share-modal__close {
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 20px;
-  cursor: pointer;
-}
-.share-modal__close:hover {
-  color: rgb(243, 37, 37);
-}
-/* body & grid */
-.share-modal__body {
-  padding: 16px;
-}
-.share-modal__grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-}
-/* icon buttons */
-.share-modal__icon-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  background: rgba(137, 43, 226, 0.205);
-  border: none;
-  border-radius: 6px;
-  padding: 12px 8px;
-  width: 80px;
-  text-align: center;
-  color: var(--bs-heading-color);
-  font-size: 12px;
-  cursor: pointer;
-}
-.share-modal__icon-btn:hover {
-  background: rgba(137, 43, 226, 0.486);
-}
-.share-modal__icon-btn span {
-  display: block;
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-.ic--baseline-facebook {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
-.ic--baseline-whatsapp {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
+  <link rel="stylesheet" href="/css/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/css/fontawesome-all.css">
 
-.entypo-social--linkedin-with-circle {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='M10 .4C4.698.4.4 4.698.4 10s4.298 9.6 9.6 9.6s9.6-4.298 9.6-9.6S15.302.4 10 .4M7.65 13.979H5.706V7.723H7.65zm-.984-7.024c-.614 0-1.011-.435-1.011-.973c0-.549.409-.971 1.036-.971s1.011.422 1.023.971c0 .538-.396.973-1.048.973m8.084 7.024h-1.944v-3.467c0-.807-.282-1.355-.985-1.355c-.537 0-.856.371-.997.728c-.052.127-.065.307-.065.486v3.607H8.814v-4.26c0-.781-.025-1.434-.051-1.996h1.689l.089.869h.039c.256-.408.883-1.01 1.932-1.01c1.279 0 2.238.857 2.238 2.699z'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
+  <link rel="stylesheet" href="/css/material-design-iconic-font.css">
+  <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
+  <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
 
-.garden--twitter-stroke-16 {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M.102 0h4.71l4.193 5.997L14.04 0h1.505L9.58 6.82L16 16h-4.71L6.911 9.738L1.504 16H0l6.337-7.083zM1.96.941l9.872 14.118h2.31L4.27.94z'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
+  <title><%= UserName %> | Feed</title>
+  <!-- Dark mode -->
+  <script src="/js/colorTheme.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-32YRZWEG3P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-.gravity-ui--link {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M3.47 6.53a.75.75 0 0 1 1.06 1.061l-.727.727a2.743 2.743 0 0 0 3.879 3.879l.727-.727a.75.75 0 0 1 1.06 1.06l-.726.727a4.243 4.243 0 0 1-6-6zm8 1.879a.75.75 0 0 0 1.06 1.06l.727-.726a4.243 4.243 0 0 0-6-6l-.727.727a.75.75 0 0 0 1.061 1.06l.727-.727a2.743 2.743 0 0 1 3.879 3.879zm-.94-1.879a.75.75 0 1 0-1.06-1.06l-4 4a.75.75 0 1 0 1.06 1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-@media (max-width: 785px) {
-    .share-modal{
+    gtag('config', 'G-32YRZWEG3P');
+  </script>
+  <style>
+    /* overlay & centering */
+    .share-modal__overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* modal box */
+    .share-modal {
+      background: var(--bs-bg-header);
+      width: 50%;
+      border-radius: 8px;
+      overflow: hidden;
+      color: #e4e6eb;
+      font-family: Arial, sans-serif;
+    }
+
+    /* header */
+    .share-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid #8a8a8a;
+    }
+
+    .share-modal__title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .share-modal__close {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .share-modal__close:hover {
+      color: rgb(243, 37, 37);
+    }
+
+    /* body & grid */
+    .share-modal__body {
+      padding: 16px;
+    }
+
+    .share-modal__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    /* icon buttons */
+    .share-modal__icon-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(137, 43, 226, 0.205);
+      border: none;
+      border-radius: 6px;
+      padding: 12px 8px;
+      width: 80px;
+      text-align: center;
+      color: var(--bs-heading-color);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .share-modal__icon-btn:hover {
+      background: rgba(137, 43, 226, 0.486);
+    }
+
+    .share-modal__icon-btn span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .ic--baseline-facebook {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .ic--baseline-whatsapp {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .entypo-social--linkedin-with-circle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='M10 .4C4.698.4.4 4.698.4 10s4.298 9.6 9.6 9.6s9.6-4.298 9.6-9.6S15.302.4 10 .4M7.65 13.979H5.706V7.723H7.65zm-.984-7.024c-.614 0-1.011-.435-1.011-.973c0-.549.409-.971 1.036-.971s1.011.422 1.023.971c0 .538-.396.973-1.048.973m8.084 7.024h-1.944v-3.467c0-.807-.282-1.355-.985-1.355c-.537 0-.856.371-.997.728c-.052.127-.065.307-.065.486v3.607H8.814v-4.26c0-.781-.025-1.434-.051-1.996h1.689l.089.869h.039c.256-.408.883-1.01 1.932-1.01c1.279 0 2.238.857 2.238 2.699z'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .garden--twitter-stroke-16 {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M.102 0h4.71l4.193 5.997L14.04 0h1.505L9.58 6.82L16 16h-4.71L6.911 9.738L1.504 16H0l6.337-7.083zM1.96.941l9.872 14.118h2.31L4.27.94z'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .gravity-ui--link {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M3.47 6.53a.75.75 0 0 1 1.06 1.061l-.727.727a2.743 2.743 0 0 0 3.879 3.879l.727-.727a.75.75 0 0 1 1.06 1.06l-.726.727a4.243 4.243 0 0 1-6-6zm8 1.879a.75.75 0 0 0 1.06 1.06l.727-.726a4.243 4.243 0 0 0-6-6l-.727.727a.75.75 0 0 0 1.061 1.06l.727-.727a2.743 2.743 0 0 1 3.879 3.879zm-.94-1.879a.75.75 0 1 0-1.06-1.06l-4 4a.75.75 0 1 0 1.06 1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    @media (max-width: 785px) {
+      .share-modal {
         width: 90%;
-    }
-    .share-modal__grid{
+      }
+
+      .share-modal__grid {
         overflow-x: auto;
+      }
+
+      /* thin scrollbar styling */
+      .share-modal__grid::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .share-modal__grid::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 3px;
+      }
+
+      /* Firefox */
+      .share-modal__grid {
+        scrollbar-width: thin;
+        scrollbar-color: #555 transparent;
+      }
     }
-   /* thin scrollbar styling */
-  .share-modal__grid::-webkit-scrollbar {
-    height: 6px;
-  }
-  .share-modal__grid::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 3px;
-  }
-  /* Firefox */
-  .share-modal__grid {
-    scrollbar-width: thin;
-    scrollbar-color: #555 transparent;
-  }
-}
 
-/* Styling the reaction button */
-.reaction-container {
-  position: relative;
-  display: inline-block;
-}
+    /* Styling the reaction button */
+    .reaction-container {
+      position: relative;
+      display: inline-block;
+    }
 
-.reaction-button {
-  padding: 8px 16px;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-  display: inline-flex;
-  align-items: center;
-}
+    .reaction-button {
+      padding: 8px 16px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      display: inline-flex;
+      align-items: center;
+    }
 
-.reaction-button:hover {
-  background-color: #e0e0e0;
-}
+    .reaction-button:hover {
+      background-color: #e0e0e0;
+    }
 
-.reaction-options {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: -250%;
-  background-color: #fff;
-  border-radius: 6px;
-  padding: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  min-width: 120px;
-  text-align: center;
-}
+    .reaction-options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: -250%;
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      min-width: 120px;
+      text-align: center;
+    }
 
-.reaction-options.show {
-  display: flex;
-}
+    .reaction-options.show {
+      display: flex;
+    }
 
-.reaction-options span {
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px;
-  transition: background-color 0.3s ease;
-}
+    .reaction-options span {
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px;
+      transition: background-color 0.3s ease;
+    }
 
-.reaction-options span:hover {
-  background-color: #f0f0f0;
-  border-radius: 4px;
-}
+    .reaction-options span:hover {
+      background-color: #f0f0f0;
+      border-radius: 4px;
+    }
 
-/* Styling for the individual reactions */
-.reaction-options span[data-reaction="👍"] {
-  color: #4CAF50;
-}
+    /* Styling for the individual reactions */
+    .reaction-options span[data-reaction="👍"] {
+      color: #4CAF50;
+    }
 
-.reaction-options span[data-reaction="❤️"] {
-  color: #F44336;
-}
+    .reaction-options span[data-reaction="❤️"] {
+      color: #F44336;
+    }
 
-.reaction-options span[data-reaction="👏"] {
-  color: #FFC107;
-}
+    .reaction-options span[data-reaction="👏"] {
+      color: #FFC107;
+    }
 
-.reaction-options span[data-reaction="😲"] {
-  color: #2196F3;
-}
+    .reaction-options span[data-reaction="😲"] {
+      color: #2196F3;
+    }
 
-.reaction-options span[data-reaction="🤝"] {
-  color: #9C27B0;
-}
-
-</style>
+    .reaction-options span[data-reaction="🤝"] {
+      color: #9C27B0;
+    }
+  </style>
 
 </head>
 
 <input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
 <input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Allows scrolling */
+}
+
+#feedContainer {
+    min-height: 101%; /* Ensure content is taller than viewport */
+}
+</style>
 <body id="mainScroll">
-<%- include ("loader") %>
-    
-    <%- include ("bookUploadModal") %>
+  <%- include ("loader") %>
 
-	<%- include ("podcastUploadModal") %>
-      
-     
-         <!-- Header START -->
-     <%- include('header') %>
-     <!-- Header END -->
+  <%- include ("bookUploadModal") %>
 
-     <main class="main_page">
-        <!-- NAVIGATION BAR  -->
-	 <sidebar class="left-navigation-bar">
-		<%if(accountType == "scholar_account") {%>
-			
-			<%- include('scholarNavbar') %>
-			<% } else if(accountType == "user_account"){%>
-				
-				<%- include ("navbar") %>
-			<%} else if(accountType == "instructor_account") {%>
-				<%- include ("instructorNavbar") %>
-	
-				<% } else if(accountType == "administrator") {%>
-				   <%- include ("adminNavbar") %>
-				   <% } %>
-				   
-							<!-- Widget -->
-							<div><script src="/js/footer.js"></script></div>
-							<!-- Widget -->
-					
-	</sidebar>
-	<!-- END NAVIGATION BAR  -->
-        <!-- Divide into two -->
-
-        <!-- Start left Side  -->
-         <div class="section leftSideMain">
-            <div class="dropdown dash_upload">
-                <!-- <span>Post Something</span> -->
-                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
-                <!-- <a href='https://asfischolar.net' style="display: flex; justify-content: center; align-items: center; "><span class="proicons--video"></span><span class='navName'>ASFI Meet</span></a> -->
-                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
-    <li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
-                </ul>
-            </div> 
-            
-        <div class="section leftSide" id="feedContainer">
-           
-            <!-- Single card item  -->
-    
-        </div>
-
-        
-        
-        </div>
- 
-        <sidebar class="right-navigation-bar">
-	 
-            
-                <% if(announcementTitle !== "") { %>
-                    <div class="announcementWidget">
-                        <span>Announcement</span>
-                        <a href="/announcement?q=<%= announcementTitle %>">
-                            <%- include("announcementWidget") %>
-                        </a>
-               
-                    </div>
-                <% } %>
-           
-                <div class="announcementWidget">
-                    <span>Suggested people to follow</span>
-                    <%- include("discoverpeopleWidget") %>
-                </div>
-        </sidebar>
+  <%- include ("podcastUploadModal") %>
 
 
-        <!-- end left side  -->
+  <!-- Header START -->
+  <%- include('header') %>
+  <!-- Header END -->
 
-       
-        <!-- Include Notification panel -->
-  <div class="MainRight_side">
-    <%- include("notificationsPanel.ejs") %>
+  <main class="main_page">
+    <!-- NAVIGATION BAR  -->
+    <sidebar class="left-navigation-bar">
+      <%if(accountType == "scholar_account") {%>
+
+      <%- include('scholarNavbar') %>
+      <% } else if(accountType == "user_account"){%>
+
+      <%- include ("navbar") %>
+      <%} else if(accountType == "instructor_account") {%>
+      <%- include ("instructorNavbar") %>
+
+      <% } else if(accountType == "administrator") {%>
+      <%- include ("adminNavbar") %>
+      <% } %>
+
+      <!-- Widget -->
+      <div>
+        <script src="/js/footer.js"></script>
       </div>
+      <!-- Widget -->
+
+    </sidebar>
+    <!-- END NAVIGATION BAR  -->
+    <!-- Divide into two -->
+
+    <!-- Start left Side  -->
+    <div class="section leftSideMain">
+      <div class="dropdown dash_upload">
+        <!-- <span>Post Something</span> -->
+        <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
+        <!-- <a href='https://asfischolar.net' style="display: flex; justify-content: center; align-items: center; "><span class="proicons--video"></span><span class='navName'>ASFI Meet</span></a> -->
+        <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
+          <li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
+        </ul>
+      </div>
+
+      <div class="section leftSide" id="feedContainer">
+
+        <!-- Single card item  -->
+
+      </div>
+
+
+
+    </div>
+
+    <sidebar class="right-navigation-bar">
+
+
+      <% if(announcementTitle !== "") { %>
+      <div class="announcementWidget">
+        <span>Announcement</span>
+        <a href="/announcement?q=<%= announcementTitle %>">
+          <%- include("announcementWidget") %>
+        </a>
+
+      </div>
+      <% } %>
+
+      <div class="announcementWidget">
+        <span>Suggested people to follow</span>
+        <%- include("discoverpeopleWidget") %>
+      </div>
+    </sidebar>
+
+
+    <!-- end left side  -->
+
+
+    <!-- Include Notification panel -->
+    <div class="MainRight_side">
+      <%- include("notificationsPanel.ejs") %>
+    </div>
     <!--Include Chats Panel-->
     <div class="ChatRight_side">
-        <%- include("chatsPanel.ejs") %>
+      <%- include("chatsPanel.ejs") %>
     </div>
-        <!-- End right side  -->
+    <!-- End right side  -->
 
-        <!-- SHARE MODAL -->
-<!-- SHARE MODAL -->
-<div id="shareModal" class="share-modal__overlay">
-    <div class="share-modal">
-      <!-- header -->
-      <div class="share-modal__header">
-        <h3 class="share-modal__title">Share to</h3>
-        <button class="share-modal__close" onclick="closeShareModal()">×</button>
-      </div>
-  
-      <!-- body: only the 4 shares + copy -->
-      <div class="share-modal__body">
-        <div class="share-modal__grid">
-          <a id="fbShare" class="share-modal__icon-btn" target="_blank">
-            <span class="ic--baseline-facebook"></span>
-            <div>Facebook</div>
-          </a>
-          <a id="waShare" class="share-modal__icon-btn" target="_blank">
-            <span class="ic--baseline-whatsapp"></span>
-            <div>WhatsApp</div>
-          </a>
-          <a id="liShare" class="share-modal__icon-btn" target="_blank">
-            <span class="entypo-social--linkedin-with-circle"></span>
-            <div>LinkedIn</div>
-          </a>
-          <a id="xShare" class="share-modal__icon-btn" target="_blank">
-            <span class="garden--twitter-stroke-16"></span>
-            <div>X</div>
-          </a>
-          <button id="copyShare" class="share-modal__icon-btn">
-            <span class="gravity-ui--link"></span>
-            <div>Copy link</div>
-          </button>
+    <!-- SHARE MODAL -->
+    <!-- SHARE MODAL -->
+    <div id="shareModal" class="share-modal__overlay">
+      <div class="share-modal">
+        <!-- header -->
+        <div class="share-modal__header">
+          <h3 class="share-modal__title">Share to</h3>
+          <button class="share-modal__close" onclick="closeShareModal()">×</button>
+        </div>
+
+        <!-- body: only the 4 shares + copy -->
+        <div class="share-modal__body">
+          <div class="share-modal__grid">
+            <a id="fbShare" class="share-modal__icon-btn" target="_blank">
+              <span class="ic--baseline-facebook"></span>
+              <div>Facebook</div>
+            </a>
+            <a id="waShare" class="share-modal__icon-btn" target="_blank">
+              <span class="ic--baseline-whatsapp"></span>
+              <div>WhatsApp</div>
+            </a>
+            <a id="liShare" class="share-modal__icon-btn" target="_blank">
+              <span class="entypo-social--linkedin-with-circle"></span>
+              <div>LinkedIn</div>
+            </a>
+            <a id="xShare" class="share-modal__icon-btn" target="_blank">
+              <span class="garden--twitter-stroke-16"></span>
+              <div>X</div>
+            </a>
+            <button id="copyShare" class="share-modal__icon-btn">
+              <span class="gravity-ui--link"></span>
+              <div>Copy link</div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  
-     </main>
-     <script src="/js/jquery-3.4.1.min.js"></script>
-<script src="/js/mainjs.js"></script>
-<script src="/js/scholarControls/uploadBook.js"></script>
+
+
+  </main>
+  <script src="/js/jquery-3.4.1.min.js"></script>
+  <script src="/js/mainjs.js"></script>
+  <script src="/js/scholarControls/uploadBook.js"></script>
   <script src="/js/scholarControls/uploadPodcast.js"></script>
   <script src="/js/getNotifications.js"></script>
   <script src="/js/getChatNotifications.js"></script>
-<!-- Back to top -->
-<div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
+  <!-- Back to top -->
+  <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
-<!-- Bootstrap JS -->
-<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="/js/feed/feedContent.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/js/feed/feedContent.js"></script>
 
-<!-- Vendors -->
-<script src="/vendor/tiny-slider/tiny-slider.js"></script>
-<script src="/vendor/glightbox/js/glightbox.js"></script>
-<script src="/js/functions.js"></script>
+  <!-- Vendors -->
+  <script src="/vendor/tiny-slider/tiny-slider.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.js"></script>
+  <script src="/js/functions.js"></script>
 
-<script type="module" src="/js/services/main.js"></script>
-<script>
-	const notifications = document.querySelector("#notifications");
-	const chats = document.querySelector("#chats");
-	const notificationsPanel = document.querySelector(".MainRight_side");
-	const chatsPanel = document.querySelector(".ChatRight_side");
-	const closeButtonNotification = document.querySelector(".close_button_notification");
-	const closeButtonChat = document.querySelector(".close_button_chat");
-	notifications.addEventListener("click", () => {
-    notificationsPanel.classList.toggle("visible");
-    chatsPanel.classList.remove("visible");
-});
-chats.addEventListener("click", () => {
-    chatsPanel.classList.toggle("visible");
-    notificationsPanel.classList.remove("visible");
-});
-closeButtonNotification.addEventListener("click", function(){
-    notificationsPanel.classList.toggle("visible");
-})
-closeButtonChat.addEventListener("click", function(){
-    chatsPanel.classList.toggle("visible");
-})
-</script>
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const loader = document.getElementById('custom-loader');
-    
-              setTimeout(() => {
-                loader.classList.add('hide');
-              }, 500); // optional delay for smoother transition
-            
-          });
-      
-      </script>
+  <script type="module" src="/js/services/main.js"></script>
+  <script>
+    const notifications = document.querySelector("#notifications");
+    const chats = document.querySelector("#chats");
+    const notificationsPanel = document.querySelector(".MainRight_side");
+    const chatsPanel = document.querySelector(".ChatRight_side");
+    const closeButtonNotification = document.querySelector(".close_button_notification");
+    const closeButtonChat = document.querySelector(".close_button_chat");
+    notifications.addEventListener("click", () => {
+      notificationsPanel.classList.toggle("visible");
+      chatsPanel.classList.remove("visible");
+    });
+    chats.addEventListener("click", () => {
+      chatsPanel.classList.toggle("visible");
+      notificationsPanel.classList.remove("visible");
+    });
+    closeButtonNotification.addEventListener("click", function() {
+      notificationsPanel.classList.toggle("visible");
+    })
+    closeButtonChat.addEventListener("click", function() {
+      chatsPanel.classList.toggle("visible");
+    })
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loader = document.getElementById('custom-loader');
+
+      setTimeout(() => {
+        loader.classList.add('hide');
+      }, 500); // optional delay for smoother transition
+
+    });
+  </script>
 </body>
 
 </html>

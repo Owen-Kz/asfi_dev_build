@@ -15,7 +15,7 @@ const formatTime = (timestamp) => {
 };
 
 const Notification_id_container = document.getElementById("Notification_id_container");
-const usernameContainer = document.getElementById("usernameContainer").value;
+// let usernameContainerM = document.getElementById("usernameContainer").value;
 const notifyCounter = document.getElementById("notify-counter");
 const notificationIcon = document.getElementById("notifications");
 

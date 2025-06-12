@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Weperch Technologies Ltd">
-        <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <meta name="description" content="ASFI, African Science Frontiers Initiatives, African Scientists, African Scholars, Scholars, Education">
     
         <!-- Stylesheets -->
         <link rel="stylesheet" href="/css/dashboard.css">
@@ -195,6 +195,50 @@ font-family: "Heebo", sans-serif;
 .pagination button:hover:not(.active) {
   background-color: #e2e2e2;
 }
+/* Custom tooltip styles */
+.co-authors-trigger {
+    position: relative;
+    display: inline-block;
+    color: #0d6efd; /* Blue color to indicate interactivity */
+    cursor: pointer;
+}
+
+.co-authors-trigger:hover .co-authors-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.co-authors-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: auto;
+    max-width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: normal;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.co-authors-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
 		</style>
     </head>
     
@@ -348,7 +392,7 @@ Page Banner START -->
 	</div>
 	<div class="nav-container">
 		<div class="tabs">
-			<div class="tab active" onclick="showContent('ASFI')">ASFI Publications</div>
+			<div class="tab active" onclick="showContent('ASFI')">ASFIRJ Publications</div>
 			<div class="tab" onclick="showContent('Google Scholar')">Google Scholar Publications</div>
 			<div class="tab" onclick="showContent('Edu History')">Educational History</div>
 			<div class="tab" onclick="showContent('Work History')">Work History</div>
@@ -634,17 +678,7 @@ Page content START -->
 </section>
 
 <br><br>
-<!-- =======================
-Page content END -->
 
-
-
-    <script>
-               var dashboard =  document.getElementById("directory_link_pg");
-            dashboard.classList += "active_item";
-    </script>
-    
-    <!-- END BOTTOM_RIGHT  -->
     </div>
     </div>
 </main>

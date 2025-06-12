@@ -145,7 +145,7 @@ async function fetchPodcast(podcast) {
 
 
 
-if (CoverPhotoContainer) {
+if (CoverPhotoContainer  && CoverPhotoMain) {
     if(CoverPhotoMain.value != "avatar.jpg" && CoverPhotoMain.value != "cover.jpg" && CoverPhotoMain.value != ""){
 
 
