@@ -4,7 +4,7 @@ const ASFIRJ_PUBLICATIONS = require("./countASFIRPublications");
 const countPublications = async (username) =>{
     try{
 
-        const getUserInfo = await dbPromise.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ?", [username, username]);
+        const getUserInfo = await dbPromise.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ? OR email = ?", [username, username, username]);
         if(!getUserInfo[0][0]){
             console.log("User Not Found")
             return {error:"User Not Found"}
