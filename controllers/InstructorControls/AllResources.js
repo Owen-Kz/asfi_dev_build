@@ -13,7 +13,7 @@ const AllResources = async (req, res) => {
     }else{
         username = ""
     }
-    const getUserFullname = await dbPromise.query("SELECT first_name, email, last_name FROM user_info WHERE username = ? OR unique_code = ?", [username, username])
+    const getUserFullname = await dbPromise.query("SELECT first_name, email, last_name FROM user_info WHERE username = ? OR unique_code = ? OR email = ?", [username, username, username])
     if(getUserFullname[0].length <1){
         return res.json({error:"Could not find user",  queryArray:[], currentPage:0, totalPages:0})
     }
