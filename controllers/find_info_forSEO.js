@@ -8,6 +8,18 @@ const find_info_for_SEO = async (req, res) => {
     if (!req.params.username) {
       return res.render("error.ejs", { status: "User Not Found" });
     }
+    let loggedIn = false 
+    let user_loggedIn = {}
+    let UserLastName = ""
+    let UserFirstname = ""
+
+
+    if(req.user){
+      loggedIn = true
+      user_loggedIn = req.user
+      UserLastName = req.user.last_name
+      UserFirstname = req.user.first_name
+    }
     
     const username_visitorQuery = async () => {
       const [data] = await dbPromise.query(
@@ -108,6 +120,7 @@ const find_info_for_SEO = async (req, res) => {
         Orchid: ""
       });
     }
+    
     const publicationsCount = await countPublications(username_visitor);
     res.render("profileForSEO", {
       searchName: displayName,
@@ -129,7 +142,7 @@ const find_info_for_SEO = async (req, res) => {
       accountType: "scholar_account",
       ProfileImage: "avatar.jpg",
       UserFirstname: "FirstName_visitor",
-      UserLastname: "LastName_visitor",
+      UserLastName: "LastName_visitor",
       Email: "Email_visitor",
       UserName: visitor,
       EmailVisited: user.email,
@@ -142,7 +155,11 @@ const find_info_for_SEO = async (req, res) => {
       SocialLinks: JSON.stringify(socialLinksArray),
       username_visitor,
       prefix: user.prefix,
-      publicationsCount
+      publicationsCount,
+      loggedIn,
+      user_loggedIn,
+      UserLastName,
+      UserFirstname
     });
   } catch (error) {
     console.error(error);

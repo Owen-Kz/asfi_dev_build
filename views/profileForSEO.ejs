@@ -342,9 +342,35 @@ font-family: "Heebo", sans-serif;
 <!-- Header END -->
      
 <main class="profile_main">
- <!-- =======================
-Page Banner START -->
+
+	   <!-- NAVIGATION BAR  -->
+		<% if(loggedIn == true || loggedIn == 'true') { 
+			accountType = user_loggedIn.acct_type
+			%>
+    <sidebar class="left-navigation-bar">
+		
+			
+        <%if(accountType == "scholar_account") {%>
+              <%- include('scholarNavbar') %>
+              <% } else if(accountType == "user_account"){%>
+                  <%- include ("navbar") %>
+              <%} else if(accountType == "instructor_account") {%>
+                  <%- include ("instructorNavbar") %>
+      
+                  <% } else if(accountType == "administrator") {%>
+                     <%- include ("adminNavbar") %>
+                     <% } %>
+					 
+          </sidebar>
+		    <!-- END NAVIGATION BAR  -->
+			<section class="pt-0 profile_section" >
+		  <% }else{ %>
 <section class="pt-0 profile_section" style="width: 80%; margin: auto !important;">
+			<%}%>
+        
+
+
+
 	<!-- Main banner background image -->
 	<div class="container-fluid px-0">
 		<div class="bg-blue h-100px h-md-100px rounded-0 cover_image_container" style="background:url(<%=cover_photo%>) no-repeat center center; background-size:cover;">
@@ -408,7 +434,17 @@ Page Banner END -->
 
 <!-- =======================
 Page content START -->
+<% if(loggedIn == true || loggedIn == "true"){ %>
+<section class="pt-5 pb-0" style="margin-top: -40px; background-color: var(--bs-bg-header);
+  width: 80%;
+  margin-right: 60px;
+  align-self: flex-end;">
+
+	<%} else { %>
 <section class="pt-5 pb-0" style="margin-top: -40px; background-color: var(--bs-bg-header);">
+
+
+	<%} %>
 	<div class="container">
 		<div class="con-wrapper">
 
