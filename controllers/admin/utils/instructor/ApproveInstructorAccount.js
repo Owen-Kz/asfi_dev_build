@@ -49,7 +49,7 @@ const ApproveInstructorAccount = async(req,res)=>{
               <tr>
                   <td>
                       <h1 style="font-size: 36px; margin-bottom: 10px;">Hi, ${firstname}</h1>
-                      <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Your requedt to become an instructor on the ASFI Scholar platform has been approved</p>
+                      <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Your requedt to become an instructor on the ASFIScholar platform has been approved</p>
                       <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
                       Please <a href="https://asfischolar.org/login">Proceed to login</a>
                       or open this link in your browser:

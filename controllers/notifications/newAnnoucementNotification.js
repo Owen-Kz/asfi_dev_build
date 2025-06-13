@@ -45,7 +45,7 @@ const NewAnnouncementNotification = async (req, res, message, endpoint) => {
                                 }
                                 
                                 const senderFullname = `Special Announcement`;
-                                const subject = `${senderFullname} on ASFI Scholar`;
+                                const subject = `${senderFullname} on ASFIScholar`;
                                 const emailMessage = `<p>An Announcement was made on ASFIScholar</p> 
                                 <p> "${message}" </p>
                                 <a href=${endpoint}>Click her to view</a></p>`

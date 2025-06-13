@@ -21,7 +21,7 @@ const sendEmail = async (useremail, subject, message) => {
     
                 const email = {
                     to: [{ email: useremail }],
-                    sender: { email: 'support@asfischolar.org', name: 'ASFI Scholar' },
+                    sender: { email: 'support@asfischolar.org', name: 'ASFIScholar' },
                     subject:subject,
                     htmlContent: `<html><body>
  ${messageHtml}

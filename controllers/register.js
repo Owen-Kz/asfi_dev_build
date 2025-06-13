@@ -27,7 +27,7 @@ const registerant = async (req, res) => {
                     else{ const password = await bcrypt.hash(Npassword, 8)
                     db.query("INSERT INTO user_info SET ?", {first_name: firstname, last_name: lastname, username: username, email: email, password: password}, async (error, results) =>{
                         if (error) throw error;
-                   const subject = `Hi, ${firstname} Welcome to ASFI Scholar`
+                   const subject = `Hi, ${firstname} Welcome to ASFIScholar`
                    const mainMessage =  `
                    <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0;">
                    
@@ -44,7 +44,7 @@ const registerant = async (req, res) => {
                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 100px auto; text-align: center; padding-top: 40px; padding-bottom: 40px; background-color: #fff; border-radius: 5px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);">
                            <tr>
                                <td>
-                                   <h1 style="font-size: 36px; margin-bottom: 10px;">Welcome to ASFI Scholar</h1>
+                                   <h1 style="font-size: 36px; margin-bottom: 10px;">Welcome to ASFIScholar</h1>
                                    <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">LEARN . MENTOR . COLLABORATE . PUBLISH . BE VISIBLE</p>
                                </td>
                            </tr>

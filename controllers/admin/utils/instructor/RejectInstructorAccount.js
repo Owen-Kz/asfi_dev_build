@@ -46,7 +46,7 @@ async function SendRejectionEmail(email, firstname){
               <tr>
                   <td>
                       <h1 style="font-size: 36px; margin-bottom: 10px;">Hi, ${firstname}</h1>
-                      <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Your requedt to become an instructor on the ASFI Scholar platform was rejected. Please <a href="https://asfischolar.org/contactUs"> contact support</a> for assitance or resubmit your request</p>
+                      <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Your requedt to become an instructor on the ASFIScholar platform was rejected. Please <a href="https://asfischolar.org/contactUs"> contact support</a> for assitance or resubmit your request</p>
                       
                       <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">LEARN . MENTOR . COLLABORATE . PUBLISH . BE VISIBLE</p>
                   </td>
