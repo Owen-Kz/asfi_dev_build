@@ -267,6 +267,11 @@ font-family: "Heebo", sans-serif;
        
 
      <!-- Header START -->
+	  <% if(loggedIn == true || loggedIn == "true"){ %>
+    <!-- Header START -->
+   <%- include('header') %>
+   <!-- Header END -->
+		<% }else{ %>
 	 <header class="navbar-light navbar-sticky" style="background: transparent; border: none;">
 	<!-- Logo Nav START -->
 	<nav class="navbar navbar-expand-xl">
@@ -339,6 +344,7 @@ font-family: "Heebo", sans-serif;
 	</nav>
 	<!-- Logo Nav END -->
 </header>
+<% } %>
 <!-- Header END -->
      
 <main class="profile_main">

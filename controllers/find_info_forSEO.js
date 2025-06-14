@@ -5,6 +5,7 @@ const summation_FX = 5;
 
 const find_info_for_SEO = async (req, res) => {
   try {
+
     if (!req.params.username) {
       return res.render("error.ejs", { status: "User Not Found" });
     }
@@ -12,6 +13,10 @@ const find_info_for_SEO = async (req, res) => {
     let user_loggedIn = {}
     let UserLastName = ""
     let UserFirstname = ""
+    let ASFI_CODE = ""
+    let accountType = "scholar_account"
+    let ProfileImage = "avatar.jpg"
+    let Email = "Email_visitor"
 
 
     if(req.user){
@@ -19,8 +24,12 @@ const find_info_for_SEO = async (req, res) => {
       user_loggedIn = req.user
       UserLastName = req.user.last_name
       UserFirstname = req.user.first_name
+      ASFI_CODE = req.user.unique_code
+      accountType = req.user.acct_type
+      ProfileImage = req.user.profile_picture
+      Email = req.user.email
     }
-    
+ 
     const username_visitorQuery = async () => {
       const [data] = await dbPromise.query(
         "SELECT username FROM user_info WHERE unique_code = ? OR username = ?",
@@ -139,11 +148,11 @@ const find_info_for_SEO = async (req, res) => {
       honorary_type: "honorary_type",
       HonoraryCount,
       cover_photo: user.cover_photo,
-      accountType: "scholar_account",
-      ProfileImage: "avatar.jpg",
+      accountType,
+      ProfileImage,
       UserFirstname: "FirstName_visitor",
       UserLastName: "LastName_visitor",
-      Email: "Email_visitor",
+      Email,
       UserName: visitor,
       EmailVisited: user.email,
       Bio: user.bio,
@@ -159,7 +168,8 @@ const find_info_for_SEO = async (req, res) => {
       loggedIn,
       user_loggedIn,
       UserLastName,
-      UserFirstname
+      UserFirstname,
+      ASFI_CODE
     });
   } catch (error) {
     console.error(error);
