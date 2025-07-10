@@ -3,8 +3,8 @@ const db = require("../routes/db.config");
 const countPublications = require("./feed/countPublications/countPublications");
 
 const find_info = async (req,res) => {
-    if(req.params["username"] && req.params.username != null){
-    const username_visitor = req.params["username"];
+    if(req.params.username && req.params.username != null){
+    const username_visitor = req.params.username;
     // console.log(username_visitor);
     // const username_visitor = "VC_of_lagos";
 
@@ -103,7 +103,7 @@ const find_info = async (req,res) => {
             })
             resolve()
 
-        db.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ?", [username_visitor, username_visitor], async (err, scholar_user) => {
+        db.query("SELECT * FROM user_info WHERE username = ? OR unique_code = ? OR email = ?", [username_visitor, username_visitor, username_visitor], async (err, scholar_user) => {
             if(err) throw err
            if(scholar_user[0]) {
             // console.log(scholar_user[0])

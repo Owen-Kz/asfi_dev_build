@@ -11,30 +11,55 @@ async function NewPage(page) {
 function renderResources(data) {
     userResourceContainer.innerHTML = "";  // Clear previous content
     
-
     if (data) {
         const queryResult = JSON.parse(data.queryArray);
         if(queryResult.length > 0){
         queryResult.forEach(Item => {
-
             let TypeText = '';
-            let ItemTitle
-            let ItemLink
-            if (Item.itemType === "book") {
+            let ItemTitle;
+            let ItemLink;
+            let AuthorsText = '';
+            
+            // Handle ASFIRJ publications
+            if (Item.itemType === "publication") {
+                TypeText = `<span class="badge bg-info bg-opacity-10 text-info">PUBLICATION</span>`;
+                ItemTitle = Item.manuscript_full_title || Item.title;
+                ItemLink = `https://asfirj.org/content?a=${Item.itemID}`;
+                
+                // Format co-authors if they exist
+                if (Item.co_authors && Item.co_authors.length > 0) {
+                    const mainAuthor = Item.co_authors[0];
+                    const additionalAuthors = Item.co_authors.slice(1); // Get all co-authors except first
+                    const additionalCount = additionalAuthors.length;
+                    
+                    AuthorsText = `
+                        <div class="text-muted small">
+                            By ${mainAuthor} 
+                            ${additionalCount > 0 ? `
+                                <span class="co-authors-trigger">
+                                    +${additionalCount} co-author${additionalCount > 1 ? 's' : ''}
+                                    <span class="co-authors-tooltip">${additionalAuthors.join(', ')}</span>
+                                </span>
+                            ` : ''}
+                        </div>`;
+                }
+            } 
+            // Handle other resource types (unchanged)
+            else if (Item.itemType === "book") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">BOOK</span>`;
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
             } else if (Item.itemType === "link") {
-                ItemTitle = Item.Status
-                ItemLink = Item.title
+                ItemTitle = Item.Status;
+                ItemLink = Item.title;
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">PUBLICATION LINK</span>`;
             } else if (Item.itemType === "podcast") {
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
                 TypeText = `<span class="badge bg-purple bg-opacity-10 text-purple">PODCAST</span>`;
             } else if (Item.itemType === "tutorial") {
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
                 TypeText = `<span class="badge bg-warning bg-opacity-10 text-warning">TUTORIAL</span>`;
             }
 
@@ -46,38 +71,29 @@ function renderResources(data) {
                         <div class="d-flex align-items-center">
                             <div class="mb-0 ms-2">
                                 <!-- Title -->
-                                <h6 style=" text-wrap:wrap;><a href="${ItemLink}">${ItemTitle}</a></h6>
+                                <h6 style="text-wrap:wrap;">
+                                    <a href="${ItemLink}" ${Item.itemType === 'publication' ? 'target="_blank"' : ''}>
+                                        ${ItemTitle}
+                                    </a>
+                                </h6>
+                                ${AuthorsText}
                             </div>
                         </div>
                     </td>
             
-                    <!-- Assset Type -->
+                    <!-- Asset Type -->
                     <td>
                         ${TypeText}
                     </td>
-                    <!-- Action item -->
-                    <td class="action-table">
-                        <form class="editAssetForm" onsubmit="return false">
-                            <input type="hidden" id="editResourceID" value="${Item.itemID}" >
-                            <input type="hidden" id="editResourceType" value="${Item.itemType}">
-                            <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" data-bs-toggle="modal" data-bs-target="#editAction"><i class="far fa-fw fa-edit"></i></button>
-                        </form>
-                        <br>
-                        <form class="deleteAssetForm" onsubmit="return false">
-                            <input type="hidden" id="deleteResourceID" value="${Item.itemID}" readonly>
-                            <input type="hidden" id="deleteResourceType" value="${Item.itemType}" readonly>
-                            <button class="btn btn-sm btn-danger-soft btn-round mb-0" data-bs-toggle="modal" data-bs-target="#deleteAction"><i class="fas fa-fw fa-times"></i></button>
-                        </form>
-                    </td>
                 </tr>`;
         });
-    }
-    else{
-        userResourceContainer.innerHTML = `<tr><td>No Data Available at the moment</td></tr>`
-    }
+        }
+        else {
+            userResourceContainer.innerHTML = `<tr><td>No Data Available at the moment</td></tr>`;
+        }
     }
 
-    // Render pagination
+    // Render pagination (rest of your existing pagination code)
     const totalPages = data.totalPages;
     const currentPage = data.currentPage;
     const PrevPage = parseInt(currentPage, 10) - 1;
@@ -85,9 +101,9 @@ function renderResources(data) {
 
     const paginationHTML = generatePaginationHTML(currentPage, totalPages, PrevPage, NexxtPage);
     footerContainer.innerHTML = paginationHTML;
-    const url = window.location.pathname
+    const url = window.location.pathname;
     if(url == "/dashboard" ||  url == "/Dashboard"){
-        hideActionButtons()
+        hideActionButtons();
     }
 }
 

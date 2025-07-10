@@ -21,21 +21,11 @@ const sendEmail = async (useremail, subject, message) => {
     
                 const email = {
                     to: [{ email: useremail }],
-                    sender: { email: 'support@asfischolar.org', name: 'ASFI Scholar' },
+                    sender: { email: 'support@asfischolar.org', name: 'ASFIScholar' },
                     subject:subject,
                     htmlContent: `<html><body>
-<!-- loader goes here -->${messageHtml}
-                                 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const loader = document.getElementById('custom-loader');
-    
-              setTimeout(() => {
-                loader.classList.add('hide');
-              }, 500); // optional delay for smoother transition
-            
-          });
-      
-      </script>
+ ${messageHtml}
+                   
 </body>
 </html>`
                 };

@@ -186,7 +186,7 @@ const ChatInChat = async (req, res) => {
       });
       }else{
 
-        res.render('error.ejs', {status: "No ASFI Scholar Account Associated with this Presenter", page:"#"})
+        res.render('error.ejs', {status: "No ASFIScholar Account Associated with this Presenter", page:"#"})
       }
     } catch (error) {
       console.log("Error:", error);

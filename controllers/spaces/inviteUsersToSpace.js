@@ -14,7 +14,7 @@ const inviteUserToSpace = async (req,res) =>{
                 return res.json({error:err})
             }else if(spaceData[0]){
                 const spaceName = spaceData[0].space_focus
-                db.query("SELECT * FROM user_info WHERE email = ? OR username = ?", [userEmail, userEmail], async(err, userData)=>{
+                db.query("SELECT * FROM user_info WHERE email = ? OR username = ? OR unique_code = ?", [userEmail, userEmail, userEmail], async(err, userData)=>{
                     if(err){
                         console.log(err)
                         return res.json({error:err})
@@ -33,13 +33,13 @@ const inviteUserToSpace = async (req,res) =>{
                             if(err){
                                 console.log(err)
                                 return res.json({error:err})
-                            }else if(insert){
+                            }else if(insert.insertId > 0){
 
                                 if(userData[0].notification_token !== null && userData[0].notification_token){
                                     const userToken = userData[0].notification_token
                                    await spaceInvitationNotification(spaceName, userToken)
                                 }
-                                const subject = "Invitation to Join Spaace on ASFIScholar"
+                                const subject = "Invitation to Join Space on ASFIScholar"
                                 const useremail = userData[0].email
                                 const username = userData[0].username
                                 const message = `
@@ -94,13 +94,14 @@ const inviteUserToSpace = async (req,res) =>{
                       </div>
                       </p>
                       <br>
-                      <p><a href="https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}">
+                      <p><a href="https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}" style="text-decoration:none;">
                       <button style=" display: flex;
                       padding:10px;
                       background:purple;
                       border:none;
                       outline:none;
                       color:white;
+                      
                       border-radius: 25px;">Accept Invite</button>
                       </p>
                    
@@ -113,6 +114,8 @@ const inviteUserToSpace = async (req,res) =>{
                                 await sendEmail(useremail, subject, message)
                                await saveNotification(req.user.username,userData[0].username,`Invitation to Join ${spaceData[0].space_focus}`, req.user.profile_picture, `https://asfischolar.org/s/m/spaces/accept/${spaceData[0].space_id}`,"no")
 
+                            }else{
+                                return res.json({error:`Could Not Invite ${userEmail}, Please try again with their email, username or ASFI ID`})
                             }
                         })
                     }

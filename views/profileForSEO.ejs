@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Weperch Technologies Ltd">
-        <meta name="description" content="ASFI, African Science Frontiers Initiative, African Scientists, African Scholars, Scholars, Education">
+        <meta name="description" content="ASFI, African Science Frontiers Initiatives, African Scientists, African Scholars, Scholars, Education">
     
         <!-- Stylesheets -->
         <link rel="stylesheet" href="/css/dashboard.css">
@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
     
         <!-- Title -->
-        <title><%= searchName %> - <%= personTitle %> | ASFI Scholar</title>
+        <title><%= searchName %> - <%= personTitle %> | ASFIScholar</title>
         <meta name="description" content="<%= searchName %> is a <%= personTitle %> with interests in <%= area_of_interest %>.">
     
         <!-- Canonical URL for Google -->
@@ -195,6 +195,50 @@ font-family: "Heebo", sans-serif;
 .pagination button:hover:not(.active) {
   background-color: #e2e2e2;
 }
+/* Custom tooltip styles */
+.co-authors-trigger {
+    position: relative;
+    display: inline-block;
+    color: #0d6efd; /* Blue color to indicate interactivity */
+    cursor: pointer;
+}
+
+.co-authors-trigger:hover .co-authors-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.co-authors-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: auto;
+    max-width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: normal;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.co-authors-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
 		</style>
     </head>
     
@@ -223,6 +267,11 @@ font-family: "Heebo", sans-serif;
        
 
      <!-- Header START -->
+	  <% if(loggedIn == true || loggedIn == "true"){ %>
+    <!-- Header START -->
+   <%- include('header') %>
+   <!-- Header END -->
+		<% }else{ %>
 	 <header class="navbar-light navbar-sticky" style="background: transparent; border: none;">
 	<!-- Logo Nav START -->
 	<nav class="navbar navbar-expand-xl">
@@ -295,12 +344,39 @@ font-family: "Heebo", sans-serif;
 	</nav>
 	<!-- Logo Nav END -->
 </header>
+<% } %>
 <!-- Header END -->
      
 <main class="profile_main">
- <!-- =======================
-Page Banner START -->
+
+	   <!-- NAVIGATION BAR  -->
+		<% if(loggedIn == true || loggedIn == 'true') { 
+			accountType = user_loggedIn.acct_type
+			%>
+    <sidebar class="left-navigation-bar">
+		
+			
+        <%if(accountType == "scholar_account") {%>
+              <%- include('scholarNavbar') %>
+              <% } else if(accountType == "user_account"){%>
+                  <%- include ("navbar") %>
+              <%} else if(accountType == "instructor_account") {%>
+                  <%- include ("instructorNavbar") %>
+      
+                  <% } else if(accountType == "administrator") {%>
+                     <%- include ("adminNavbar") %>
+                     <% } %>
+					 
+          </sidebar>
+		    <!-- END NAVIGATION BAR  -->
+			<section class="pt-0 profile_section" >
+		  <% }else{ %>
 <section class="pt-0 profile_section" style="width: 80%; margin: auto !important;">
+			<%}%>
+        
+
+
+
 	<!-- Main banner background image -->
 	<div class="container-fluid px-0">
 		<div class="bg-blue h-100px h-md-100px rounded-0 cover_image_container" style="background:url(<%=cover_photo%>) no-repeat center center; background-size:cover;">
@@ -348,7 +424,7 @@ Page Banner START -->
 	</div>
 	<div class="nav-container">
 		<div class="tabs">
-			<div class="tab active" onclick="showContent('ASFI')">ASFI Publications</div>
+			<div class="tab active" onclick="showContent('ASFI')">ASFIRJ Publications</div>
 			<div class="tab" onclick="showContent('Google Scholar')">Google Scholar Publications</div>
 			<div class="tab" onclick="showContent('Edu History')">Educational History</div>
 			<div class="tab" onclick="showContent('Work History')">Work History</div>
@@ -364,7 +440,17 @@ Page Banner END -->
 
 <!-- =======================
 Page content START -->
+<% if(loggedIn == true || loggedIn == "true"){ %>
+<section class="pt-5 pb-0" style="margin-top: -40px; background-color: var(--bs-bg-header);
+  width: 80%;
+  margin-right: 60px;
+  align-self: flex-end;">
+
+	<%} else { %>
 <section class="pt-5 pb-0" style="margin-top: -40px; background-color: var(--bs-bg-header);">
+
+
+	<%} %>
 	<div class="container">
 		<div class="con-wrapper">
 
@@ -634,17 +720,7 @@ Page content START -->
 </section>
 
 <br><br>
-<!-- =======================
-Page content END -->
 
-
-
-    <script>
-               var dashboard =  document.getElementById("directory_link_pg");
-            dashboard.classList += "active_item";
-    </script>
-    
-    <!-- END BOTTOM_RIGHT  -->
     </div>
     </div>
 </main>

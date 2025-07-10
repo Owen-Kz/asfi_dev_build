@@ -11,30 +11,44 @@ async function NewPage(page) {
 function renderResources(data) {
     userResourceContainer.innerHTML = "";  // Clear previous content
     
-
     if (data) {
         const queryResult = JSON.parse(data.queryArray);
         if(queryResult.length > 0){
         queryResult.forEach(Item => {
-
             let TypeText = '';
-            let ItemTitle
-            let ItemLink
-            if (Item.itemType === "book") {
+            let ItemTitle;
+            let ItemLink;
+            let AuthorsText = '';
+            
+            // Handle ASFIRJ publications
+            if (Item.itemType === "publication") {
+                TypeText = `<span class="badge bg-info bg-opacity-10 text-info">PUBLICATION</span>`;
+                ItemTitle = Item.manuscript_full_title || Item.title;
+                ItemLink = `https://asfirj.org/content?a=${Item.itemID}`;
+                
+                // Format co-authors if they exist
+                if (Item.co_authors && Item.co_authors.length > 0) {
+                    const mainAuthor = Item.co_authors[0];
+                    const additionalAuthors = Item.co_authors.length - 1;
+                    AuthorsText = `<div class="text-muted small">By ${mainAuthor} ${additionalAuthors > 0 ? `+ ${additionalAuthors} co-author${additionalAuthors > 1 ? 's' : ''}` : ''}</div>`;
+                }
+            } 
+            // Handle other resource types
+            else if (Item.itemType === "book") {
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">BOOK</span>`;
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
             } else if (Item.itemType === "link") {
-                ItemTitle = Item.Status
-                ItemLink = Item.title
+                ItemTitle = Item.Status;
+                ItemLink = Item.title;
                 TypeText = `<span class="badge bg-primary bg-opacity-10 text-primary">PUBLICATION LINK</span>`;
             } else if (Item.itemType === "podcast") {
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
                 TypeText = `<span class="badge bg-purple bg-opacity-10 text-purple">PODCAST</span>`;
             } else if (Item.itemType === "tutorial") {
-                ItemTitle = Item.title
-                ItemLink = "#"
+                ItemTitle = Item.title;
+                ItemLink = "#";
                 TypeText = `<span class="badge bg-warning bg-opacity-10 text-warning">TUTORIAL</span>`;
             }
 
@@ -46,24 +60,29 @@ function renderResources(data) {
                         <div class="d-flex align-items-center">
                             <div class="mb-0 ms-2">
                                 <!-- Title -->
-                                <h6 style=" text-wrap:wrap;"><a href="${ItemLink}">${ItemTitle}</a></h6>
+                                <h6 style="text-wrap:wrap;">
+                                    <a href="${ItemLink}" ${Item.itemType === 'publication' ? 'target="_blank"' : ''}>
+                                        ${ItemTitle}
+                                    </a>
+                                </h6>
+                                ${AuthorsText}
                             </div>
                         </div>
                     </td>
             
-                    <!-- Assset Type -->
+                    <!-- Asset Type -->
                     <td>
                         ${TypeText}
                     </td>
                 </tr>`;
         });
-    }
-    else{
-        userResourceContainer.innerHTML = `<tr><td>No Data Available at the moment</td></tr>`
-    }
+        }
+        else {
+            userResourceContainer.innerHTML = `<tr><td>No Data Available at the moment</td></tr>`;
+        }
     }
 
-    // Render pagination
+    // Render pagination (rest of your existing pagination code)
     const totalPages = data.totalPages;
     const currentPage = data.currentPage;
     const PrevPage = parseInt(currentPage, 10) - 1;
@@ -71,9 +90,9 @@ function renderResources(data) {
 
     const paginationHTML = generatePaginationHTML(currentPage, totalPages, PrevPage, NexxtPage);
     footerContainer.innerHTML = paginationHTML;
-    const url = window.location.pathname
+    const url = window.location.pathname;
     if(url == "/dashboard" ||  url == "/Dashboard"){
-        hideActionButtons()
+        hideActionButtons();
     }
 }
 
