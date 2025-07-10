@@ -275,6 +275,14 @@ const options = {
 const postId = link;
 const formatted = date.toLocaleString('en-US', options).replace(',', ' at');
 
+const coAuthorsHtml = coAuthors.slice(0, 3).map(author => `
+    <div class="coAuthorImage">
+      <img src="${author.image}" alt="${author.name}" title="${author.name}">
+    </div>
+  `).join("");
+  
+  const moreCount = coAuthors.length > 3 ? `+${coAuthors.length - 3} more` : "";
+
 // Set the class and build the card content
 card.className = `card ${smallHeight}`;
 card.innerHTML = `
@@ -311,6 +319,17 @@ card.innerHTML = `
     <div class="title"><a href="${link}">${title}</a></div>
     <div class="cardFooter">
       <div class="itemType">${fileType}</div>
+       <div class="coAuthorsContainer" onclick="showCoAuthorsModal(${postId})">
+        ${coAuthorsHtml}
+        ${moreCount ? `<div class="moreAuthors">${moreCount}</div>` : ""}
+      </div>
+      <div id="coAuthorsModal" class="modal">
+  <div class="modalContent">
+    <span class="closeModal" onclick="closeCoAuthorsModal()">&times;</span>
+    <h3>Co-Authors</h3>
+    <div id="coAuthorsList"></div>
+  </div>
+</div>
     </div>
   </div>
   <div class="divider"></div>
@@ -320,6 +339,24 @@ card.innerHTML = `
     <button class="cardActionButton" style="color: rgba(255, 150, 0)" onclick="share('${link}')"><span class="solar--share-linear"></span> Share</button>
   </div>
 `;
+
+function showCoAuthorsModal(postId) {
+    const coAuthorsForPost = posts.find(p => p.postId === postId).coAuthors;
+    const coAuthorsListHtml = coAuthorsForPost.map(author => `
+      <div class="modalAuthorItem">
+        <img src="${author.image}" alt="${author.name}">
+        <a href="${author.link}" target="_blank">${author.name}</a>
+      </div>
+    `).join("");
+  
+    document.getElementById("coAuthorsList").innerHTML = coAuthorsListHtml;
+    document.getElementById("coAuthorsModal").style.display = "block";
+  }
+  
+  function closeCoAuthorsModal() {
+    document.getElementById("coAuthorsModal").style.display = "none";
+  }
+  
 
 const container = card.querySelector('.reaction-container');
 const reactpostId = container.getAttribute('data-post-id');

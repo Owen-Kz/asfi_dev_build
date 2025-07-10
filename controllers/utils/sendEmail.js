@@ -24,7 +24,7 @@ const sendEmail = async (useremail, subject, message) => {
                     sender: { email: 'support@asfischolar.org', name: 'ASFI Scholar' },
                     subject:subject,
                     htmlContent: `<html><body>
-<%- include ("loader") %>${messageHtml}
+<!-- loader goes here -->${messageHtml}
                                  <script>
         document.addEventListener('DOMContentLoaded', function () {
           const loader = document.getElementById('custom-loader');
