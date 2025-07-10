@@ -486,14 +486,28 @@
     })
   </script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const loader = document.getElementById('custom-loader');
+  document.addEventListener('DOMContentLoaded', function() {
+  const loader = document.getElementById('custom-loader');
 
-      setTimeout(() => {
-        loader.classList.add('hide');
-      }, 500); // optional delay for smoother transition
+  // Confirm loader exists on page
+  if (!loader) return;
 
-    });
+  const lastVisit = localStorage.getItem('lastVisit');
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000; // 24 hours
+
+  if (lastVisit && (now - parseInt(lastVisit)) < oneDay) {
+    // User visited within 1 day — skip loader
+    loader.classList.add('hide');
+  } else {
+    // Show loader, then set new lastVisit time
+    setTimeout(() => {
+      loader.classList.add('hide');
+      localStorage.setItem('lastVisit', now.toString());
+    }, 500);
+  }
+});
+
   </script>
 </body>
 

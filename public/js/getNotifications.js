@@ -150,9 +150,21 @@ toggleChatButton.addEventListener('click', () => {
 });
 }
 // Reset counter on click
-notificationIcon.addEventListener("click", () => {
+function clearNotifyCounter() {
     notifyCounter.textContent = "";
+    notifyCounter.setAttribute("style", "background-color:transparent;");
+}
+
+function clearChatsCounter() {
+    chatsCounter.textContent = "";
+    chatsCounter.setAttribute("style", "background-color:transparent;");
+}
+
+notificationIcon.addEventListener("click", () => {
+    clearNotifyCounter();      // clear the visible counter & dot immediately
+    MarkAllASRead();           // tell server everything’s read
 });
+chatIcon.addEventListener("click", clearChatsCounter);
 
 // Open notification function
 function OpenNotification(id) {
