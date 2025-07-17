@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Weperch Technologies Ltd">
 	<meta name="description" content="ASFI, African Science Frontiers Initiatives, African Scientists, African Scholars, Scholars, Education">
     <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/scholarAssets.css">
+    <link rel="stylesheet" href="/css/scholarDashboard.css">
+    <link rel="stylesheet" href="/css/general.css">
    
     
-    <!-- Favicon -->
-	<link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
+     <!-- Favicon -->
+	 <link rel="shortcut icon" href="https://res.cloudinary.com/dll8awuig/image/upload/v1741165624/asfi_icon_hv7hav.png">
 
     <link rel="stylesheet" href="/css/css/fontawesome.css">
     <link rel="stylesheet" href="/css/css/fontawesome-all.css">
@@ -19,219 +20,89 @@
     <link rel="stylesheet" href="/css/material-design-iconic-font.css">
     <!-- <link rel="stylesheet" href="/css/themify-icons.css"> -->
     <link rel="stylesheet" href="/css/weather-icons/css/weather-icons-core.css">
+	
 
-    <title><%= UserName %> | Profile Page</title>
-     <!-- Dark mode -->
-	 <script src="/js/colorTheme.js"></script>
+    <title><%= UserName %> | Dashboard</title>
+    <!-- Dark mode -->
+	<script src="/js/colorTheme.js"></script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32YRZWEG3P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+ 
+  gtag('config', 'G-32YRZWEG3P');
+</script>
 </head>
-
 <body>
 <!-- loader goes here -->
-	<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
+<input type="hidden" value="<%=Username%>" id="usernameContainer" readonly>
+<input type="hidden" id="profilePhoto" value="<%=ProfileImage%>" readonly>
 
-    <!-- NAVIGATION BAR  -->
-    <sidebar class="left-navigation-bar bg-shadow ">
-          <%if(accountType == "scholar_account") {%>
-         <%- include('scholarNavbar') %>
-         <% } else if(accountType == "user_account"){%>
-             <%- include ("navbar") %>
-         <%} else if(accountType == "instructor_account") {%>
-             <%- include ("instructorNavbar") %>
- 
-             <% } else if(accountType == "administrator") {%>
-				<%- include ("adminNavbar") %>
-				<% } %>
-     </sidebar>
-     <!-- END NAVIGATION BAR  -->
+	<%- include ("bookUploadModal") %>
 
-<!-- Header START -->
-<header class="navbar-light navbar-sticky" style="background: transparent; border: none;">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-expand-xl">
-		<div class="container">
-			<button class="stack-bars fa ">
-            </button>
+	<%- include ("podcastUploadModal") %>
+      
 
-
-
-			<!-- Profile START -->
-			<div class="dropdown ms-1 ms-lg-0">
-                
-                
-                <personal_info>
-                    <account_name><%= FirstName %> <%= LastName %></account_name>
-                </personal_info>
-
-                
-				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<% if(ProfileImage == "avatar.jpg"){ %>
-						<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
-						<% } else { %>
-
-							<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
-							src="" alt="Loading" >
-						<% }%>
-					
-				</a>
-                
-                
-				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-					<!-- Profile info -->
-					<li class="px-3 mb-3">
-						<div class="d-flex align-items-center">
-							<!-- Avatar -->
-							<div class="avatar me-3">
-								<% if(ProfileImage == "avatar.jpg"){ %>
-									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
-									<% } else { %>
-	
-										<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
-										src="" alt="Loading" >
-									<% }%>
-							</div>
-							<div>
-								<a class="h6" href="/dashboard">@<%= UserName %></a>
-								<p class="small m-0"><%= Email %></p>
-							</div>
-						</div>
-					</li>
-                    
-          <li> <hr class="dropdown-divider"></li>
-					<!-- Links -->
-					<li><a class="dropdown-item" href="/settings"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-					<li><a class="dropdown-item" href="/settings"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-					<li><a class="dropdown-item" href="/contactUs"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-					<li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
-					<li> <hr class="dropdown-divider"></li>
-					<!-- Dark mode options START -->
-					<li>
-						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
-							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
-									<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-									<use href="#"></use>
-								</svg> Light
-							</button>
-							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="dark">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
-									<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
-									<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-									<use href="#"></use>
-								</svg> Dark
-							</button>
-							<button type="button" class="btn btn-sm mb-0 active" data-bs-theme-value="auto">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
-									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-									<use href="#"></use>
-								</svg> Auto
-							</button>
-						</div>
-					</li> 
-					<!-- Dark mode options END-->
-				</ul>
-			</div>
-			<!-- Profile START -->
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
+    <!-- Header START -->
+<%- include("header") %>
 <!-- Header END -->
 
+
+
 <!-- **************** MAIN CONTENT START **************** -->
-<main class="scholar_main">
-	
-<!-- =======================
+ <!-- =======================
 Page Banner START -->
-<section class="pt-0">
+<!-- <section class="pt-0" style="z-index: 9999;">
 	
-	<div class="container mt-n4">
-		<div class="row">
-			<!-- Profile banner START -->
-			<div class="col-12 scholarProfile_container">
-				<div class="card bg-transparent card-body p-0">
-					<div class="row d-flex justify-content-between">
-						<!-- Avatar -->
-						<div class="col-auto mt-4 mt-md-0">
-							<div class="avatar avatar-xxl mt-n3">
-                                <% if(ProfileImage == "avatar.jpg"){ %>
-								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="https://eu.ui-avatars.com/api/?background=random&name=<%= FirstName %>+<%= LastName %>&font-size=0.5&rounded=true&size=128&background=333333&color=ffffff" alt='<%= ProfileImage %> '>
-                                <% } else { %>
 
-									<img class="avatar-img rounded-circle border border-white border-3 shadow profileImageContainer"
-									src="" alt="Loading" >
-                                <% }%>
-							</div>
-                          
-						</div>
-						<!-- Profile info -->
-						<div class="col d-md-flex justify-content-between align-items-center mt-4">
-							<div>
-								<h1 class="my-1 fs-4"><%= FirstName %> <%= LastName %><i class="bi bi-patch-check-fill text-info small"></i></h1>
-                                <p class="profile-tag">@<span id="username_container"><%= UserName %></span></p>
-
-								<% if(accountType == "scholar_account"){ %>
-									<%- include ("scholarSubmenu") %>
-								<% }else if(accountType == "instructor_account"){%>
-									<%- include ("instructorSubmenu") %>
-								<% } %>
-							</div>
-							<!-- Button -->
-
-						</div>
-					</div>
-				</div>
-				<!-- Profile banner END -->
-					<!-- Divider -->
-					<hr class="d-xl-none">
-					<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
-						<a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
-						<button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-							<i class="fas fa-sliders-h"></i>
-						</button>
-					</div>
-					<!-- Advanced filter responsive toggler END -->
-			</div>
-		</div>
-	</div>
-</section>
+</section> -->
 <!-- =======================
 Page Banner END -->
 
+<main class="scholar_main">
+
+	 <!-- NAVIGATION BAR  -->
+	 <sidebar class="left-navigation-bar">
+		<%if(accountType == "scholar_account") {%>
+			
+			<%- include('scholarNavbar') %>
+			<% } else if(accountType == "user_account"){%>
+				
+				<%- include ("navbar") %>
+			<%} else if(accountType == "instructor_account") {%>
+				<%- include ("instructorNavbar") %>
+	
+				<% } else if(accountType == "administrator") {%>
+				   <%- include ("adminNavbar") %>
+				   <% } %>
+				   
+							<!-- Widget -->
+							<div><script src="/js/footer.js"></script></div>
+							<!-- Widget -->
+					
+	</sidebar>
+	<!-- END NAVIGATION BAR  -->
+	
 <!-- =======================
 Page content START -->
-<section class="pt-0">
+<section class="pt-0 left_side">
 	<div class="container">
+        <!-- Button -->
+							<div class="dropdown dash_upload">
+							
+                                <span href="#" class="assets_button" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-edit"></i> Upload Resources</span>
+                                <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#" id="BookUploadBtn"><i class="fa fa-book fa-fw me-2"></i>Upload Publication/Book</a></li>
+					<li><a class="dropdown-item" href="#" id="PodcastUploadBtn"><i class="fas fa-microphone fa-fw me-2"></i>Upload Podcast</a></li>
+                                </ul>
+							</div> 
 		<div class="row">
-
-			<!-- Left sidebar START -->
-			<div class="col-xl-3">
-				<!-- Responsive offcanvas body START -->
-				<div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar">
-					<!-- Offcanvas header -->
-					<div class="offcanvas-header bg-light">
-						<h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
-						<button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
-					</div>
-					<!-- Offcanvas body -->
-					<div class="offcanvas-body p-3 p-xl-0">
-						<div class="bg-dark border rounded-3 pb-0 p-3 w-100">
-							<!-- Dashboard menu -->
-							<% if(accountType == "scholar_account") { %>
-
-								<%- include("scholarDashboardMenu.ejs") %>
-	
-								<% } else if(accountType == "instructor_account") { %>
-									<%- include("instructorDashboardMenu.ejs") %>
-									<% } %>
-						</div>
-					</div>
-				</div>
-				<!-- Responsive offcanvas body END -->
-			</div>
-			<!-- Left sidebar END -->
-
 			<!-- Main content START -->
-			<div class="col-xl-9">
+			<div class="col-xl-15">
+				<!-- Main content START -->
+			<div class="col-xl-15">
 				<!-- Card START -->
 				<div class="card border bg-transparent rounded-3">
 					<!-- Card header START -->
@@ -287,51 +158,105 @@ Page content START -->
 				<!-- Card END -->
 			</div>
 			<!-- Main content END -->
+			</div>
+			<%- include("chatNotifications.ejs") %>
+		
+
+           
+			<!-- Main content END -->
 		</div><!-- Row END -->
+
+		
 	</div>
+    
 </section>
 <!-- =======================
 Page content END -->
 
-</main>
-<!-- **************** MAIN CONTENT END **************** -->
-
 <!--Edit Modal START -->
-  <%- include ("editResourceModal") %>
+<%- include ("editResourceModal") %>
 <!-- Edit Modal END -->
 
+<!-- Start right section  -->
+ <!-- Include Notification panel -->
+  <div class="MainRight_side">
+<%- include("notificationsPanel.ejs") %>
+  </div>
+<!--Include Chats Panel-->
+<div class="ChatRight_side">
+	<%- include("chatsPanel.ejs") %>
+</div>
+<!-- End right Section  -->
 
-<!-- Delete Modal END -->
+</main>
+
+
+
+
+
+
+<!-- **************** MAIN CONTENT END **************** -->
 
 <!-- =======================
 Footer START -->
-<footer class="bg-dark p-3">
-	<div class="container">
-		<div class="row align-items-center">
-            <!-- Widget -->
-            <div><script src="/js/footer.js"></script></div>
-			<!-- Widget -->
-		</div>
-	</div>
-</footer>
+
 <!-- =======================
 Footer END -->
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/mainjs.js"></script>
-<script src="/js/getFormEdit.js"></script>
-
-
+  <script src="/js/scholarControls/uploadBook.js"></script>
+  <script src="/js/scholarControls/uploadPodcast.js"></script>
+  <script src="/js/getNotifications.js"></script>
+  <script src="/js/getChatNotifications.js"></script>
+  <script src="/js/getTotalPublications.js"></script>
+  <script src="/js/getFormEdit.js"></script>
 <!-- Back to top -->
 <div class="back-top"><i class="fas fa-arrow-up position-absolute top-50 start-50 translate-middle"></i></div>
 
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="/js/fetchFiles.js"></script>
 
 <!-- Vendors -->
 <script src="/vendor/tiny-slider/tiny-slider.js"></script>
 <script src="/vendor/glightbox/js/glightbox.js"></script>
-<!-- <script src="/js/functions.js"></script> -->
+<script src="/js/functions.js"></script>
+<script src="/js/fetchFiles.js"></script>
+
+<script type="module" src="/js/services/main.js"></script>
+<script>
+	const notifications = document.querySelector("#notifications");
+	const chats = document.querySelector("#chats");
+	const notificationsPanel = document.querySelector(".MainRight_side");
+	const chatsPanel = document.querySelector(".ChatRight_side");
+	const closeButtonNotification = document.querySelector(".close_button_notification");
+	const closeButtonChat = document.querySelector(".close_button_chat");
+	notifications.addEventListener("click", () => {
+    notificationsPanel.classList.toggle("visible");
+	chatsPanel.classList.remove("visible");
+});
+chats.addEventListener("click", () => {
+    chatsPanel.classList.toggle("visible");
+	notificationsPanel.classList.remove("visible");
+});
+closeButtonNotification.addEventListener("click", function(){
+    notificationsPanel.classList.toggle("visible");
+})
+closeButtonChat.addEventListener("click", function(){
+    chatsPanel.classList.toggle("visible");
+})
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const loader = document.getElementById('custom-loader');
+    
+              setTimeout(() => {
+                loader.classList.add('hide');
+              }, 500); // optional delay for smoother transition
+            
+          });
+      
+      </script>
+</body>
 
 
 <script>
