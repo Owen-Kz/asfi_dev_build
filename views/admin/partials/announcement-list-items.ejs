@@ -1,0 +1,39 @@
+	<% announcements.forEach(announcement => { %>
+	<div class="col-md-6 col-lg-4">
+	  <div class="card shadow h-100" data-id="<%= announcement.id %>" data-priority="<%= announcement.priority %>">
+	    <div class="position-relative">
+	      
+          <% if (new Number(announcement.priority) > 0) { %>
+            <button class="btn btn-sm btn-dark priority-toggle" data-priority="true" title="Toggle Priority">
+	        <i class="bi bi-star-fill text-warning"></i>
+	      </button>
+	        <span class="badge bg-danger priority-badge">Priority</span>
+          <% } else{ %>
+            <button class="btn btn-sm btn-dark priority-toggle" data-priority="false" title="Toggle Priority">
+              <i class="bi bi-star text-warning"></i>
+            </button>
+          <% } %>
+
+	    </div>
+	    <div class="card-body">
+	      <h5 class="card-title"><%= announcement.title %></h5>
+	      <p class="text-muted small mb-2"><i class="bi bi-calendar me-2"></i>Posted: <%= new Date(announcement.timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) %> </p>
+	      <div class="announcement-preview mb-3">
+            <%- announcement.content %>
+	
+	      </div>
+	      <div class="d-flex justify-content-between">
+	        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewAnnouncementModal"
+            data-announcement="<%= JSON.stringify(announcement) %>" data-title="<%= announcement.title %>" data-priority="<%= announcement.priority %>">View Full</button>
+	        <div>
+	          <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#editAnnouncementModal" data-id="<%= announcement.id %>" data-title="<%= announcement.title %>" data-content="<%= announcement.quillContent %>" data-priority="<%= announcement.priority %>"><i class="bi bi-pencil"></i></button>
+
+	          <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAnnouncementModal" data-id="<%= announcement.id %>" data-title="<%= announcement.title %>"><i class="bi bi-trash"></i></button>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal for viewing full announcement -->
+	<% }); %>

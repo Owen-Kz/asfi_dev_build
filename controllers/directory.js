@@ -5,7 +5,7 @@ const Directory = (req, res) => {
     const username_new = req.user.username;
 
     // First, get the latest announcement
-    db.query("SELECT * FROM announcements ORDER BY id DESC LIMIT 1", (err, annResult) => {
+    db.query("SELECT * FROM announcements WHERE priority = 1", (err, annResult) => {
       if (err) throw err;
 
       let announcementTitle = "";

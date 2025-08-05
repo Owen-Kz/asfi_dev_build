@@ -50,9 +50,26 @@
         <span id="uploadRequestCount">
            
         </span></a></li>
-
+<!-- 
         <li class="nav-item"> <a class="nav-link" href="/admin/v2/pages/announcement"><i class="fa fa-bullhorn fa-fw me-2"></i>Make announcement
-          </a></li>
+          </a></li> -->
+
+            <!-- Menu item 6 -->
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapseannouncements" role="button" aria-expanded="false" aria-controls="collapseannouncements">
+           <i class="fa fa-bullhorn fa-fw me-2"></i>Announcements
+        </a>
+        <!-- Submenu -->
+        <ul class="nav collapse flex-column" id="collapseannouncements" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/v2/pages/announcement">Make Announcement</a></li>
+            <li class="nav-item"> 
+                <a class="nav-link" href="/admin/pages/announcemnts/manage">Manage Announcements
+                    <span id="instructorRequestCountContainer"></span>
+                    
+                </a>
+            </li>
+        </ul>
+    </li>
 
     <li class="nav-item"> <a class="nav-link" href="/admin/pages/posters/all"><i class="far fa-address-card fa-fw me-2"></i>Posters </a></li>
 

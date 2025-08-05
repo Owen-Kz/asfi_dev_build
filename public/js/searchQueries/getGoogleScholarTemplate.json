@@ -1,0 +1,584 @@
+{
+  "search_metadata": {
+    "id": "68921f90d355cc38eb8c7a2c",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/bca10c459b5f66ba/68921f90d355cc38eb8c7a2c.json",
+    "created_at": "2025-08-05 15:13:20 UTC",
+    "processed_at": "2025-08-05 15:13:20 UTC",
+    "google_scholar_url": "https://scholar.google.com/scholar?q=Bright++Nwaru&hl=en",
+    "raw_html_file": "https://serpapi.com/searches/bca10c459b5f66ba/68921f90d355cc38eb8c7a2c.html",
+    "total_time_taken": 0.87
+  },
+  "search_parameters": {
+    "engine": "google_scholar",
+    "q": "Bright  Nwaru",
+    "hl": "en"
+  },
+  "search_information": {
+    "organic_results_state": "Results for exact spelling",
+    "total_results": 614,
+    "time_taken_displayed": 0.07,
+    "query_displayed": "Bright  Nwaru"
+  },
+  "profiles": {
+    "title": "User profiles for Bright Nwaru",
+    "link": "https://scholar.google.com/citations?view_op=search_authors&mauthors=Bright++Nwaru&hl=en&oi=ao",
+    "serpapi_link": "https://serpapi.com/search.json?engine=google_scholar_profiles&hl=en&mauthors=Bright++Nwaru",
+    "authors": [
+      {
+        "name": "Bright Nwaru",
+        "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=ao",
+        "serpapi_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+        "author_id": "E03894kAAAAJ",
+        "affiliations": "Professor, Krefting Research Centre, Institute of Medicine, University of Gothenburg",
+        "email": "Verified email at gu.se",
+        "cited_by": 12742
+      }
+    ]
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "The epidemiology of food allergy in Europe: a systematic review and meta‐analysis",
+      "result_id": "Bdf_57zlWrIJ",
+      "link": "https://onlinelibrary.wiley.com/doi/abs/10.1111/all.12305",
+      "snippet": "Food allergy ( FA ) is an important atopic disease although its precise burden is unclear. This systematic review aimed to provide recent, up‐to‐date data on the incidence, prevalence, …",
+      "publication_info": {
+        "summary": "BI Nwaru, L Hickstein, SS Panesar, A Muraro, T Werfel… - Allergy, 2014 - Wiley Online Library",
+        "authors": [
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          },
+          {
+            "name": "SS Panesar",
+            "link": "https://scholar.google.com/citations?user=WgfQEQwAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=WgfQEQwAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "WgfQEQwAAAAJ"
+          },
+          {
+            "name": "A Muraro",
+            "link": "https://scholar.google.com/citations?user=pRedBNsAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=pRedBNsAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "pRedBNsAAAAJ"
+          },
+          {
+            "name": "T Werfel",
+            "link": "https://scholar.google.com/citations?user=otDZiEwAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=otDZiEwAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "otDZiEwAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "wiley.com",
+          "file_format": "PDF",
+          "link": "https://onlinelibrary.wiley.com/doi/pdf/10.1111%2Fall.12305"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=Bdf_57zlWrIJ",
+        "cited_by": {
+          "total": 711,
+          "link": "https://scholar.google.com/scholar?cites=12851837086164047621&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "12851837086164047621",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=12851837086164047621&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:Bdf_57zlWrIJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3ABdf_57zlWrIJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 19,
+          "link": "https://scholar.google.com/scholar?cluster=12851837086164047621&hl=en&as_sdt=0,14",
+          "cluster_id": "12851837086164047621",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=12851837086164047621&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 2,
+      "title": "Frequency of food allergy in Europe: an updated systematic review and meta‐analysis",
+      "result_id": "TkABJ-8B-B4J",
+      "link": "https://onlinelibrary.wiley.com/doi/abs/10.1111/all.15560",
+      "snippet": "Food allergy (FA) is increasingly reported in Europe, however, the latest prevalence estimates were based on studies published a decade ago. The present work provides the most …",
+      "publication_info": {
+        "summary": "…, A Sheikh, A Muraro, G Roberts, BI Nwaru - Allergy, 2023 - Wiley Online Library",
+        "authors": [
+          {
+            "name": "A Muraro",
+            "link": "https://scholar.google.com/citations?user=pRedBNsAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=pRedBNsAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "pRedBNsAAAAJ"
+          },
+          {
+            "name": "G Roberts",
+            "link": "https://scholar.google.com/citations?user=whxkrzYAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=whxkrzYAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "whxkrzYAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "wiley.com",
+          "file_format": "PDF",
+          "link": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/all.15560"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=TkABJ-8B-B4J",
+        "cited_by": {
+          "total": 213,
+          "link": "https://scholar.google.com/scholar?cites=2231535742025285710&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "2231535742025285710",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=2231535742025285710&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:TkABJ-8B-B4J:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3ATkABJ-8B-B4J%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 11,
+          "link": "https://scholar.google.com/scholar?cluster=2231535742025285710&hl=en&as_sdt=0,14",
+          "cluster_id": "2231535742025285710",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=2231535742025285710&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 3,
+      "title": "Impact of COVID-19 national lockdown on asthma exacerbations: interrupted time-series analysis of English primary care data",
+      "result_id": "Agnf3pubNqkJ",
+      "link": "https://thorax.bmj.com/content/76/9/860.abstract",
+      "snippet": "Background The impact of COVID-19 and ensuing national lockdown on asthma exacerbations is unclear. Methods We conducted an interrupted time-series (lockdown on 23 March …",
+      "publication_info": {
+        "summary": "SA Shah, JK Quint, BI Nwaru, A Sheikh - Thorax, 2021 - thorax.bmj.com",
+        "authors": [
+          {
+            "name": "SA Shah",
+            "link": "https://scholar.google.com/citations?user=FGtGtWYAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=FGtGtWYAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "FGtGtWYAAAAJ"
+          },
+          {
+            "name": "JK Quint",
+            "link": "https://scholar.google.com/citations?user=oZTCiYkAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=oZTCiYkAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "oZTCiYkAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "bmj.com",
+          "file_format": "PDF",
+          "link": "https://thorax.bmj.com/content/thoraxjnl/76/9/860.full.pdf"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=Agnf3pubNqkJ",
+        "cited_by": {
+          "total": 108,
+          "link": "https://scholar.google.com/scholar?cites=12193104134913591554&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "12193104134913591554",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=12193104134913591554&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:Agnf3pubNqkJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3AAgnf3pubNqkJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 17,
+          "link": "https://scholar.google.com/scholar?cluster=12193104134913591554&hl=en&as_sdt=0,14",
+          "cluster_id": "12193104134913591554",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=12193104134913591554&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 4,
+      "title": "Age at the introduction of solid foods during the first year and allergic sensitization at age 5 years",
+      "result_id": "5Y8li67ETRoJ",
+      "link": "https://publications.aap.org/pediatrics/article-abstract/125/1/50/29748",
+      "snippet": "OBJECTIVE: The goal was to examine the relationship between age at the introduction of solid foods during the first year of life and allergic sensitization in 5-year-old children. …",
+      "publication_info": {
+        "summary": "BI Nwaru, M Erkkola, S Ahonen, M Kaila… - …, 2010 - publications.aap.org",
+        "authors": [
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          },
+          {
+            "name": "M Erkkola",
+            "link": "https://scholar.google.com/citations?user=JQ_f220AAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=JQ_f220AAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "JQ_f220AAAAJ"
+          }
+        ]
+      },
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=5Y8li67ETRoJ",
+        "cited_by": {
+          "total": 297,
+          "link": "https://scholar.google.com/scholar?cites=1895387272130695141&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "1895387272130695141",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=1895387272130695141&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:5Y8li67ETRoJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3A5Y8li67ETRoJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 15,
+          "link": "https://scholar.google.com/scholar?cluster=1895387272130695141&hl=en&as_sdt=0,14",
+          "cluster_id": "1895387272130695141",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=1895387272130695141&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 5,
+      "title": "Effectiveness of mHealth interventions for maternal, newborn and child health in low–and middle–income countries: Systematic review and meta–analysis",
+      "result_id": "dywTkaVtyA4J",
+      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4643860/",
+      "snippet": "Objective To assess the effectiveness of mHealth interventions for maternal, newborn and child health (MNCH) in low– and middle–income countries (LMIC). Methods 16 online …",
+      "publication_info": {
+        "summary": "SH Lee, UB Nurmatov, BI Nwaru… - Journal of global …, 2015 - pmc.ncbi.nlm.nih.gov",
+        "authors": [
+          {
+            "name": "UB Nurmatov",
+            "link": "https://scholar.google.com/citations?user=ibKbOUQAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=ibKbOUQAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "ibKbOUQAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "nih.gov",
+          "file_format": "PDF",
+          "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4643860/pdf/jogh-06-010401.pdf"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=dywTkaVtyA4J",
+        "cited_by": {
+          "total": 486,
+          "link": "https://scholar.google.com/scholar?cites=1065221869744106615&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "1065221869744106615",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=1065221869744106615&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:dywTkaVtyA4J:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3AdywTkaVtyA4J%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 21,
+          "link": "https://scholar.google.com/scholar?cluster=1065221869744106615&hl=en&as_sdt=0,14",
+          "cluster_id": "1065221869744106615",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=1065221869744106615&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 6,
+      "title": "Animal versus plant-based protein and risk of cardiovascular disease and type 2 diabetes: a systematic review of randomized controlled trials and prospective …",
+      "result_id": "vXOzOE_XNcQJ",
+      "type": "Html",
+      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10084508/",
+      "snippet": "Objectives To systematically review the evidence on the effect of replacing the intake of animal protein with plant protein on cardiovascular disease (CVD) and type 2 diabetes (T2D) …",
+      "publication_info": {
+        "summary": "…, L Bärebring, EK Arnesen, BI Nwaru… - Food & Nutrition …, 2023 - pmc.ncbi.nlm.nih.gov",
+        "authors": [
+          {
+            "name": "L Bärebring",
+            "link": "https://scholar.google.com/citations?user=KKfXf7cAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=KKfXf7cAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "KKfXf7cAAAAJ"
+          },
+          {
+            "name": "EK Arnesen",
+            "link": "https://scholar.google.com/citations?user=nE4ua9gAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=nE4ua9gAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "nE4ua9gAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "nih.gov",
+          "file_format": "HTML",
+          "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10084508/"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=vXOzOE_XNcQJ",
+        "html_version": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10084508/",
+        "cited_by": {
+          "total": 40,
+          "link": "https://scholar.google.com/scholar?cites=14138443340453213117&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "14138443340453213117",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=14138443340453213117&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:vXOzOE_XNcQJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3AvXOzOE_XNcQJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 15,
+          "link": "https://scholar.google.com/scholar?cluster=14138443340453213117&hl=en&as_sdt=0,14",
+          "cluster_id": "14138443340453213117",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=14138443340453213117&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 7,
+      "title": "Comorbidity of physical disorders among patients with severe mental illness with and without substance use disorders: a systematic review and meta-analysis",
+      "result_id": "dxEzAZPyuAMJ",
+      "link": "https://www.tandfonline.com/doi/abs/10.1080/15504263.2019.1619007",
+      "snippet": "Objective: Physical disorders in patients with severe mental illness (SMI) are common and they tend to be underdiagnosed by clinicians, which might lead to negative treatment …",
+      "publication_info": {
+        "summary": "…, EM Nåheim Eien, BI Nwaru… - Journal of dual …, 2019 - Taylor & Francis",
+        "authors": [
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=dxEzAZPyuAMJ",
+        "cited_by": {
+          "total": 74,
+          "link": "https://scholar.google.com/scholar?cites=268230891022782839&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "268230891022782839",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=268230891022782839&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:dxEzAZPyuAMJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3AdxEzAZPyuAMJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 8,
+          "link": "https://scholar.google.com/scholar?cluster=268230891022782839&hl=en&as_sdt=0,14",
+          "cluster_id": "268230891022782839",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=268230891022782839&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 8,
+      "title": "Overuse of short-acting β2-agonists in asthma is associated with increased risk of exacerbation and mortality: a nationwide cohort study of the global SABINA …",
+      "result_id": "Y5YV-OYscHAJ",
+      "type": "Html",
+      "link": "https://publications.ersnet.org/content/erj/55/4/1901872?ctkey=shareline&utm_source=TrendMD&utm_medium=cpc&utm_campaign=European_Respiratory_Journal_TrendMD_0",
+      "snippet": "Background Overuse of short-acting β 2 -agonists (SABA) may indicate poor asthma control and adverse health outcomes. Contemporary population-based data on use, risk factors and …",
+      "publication_info": {
+        "summary": "BI Nwaru, M Ekström, P Hasvold… - European …, 2020 - publications.ersnet.org",
+        "authors": [
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          },
+          {
+            "name": "M Ekström",
+            "link": "https://scholar.google.com/citations?user=NYXGwO0AAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=NYXGwO0AAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "NYXGwO0AAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "ersnet.org",
+          "file_format": "HTML",
+          "link": "https://publications.ersnet.org/content/erj/55/4/1901872?ctkey=shareline&utm_source=TrendMD&utm_medium=cpc&utm_campaign=European_Respiratory_Journal_TrendMD_0"
+        },
+        {
+          "title": "Free from Publisher",
+          "link": "https://scholar.google.com/scholar?output=instlink&q=info:Y5YV-OYscHAJ:scholar.google.com/&hl=en&as_sdt=0,14&scillfp=7344127779297648962&oi=lle"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=Y5YV-OYscHAJ",
+        "html_version": "https://publications.ersnet.org/content/erj/55/4/1901872?ctkey=shareline&utm_source=TrendMD&utm_medium=cpc&utm_campaign=European_Respiratory_Journal_TrendMD_0",
+        "cited_by": {
+          "total": 543,
+          "link": "https://scholar.google.com/scholar?cites=8102025100155786851&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "8102025100155786851",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=8102025100155786851&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:Y5YV-OYscHAJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3AY5YV-OYscHAJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 13,
+          "link": "https://scholar.google.com/scholar?cluster=8102025100155786851&hl=en&as_sdt=0,14",
+          "cluster_id": "8102025100155786851",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=8102025100155786851&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 9,
+      "title": "Managing food allergy: GA2LEN guideline 2022",
+      "result_id": "adg788zMfl8J",
+      "type": "Html",
+      "link": "https://www.sciencedirect.com/science/article/pii/S1939455122000631",
+      "snippet": "Food allergy affects approximately 2–4% of children and adults. This guideline provides recommendations for managing food allergy from the Global Allergy and Asthma European …",
+      "publication_info": {
+        "summary": "…, E Khaleva, S Arasi, A Dunn-Galvin, BI Nwaru… - World Allergy …, 2022 - Elsevier",
+        "authors": [
+          {
+            "name": "E Khaleva",
+            "link": "https://scholar.google.com/citations?user=DVBwKOkAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=DVBwKOkAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "DVBwKOkAAAAJ"
+          },
+          {
+            "name": "S Arasi",
+            "link": "https://scholar.google.com/citations?user=Makw_JAAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=Makw_JAAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "Makw_JAAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "sciencedirect.com",
+          "file_format": "HTML",
+          "link": "https://www.sciencedirect.com/science/article/pii/S1939455122000631"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=adg788zMfl8J",
+        "html_version": "https://www.sciencedirect.com/science/article/pii/S1939455122000631",
+        "cited_by": {
+          "total": 185,
+          "link": "https://scholar.google.com/scholar?cites=6881162461294876777&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "6881162461294876777",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=6881162461294876777&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:adg788zMfl8J:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3Aadg788zMfl8J%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 33,
+          "link": "https://scholar.google.com/scholar?cluster=6881162461294876777&hl=en&as_sdt=0,14",
+          "cluster_id": "6881162461294876777",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=6881162461294876777&engine=google_scholar&hl=en"
+        }
+      }
+    },
+    {
+      "position": 10,
+      "title": "Prevalence estimates of eight big food allergies in Europe: updated systematic review and meta‐analysis",
+      "result_id": "vh688tVxkVEJ",
+      "link": "https://onlinelibrary.wiley.com/doi/abs/10.1111/all.15801",
+      "snippet": "In 2014, the European Academy of Allergy and Clinical Immunology published prevalence estimates for food allergy (FA) and food sensitization (FS) to the so‐called eight big food …",
+      "publication_info": {
+        "summary": "…, A Sheikh, A Muraro, G Roberts, BI Nwaru - Allergy, 2023 - Wiley Online Library",
+        "authors": [
+          {
+            "name": "A Muraro",
+            "link": "https://scholar.google.com/citations?user=pRedBNsAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=pRedBNsAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "pRedBNsAAAAJ"
+          },
+          {
+            "name": "G Roberts",
+            "link": "https://scholar.google.com/citations?user=whxkrzYAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=whxkrzYAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "whxkrzYAAAAJ"
+          },
+          {
+            "name": "BI Nwaru",
+            "link": "https://scholar.google.com/citations?user=E03894kAAAAJ&hl=en&oi=sra",
+            "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=E03894kAAAAJ&engine=google_scholar_author&hl=en",
+            "author_id": "E03894kAAAAJ"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "title": "wiley.com",
+          "file_format": "PDF",
+          "link": "https://onlinelibrary.wiley.com/doi/pdf/10.1111%2Fall.15801"
+        }
+      ],
+      "inline_links": {
+        "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&hl=en&q=vh688tVxkVEJ",
+        "cited_by": {
+          "total": 103,
+          "link": "https://scholar.google.com/scholar?cites=5877604152409595582&as_sdt=400005&sciodt=0,14&hl=en",
+          "cites_id": "5877604152409595582",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=400005&cites=5877604152409595582&engine=google_scholar&hl=en"
+        },
+        "related_pages_link": "https://scholar.google.com/scholar?q=related:vh688tVxkVEJ:scholar.google.com/&scioq=Bright++Nwaru&hl=en&as_sdt=0,14",
+        "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=related%3Avh688tVxkVEJ%3Ascholar.google.com%2F",
+        "versions": {
+          "total": 11,
+          "link": "https://scholar.google.com/scholar?cluster=5877604152409595582&hl=en&as_sdt=0,14",
+          "cluster_id": "5877604152409595582",
+          "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C14&cluster=5877604152409595582&engine=google_scholar&hl=en"
+        }
+      }
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://scholar.google.com/scholar?start=10&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+    "other_pages": {
+      "2": "https://scholar.google.com/scholar?start=10&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "3": "https://scholar.google.com/scholar?start=20&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "4": "https://scholar.google.com/scholar?start=30&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "5": "https://scholar.google.com/scholar?start=40&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "6": "https://scholar.google.com/scholar?start=50&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "7": "https://scholar.google.com/scholar?start=60&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "8": "https://scholar.google.com/scholar?start=70&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "9": "https://scholar.google.com/scholar?start=80&q=Bright++Nwaru&hl=en&as_sdt=0,14",
+      "10": "https://scholar.google.com/scholar?start=90&q=Bright++Nwaru&hl=en&as_sdt=0,14"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=10",
+    "next": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=10",
+      "3": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=20",
+      "4": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=30",
+      "5": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=40",
+      "6": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=50",
+      "7": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=60",
+      "8": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=70",
+      "9": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=80",
+      "10": "https://serpapi.com/search.json?as_sdt=0%2C14&engine=google_scholar&hl=en&q=Bright++Nwaru&start=90"
+    }
+  }
+}

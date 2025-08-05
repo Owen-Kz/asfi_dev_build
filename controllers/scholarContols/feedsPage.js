@@ -9,7 +9,7 @@ const feedsPage = async (req,res) =>{
             }else{
                 userProfileImage = req.user.profile_picture
             }
-            const getAnnoucement = await dbPromise.query("SELECT * FROM announcements ORDER BY id DESC LIMIT 1")
+            const getAnnoucement = await dbPromise.query("SELECT * FROM announcements WHERE priority = 1")
             let announcementTitle = ""
             let content = "[]"
             let announcementDate = ""

@@ -7,11 +7,16 @@ fetch(`/findGoogleScholar?name=${encodeURIComponent(personName)}`, {
 })
   .then(res => res.json())
   .then(scholarData => {
+    
     if(scholarData && scholarData.profiles) {
     /******************************************************
      * Populate Profile Section
      ******************************************************/
+    console.log(scholarData);
     const profile = scholarData.profiles.authors[0];
+    const citationLink = profile.link;
+
+    document.getElementById("citation-link").href = citationLink;
     document.getElementById("scholar-name").textContent = profile.name;
     document.getElementById("scholar-affiliation").textContent = "Affiliation: " + profile.affiliations;
     document.getElementById("scholar-email").textContent = profile.email;

@@ -240,6 +240,10 @@ const openNotifications = require("../controllers/notifications/openNotification
 const openMessageNotifications = require("../controllers/notifications/openMessageNotification");
 const countMyNotifications = require("../controllers/notifications/countMyNotifications");
 const markAsRead = require("../controllers/notifications/markAllAsRead");
+const getAnnouncements = require("../controllers/admin/announcement/getAnnouncements");
+const updateAnnouncement = require("../controllers/admin/announcement/updateAnnouncement");
+const SetAsPriority = require("../controllers/admin/announcement/setAsPriority");
+const deleteAnnouncement = require("../controllers/admin/announcement/deleteAnnouncement");
 
 // ADMINISTRATOR 
 
@@ -849,6 +853,16 @@ router.get("/admin/v3/courses/create", AdminLoggedIn,(req,res)=>{
 router.get("/admin/v2/pages/announcement", AdminLoggedIn, (req,res) =>{
     res.render("admin-announcement", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name})
 })
+
+router.get("/admin/pages/announcements/manage", AdminLoggedIn, async (req,res) =>{
+    const allAnnouncements = await getAnnouncements(req,res)
+    res.render("admin-announcement-management", {username:req.admin.username, firstName:req.admin.first_name, adminPicture:req.admin.profile_picture, email:req.admin.email, LastName:req.admin.last_name, announcements: allAnnouncements})
+})
+
+router.put("/announcements/update/:id", AdminLoggedIn, updateAnnouncement )
+router.put("/announcements/prioritize/:id", AdminLoggedIn, SetAsPriority)
+router.delete("/announcements/delete/:id", AdminLoggedIn, deleteAnnouncement)
+
 
 router.get("/admin/courses/edit/:courseId",AdminLoggedIn, (req,res)=>{
     res.render("admin-edit-course-detail")

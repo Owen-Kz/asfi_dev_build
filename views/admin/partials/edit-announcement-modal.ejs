@@ -1,0 +1,359 @@
+<div class="modal fade" id="editAnnouncementModal" tabindex="-1" aria-labelledby="editAnnouncementLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			
+			<!-- Modal header -->
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title text-white" id="editAnnouncementLabel">Edit Announcement</h5>
+				<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<form id="editAnnouncementForm" enctype="multipart/form-data">
+                    <input type="hidden" id="editAnnouncementId" name="id" value="">
+					<!-- Title -->
+					<div class="mb-3">
+						<label class="form-label">Announcement title</label>
+						<input class="form-control" type="text" name="title" id="editTitleMain" value="Important System Maintenance" required>
+					</div>
+					
+					<!-- Priority Switch -->
+					<div class="mb-3 form-check form-switch">
+						<input class="form-check-input" type="checkbox" id="editPrioritySwitch" name="priority" checked>
+						<label class="form-check-label" for="editPrioritySwitch">Mark as Priority Announcement</label>
+					</div>
+					
+		
+					
+					<!-- Content Editor -->
+					<div class="mb-3">
+						<label class="form-label">Content</label>
+						<div id="editQuilleditor"></div>
+						<input type="hidden" id="editAnnouncementContent" name="content">
+					</div>
+					
+					<!-- Date Range -->
+					<!-- <div class="row mb-3"> -->
+						<!-- <div class="col-md-6">
+							<label for="editStartDate" class="form-label">Start Date</label>
+							<input type="datetime-local" class="form-control" id="editStartDate" name="startDate" value="2023-05-15T00:00" required>
+						</div> -->
+						<!-- <div class="col-md-6">
+							<label for="editEndDate" class="form-label">End Date</label>
+							<input type="datetime-local" class="form-control" id="editEndDate" name="endDate" value="2023-05-20T00:00">
+							<small class="text-muted">Leave blank if announcement should not expire</small>
+						</div> -->
+					<!-- </div> -->
+				</form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="updateAnnouncementBtn">Update Announcement</button>
+			</div>
+		</div>
+	</div>
+</div>   
+
+
+<script>
+    	
+
+		
+
+document.addEventListener('DOMContentLoaded', function () {
+    const editModal = document.getElementById('editAnnouncementModal');
+    const updateBtn = document.getElementById('updateAnnouncementBtn');
+    
+
+    editModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const announcementId = button.getAttribute('data-id');
+        const title = button.getAttribute('data-title');
+        const priority = button.getAttribute('data-priority');
+        const isPriority = document.getElementById('editPrioritySwitch');
+        const editAnnouncementId = document.getElementById('editAnnouncementId');
+        const content = button.getAttribute('data-content'); // This should be Quill Delta JSON
+        // Set hidden ID for update processing
+        updateBtn.setAttribute('data-id', announcementId);
+        editAnnouncementId.value = announcementId;
+
+        	// Validate form
+			if (!title || !content ) {
+				iziToast.error({
+                    title: 'Error',
+                    message: 'Announcement title and content are required.',
+                    position: 'topRight'
+                });
+				return;
+			}
+
+        // Fill title
+        document.getElementById('editTitleMain').value = title || '';
+
+        // Fill Quill content
+        try {
+            const delta = JSON.parse(content); // Parse stored Quill delta JSON
+                editQuill.setContents(delta);
+                console.log("priority", priority) ;
+                if (new Number(priority) > 0) {
+                    isPriority.checked = true;
+                    document.getElementById('editPrioritySwitch').value = 1;
+                } else {
+                    isPriority.checked = false;
+                    document.getElementById('editPrioritySwitch').value = 0;
+
+                }
+
+         
+            document.getElementById('editAnnouncementContent').value = JSON.stringify(delta);
+        } catch (err) {
+            console.error('Invalid Quill content JSON', err);
+        }
+    });
+
+    // Keep hidden input in sync with Quill editor changes
+    // if (window.editQuill) {
+        editQuill.on('text-change', function () {
+            document.getElementById('editAnnouncementContent').value = JSON.stringify(editQuill.getContents().ops);
+        });
+    // }
+
+    // Example update action
+    updateBtn.addEventListener('click', function () {
+        const id = this.getAttribute('data-id');
+        const formData = new FormData(document.getElementById('editAnnouncementForm'));
+
+        fetch(`/announcements/update/${id}`, {
+            method: 'PUT',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+            // location.reload(); // Reload after update
+            if(response.error) {
+                iziToast.error({
+                    title: 'Error',
+                    message: response.error,
+                    position: 'topRight'
+                });
+            } else {
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Announcement updated successfully!',
+                    position: 'topRight'
+                });
+                // Close modal
+                bootstrap.Modal.getInstance(editModal).hide();
+                // Optionally, reload the page or update the announcement list dynamically
+            }
+        })
+        .catch(err => console.error(err));
+    });
+});
+</script>
+
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Initialize Quill editor for create modal
+		const quill = new Quill('#quilleditor2', {
+			theme: 'snow',
+			modules: {
+				toolbar: [
+					[{ 'header': [1, 2, 3, false] }],
+					['bold', 'italic', 'underline', 'strike'],
+					[{ 'color': [] }, { 'background': [] }],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image', 'video'],
+					['clean']
+				]
+			},
+			placeholder: 'Write your announcement content here...'
+		});
+		
+    })
+
+
+		// Handle announcement deletion
+		// document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+		// 	// Here you would typically send a delete request to your backend
+		// 	console.log('Announcement deleted');
+			
+		// 	// Close modal
+		// 	bootstrap.Modal.getInstance(document.getElementById('deleteAnnouncementModal')).hide();
+			
+		// 	// Show success message
+		// 	alert('Announcement deleted successfully!');
+		// });
+		
+		// Handle priority toggle on announcement cards
+// 		document.addEventListener('click', function(e) {
+// 			if (e.target.closest('.priority-toggle')) {
+// 				const toggleBtn = e.target.closest('.priority-toggle');
+// 				const isPriority = toggleBtn.getAttribute('data-priority') === 1
+// 				const announcementId = toggleBtn.closest('.card').getAttribute('data-id');
+				
+// 				// Toggle the visual state
+// 				toggleBtn.setAttribute('data-priority', !isPriority);
+// 				toggleBtn.innerHTML = isPriority ? 
+// 					'<i class="bi bi-star"></i>' : 
+// 					'<i class="bi bi-star-fill text-warning"></i>';
+				
+// 				// Toggle the priority badge visibility
+// 				const priorityBadge = toggleBtn.closest('.card').querySelector('.priority-badge');
+// 				if (priorityBadge) {
+// 					priorityBadge.style.display = isPriority ? 'none' : 'block';
+// 				}
+				
+// 				// Here you would typically send an update to your backend
+// 				console.log(`Announcement ${announcementId} priority set to: ${!isPriority}`);
+//                 fetch(`/announcements/prioritize/${announcementId}`, {
+//                     method: 'PUT',
+//                     headers: {
+//                         'Content-Type': 'application/json'
+//                     },
+//                     body: JSON.stringify({ priority: !isPriority })
+//                 })
+//                 .then(res => res.json())
+//                 .then(response => {
+//                     console.log(response);
+//                     if(response.error) {
+//                         iziToast.error({
+//                             title: 'Error',
+//                             message: response.error,  
+//                             position: 'topRight'
+//                         });
+//                     } else {
+//                         iziToast.success({
+//                             title: 'Success',
+//                             message: `Announcement ${announcementId} priority updated successfully!`,
+//                             position: 'topRight'
+//                         });
+//                         // Optionally, reload the page or update the announcement list dynamically
+//                     }
+//                 });
+//             }
+
+//             // Filter and sort functionality
+//             document.querySelectorAll('[data-filter]').forEach(item => {
+// 			item.addEventListener('click', function(e) {
+// 				e.preventDefault();
+// 				const filter = this.getAttribute('data-filter');
+// 				console.log('Filter by:', filter);
+// 				// Implement your filtering logic here
+// 			});
+// 		});
+		
+// 		document.querySelectorAll('[data-sort]').forEach(item => {
+// 			item.addEventListener('click', function(e) {
+// 				e.preventDefault();
+// 				const sort = this.getAttribute('data-sort');
+// 				console.log('Sort by:', sort);
+// 				// Implement your sorting logic here
+// 			});
+// 		});
+		
+// 		// Search functionality
+// 		document.getElementById('searchAnnouncementsForm').addEventListener('submit', function(e) {
+// 			e.preventDefault();
+// 			const query = document.getElementById('searchAnnouncementsQuery').value;
+// 			console.log('Search for:', query);
+// 			// Implement your search logic here
+// 		});
+// 	});
+// </script>
+</script>
+
+
+<script>
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.priority-toggle');
+    if (!btn) return;
+
+    const card = btn.closest('.card');
+    const announcementId = card.getAttribute('data-id');
+    const currentPriority = card.getAttribute('data-priority');
+    console.log(currentPriority)
+    const isPriority = currentPriority == '1';
+    const newPriority = isPriority ? '0' : '1';
+
+    // Send update to backend
+    fetch(`/announcements/prioritize/${announcementId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priority: newPriority })
+    })
+    .then(res => res.json())
+    .then(response => {
+        if (response.error) {
+            iziToast.error({
+                title: 'Error',
+                message: response.error,
+                position: 'topRight'
+            });
+            return; // Do not update UI if failed
+        }
+
+        // Update the button attribute & icon
+        btn.setAttribute('data-priority', newPriority);
+        btn.innerHTML = newPriority === '1'
+            ? '<i class="bi bi-star-fill text-warning"></i>'
+            : '<i class="bi bi-star text-warning"></i>';
+
+        // Show/hide priority badge
+        const badge = card.querySelector('.priority-badge');
+        if (badge) {
+            badge.style.display = newPriority === '1' ? 'block' : 'none';
+        }
+
+        iziToast.success({
+            title: 'Success',
+            message: `Announcement ${announcementId} priority updated to ${newPriority}`,
+            position: 'topRight'
+        });
+    })
+    .catch(err => {
+        console.error(err);
+        iziToast.error({
+            title: 'Error',
+            message: 'An error occurred while updating priority',
+            position: 'topRight'
+        });
+    });
+});
+</script>
+
+<script>
+
+// Filter and sort functionality
+document.querySelectorAll('[data-filter]').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const filter = this.getAttribute('data-filter');
+        console.log('Filter by:', filter);
+        // Implement your filtering logic here
+    });
+});
+
+document.querySelectorAll('[data-sort]').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const sort = this.getAttribute('data-sort');
+        console.log('Sort by:', sort);
+        // Implement your sorting logic here
+    });
+});
+
+// Search functionality
+document.getElementById('searchAnnouncementsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('searchAnnouncementsQuery').value;
+    console.log('Search for:', query);
+    // Implement your search logic here
+});
+</script>

@@ -17,7 +17,7 @@ const dashboard = async(req, res) => {
             ASFI_ID = result[0].unique_code 
           
             CourseYear = result[0]["school_year"] 
-            const getAnnoucement = await dbPromise.query("SELECT * FROM announcements ORDER BY id DESC LIMIT 1")
+            const getAnnoucement = await dbPromise.query("SELECT * FROM announcements WHERE priority = 1")
             let announcementTitle = ""
             let content = "[]"
             let announcementDate = ""
