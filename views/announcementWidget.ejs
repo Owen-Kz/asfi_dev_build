@@ -13,9 +13,8 @@
     border: 2px solid #a200ff;
     border-radius: 15px;
     background-color: var(--bs-bg-header); /* Dark background for better glow contrast */
-    color: #ffffff;
     font-size: 0.6rem;
-    box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
+    box-shadow: 0 0 10px #a200ff, 0 0 20px #a200ff;
     animation: glowPulse 2s infinite ease-in-out;
     position: relative;
 }
@@ -24,9 +23,9 @@
 .announcementContainer::before {
     content: "NEW";
     position: absolute;
-    top: -10px;
+    /* top: -10px; */
     left: 15px;
-    background-color: #00e0ff;
+    background-color: #a200ff;
     color: black;
     font-size: 10px;
     font-weight: bold;
@@ -37,13 +36,13 @@
 /* Glowing pulse animation */
 @keyframes glowPulse {
     0% {
-        box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
+        box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
     }
     50% {
-        box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+        box-shadow: 0 0 10px #a200ff, 0 0 20px #a200ff;
     }
     100% {
-        box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
+        box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
     }
 }
 
