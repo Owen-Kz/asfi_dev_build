@@ -5,17 +5,48 @@
         <!-- Dark mode -->
 	 <!-- <script src="/js/colorTheme.js"></script> -->
    <style>
-    .announcementContainer{
-      /* height: 100%;
-      width: 90%; */
-      margin: auto;
-      /* margin-top: 20px; */
-      border-radius: 15px;
-      /* margin-bottom: 90px; */
-      
-      font-size: 0.6rem;
-      background-color: var(--bs-bg-header);
+    
+
+    .announcementContainer {
+    padding: 16px 20px;
+    margin: auto;
+    border: 2px solid #a200ff;
+    border-radius: 15px;
+    background-color: var(--bs-bg-header); /* Dark background for better glow contrast */
+    color: #ffffff;
+    font-size: 0.6rem;
+    box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
+    animation: glowPulse 2s infinite ease-in-out;
+    position: relative;
+}
+
+/* Optional: Add a "NEW" label */
+.announcementContainer::before {
+    content: "NEW";
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    background-color: #00e0ff;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Glowing pulse animation */
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
     }
+    50% {
+        box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+    }
+    100% {
+        box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff;
+    }
+}
+
     .announcementContents{
       display: flex;
       flex-direction: column;
