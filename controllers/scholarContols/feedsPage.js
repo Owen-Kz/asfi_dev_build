@@ -1,4 +1,5 @@
 const dbPromise = require("../../routes/dbPromise.config")
+const readAnnouncmentCheck = require("../utils/readAnnouncmentCheck")
 
 const feedsPage = async (req,res) =>{
     try{
@@ -13,13 +14,18 @@ const feedsPage = async (req,res) =>{
             let announcementTitle = ""
             let content = "[]"
             let announcementDate = ""
+            let announcementId = ""
+            let isRead = false
             if(getAnnoucement[0].length > 0){
              announcementTitle = getAnnoucement[0][0].title 
             content = getAnnoucement[0][0].data
             announcementDate = getAnnoucement[0][0].timestamp
+            announcementId = getAnnoucement[0][0].id
+            isRead = await readAnnouncmentCheck(req.user.id, announcementId)
+
             }
 
-        res.render("feed", {status :"logged", logger:"logged", user : req.user.username, ProfileImage:userProfileImage, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, announcementTitle, content, announcementDate, ASFI_CODE:req.user.unique_code, success:true})
+        res.render("feed", {status :"logged", logger:"logged", user : req.user.username, ProfileImage:userProfileImage, UserFirstname:req.user.first_name, UserLastName:req.user.last_name, Course:"Course", CourseYear:"CourseYear", accountType:req.user.acct_type, UserName:req.user.username, Email:req.user.email, username:req.user.username, Username:req.user.username, UserName:req.user.username, isRead, announcementTitle, announcementId, content, announcementDate, ASFI_CODE:req.user.unique_code, success:true})
         }else{
             res.render("loginExternal")
         }

@@ -244,6 +244,7 @@ const getAnnouncements = require("../controllers/admin/announcement/getAnnouncem
 const updateAnnouncement = require("../controllers/admin/announcement/updateAnnouncement");
 const SetAsPriority = require("../controllers/admin/announcement/setAsPriority");
 const deleteAnnouncement = require("../controllers/admin/announcement/deleteAnnouncement");
+const readAnnouncement = require("../controllers/utils/readAnnounement");
 
 // ADMINISTRATOR 
 
@@ -1170,6 +1171,8 @@ router.post("/deleteFileAPI", deleteFile)
 // For ASFIMeet file processing 
 router.post("/asfimeetfileupload", asfiMeetFileUpload)
 
+// REad announcment 
+router.put("/readAnnouncement/:id", LoggedInExternal, readAnnouncement)
 
 router.get('*', (req,res) => {
     res.status(404).render('error.ejs', {status: "Page doesn't exist", page:"/"})

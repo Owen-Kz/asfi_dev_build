@@ -1,26 +1,28 @@
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        
-        <!-- Dark mode -->
-	 <!-- <script src="/js/colorTheme.js"></script> -->
-   <style>
-    
-
-    .announcementContainer {
+<!-- Dark mode -->
+<!-- <script src="/js/colorTheme.js"></script> -->
+<style>
+  .announcementContainer {
     padding: 16px 20px;
     margin: auto;
-    border: 2px solid #a200ff;
     border-radius: 15px;
-    background-color: var(--bs-bg-header); /* Dark background for better glow contrast */
+    background-color: var(--bs-bg-header);
+    /* Dark background for better glow contrast */
     font-size: 0.6rem;
+
+    position: relative;
+  }
+
+  .glowPulse {
+    border: 2px solid #a200ff;
     box-shadow: 0 0 10px #a200ff, 0 0 20px #a200ff;
     animation: glowPulse 2s infinite ease-in-out;
-    position: relative;
-}
+  }
 
-/* Optional: Add a "NEW" label */
-.announcementContainer::before {
+  /* Optional: Add a "NEW" label */
+  .glowPulse::before {
     content: "NEW";
     position: absolute;
     /* top: -10px; */
@@ -31,56 +33,63 @@
     font-weight: bold;
     padding: 2px 6px;
     border-radius: 4px;
-}
+  }
 
-/* Glowing pulse animation */
-@keyframes glowPulse {
+  /* Glowing pulse animation */
+  @keyframes glowPulse {
     0% {
-        box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
+      box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
     }
+
     50% {
-        box-shadow: 0 0 10px #a200ff, 0 0 20px #a200ff;
+      box-shadow: 0 0 10px #a200ff, 0 0 20px #a200ff;
     }
+
     100% {
-        box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
+      box-shadow: 0 0 5px #a200ff, 0 0 10px #a200ff;
     }
-}
+  }
 
-    .announcementContents{
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      /* margin-top: 50px; */
-    }
+  .announcementContents {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* margin-top: 50px; */
+  }
 
-    h1{
-        font-size: 1rem;
-    }
-   </style>
+  h1 {
+    font-size: 1rem;
+  }
+</style>
 
-  <input type="hidden" id="announcementContainer" value="<%=content %>">
-    
+<input type="hidden" id="announcementContainer" value="<%=content %>">
 
 
-    <!-- <div class="podcast_header"><h4>Podcasts</h4></div> -->
 
-          <% if (success) { %>
-            <div class="shadow-xl rounded-2xl overflow-hidden border border-gray-200 announcementContainer">
-              <div class="announcementContents">
-                <h6 class="text-2xl font-bold text-gray-900 mb-2 text-center">
-                  <%= announcementTitle %>
-                </h6>
-                <p class="text-sm text-gray-500 mb-4 text-center">
-                  <%= announcementDate %>
-                </p>
-                <div id="content" class=""></div>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="text-center text-gray-500">
-              <p>No announcement found.</p>
-            </div>
-          <% } %>
+<!-- <div class="podcast_header"><h4>Podcasts</h4></div> -->
+
+<% if (success) { %>
+
+<% if(isRead == true){ %>
+<div class=" shadow-xl rounded-2xl overflow-hidden border border-gray-200 announcementContainer" onclick="ReadAnnouncement('<%= announcementId %>')">
+<% }else{ %>
+<div class="glowPulse shadow-xl rounded-2xl overflow-hidden border border-gray-200 announcementContainer" onclick="ReadAnnouncement('<%= announcementId %>')">
+  <% } %>
+  <div class="announcementContents">
+    <h6 class="text-2xl font-bold text-gray-900 mb-2 text-center">
+      <%= announcementTitle %>
+    </h6>
+    <p class="text-sm text-gray-500 mb-4 text-center">
+      <%= announcementDate %>
+    </p>
+    <div id="content" class=""></div>
+  </div>
+</div>
+<% } else { %>
+<div class="text-center text-gray-500">
+  <p>No announcement found.</p>
+</div>
+<% } %>
 
 
 
@@ -89,34 +98,50 @@
 
 
 <script>
-    const contentValue = document.getElementById("announcementContainer").value;
-    const quillContent = JSON.parse(contentValue);
+  const contentValue = document.getElementById("announcementContainer").value;
+  const quillContent = JSON.parse(contentValue);
 
-    function renderQuillAsHTML(divId, deltaContent) {
-        // Create a temporary Quill instance to help with conversion
-        const tempDiv = document.createElement('div');
-        const quill = new Quill(tempDiv, {
-            theme: 'snow',
-            modules: { toolbar: false },
-            readOnly: true,
-        });
+  function renderQuillAsHTML(divId, deltaContent) {
+    // Create a temporary Quill instance to help with conversion
+    const tempDiv = document.createElement('div');
+    const quill = new Quill(tempDiv, {
+      theme: 'snow',
+      modules: {
+        toolbar: false
+      },
+      readOnly: true,
+    });
 
-        // Set the Delta content
-        quill.setContents(deltaContent);
+    // Set the Delta content
+    quill.setContents(deltaContent);
 
-        // Get the plain text content
-        const plainText = quill.getText().trim();
+    // Get the plain text content
+    const plainText = quill.getText().trim();
 
-        // Trim to 30 characters and add "..."
-        const trimmedText = plainText.length > 30 ? plainText.substring(0, 80) + "..." : plainText;
+    // Trim to 30 characters and add "..."
+    const trimmedText = plainText.length > 30 ? plainText.substring(0, 80) + "..." : plainText;
 
-        // Display the trimmed text
-        document.getElementById(divId).innerText = trimmedText;
-    }
+    // Display the trimmed text
+    document.getElementById(divId).innerText = trimmedText;
+  }
 
-    renderQuillAsHTML('content', quillContent);
+  renderQuillAsHTML('content', quillContent);
 </script>
 
+<script>
+  // REad announcment 
+  function ReadAnnouncement(Id) {
+    fetch(`/readAnnouncement/${Id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json"
+        }
+      }), then(res => res.json())
+      .then(data => {
+        console.log(data.success ? data.success : data.error)
+      })
+  }
+</script>
 </body>
 
 </html>

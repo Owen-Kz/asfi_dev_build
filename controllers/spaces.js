@@ -1,21 +1,29 @@
 const db = require("../routes/db.config");
+const readAnnouncmentCheck = require("./utils/readAnnouncmentCheck");
 
 const Spaces = (req, res) => {
   if (req.user) {
     const username_new = req.user.username;
 
     // First, get the latest announcement
-    db.query("SELECT * FROM announcements WHERE priority = 1", (err, annResult) => {
+    db.query("SELECT * FROM announcements WHERE priority = 1", async (err, annResult) => {
       if (err) throw err;
 
       let announcementTitle = "";
       let content = "[]";
       let announcementDate = "";
 
+      let announcementId = ""
+      let isRead = false
+
       if (annResult.length > 0) {
         announcementTitle = annResult[0].title;
         content = annResult[0].data;
         announcementDate = annResult[0].timestamp;
+        announcementId = annResult[0].id
+      
+            isRead = await readAnnouncmentCheck(req.user.id, announcementId)
+
       }
 
       // Then, get the user info
@@ -42,6 +50,8 @@ const Spaces = (req, res) => {
             username: username_new,
             Username: username_new,
             announcementTitle,
+            isRead,
+            announcementId,
             content,
             announcementDate,
             ASFI_CODE:req.user.unique_code,
