@@ -1,4 +1,4 @@
-const discoverAccountsContainer = document.getElementById("DiscoverAccounts")
+const discoverAccountsContainerMain = document.getElementById("DiscoverAccounts")
 const loggedUser = document.getElementById("loggedUser")
 const footerContainer = document.getElementById("footerContainer")
 
@@ -7,11 +7,11 @@ const footerContainer = document.getElementById("footerContainer")
 const SearchBar = document.getElementById("searchDirectory")
 SearchBar.addEventListener("keyup", function(){
     if(SearchBar.value ==""){
-   FindDiscoverAccounts(1)
+   FindDiscoverAccountsMain(1)
     }
 })
 
-function FindDiscoverAccounts(page){
+function FindDiscoverAccountsMain(page){
     fetch(`/directorydiscoverAccounts?page=${page}`, ()=>{
         method:"GET"
     })
@@ -23,7 +23,7 @@ function FindDiscoverAccounts(page){
         const PrevPage = Math.floor(parseInt(CurrentPage) - 1)
         const NexxtPage = Math.floor(parseInt(CurrentPage) + 1)
 
-        DiscoverItems(data)
+        DiscoverItemsMain(data)
 
         if(TotalPages > 0){
             // Update the pagination UI
@@ -53,7 +53,7 @@ if(pageCountContainer){
       
         if (currentPage > 1) {
             paginationHTML +=  `<li class="page-item mb-0">
-            <a class="page-link" onClick="FindDiscoverAccounts(${PrevPage})" tabindex="-1" id="prevTutorialPage">
+            <a class="page-link" onClick="FindDiscoverAccountsMain(${PrevPage})" tabindex="-1" id="prevTutorialPage">
               <i class="fas fa-angle-double-left"></i>
             </a>
           </li>`
@@ -65,22 +65,22 @@ if(pageCountContainer){
           if (i === currentPage) {
             paginationHTML += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
           } else {
-            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${i})">  ${i}  </a></li>`;
+            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccountsMain(${i})">  ${i}  </a></li>`;
           }
         }
-           paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${SortNext})">... </a></li>`;
+           paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccountsMain(${SortNext})">... </a></li>`;
       }else{
         for (let i = 1; i <= totalPages; i++) {
           if (i === currentPage) {
             paginationHTML += `<li class="page-item mb-0 active"><a class="page-link" href="#"> ${i} </a></li>`;
           } else {
-            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${i})">  ${i}  </a></li>`;
+            paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccountsMain(${i})">  ${i}  </a></li>`;
           }
         }
       }
       
         if (currentPage < totalPages) {
-          paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccounts(${NexxtPage})"><i class="fas fa-angle-right"></i></a></li>`;
+          paginationHTML += `<li class="page-item mb-0"><a class="page-link" onClick="FindDiscoverAccountsMain(${NexxtPage})"><i class="fas fa-angle-right"></i></a></li>`;
         } else {
           // paginationHTML += `<li class="page-item mb-0 disabled"><span class="page-link"><i class="fas fa-angle-right"></i></span></li>`;
         }
@@ -94,7 +94,7 @@ if(pageCountContainer){
 }
 
 for(i=0; i<10; i++){
-discoverAccountsContainer.innerHTML += `
+discoverAccountsContainerMain.innerHTML += `
 <account data-index="0" id="li" data-name="" style="opacity:0.6;">
 <div class="AccountLeft">
 <a href="#">
@@ -113,11 +113,11 @@ discoverAccountsContainer.innerHTML += `
 `
 }
 
-async function DiscoverItems(data){
+async function DiscoverItemsMain(data){
     const Discover = JSON.parse(data.DiscoverData)
 
     const sortedDiscover = [...Discover].sort((a, b) => a.first_name.localeCompare(b.first_name));
-    discoverAccountsContainer.innerHTML = ""
+    discoverAccountsContainerMain.innerHTML = ""
 
         if (sortedDiscover.length > 0) {
             for(i =0; i < sortedDiscover.length; i++){
@@ -175,7 +175,7 @@ async function DiscoverItems(data){
             let AccountIcon = `${account_Type  == "scholar_account" ? '<i class="fas fa-check-circle text-warning me-2"></i>' : '<i class="fas fa-check-circle text-instagram-gradient me-2"></i>'}`
             // data-index="${index}" id="li" data-name="${Fullname}"
         
-            discoverAccountsContainer.innerHTML +=`
+            discoverAccountsContainerMain.innerHTML +=`
             <account data-index="${id}">
             <div class="AccountLeft">
             <a href="/@${Username}">
@@ -197,7 +197,7 @@ async function DiscoverItems(data){
     }
 
     }else{
-        discoverAccountsContainer.innerHTML = `<div class="no_content_message" style='width:70%'>
+        discoverAccountsContainerMain.innerHTML = `<div class="no_content_message" style='width:70%'>
         <svg class="icon icon-no_sim"><use xlink:href="#icon-no_sim"></use>
       
           <symbol id="icon-no_sim" viewBox="0 0 24 24">
@@ -212,4 +212,4 @@ async function DiscoverItems(data){
 
 
 
-FindDiscoverAccounts(1)
+FindDiscoverAccountsMain(1)

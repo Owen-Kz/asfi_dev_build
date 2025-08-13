@@ -49,6 +49,7 @@ const Directory = (req, res) => {
             username: username_new,
             Username: username_new,
             announcementTitle,
+            announcementId,
             isRead,
             content,
             announcementDate,

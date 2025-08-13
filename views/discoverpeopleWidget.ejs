@@ -1,7 +1,7 @@
 <input type="hidden" id="loggedUser" value="<%=user%>" readonly>
 
 <style>
-    .DiscoverAccounts account{
+    .DiscoverAccountsMain account{
         display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -9,7 +9,7 @@
     margin-top: 10px;
     align-items: center;
     }
-    .DiscoverAccounts account .AccountLeft{
+    .DiscoverAccountsMain account .AccountLeft{
        display: flex;
     }
     
@@ -67,10 +67,10 @@ img{
 </style>
 
 
-<div class="accounts_box">
-<div class="discoverContainer">
+<div class="accounts_boxM">
+<div class="discoverContainerM">
     <p class="mb-0 text-end" id="pageCountContainer"></p>
-   <div class="DiscoverAccounts" id="DiscoverAccounts">
+   <div class="DiscoverAccountsMain" id="DiscoverAccountsMain">
 
    </div>
 
@@ -80,11 +80,11 @@ img{
 </div>
 
 <script>
-  const discoverAccountsContainerWidget = document.getElementById("DiscoverAccounts");
+  const discoverAccountsContainerWidget = document.getElementById("DiscoverAccountsMain");
 
-FindDiscoverAccounts(1);
+FindDiscoverAccountsMain(1);
 
-function FindDiscoverAccounts(page) {
+function FindDiscoverAccountsMain(page) {
   fetch(`/directorydiscoverAccounts?page=${page}`, {
     method: "GET"
   })
@@ -202,7 +202,7 @@ async function DiscoverItems(data) {
       const result = await response.json();
       if (result.success) {
         // alert("Followed successfully!");
-        FindDiscoverAccounts(1);
+        FindDiscoverAccountsMain(1);
       } else {
         alert("Failed to follow. Please try again.");
       }
